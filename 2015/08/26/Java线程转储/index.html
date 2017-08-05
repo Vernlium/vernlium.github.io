@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="性能调优," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="今天看《Java并发编程实战》中讲到通过线程转储信息来分析死锁，之前并没有听说过“线程转储”这个概念，特地搜了一下，总结如下： java线程转储定义java的线程转储可以被定义为JVM中在某一个给定的时刻运行的所有线程的快照。一个线程转储可能包含一个单独的线程或者多个线程。在多线程环境中，比如J2EE应用服务器，将会有许多线程和线程组。每一个线程都有它自己的调用堆栈，在一个给定时刻，表现为一个独立">
+<meta name="keywords" content="性能调优">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java线程转储">
+<meta property="og:url" content="http://vernlium.github.io/2015/08/26/Java线程转储/index.html">
+<meta property="og:site_name" content="AnanZhang">
+<meta property="og:description" content="今天看《Java并发编程实战》中讲到通过线程转储信息来分析死锁，之前并没有听说过“线程转储”这个概念，特地搜了一下，总结如下： java线程转储定义java的线程转储可以被定义为JVM中在某一个给定的时刻运行的所有线程的快照。一个线程转储可能包含一个单独的线程或者多个线程。在多线程环境中，比如J2EE应用服务器，将会有许多线程和线程组。每一个线程都有它自己的调用堆栈，在一个给定时刻，表现为一个独立">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://7xngpc.com1.z0.glb.clouddn.com/vernjava线程状态转换.jpg">
+<meta property="og:updated_time" content="2015-10-12T14:57:08.357Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java线程转储">
+<meta name="twitter:description" content="今天看《Java并发编程实战》中讲到通过线程转储信息来分析死锁，之前并没有听说过“线程转储”这个概念，特地搜了一下，总结如下： java线程转储定义java的线程转储可以被定义为JVM中在某一个给定的时刻运行的所有线程的快照。一个线程转储可能包含一个单独的线程或者多个线程。在多线程环境中，比如J2EE应用服务器，将会有许多线程和线程组。每一个线程都有它自己的调用堆栈，在一个给定时刻，表现为一个独立">
+<meta name="twitter:image" content="http://7xngpc.com1.z0.glb.clouddn.com/vernjava线程状态转换.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://vernlium.github.io/2015/08/26/Java线程转储/"/>
+
+
+
+
+
+  <title>Java线程转储 | AnanZhang</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">AnanZhang</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Keep codeing and thinking!</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://vernlium.github.io/2015/08/26/Java线程转储/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Anan Zhang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="AnanZhang">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Java线程转储</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-08-26T22:14:23+08:00">
+                2015-08-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>今天看《Java并发编程实战》中讲到通过<strong>线程转储</strong>信息来分析死锁，之前并没有听说过“线程转储”这个概念，特地搜了一下，总结如下：</p>
+<h2 id="java线程转储"><a href="#java线程转储" class="headerlink" title="java线程转储"></a>java线程转储</h2><h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>java的线程转储可以被定义为JVM中在某一个给定的时刻运行的所有线程的快照。一个线程转储可能包含一个单独的线程或者多个线程。在多线程环境中，比如J2EE应用服务器，将会有许多线程和线程组。每一个线程都有它自己的调用堆栈，在一个给定时刻，表现为一个独立功能。线程转储将会提供JVM中所有线程的堆栈信息，对于特定的线程也会给出更多信息。</p>
+<h3 id="生成java线程转储"><a href="#生成java线程转储" class="headerlink" title="生成java线程转储"></a>生成java线程转储</h3><p>线程转储可以通过向JVM进程发送一个SIGQUIT信号来生成。有两种不同方式来向进程发送这个信号：</p>
+<ul>
+<li>Windows:</li>
+</ul>
+<p>1.转向服务器的标准输出窗口并按下Control + Break组合键, 之后需要将线程堆栈复制到文件中；</p>
+<ul>
+<li>UNIX/ Linux：<br>首先查找到服务器的进程号(process id), 然后获取线程堆栈.<ol>
+<li>ps –ef  | grep java</li>
+<li>kill -3 <pid></pid></li>
+</ol>
+</li>
+</ul>
+<p>JVM 自带的工具获取线程堆栈:</p>
+<p>JDK自带命令行工具获取PID，再获取ThreadDump:</p>
+<ol>
+<li>jps 或 ps –ef|grepjava (获取PID)</li>
+<li>jstack [-l ]<pid> | tee -a jstack.log  (获取ThreadDump)</pid></li>
+</ol>
+<h2 id="线程的状态"><a href="#线程的状态" class="headerlink" title="线程的状态"></a>线程的状态</h2><p><strong>线程的状态分析</strong> </p>
+<p>要看懂线程转储信息，线程的状态是一个重要的指标，它会显示在线程 Stacktrace的头一行结尾的地方。那么线程常见的有哪些状态呢？线程在什么样的情况下会进入这种状态呢？我们能从中发现什么线索？ </p>
+<p><strong>Runnable</strong></p>
+<p>该状态表示线程具备所有运行条件，在运行队列中准备操作系统的调度，或者正在运行。 </p>
+<p><strong>Wait on condition</strong></p>
+<p>该状态出现在线程等待某个条件的发生。具体是什么原因，可以结合 stacktrace来分析。最常见的情况是线程在等待网络的读写，比如当网络数据没有准备好读时，线程处于这种等待状态，而一旦有数据准备好读之后，线程会重新激活，读取并处理数据。在 Java引入 NewIO之前，对于每个网络连接，都有一个对应的线程来处理网络的读写操作，即使没有可读写的数据，线程仍然阻塞在读写操作上，这样有可能造成资源浪费，而且给操作系统的线程调度也带来压力。在 NewIO里采用了新的机制，编写的服务器程序的性能和可扩展性都得到提高。 </p>
+<p>如果发现有大量的线程都在处在 Wait on condition，从线程 stack看， 正等待网络读写，这可能是一个网络瓶颈的征兆。因为网络阻塞导致线程无法执行。一种情况是网络非常忙，几 乎消耗了所有的带宽，仍然有大量数据等待网络读 写；另一种情况也可能是网络空闲，但由于路由等问题，导致包无法正常的到达。所以要结合系统的一些性能观察工具来综合分析，比如 netstat统计单位时间的发送包的数目，如果很明显超过了所在网络带宽的限制 ; 观察 cpu的利用率，如果系统态的 CPU时间，相对于用户态的 CPU时间比例较高；如果程序运行在 Solaris 10平台上，可以用 dtrace工具看系统调用的情况，如果观察到 read/write的系统调用的次数或者运行时间遥遥领先；这些都指向由于网络带宽所限导致的网络瓶颈。 </p>
+<p>另外一种出现 Wait on condition的常见情况是该线程在 sleep，等待 sleep的时间到了时候，将被唤醒。 </p>
+<p><strong> Waiting for monitor entry 和 in Object.wait()</strong></p>
+<p>在多线程的 JAVA程序中，实现线程之间的同步，就要说说 Monitor。 Monitor是 Java中用以实现线程之间的互斥与协作的主要手段，它可以看成是对象或者 Class的锁。每一个对象都有，也仅有一个 monitor。下 面这个图，描述了线程和 Monitor之间关系，以 及线程的状态转换图： </p>
+<p><img src="http://7xngpc.com1.z0.glb.clouddn.com/vernjava线程状态转换.jpg" alt="java线程状态转换"></p>
+<p>从图中可以看出，<strong>每个 Monitor在某个时刻，只能被一个线程拥有，该线程就是 “Active Thread”，而其它线程都是 “Waiting Thread”，分别在两个队列 “ Entry Set”和 “Wait Set”里面等候。在 “Entry Set”中等待的线程状态是 “Waiting for monitor entry”，而在 “Wait Set”中等待的线程状态是 “in Object.wait()”。</strong> </p>
+<p>先看 “Entry Set”里面的线程。我们称被 synchronized保护起来的代码段为临界区。当一个线程申请进入临界区时，它就进入了 “Entry Set”队列。对应的 code就像： </p>
+<pre><code>synchronized(obj) { 
+    ......... 
+} 
+</code></pre><p>这时有两种可能性：<br>1）该 monitor不被其它线程拥有， Entry Set里面也没有其它等待线程。本线程即成为相应类或者对象的 Monitor的 Owner，执行临界区的代码<br>2）该 monitor被其它线程拥有，本线程在 Entry Set队列中等待。 </p>
+<p>在第一种情况下，线程将处于 “Runnable”的状态，而第二种情况下，线程 DUMP会显示处于 “waiting for monitor entry”。如下所示： </p>
+<pre><code>&quot;Thread-0&quot; prio=10 tid=0x08222eb0 nid=0x9 waiting for monitor entry [0xf927b000 ..0xf927bdb8] 
+at testthread.WaitThread.run(WaitThread.java:39) 
+- waiting to lock &lt;0xef63bf08&gt; (a java.lang.Object) 
+- locked &lt;0xef63beb8&gt; (a java.util.ArrayList) 
+at java.lang.Thread.run(Thread.java:595) 
+</code></pre><p>临界区的设置，是为了保证其内部的代码执行的原子性和完整性。但是因为临界区在任何时间只允许线程串行通过，这 和我们多线程的程序的初衷是相反的。 如果在多线程的程序中，大量使用 synchronized，或者不适当的使用了它，会造成大量线程在临界区的入口等待，造成系统的性能大幅下降。如果在线程 DUMP中发现了这个情况，应该审查源码，改进程序。 </p>
+<p>现在我们再来看现在线程为什么会进入 “Wait Set”。当线程获得了 Monitor，进入了临界区之后，如果发现线程继续运行的条件没有满足，它则调用对象（一般就是被 synchronized 的对象）的 wait() 方法，放弃了 Monitor，进入 “Wait Set”队列。只有当别的线程在该对象上调用了 notify() 或者 notifyAll() ， “ Wait Set”队列中线程才得到机会去竞争，但是只有一个线程获得对象的 Monitor，恢复到运行态。在 “Wait Set”中的线程， DUMP中表现为： in Object.wait()，类似于： </p>
+<pre><code>&quot;Thread-1&quot; prio=10 tid=0x08223250 nid=0xa in Object.wait() [0xef47a000..0xef47aa38] 
+at java.lang.Object.wait(Native Method) 
+- waiting on &lt;0xef63beb8&gt; (a java.util.ArrayList) 
+at java.lang.Object.wait(Object.java:474) 
+at testthread.MyWaitThread.run(MyWaitThread.java:40) 
+- locked &lt;0xef63beb8&gt; (a java.util.ArrayList) 
+at java.lang.Thread.run(Thread.java:595) 
+</code></pre><p>仔细观察上面的 DUMP信息，你会发现它有以下两行： </p>
+<ul>
+<li>locked <0xef63beb8> (a java.util.ArrayList) </0xef63beb8></li>
+<li>waiting on <0xef63beb8> (a java.util.ArrayList) </0xef63beb8></li>
+</ul>
+<p>这里需要解释一下，为什么先 lock了这个对象，然后又 waiting on同一个对象呢？让我们看看这个线程对应的代码： </p>
+<pre><code>synchronized(obj) { 
+       ......... 
+       obj.wait(); 
+       ......... 
+} 
+</code></pre><p>线程的执行中，先用 synchronized 获得了这个对象的 Monitor（对应于 locked <0xef63beb8> ）。当执行到 obj.wait(), 线程即放弃了 Monitor的所有权，进入 “wait set”队列（对应于 waiting on <0xef63beb8> ）。 </0xef63beb8></0xef63beb8></p>
+<h2 id="分析一个Java线程"><a href="#分析一个Java线程" class="headerlink" title="分析一个Java线程"></a>分析一个Java线程</h2><p>为了可以理解/分析线程转储，首先要理解线程转储的各个部分。让我们先拿一个简单的线程堆栈为例，并且去了解他的每个部分。</p>
+<pre><code>&quot;ExecuteThread: &apos;1&apos; &quot; daemon prio=5 tid=0x628330 nid=0xf runnable [0xe4881000..0xe48819e0]
+at com.vantive.vanjavi.VanJavi.VanCreateForm(Native Method)
+at com.vantive.vanjavi.VanMain.open(VanMain.java:53)
+at jsp_servlet._so.__newServiceOrder.printSOSection( __newServiceOrder.java:3547)
+at jsp_servlet._so.__newServiceOrder._jspService (__newServiceOrder.java:5652)
+at weblogic.servlet.jsp.JspBase.service(JspBase.java:27)
+at weblogic.servlet.internal.ServletStubImpl.invokeServlet (ServletStubImpl.java:265)
+at weblogic.servlet.internal.ServletStubImpl.invokeServlet (ServletStubImpl.java:200)
+at weblogic.servlet.internal.WebAppServletContext.invokeServlet (WebAppServletContext.java:2495)
+at weblogic.servlet.internal.ServletRequestImpl.execute (ServletRequestImpl.java:2204)
+at weblogic.kernel.ExecuteThread.execute (ExecuteThread.java:139)
+at weblogic.kernel.ExecuteThread.run(ExecuteThread.java:120)
+
+In the above Thread Dump, the interesting part to is the first line. The rest of the stuff is nothing more than a general stack trace. Lets analyze the first line here
+</code></pre><p>各个项的含义为：</p>
+<ul>
+<li>Execute Thread : 1 说明了线程的名字</li>
+<li>daemon 表明这个线程是一个守护线程</li>
+<li>prio=5 线程的优先级 (默认是5)</li>
+<li>tid：Java的线程Id (这个线程在当前虚拟机中的唯一标识).</li>
+<li>nid 线程本地标识. 也就是Solaris中的LWP，线程在操作系统中的标识</li>
+<li>runnable 线程的状态 (参考上面的)</li>
+<li>[x..y] 当前运行的线程在堆中的地址范围</li>
+</ul>
+<p>这个线程转储的剩余部分是调用堆栈。在这个例子中，这个线程（Execute Thread 1）是操作系统守护线程，当前正在执行一个本地方法vanCreateForm()。</p>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p>1.<a href="http://www.cnblogs.com/huangfox/p/3442746.html" target="_blank" rel="external">http://www.cnblogs.com/huangfox/p/3442746.html</a></p>
+<p>2.Javadoc关于ThreadDump的介绍<a href="https://docs.oracle.com/cd/E13150_01/jrockit_jvm/jrockit/geninfo/diagnos/using_threaddumps.html" target="_blank" rel="external">https://docs.oracle.com/cd/E13150_01/jrockit_jvm/jrockit/geninfo/diagnos/using_threaddumps.html</a></p>
+<p>3.<a href="https://sites.google.com/site/threaddumps/java-thread-dumps-2" target="_blank" rel="external">https://sites.google.com/site/threaddumps/java-thread-dumps-2</a></p>
+<p>4.<a href="http://blog.csdn.net/rachel_luo/article/details/8920596" target="_blank" rel="external">http://blog.csdn.net/rachel_luo/article/details/8920596</a></p>
+<p>5.<a href="http://blog.csdn.net/wanyanxgf/article/details/6944987" target="_blank" rel="external">http://blog.csdn.net/wanyanxgf/article/details/6944987</a></p>
+<p><strong>4、5的文章中有更详细的介绍和例子分析</strong></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/性能调优/" rel="tag"># 性能调优</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/07/29/Java代理模式-Proxy类的使用/" rel="next" title="Java代理模式-Proxy类的使用">
+                <i class="fa fa-chevron-left"></i> Java代理模式-Proxy类的使用
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/10/11/《深入理解Java虚拟机》读书笔记/" rel="prev" title="《深入理解Java虚拟机》读书笔记">
+                《深入理解Java虚拟机》读书笔记 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="Anan Zhang" />
+          <p class="site-author-name" itemprop="name">Anan Zhang</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">分类</span>
+              
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/vernlium" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.zhihu.com/people/ananzhang" target="_blank" title="ZhiHu">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                    
+                      ZhiHu
+                    
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#java线程转储"><span class="nav-number">1.</span> <span class="nav-text">java线程转储</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#定义"><span class="nav-number">1.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#生成java线程转储"><span class="nav-number">1.2.</span> <span class="nav-text">生成java线程转储</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线程的状态"><span class="nav-number">2.</span> <span class="nav-text">线程的状态</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分析一个Java线程"><span class="nav-number">3.</span> <span class="nav-text">分析一个Java线程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考文献"><span class="nav-number">4.</span> <span class="nav-text">参考文献</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Anan Zhang</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

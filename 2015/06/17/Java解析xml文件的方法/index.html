@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="xml," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="什么是 XML? XML指可扩展标记语言（EXtensible Markup Language） XML 是一种标记语言，很类似 HTML  XML 的设计宗旨是传输数据，而非显示数据  XML 标签没有被预定义。您需要自行定义标签。  XML 被设计为具有自我描述性。  XML 是 W3C 的推荐标准  XML 与 HTML 的主要差异 XML 不是 HTML 的替代。  ###XML 和 HT">
+<meta name="keywords" content="xml">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java解析xml文件的方法">
+<meta property="og:url" content="http://vernlium.github.io/2015/06/17/Java解析xml文件的方法/index.html">
+<meta property="og:site_name" content="AnanZhang">
+<meta property="og:description" content="什么是 XML? XML指可扩展标记语言（EXtensible Markup Language） XML 是一种标记语言，很类似 HTML  XML 的设计宗旨是传输数据，而非显示数据  XML 标签没有被预定义。您需要自行定义标签。  XML 被设计为具有自我描述性。  XML 是 W3C 的推荐标准  XML 与 HTML 的主要差异 XML 不是 HTML 的替代。  ###XML 和 HT">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://7xngpc.com1.z0.glb.clouddn.com/vernct_nodetree1.gif">
+<meta property="og:updated_time" content="2015-10-12T14:57:51.137Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java解析xml文件的方法">
+<meta name="twitter:description" content="什么是 XML? XML指可扩展标记语言（EXtensible Markup Language） XML 是一种标记语言，很类似 HTML  XML 的设计宗旨是传输数据，而非显示数据  XML 标签没有被预定义。您需要自行定义标签。  XML 被设计为具有自我描述性。  XML 是 W3C 的推荐标准  XML 与 HTML 的主要差异 XML 不是 HTML 的替代。  ###XML 和 HT">
+<meta name="twitter:image" content="http://7xngpc.com1.z0.glb.clouddn.com/vernct_nodetree1.gif">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://vernlium.github.io/2015/06/17/Java解析xml文件的方法/"/>
+
+
+
+
+
+  <title>Java解析xml文件的方法 | AnanZhang</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">AnanZhang</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Keep codeing and thinking!</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://vernlium.github.io/2015/06/17/Java解析xml文件的方法/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Anan Zhang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="AnanZhang">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Java解析xml文件的方法</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-06-17T15:20:02+08:00">
+                2015-06-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="什么是-XML"><a href="#什么是-XML" class="headerlink" title="什么是 XML?"></a>什么是 XML?</h2><ul>
+<li>XML指可扩展标记语言（EXtensible Markup Language）</li>
+<li>XML 是一种标记语言，很类似 HTML </li>
+<li>XML 的设计宗旨是传输数据，而非显示数据 </li>
+<li>XML 标签没有被预定义。您需要自行定义标签。 </li>
+<li>XML 被设计为具有自我描述性。 </li>
+<li>XML 是 W3C 的推荐标准 </li>
+<li>XML 与 HTML 的主要差异</li>
+<li>XML 不是 HTML 的替代。</li>
+</ul>
+<p>###XML 和 HTML 为不同的目的而设计：</p>
+<ul>
+<li>XML 被设计为传输和存储数据，其焦点是数据的内容。</li>
+<li>HTML 被设计用来显示数据，其焦点是数据的外观。</li>
+<li>HTML 旨在显示信息，而 XML 旨在传输信息。</li>
+</ul>
+<p>XML是一种通用的数据交换格式，它与平台、语言、系统无关，给数据集成与交互带来了极大的方便。对XML本身的语法与技术细节，可以参阅<a href="http://www.w3c.org" target="_blank" rel="external">w3c官方网站</a>上相关的技术文献，包括：DOM(Document Object Model)、DTD(Document Type Definition)、SAX(Simple API for XML)、XSD(Xml Schema Definition)、XSLT(Extensible Stylesheet Language Transformation)。</p>
+<h3 id="XML-文档形成一种树结构"><a href="#XML-文档形成一种树结构" class="headerlink" title="XML 文档形成一种树结构"></a>XML 文档形成一种树结构</h3><p>XML文档必须包含根元素。该元素是所有其他元素的父元素。</p>
+<p>XML文档中的元素形成了一棵文档树。这棵树从根部开始，并扩展到树的最底端。</p>
+<p>所有元素均可拥有子元素：</p>
+<pre><code>&lt;root&gt;
+    &lt;child&gt;
+        &lt;subchild&gt;.....&lt;/subchild&gt;
+    &lt;/child&gt;
+&lt;/root&gt;
+</code></pre><p>父、子以及同胞等术语用于描述元素之间的关系。父元素拥有子元素。相同层级上的子元素成为同胞（兄弟或姐妹）。</p>
+<p>所有元素均可拥有文本内容和属性（类似 HTML 中）。<br>实例</p>
+<p><img src="http://7xngpc.com1.z0.glb.clouddn.com/vernct_nodetree1.gif" alt="domtree"></p>
+<p>上图表示下面的 XML 中的一本书：</p>
+<pre><code>&lt;bookstore&gt;
+    &lt;book category=&quot;COOKING&quot;&gt;
+        &lt;title lang=&quot;en&quot;&gt;Everyday Italian&lt;/title&gt; 
+        &lt;author&gt;Giada De Laurentiis&lt;/author&gt; 
+        &lt;year&gt;2005&lt;/year&gt; 
+        &lt;price&gt;30.00&lt;/price&gt; 
+    &lt;/book&gt;
+    &lt;book category=&quot;CHILDREN&quot;&gt;
+        &lt;title lang=&quot;en&quot;&gt;Harry Potter&lt;/title&gt; 
+        &lt;author&gt;J K. Rowling&lt;/author&gt; 
+        &lt;year&gt;2005&lt;/year&gt; 
+        &lt;price&gt;29.99&lt;/price&gt; 
+    &lt;/book&gt;
+    &lt;book category=&quot;WEB&quot;&gt;
+        &lt;title lang=&quot;en&quot;&gt;Learning XML&lt;/title&gt; 
+        &lt;author&gt;Erik T. Ray&lt;/author&gt; 
+        &lt;year&gt;2003&lt;/year&gt; 
+        &lt;price&gt;39.95&lt;/price&gt; 
+    &lt;/book&gt;
+&lt;/bookstore&gt;
+</code></pre><p>例子中的根元素是<code>&lt;bookstore&gt;</code> 。文档中的所有 <code>&lt;book&gt;</code> 元素都被包含在 <code>&lt;bookstore&gt;</code> 中。</p>
+<p><code>&lt;book&gt;</code>元素有 4 个子元素：<code>&lt;title&gt;</code>、<code>&lt;author&gt;</code>、<code>&lt;year&gt;</code>、<code>&lt;price&gt;</code>。</p>
+<p>XML在不同语言里解析方式都是一样的，只不过实现的语法不同。基本的解析方式有两种，一种是DOM，另一种是SAX。DOM是基于XML文档树结构的解析，SAX是基于事件流的解析。<br>本文介绍Java解析xml文档的几种方法。</p>
+<p>##DOM解析xml文档<br>为xml文档的已解析版本定义了一组接口。解析器读入整个文档，然后构建一个驻留内存的DOM树结构，然后可以使用DOM接口来操作这个树结构。<br><em>优点</em>：整个文档树在内存中，便于操作；支持删除、修改、重新排列等多种功能。<br><em>缺点</em>：将整个文档调入内存（包括无用的节点），如果文档过大，则占用过多空间且浪费时间。<br><em>适用场合</em>：一旦解析了文档还需多次访问这些数据，硬件资源充足（内存、CPU）。</p>
+<p>解析代码如下：</p>
+<pre><code>public class DomTest {
+    public void parseXmlPath(String xmlPath) throws Exception{
+        parseXmlFile(new File(xmlPath));
+    }
+    private void parseXmlFile(File file) throws Exception{
+        //获取DocumentBuilder工厂
+        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+        //从DocumentBuilder工厂中获取DocumentBuilder对象
+        DocumentBuilder db = dbf.newDocumentBuilder();
+        //从DocumentBuilder对象中获取Document对象
+        Document doc = db.parse(file);
+        //从Document对象中获取根元素对象
+        //Element 接口表示 HTML 或 XML 文档中的一个元素。
+        //元素可能有与它们相关的属性；由于 Element 接口继承自 Node，
+        //所以可以使用一般 Node 接口属性 attributes 来获得元素所有属性的集合。
+        //Element 接口上有通过名称获得 Attr 对象或通过名称获得属性值的方法。
+        //在 XML 中（其中的属性值可能包含实体引用），应该获得 Attr 对象来检查表示属性值的可能相当复杂的子树。
+        Element root = doc.getDocumentElement();
+        parseElement(root);
+    }
+    private void parseElement(Element element){
+        String tagName = element.getNodeName();
+        //获取当前元素的子节点
+        NodeList childern = element.getChildNodes();
+        System.out.println(&quot;&lt;&quot; + tagName +&quot;&gt;&quot;);
+        //实现 NamedNodeMap 接口的对象用于表示可以通过名称访问的节点的集合。
+        NamedNodeMap map = element.getAttributes();
+        if(map != null){
+            for(int i = 0;i&lt;map.getLength();i++){
+                Attr attr = (Attr) map.item(i);
+                String attrName = attr.getName();
+                String attrValue = attr.getValue();
+                System.out.println(&quot;  &quot; + attrName +&quot;=\&quot;&quot;+attrValue+&quot;\&quot;&quot;);
+            }
+        }
+        for(int i=0;i&lt;childern.getLength();i++){
+            Node node = childern.item(i);
+            short nodeType = node.getNodeType();
+            if(nodeType == Node.ELEMENT_NODE){
+                parseElement((Element)node);
+           }else if(nodeType == Node.TEXT_NODE){
+                System.out.println(node.getNodeName()+&quot;:&quot;+node.getNodeValue());
+            }else if(nodeType == Node.COMMENT_NODE){
+                System.out.print(&quot;&lt;!--&quot;);
+                Comment comment = (Comment)node;
+                String data = comment.getText();
+                System.out.print(data);
+                System.out.print(&quot;--&gt;&quot;);
+            }
+        }
+        System.out.println(&quot;&lt;/&quot;+tagName + &quot;&gt;&quot;);
+    }
+}
+</code></pre><p>##SAX解析XML文档<br>为解决DOM的问题，出现了SAX。SAX，事件驱动。当解析器发现元素开始、元素结束、文本、文档的开始或结束等时，发送事件，编写响应这些事件的代码，保存数据。<br><em>优点</em>：不用事先调入整个文档，占用资源少；SAX解析器代码比DOM解析器代码小。<br><em>缺点</em>：不是持久的；事件过后，若没有保存数据，那么数据丢失；无状态；从事件中只能得到文本，但不知道给文本属于哪个元素。<br><em>适用场合</em>：Applet；只需要XML文档的少量内容，很少回头访问；机器内存小。</p>
+<p>代码如下：</p>
+<p>##DOM4J解析xml文档<br>DOM4J是一个非常优秀的Java Xml API，具有性能优异、功能强大和易于使用的特点，同时它也是一个开放源代码的软件。现在很多Java项目中都使用DOM4J读写xml文件，很多Spring项目也是。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/xml/" rel="tag"># xml</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/06/15/Pattern类的使用/" rel="next" title="Pattern类的使用">
+                <i class="fa fa-chevron-left"></i> Pattern类的使用
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/06/25/FBReader源码分析/" rel="prev" title="FBReader源码分析">
+                FBReader源码分析 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="Anan Zhang" />
+          <p class="site-author-name" itemprop="name">Anan Zhang</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">分类</span>
+              
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/vernlium" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.zhihu.com/people/ananzhang" target="_blank" title="ZhiHu">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                    
+                      ZhiHu
+                    
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是-XML"><span class="nav-number">1.</span> <span class="nav-text">什么是 XML?</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#XML-文档形成一种树结构"><span class="nav-number">1.1.</span> <span class="nav-text">XML 文档形成一种树结构</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Anan Zhang</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

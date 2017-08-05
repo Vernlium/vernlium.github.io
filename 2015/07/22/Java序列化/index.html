@@ -1,0 +1,1084 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="java序列化," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="我在看程序的时候，经常会看到一些类实现了”Serializable”接口，一直对这个接口很奇怪，不知道它的作用是什么，今天专门查了一下资料，总结如下。 1、为什么要序列化？在程序中，创建一个java对象，这个对象会随着程序的终止而消亡。但是在一些情况下，如果对象能够在程序不运行的情况下仍能存在并保存其信息，将非常有用。这样，在下次运行程序时，该对象将被重建并且拥有的信息与在程序上次运行是它所拥有的">
+<meta name="keywords" content="java序列化">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java序列化">
+<meta property="og:url" content="http://vernlium.github.io/2015/07/22/Java序列化/index.html">
+<meta property="og:site_name" content="AnanZhang">
+<meta property="og:description" content="我在看程序的时候，经常会看到一些类实现了”Serializable”接口，一直对这个接口很奇怪，不知道它的作用是什么，今天专门查了一下资料，总结如下。 1、为什么要序列化？在程序中，创建一个java对象，这个对象会随着程序的终止而消亡。但是在一些情况下，如果对象能够在程序不运行的情况下仍能存在并保存其信息，将非常有用。这样，在下次运行程序时，该对象将被重建并且拥有的信息与在程序上次运行是它所拥有的">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2015-10-10T12:28:35.813Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java序列化">
+<meta name="twitter:description" content="我在看程序的时候，经常会看到一些类实现了”Serializable”接口，一直对这个接口很奇怪，不知道它的作用是什么，今天专门查了一下资料，总结如下。 1、为什么要序列化？在程序中，创建一个java对象，这个对象会随着程序的终止而消亡。但是在一些情况下，如果对象能够在程序不运行的情况下仍能存在并保存其信息，将非常有用。这样，在下次运行程序时，该对象将被重建并且拥有的信息与在程序上次运行是它所拥有的">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://vernlium.github.io/2015/07/22/Java序列化/"/>
+
+
+
+
+
+  <title>Java序列化 | AnanZhang</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">AnanZhang</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Keep codeing and thinking!</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://vernlium.github.io/2015/07/22/Java序列化/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Anan Zhang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="AnanZhang">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Java序列化</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-07-22T21:12:43+08:00">
+                2015-07-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>我在看程序的时候，经常会看到一些类实现了”Serializable”接口，一直对这个接口很奇怪，不知道它的作用是什么，今天专门查了一下资料，总结如下。</p>
+<h2 id="1、为什么要序列化？"><a href="#1、为什么要序列化？" class="headerlink" title="1、为什么要序列化？"></a>1、为什么要序列化？</h2><p>在程序中，创建一个java对象，这个对象会随着程序的终止而消亡。但是在一些情况下，如果对象能够在程序不运行的情况下仍能存在并保存其信息，将非常有用。这样，在下次运行程序时，该对象将被重建并且拥有的信息与在程序上次运行是它所拥有的信息相同。</p>
+<h2 id="2、序列化是干什么的？"><a href="#2、序列化是干什么的？" class="headerlink" title="2、序列化是干什么的？"></a>2、序列化是干什么的？</h2><p>简单说就是为了保存在内存中的各种对象的状态（也就是成员变量，不是方法），并且可以把保存的对象状态再读出来。</p>
+<p>Java对象的序列化将那些实现了<strong>Serializable</strong>接口的对象转换成一个字节序列，并能够在以后将这个字节序列完全恢复为原来的对象。</p>
+<p>序列化分为两大部分：序列化和反序列化。序列化是这个过程的第一部分，将数据分解成字节流，以便存储在文件中或在网络上传输。反序列化就是打开字节流并重构对象。对象序列化不仅要将基本数据类型转换成字节表示，有时还要恢复数据。恢复数据要求有恢复数据的对象实例。ObjectOutputStream中的序列化过程与字节流连接，包括对象类型和版本信息。反序列化时，JVM用头信息生成对象实例，然后将对象字节流中的数据复制到对象数据成员中。</p>
+<h2 id="3、什么情况下需要序列化"><a href="#3、什么情况下需要序列化" class="headerlink" title="3、什么情况下需要序列化"></a>3、什么情况下需要序列化</h2><p>对象序列化的概念加入到语言中是为了支持两种主要特性：</p>
+<ul>
+<li>远程方法调用（RMI），它使存活于其他计算机上的对象使用起来就像是存活着本地上一样。当向远程对象发送消息时，需要通过对象序列化来传输参数和返回值。</li>
+<li>Java Beans。使用一个Bean时，一般情况下在设计阶段对它的状态信息进行配置。这种状态信息必须保存下来，并在程序启动进行后期恢复，这种具体工具就由序列化完成的。</li>
+</ul>
+<h2 id="4、相关注意事项"><a href="#4、相关注意事项" class="headerlink" title="4、相关注意事项"></a>4、相关注意事项</h2><ul>
+<li>a）序列化时，只对对象的状态进行保存，而不管对象的方法；</li>
+<li>b）当一个父类实现序列化，子类自动实现序列化，不需要显式实现Serializable接口；</li>
+<li>c）当一个对象的实例变量引用其他对象，序列化该对象时也把引用对象进行序列化；</li>
+<li>d）并非所有的对象都可以序列化，,至于为什么不可以，有很多原因了,比如：<ul>
+<li>d.1.安全方面的原因，比如一个对象拥有private，public等field，对于一个要传输的对象，比如写到文件，或者进行rmi传输 等等，在序列化进行传输的过程中，这个对象的private等域是不受保护的。</li>
+<li>d.2. 资源分配方面的原因，比如socket，thread类，如果可以序列化，进行传输或者保存，也无法对他们进行重新的资源分 配，而且，也是没有必要这样实现。</li>
+</ul>
+</li>
+</ul>
+<h2 id="5、如何进行序列化？"><a href="#5、如何进行序列化？" class="headerlink" title="5、如何进行序列化？"></a>5、如何进行序列化？</h2><p>要序列化一个对象，首先创建OutputStream对象，然后将其封装在一个ObjectOutputStream对象中。这时，只需调用writeObject()即可将对象序列化，并将其发送给OutputStream(对象序列化是基于字节的，所以要使用InputStream和OutputStream继承层次结构)。要进行反序列化，需要将一个InputStream封装在ObjectInputStream中，然后调用readObject()。最后获得一个引用，它指向一个向上转型的Object，所以必须向下转型才能直接设置它们。</p>
+<p>要注意的是：只有实现了Serializable或Externalizable接口的类的对象才能被序列化，否则抛出异常。</p>
+<p>实例如下：</p>
+<p>Student类定义如下：</p>
+<pre><code>import java.io.Serializable;  
+
+public class Student implements Serializable  
+{  
+    private String name;  
+    private char sex;  
+    private int year;  
+    private double gpa;  
+
+    public Student()  {
+        System.out.println(&quot;Student constructor&quot;); 
+    }  
+
+    public Student(String name,char sex,int year,double gpa)  {  
+        System.out.println(&quot;Student constructor with:&quot;+name+&quot; &quot;+sex+&quot; &quot;+year+&quot; &quot;+gpa);
+        this.name = name;   
+        this.sex = sex;  
+        this.year = year;  
+        this.gpa = gpa;  
+    }  
+
+    public void setName(String name)  {  
+        this.name = name;  
+    }  
+
+    public void setSex(char sex)  {  
+        this.sex = sex;  
+    }  
+
+    public void setYear(int year)  {  
+        this.year = year;  
+    }  
+
+    public void setGpa(double gpa)  {  
+        this.gpa = gpa;  
+    }  
+
+    public String getName()  {  
+        return this.name;  
+    }  
+
+    public char getSex()  {  
+        return this.sex;  
+    }  
+
+    public int getYear()  {  
+        return this.year;  
+    }  
+
+    public double getGpa()  {  
+        return this.gpa;  
+    }  
+}  
+</code></pre><p>把Student类的对象序列化到文件student.txt，并从该文件中反序列化，向console显示结果。代码如下：</p>
+<pre><code>import java.io.*;  
+
+public class UseStudent  
+{  
+    public static void main(String[] args)  
+    {  
+        Student st = new Student(&quot;Tom&quot;,&apos;M&apos;,20,3.6);  
+        File file = new File(&quot;student.txt&quot;);  
+        try  
+        {  
+         file.createNewFile();  
+        }  
+        catch(IOException e)  
+        {  
+         e.printStackTrace();  
+        }  
+        try  
+        {  
+         //Student对象序列化过程  
+         FileOutputStream fos = new FileOutputStream(file);  
+         ObjectOutputStream oos = new ObjectOutputStream(fos);  
+         oos.writeObject(st);  
+         oos.flush();  
+         oos.close();  
+         fos.close();  
+
+         //Student对象反序列化过程  
+         FileInputStream fis = new FileInputStream(file);  
+         ObjectInputStream ois = new ObjectInputStream(fis);  
+         Student st1 = (Student) ois.readObject();  
+         System.out.println(&quot;name = &quot; + st1.getName());  
+         System.out.println(&quot;sex = &quot; + st1.getSex());  
+         System.out.println(&quot;year = &quot; + st1.getYear());  
+         System.out.println(&quot;gpa = &quot; + st1.getGpa());  
+         ois.close();  
+         fis.close();  
+        }  
+        catch(ClassNotFoundException e)  
+        {  
+         e.printStackTrace();  
+        }  
+        catch (IOException e)  
+        {  
+         e.printStackTrace();  
+        }               
+    }  
+} 
+</code></pre><p>结果如下所示：</p>
+<pre><code>name = Tom
+sex = M
+year = 20
+gpa = 3.6
+</code></pre><p>注意:在对一个Serializable对象进行还原的过程中，没有调用任何构造器，包括默认的构造器。整个对象都是通过从InputStream中取得数据恢复而来。</p>
+<h3 id="5-1、Externalizable"><a href="#5-1、Externalizable" class="headerlink" title="5.1、Externalizable"></a>5.1、Externalizable</h3><p>有时，要考虑特殊的安全问题，不希望对象的某一部分被序列化，或者一个对象被还原以后，某个子对象需要重新创建，而不必将该子对象序列化。</p>
+<p>在这些特殊情况下，可以通过实现Externalizable接口——代替实现Serializable接口——来对序列化过程进行控制。这个Externalizable接口继承了Serializable接口，同时增添了两个方法：writeExternal()和readExternal()。这两个方法会在序列化和反序列化还原的过程中被自动调用，以便执行一些特殊操作。</p>
+<pre><code>//: io/Blips.java
+// Simple use of Externalizable &amp; a pitfall.
+import java.io.*;
+import static net.mindview.util.Print.*;
+
+class Blip1 implements Externalizable {
+  public Blip1() {
+    print(&quot;Blip1 Constructor&quot;);
+  }
+  public void writeExternal(ObjectOutput out)
+      throws IOException {
+    print(&quot;Blip1.writeExternal&quot;);
+  }
+  public void readExternal(ObjectInput in)
+     throws IOException, ClassNotFoundException {
+    print(&quot;Blip1.readExternal&quot;);
+  }
+}
+
+class Blip2 implements Externalizable {
+  Blip2() {
+    print(&quot;Blip2 Constructor&quot;);
+  }
+  public void writeExternal(ObjectOutput out)
+      throws IOException {
+    print(&quot;Blip2.writeExternal&quot;);
+  }
+  public void readExternal(ObjectInput in)
+     throws IOException, ClassNotFoundException {
+    print(&quot;Blip2.readExternal&quot;);
+  }
+}
+
+public class Blips {
+  public static void main(String[] args)
+  throws IOException, ClassNotFoundException {
+    print(&quot;Constructing objects:&quot;);
+    Blip1 b1 = new Blip1();
+    Blip2 b2 = new Blip2();
+    ObjectOutputStream o = new ObjectOutputStream(
+      new FileOutputStream(&quot;Blips.out&quot;));
+    print(&quot;Saving objects:&quot;);
+    o.writeObject(b1);
+    o.writeObject(b2);
+    o.close();
+    // Now get them back:
+    ObjectInputStream in = new ObjectInputStream(
+      new FileInputStream(&quot;Blips.out&quot;));
+    print(&quot;Recovering b1:&quot;);
+    b1 = (Blip1)in.readObject();
+    // OOPS! Throws an exception:
+    //! print(&quot;Recovering b2:&quot;);
+    //! b2 = (Blip2)in.readObject();
+  }
+} 
+</code></pre><p>结果为：</p>
+<pre><code>/* Output:
+Constructing objects:
+Blip1 Constructor
+Blip2 Constructor
+Saving objects:
+Blip1.writeExternal
+Blip2.writeExternal
+Recovering b1:
+Blip1 Constructor
+Blip1.readExternal
+*///:~
+</code></pre><p>例中没有恢复Blip2对象，因为这样做会导致一个异常。这是因为：Blip1的构造器是public，而Blip2的构造器却不是，这样就会在恢复时造成异常。</p>
+<p>恢复b1后，会调用Blip1默认构造器。这与恢复一个Serializable对象不同。对于Serializable对象，对象完全以它存储的二进制位为基础来构造，而不调用构造器。而对于一个Externalizable对象，所有普通的默认构造器都会被调用（包括在字段定义时的初始化），然后调用readExternal()。必须主要到：所有默认的构造器都会被调用，才能使Externalizable对象产生正确的行为。</p>
+<pre><code>//: io/Blip3.java
+// Reconstructing an externalizable object.
+import java.io.*;
+import static net.mindview.util.Print.*;
+
+public class Blip3 implements Externalizable {
+  private int i;
+  private String s; // No initialization
+  public Blip3() {
+    print(&quot;Blip3 Constructor&quot;);
+    // s, i not initialized
+  }
+  public Blip3(String x, int a) {
+    print(&quot;Blip3(String x, int a)&quot;);
+    s = x;
+    i = a;
+    // s &amp; i initialized only in non-default constructor.
+  }
+  public String toString() { return s + i; }
+  public void writeExternal(ObjectOutput out) throws IOException {
+    print(&quot;Blip3.writeExternal&quot;);
+    // You must do this:
+    out.writeObject(s);
+    out.writeInt(i);
+  }
+  public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
+    print(&quot;Blip3.readExternal&quot;);
+    // You must do this:
+    s = (String)in.readObject();
+    i = in.readInt();
+  }
+  public static void main(String[] args) throws IOException, ClassNotFoundException {
+    print(&quot;Constructing objects:&quot;);
+    Blip3 b3 = new Blip3(&quot;A String &quot;, 47);
+    print(b3);
+    ObjectOutputStream o = new ObjectOutputStream(
+      new FileOutputStream(&quot;Blip3.out&quot;));
+    print(&quot;Saving object:&quot;);
+    o.writeObject(b3);
+    o.close();
+    // Now get it back:
+    ObjectInputStream in = new ObjectInputStream(
+      new FileInputStream(&quot;Blip3.out&quot;));
+    print(&quot;Recovering b3:&quot;);
+    b3 = (Blip3)in.readObject();
+    print(b3);
+  }
+} 
+</code></pre><p>结果为：</p>
+<pre><code>/* Output:
+Constructing objects:
+Blip3(String x, int a)
+A String 47
+Saving object:
+Blip3.writeExternal
+Recovering b3:
+Blip3 Constructor
+Blip3.readExternal
+A String 47
+*///:~
+</code></pre><p>字段s和i只在第二个构造器中初始化，而不是在默认的构造器中初始化。这意味着假如不在readExternal()中初始化s和i，s就会为null，而i就会为0。如果注释掉跟随于”You must do this“后面的两行代码，当对象被还原后,s是null,而i为0。</p>
+<p>如果从Externalizable对象继承，通常需要调用基类版本的writeExternal()和readExternal()来为基类组件提供恰当的存储和恢复功能。</p>
+<p>因此，为了正常运行，不仅需要在writeExternal()方法中将来自对象的重要信息写入，还必须在readExternal()方法中恢复数据。</p>
+<h3 id="5-2、transient关键字"><a href="#5-2、transient关键字" class="headerlink" title="5.2、transient关键字"></a>5.2、transient关键字</h3><p>当某个字段被声明为transient后，默认序列化机制就会忽略该字段。</p>
+<pre><code>import java.util.concurrent.*;
+import java.io.*;
+import java.util.*;
+import static net.mindview.util.Print.*;
+
+public class Logon implements Serializable {
+  private Date date = new Date();
+  private String username;
+  private transient String password;
+  public Logon(String name, String pwd) {
+    username = name;
+    password = pwd;
+  }
+  public String toString() {
+    return &quot;logon info: \n   username: &quot; + username +
+      &quot;\n   date: &quot; + date + &quot;\n   password: &quot; + password;
+  }
+  public static void main(String[] args) throws Exception {
+    Logon a = new Logon(&quot;Hulk&quot;, &quot;myLittlePony&quot;);
+    print(&quot;logon a = &quot; + a);
+    ObjectOutputStream o = new ObjectOutputStream(
+      new FileOutputStream(&quot;Logon.out&quot;));
+    o.writeObject(a);
+    o.close();
+    TimeUnit.SECONDS.sleep(1); // Delay
+    // Now get them back:
+    ObjectInputStream in = new ObjectInputStream(
+      new FileInputStream(&quot;Logon.out&quot;));
+    print(&quot;Recovering object at &quot; + new Date());
+    a = (Logon)in.readObject();
+    print(&quot;logon a = &quot; + a);
+  }
+} 
+</code></pre><p>结果为：</p>
+<pre><code>/* Output: (Sample)
+logon a = logon info:
+   username: Hulk
+   date: Sat Nov 19 15:03:26 MST 2005
+   password: myLittlePony
+Recovering object at Sat Nov 19 15:03:28 MST 2005
+logon a = logon info:
+   username: Hulk
+   date: Sat Nov 19 15:03:26 MST 2005
+   password: null
+*///:~
+</code></pre><p>password是transient的，所以不会被自动保存到磁盘。另外，自动序列化机制也不会尝试恢复它。当对象被恢复时，password就变成了null。</p>
+<p>由于Externalizable对象在默认情况下不保存它们的任何字段，所以transient关键字只能和Serializable对象一起使用。</p>
+<h3 id="5-3、Externalizable的替代方法"><a href="#5-3、Externalizable的替代方法" class="headerlink" title="5.3、Externalizable的替代方法"></a>5.3、Externalizable的替代方法</h3><p>实现Serializable接口，并添加（是添加，不是覆盖或实现）名为writeObject()和readObject()的方法。这样一旦对象被序列化或者被反序列化还原，就会自动的分别调用这两个方法。也就是所，只要提供这两个方法，就会使用它们而不是默认的序列化机制。</p>
+<p>这些方法必须具有准确的方法特征签名：</p>
+<pre><code>private void writeObject(ObjectOutputStream stream) throws IOException;
+
+private void readObject(ObjectInputStream stream) 
+throws IOException,ClassNotFoundException;
+</code></pre><p>在调用ObjectOutputStream.writeObject()时，会检查所传递的Serializable对象，看看是否实现了自己的writeObject()。如果是这样，就跳到正常的序列化过程并调用它的writeObject()。readObject()的情形与此相同。</p>
+<p>在writeObject()内部，可以调用defaultWriteObject()来选择执行默认的writeObject()。类似的，在readObject()内部，可以调用defaultReadObject()。</p>
+<pre><code>//: io/SerialCtl.java
+// Controlling serialization by adding your own
+// writeObject() and readObject() methods.
+import java.io.*;
+
+public class SerialCtl implements Serializable {
+  private String a;
+  private transient String b;
+  public SerialCtl(String aa, String bb) {
+    a = &quot;Not Transient: &quot; + aa;
+    b = &quot;Transient: &quot; + bb;
+  }
+  public String toString() { return a + &quot;\n&quot; + b; }
+  private void writeObject(ObjectOutputStream stream)
+  throws IOException {
+    stream.defaultWriteObject();
+    stream.writeObject(b);
+  }
+  private void readObject(ObjectInputStream stream)
+  throws IOException, ClassNotFoundException {
+    stream.defaultReadObject();
+    b = (String)stream.readObject();
+  }
+  public static void main(String[] args)
+  throws IOException, ClassNotFoundException {
+    SerialCtl sc = new SerialCtl(&quot;Test1&quot;, &quot;Test2&quot;);
+    System.out.println(&quot;Before:\n&quot; + sc);
+    ByteArrayOutputStream buf= new ByteArrayOutputStream();
+    ObjectOutputStream o = new ObjectOutputStream(buf);
+    o.writeObject(sc);
+    // Now get it back:
+    ObjectInputStream in = new ObjectInputStream(
+      new ByteArrayInputStream(buf.toByteArray()));
+    SerialCtl sc2 = (SerialCtl)in.readObject();
+    System.out.println(&quot;After:\n&quot; + sc2);
+  }
+} 
+</code></pre><p>结果为：</p>
+<pre><code>/* Output:
+Before:
+Not Transient: Test1
+Transient: Test2
+After:
+Not Transient: Test1
+Transient: Test2
+*///:~
+</code></pre><p>这个例子证明transient字段并非由defaultWriteObject()方法保存，而transient字段必须在程序中明确保存和恢复。</p>
+<p>如果要使用默认机制写入对象的非transient部分，那么必须调用defaultWriteObject()作为writeObject()中的第一个操作，并让defaultReadObject()作为readObject()中的第一个操作。</p>
+<h2 id="6、总结"><a href="#6、总结" class="headerlink" title="6、总结"></a>6、总结</h2><p>1）Java序列化就是把对象转换成字节序列，而Java反序列化就是把字节序列还原成Java对象。</p>
+<p>2）采用Java序列化与反序列化技术，一是可以实现数据的持久化，在MVC模式中很是有用；二是可以对象数据的远程通信。</p>
+<h3 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h3><p>1.《Thinking in Java》</p>
+<p>2.<a href="http://blog.csdn.net/wangloveall/article/details/7992448" target="_blank" rel="external">http://blog.csdn.net/wangloveall/article/details/7992448</a></p>
+<p>3.<a href="http://www.blogjava.net/jiangshachina/archive/2012/02/13/369898.html" target="_blank" rel="external">http://www.blogjava.net/jiangshachina/archive/2012/02/13/369898.html</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/java序列化/" rel="tag"># java序列化</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/07/08/java并发总结/" rel="next" title="java并发总结">
+                <i class="fa fa-chevron-left"></i> java并发总结
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/07/28/Intellij-IDEA省电模式是个什么鬼？/" rel="prev" title="Intellij IDEA省电模式是个什么鬼？">
+                Intellij IDEA省电模式是个什么鬼？ <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="Anan Zhang" />
+          <p class="site-author-name" itemprop="name">Anan Zhang</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">分类</span>
+              
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/vernlium" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.zhihu.com/people/ananzhang" target="_blank" title="ZhiHu">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                    
+                      ZhiHu
+                    
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1、为什么要序列化？"><span class="nav-number">1.</span> <span class="nav-text">1、为什么要序列化？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2、序列化是干什么的？"><span class="nav-number">2.</span> <span class="nav-text">2、序列化是干什么的？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3、什么情况下需要序列化"><span class="nav-number">3.</span> <span class="nav-text">3、什么情况下需要序列化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4、相关注意事项"><span class="nav-number">4.</span> <span class="nav-text">4、相关注意事项</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5、如何进行序列化？"><span class="nav-number">5.</span> <span class="nav-text">5、如何进行序列化？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-1、Externalizable"><span class="nav-number">5.1.</span> <span class="nav-text">5.1、Externalizable</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2、transient关键字"><span class="nav-number">5.2.</span> <span class="nav-text">5.2、transient关键字</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-3、Externalizable的替代方法"><span class="nav-number">5.3.</span> <span class="nav-text">5.3、Externalizable的替代方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6、总结"><span class="nav-number">6.</span> <span class="nav-text">6、总结</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#参考文献"><span class="nav-number">6.1.</span> <span class="nav-text">参考文献</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Anan Zhang</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
