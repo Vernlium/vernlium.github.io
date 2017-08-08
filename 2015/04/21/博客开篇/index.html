@@ -5,7 +5,7 @@
   
 
 
-<html class="theme-next muse use-motion" lang="zh-Hans">
+<html class="theme-next pisces use-motion" lang="zh-Hans">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -61,11 +61,17 @@
   
 
   
+    
+      
+    
+
+    
+  
 
   
     
     
-    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Consolas:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
   
 
 
@@ -102,7 +108,7 @@
 <meta property="og:site_name" content="AnanZhang">
 <meta property="og:description" content="这是我的第一篇博客。很久之前就想自己搭建一个属于自己的博客，总结自己技术学习的方方面面。 编程初体验先说说我和计算机的结缘。小时候生活在农村，所以接触到的事物很少。第一次见到电脑应该是上初一的时候（2001），下午放学，同村的小伙伴说我们一块去街上新开的网吧玩吧，出于好奇就和他们一块去了，但是我只是在一旁看着，看着他们玩游戏，叫做什么暴力摩托。看着他们玩的很过瘾，我对游戏这东西并没有多大兴趣，只是">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2015-10-10T12:27:14.947Z">
+<meta property="og:updated_time" content="2017-08-06T01:47:25.623Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="博客开篇">
 <meta name="twitter:description" content="这是我的第一篇博客。很久之前就想自己搭建一个属于自己的博客，总结自己技术学习的方方面面。 编程初体验先说说我和计算机的结缘。小时候生活在农村，所以接触到的事物很少。第一次见到电脑应该是上初一的时候（2001），下午放学，同村的小伙伴说我们一块去街上新开的网吧玩吧，出于好奇就和他们一块去了，但是我只是在一旁看着，看着他们玩游戏，叫做什么暴力摩托。看着他们玩的很过瘾，我对游戏这东西并没有多大兴趣，只是">
@@ -113,7 +119,7 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
-    scheme: 'Muse',
+    scheme: 'Pisces',
     sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
     fancybox: true,
     tabs: true,
@@ -212,7 +218,7 @@
       
         
         <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
+          <a href="/archives" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
@@ -222,11 +228,21 @@
       
         
         <li class="menu-item menu-item-tags">
-          <a href="/tags/" rel="section">
+          <a href="/tags" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
             
             标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
           </a>
         </li>
       
@@ -266,9 +282,9 @@
     <link itemprop="mainEntityOfPage" href="http://vernlium.github.io/2015/04/21/博客开篇/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Anan Zhang">
+      <meta itemprop="name" content="张阿楠">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="/images/wukong.png">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -332,17 +348,13 @@
       
         <p>这是我的第一篇博客。很久之前就想自己搭建一个属于自己的博客，总结自己技术学习的方方面面。</p>
 <h2 id="编程初体验"><a href="#编程初体验" class="headerlink" title="编程初体验"></a>编程初体验</h2><p>先说说我和计算机的结缘。小时候生活在农村，所以接触到的事物很少。第一次见到电脑应该是上初一的时候（2001），下午放学，同村的小伙伴说我们一块去街上新开的网吧玩吧，出于好奇就和他们一块去了，但是我只是在一旁看着，看着他们玩游戏，叫做什么暴力摩托。看着他们玩的很过瘾，我对游戏这东西并没有多大兴趣，只是觉得电脑好神奇，可以玩那么好玩的游戏。后来上初三，学校竟然开始开设电脑课，开始真正的使用电脑，但是接触的东西都很简单，比如开关机、换个电脑屏幕背景，这些都让我开心不已。<br>上来高中，学校依然有电脑课，高一的时候电脑课老师无非教一些电脑的常识，还有一些办公软件的使用。高二，电脑课开始学习编程，是VB6.0，刚开始时，上课先听老师讲并看老师演示，然后老师就让自己按着书敲代码并运行。刚开始接触这些东西，完全不懂，但是照着书上的代码抄一遍，也能运行出来结果。虽然不懂，但是我觉得和好玩，大部分人在老师让写代码时其实都是在玩，没有几个人写。虽然半学期的编程课并没有学到什么东西，但是让我真正的接触到了编程的世界，为我大学时学C语言打下了良好的基础。</p>
-<p>##大学时代<br>高考发挥一般，进入了上海一所一本院校，报志愿时对很多专业也没什么概念，就随便填了一些，比如数学、机械工程、计算机科学与技术等。更可悲的是，分数是压着录取线进的，所以被调剂到了印刷工程专业，对这个专业更是摸不着头脑，相信很多人也没有听说过。上了大一，一下子空闲时间很多，对于我这种高中只会学习没啥兴趣爱好的人来说，真的不知道要干嘛了。就这样在迷茫中开始了我的大学。</p>
-<p>###继续VB</p>
-<p>大一上半学期，课程不多，学业不紧，有时候确实挺无聊。后来想起了高中学的VB，对这些东西还有些兴趣，于是没事的时候就跑去图书馆找些VB的书来看，当然仅仅是看，那时还没有电脑。看的很多东西都是一些控件的使用，因为那时我觉得做出很好看的界面很厉害。差不多看完一本书大一上学期也就结束了。这时要面临一个问题：选大一下学期的编程语言课，有两个选择C和VB。虽然我一直在看VB的书，但是我还是随着大流选了C。</p>
-<p>###C语言<br>下学期开始了C语言的学习，使用的教材是学校自己老师编的一本教材，真是要多烂有多烂，还不如谭浩强的C语言。但是上课的时候老师讲的还是很好的。班上很多同学第一次学习编程，对很多概念根本无法理解，所以班上大部分人学的都是云里雾里，上课完全听不懂。由于我高中时接触过VB，所以对很多概念很容易理解，基本上一听就会。上课时老师出的一些编程题我能很快做出来。（这是我应该认识到自己在这方面的天赋，在大一结束的时候转专业到计算机去，可是我并没有这样，也是我大学的一个遗憾）<br>由于其他课程作业也比较多，除了完成老师布置的作业以外，我并没有花过多的时间在C上面。大一下买了电脑，所以很多程序都能在电脑上跑，这种学习的效果还是很好的。大一结束，由于一些原因，我并没有转专业，现在想想很可惜，就这样开始呆着印刷专业开始后面的大学生活。</p>
-<p>###大二<br>大二上学期，时间是很多的，没事的时候找一下编程练习题来做，但是并没有什么进步。下学期的时候，开始接触到了java语言，看到网上很多人在学，想想自己没事又对程序比较感兴趣，就像学一下。刚开始时，也不知道用什么教材或教程，那时候美国一些名校的公开课刚开始兴起，真好有个斯坦福大学的公开课叫做《编程方法学》，真好讲的是java，然后就决定用这个作为课程来学。一方面自己没啥基础，另一方面这个课的老师语速真的很快，大概两个月的时间才看了十集，而且效果不怎么好。这个课程并不是真正的讲java语言，而是为了让学生学习一些编程的基本概念，对java的库进行了一个封装，开发了一个新的库作为教学用。学的效果很不好。<br>快到期末的时候，要做数据库课程的大作业了（好吧，我们是印刷工程专业，但是确实有数据库的课程，没错我们不仅有数据库的课程，还有其他一些奇葩的课程，如：中外音乐鉴赏、微机原理、市场调查与预测、自动控制原理等，大一的时候就学微机原理，班上几乎没人能听懂。后来想想真是被这专业给坑了，很多可能都是用来凑学分的，这种专业根本就不应该出现在本校学校中）。数据库的大作业老师要求做一个界面出来并操作数据库。当时虽然对C语言比较熟悉，但是并无法做出一个有界面的东西，只能选择使用VB。想一想当时班上有四个同学的大作业都是我一个人做的，老师竟然没发现。<br>大二下学期参加了全国二级C的考试，笔试92+机试100（5分钟交卷的），想想这个成绩还有点小激动，但是这个证书在计算机专业的学生面前根本不值一提。</p>
-<p>###大三</p>
-<p>大二学期结束，继续学习java，由于之前失败的学习经历，觉得还是不在装逼了（看斯坦福的公开课确实有点小装逼的心理），开始看韩水平老师的视频教程，这个教程确实很不错，从基础讲起，很多东西讲的很透彻。跟着视频做了坦克大战的游戏和酒楼的管理系统。大三上学期基本上看完了j2se的所有课程。虽然视频看完了，但是真正记住的并没有多少，很多东西自己还是无法写出来。<br>这是面临一个选择，是毕业后直接找工作还是考研继续深造。通过向很多的学长了解，感觉印刷这个行业已经是夕阳行业了，工资水平偏低。想想这点工资以后如何生存下去，还是决定考研。考研就不能在学印刷了，由于一直以来对编程的兴趣，还是决定考计算机专业。大三下学期开始着手准备考研的事情。一方面是学习计算机专业的基础课程，这些课主要是旁听计算机专业的课程，上了数据结构、计算机组成原理和计算机网络。由于下学期并没有开设操作系统的课程，操作系统只能在网上看。另一方面是开始复习数学和英语。由于开始了考研准备，java的学习只能放一放。<br>大三还做了一件事情，和同专业的同学申请了一个上海市大学生创新项目，做一个软件来评价印刷品的质量。我们五个人里面只有我和另外一个同学姑且称他为菊花同学会编程。当时为了做界面方便，我们使用VC++做这个项目，但是我对C++又不太熟，菊花同学做界面，我做图像处理的算法部分，图像处理的那些算法很多公式，虽然原理搞不懂，但是程序实现还是很简单的。同时我也稍微学了一下C++，只是学了要用的东西，并没有系统的学习。刚开始做的时候很痛苦的，各种程序出错，一个错误都找半天，后来慢慢就好了。虽然这个项目不算成功，但是最后还是做出来了一个东西，并顺利通过验收。（其实验收的时候很水，验收的那些老师都不懂程序算法什么的，我当时在台上吹了一通，他们也听不懂，还是这个东西很不错，其实我们感觉就是一坨屎）。</p>
-<p>###大四</p>
-<p>大四上学期每天都是在图书馆度过的，天天英语数学专业课，虽然很辛苦，但是感觉那段时间是大学学到知识最多的一段时间，最能静下心了学习的时间，后来再也找不到那种感觉了。<br>考研考的是东南大学计算机专业，由于东大是第一年专业课自主命题，没有什么资料可以参考，只能按照408的要求来复习，但是考试的时候傻眼了，本来408一些不可能用来考大题的知识点被拿到大题来考，准备不足，好几个大题没做，考完试就感觉完了。没办法只能硬着头皮坚持考完。<br>分数下来，不是很高，尤其是专业课只有80分，感觉很悬。但是按照排名和招生人数来看，还是有机会进入复试的。于是就好好准备复试的课程，认真学了一下C++，但是也仅限看书。最后还是没法进入复试，最终调剂到了东南大学软件学院。<br>研究生复试结束，有了一段空闲的时间，利用这个时间开始学习j2ee的东西，学习了servlet和jsp。又oracle数据库和mysql数据库，已经linux的一些东西。学的都不深入，但是都入了门，有了大致的了解。</p>
-<p>##研究生</p>
-<p>进入研一，感觉周围的同学都很厉害，自己基础确实太差。一方面补基础的知识，又开始学习SSH框架，通过一个课程项目把SSH框架实践了一遍，这个过程学的东西很是很多的。<br>研一下学期一开学，学校就开始为期一个月的工程实训项目，我们做的是一个基于B2C的购物平台，这次真正的对一个项目的完整流程有个熟悉，并且也做了很多的东西。项目做完就开始找实习了。</p>
+<h2 id="大学时代"><a href="#大学时代" class="headerlink" title="大学时代"></a>大学时代</h2><p>高考发挥一般，进入了上海一所一本院校，报志愿时对很多专业也没什么概念，就随便填了一些，比如数学、机械工程、计算机科学与技术等。更可悲的是，分数是压着录取线进的，所以被调剂到了印刷工程专业，对这个专业更是摸不着头脑，相信很多人也没有听说过。上了大一，一下子空闲时间很多，对于我这种高中只会学习没啥兴趣爱好的人来说，真的不知道要干嘛了。就这样在迷茫中开始了我的大学。</p>
+<h3 id="继续VB"><a href="#继续VB" class="headerlink" title="继续VB"></a>继续VB</h3><p>大一上半学期，课程不多，学业不紧，有时候确实挺无聊。后来想起了高中学的VB，对这些东西还有些兴趣，于是没事的时候就跑去图书馆找些VB的书来看，当然仅仅是看，那时还没有电脑。看的很多东西都是一些控件的使用，因为那时我觉得做出很好看的界面很厉害。差不多看完一本书大一上学期也就结束了。这时要面临一个问题：选大一下学期的编程语言课，有两个选择C和VB。虽然我一直在看VB的书，但是我还是随着大流选了C。</p>
+<h3 id="C语言"><a href="#C语言" class="headerlink" title="C语言"></a>C语言</h3><p>下学期开始了C语言的学习，使用的教材是学校自己老师编的一本教材，真是要多烂有多烂，还不如谭浩强的C语言。但是上课的时候老师讲的还是很好的。班上很多同学第一次学习编程，对很多概念根本无法理解，所以班上大部分人学的都是云里雾里，上课完全听不懂。由于我高中时接触过VB，所以对很多概念很容易理解，基本上一听就会。上课时老师出的一些编程题我能很快做出来。（这是我应该认识到自己在这方面的天赋，在大一结束的时候转专业到计算机去，可是我并没有这样，也是我大学的一个遗憾）<br>由于其他课程作业也比较多，除了完成老师布置的作业以外，我并没有花过多的时间在C上面。大一下买了电脑，所以很多程序都能在电脑上跑，这种学习的效果还是很好的。大一结束，由于一些原因，我并没有转专业，现在想想很可惜，就这样开始呆着印刷专业开始后面的大学生活。</p>
+<h3 id="大二"><a href="#大二" class="headerlink" title="大二"></a>大二</h3><p>大二上学期，时间是很多的，没事的时候找一下编程练习题来做，但是并没有什么进步。下学期的时候，开始接触到了java语言，看到网上很多人在学，想想自己没事又对程序比较感兴趣，就像学一下。刚开始时，也不知道用什么教材或教程，那时候美国一些名校的公开课刚开始兴起，真好有个斯坦福大学的公开课叫做《编程方法学》，真好讲的是java，然后就决定用这个作为课程来学。一方面自己没啥基础，另一方面这个课的老师语速真的很快，大概两个月的时间才看了十集，而且效果不怎么好。这个课程并不是真正的讲java语言，而是为了让学生学习一些编程的基本概念，对java的库进行了一个封装，开发了一个新的库作为教学用。学的效果很不好。<br>快到期末的时候，要做数据库课程的大作业了（好吧，我们是印刷工程专业，但是确实有数据库的课程，没错我们不仅有数据库的课程，还有其他一些奇葩的课程，如：中外音乐鉴赏、微机原理、市场调查与预测、自动控制原理等，大一的时候就学微机原理，班上几乎没人能听懂。后来想想真是被这专业给坑了，很多可能都是用来凑学分的，这种专业根本就不应该出现在本校学校中）。数据库的大作业老师要求做一个界面出来并操作数据库。当时虽然对C语言比较熟悉，但是并无法做出一个有界面的东西，只能选择使用VB。想一想当时班上有四个同学的大作业都是我一个人做的，老师竟然没发现。<br>大二下学期参加了全国二级C的考试，笔试92+机试100（5分钟交卷的），想想这个成绩还有点小激动，但是这个证书在计算机专业的学生面前根本不值一提。</p>
+<h3 id="大三"><a href="#大三" class="headerlink" title="大三"></a>大三</h3><p>大二学期结束，继续学习java，由于之前失败的学习经历，觉得还是不在装逼了（看斯坦福的公开课确实有点小装逼的心理），开始看韩水平老师的视频教程，这个教程确实很不错，从基础讲起，很多东西讲的很透彻。跟着视频做了坦克大战的游戏和酒楼的管理系统。大三上学期基本上看完了j2se的所有课程。虽然视频看完了，但是真正记住的并没有多少，很多东西自己还是无法写出来。<br>这是面临一个选择，是毕业后直接找工作还是考研继续深造。通过向很多的学长了解，感觉印刷这个行业已经是夕阳行业了，工资水平偏低。想想这点工资以后如何生存下去，还是决定考研。考研就不能在学印刷了，由于一直以来对编程的兴趣，还是决定考计算机专业。大三下学期开始着手准备考研的事情。一方面是学习计算机专业的基础课程，这些课主要是旁听计算机专业的课程，上了数据结构、计算机组成原理和计算机网络。由于下学期并没有开设操作系统的课程，操作系统只能在网上看。另一方面是开始复习数学和英语。由于开始了考研准备，java的学习只能放一放。<br>大三还做了一件事情，和同专业的同学申请了一个上海市大学生创新项目，做一个软件来评价印刷品的质量。我们五个人里面只有我和另外一个同学姑且称他为菊花同学会编程。当时为了做界面方便，我们使用VC++做这个项目，但是我对C++又不太熟，菊花同学做界面，我做图像处理的算法部分，图像处理的那些算法很多公式，虽然原理搞不懂，但是程序实现还是很简单的。同时我也稍微学了一下C++，只是学了要用的东西，并没有系统的学习。刚开始做的时候很痛苦的，各种程序出错，一个错误都找半天，后来慢慢就好了。虽然这个项目不算成功，但是最后还是做出来了一个东西，并顺利通过验收。（其实验收的时候很水，验收的那些老师都不懂程序算法什么的，我当时在台上吹了一通，他们也听不懂，还是这个东西很不错，其实我们感觉就是一坨屎）。</p>
+<h3 id="大四"><a href="#大四" class="headerlink" title="大四"></a>大四</h3><p>大四上学期每天都是在图书馆度过的，天天英语数学专业课，虽然很辛苦，但是感觉那段时间是大学学到知识最多的一段时间，最能静下心了学习的时间，后来再也找不到那种感觉了。<br>考研考的是东南大学计算机专业，由于东大是第一年专业课自主命题，没有什么资料可以参考，只能按照408的要求来复习，但是考试的时候傻眼了，本来408一些不可能用来考大题的知识点被拿到大题来考，准备不足，好几个大题没做，考完试就感觉完了。没办法只能硬着头皮坚持考完。<br>分数下来，不是很高，尤其是专业课只有80分，感觉很悬。但是按照排名和招生人数来看，还是有机会进入复试的。于是就好好准备复试的课程，认真学了一下C++，但是也仅限看书。最后还是没法进入复试，最终调剂到了东南大学软件学院。<br>研究生复试结束，有了一段空闲的时间，利用这个时间开始学习j2ee的东西，学习了servlet和jsp。又oracle数据库和mysql数据库，已经linux的一些东西。学的都不深入，但是都入了门，有了大致的了解。</p>
+<h2 id="研究生"><a href="#研究生" class="headerlink" title="研究生"></a>研究生</h2><p>进入研一，感觉周围的同学都很厉害，自己基础确实太差。一方面补基础的知识，又开始学习SSH框架，通过一个课程项目把SSH框架实践了一遍，这个过程学的东西很是很多的。<br>研一下学期一开学，学校就开始为期一个月的工程实训项目，我们做的是一个基于B2C的购物平台，这次真正的对一个项目的完整流程有个熟悉，并且也做了很多的东西。项目做完就开始找实习了。</p>
 <p>总结下来，自己算是半路出家，很多的知识都没有系统的学习，学的一知半解。我觉得这样很不好，基础不牢固，会后面的学习很不利。虽然基础不行，但是还是凭着自己对编程的热爱，走到了现在。要学的东西还有很，只有不断的学习，才能追赶上别人的脚步。</p>
 
       
@@ -447,18 +459,18 @@
       <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
-               src="/images/avatar.gif"
-               alt="Anan Zhang" />
-          <p class="site-author-name" itemprop="name">Anan Zhang</p>
+               src="/images/wukong.png"
+               alt="张阿楠" />
+          <p class="site-author-name" itemprop="name">张阿楠</p>
            
-              <p class="site-description motion-element" itemprop="description"></p>
+              <p class="site-description motion-element" itemprop="description">Keep codeing and thinking!</p>
           
         </div>
         <nav class="site-state motion-element">
 
           
             <div class="site-state-item site-state-posts">
-              <a href="/archives/">
+              <a href="/archives">
                 <span class="site-state-item-count">18</span>
                 <span class="site-state-item-name">日志</span>
               </a>
@@ -469,10 +481,10 @@
             
             
             <div class="site-state-item site-state-categories">
-              
+              <a href="/categories/index.html">
                 <span class="site-state-item-count">2</span>
                 <span class="site-state-item-name">分类</span>
-              
+              </a>
             </div>
           
 
@@ -480,10 +492,10 @@
             
             
             <div class="site-state-item site-state-tags">
-              
+              <a href="/tags/index.html">
                 <span class="site-state-item-count">14</span>
                 <span class="site-state-item-name">标签</span>
-              
+              </a>
             </div>
           
 
@@ -540,7 +552,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#编程初体验"><span class="nav-number">1.</span> <span class="nav-text">编程初体验</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#编程初体验"><span class="nav-number">1.</span> <span class="nav-text">编程初体验</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#大学时代"><span class="nav-number">2.</span> <span class="nav-text">大学时代</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#继续VB"><span class="nav-number">2.1.</span> <span class="nav-text">继续VB</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#C语言"><span class="nav-number">2.2.</span> <span class="nav-text">C语言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#大二"><span class="nav-number">2.3.</span> <span class="nav-text">大二</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#大三"><span class="nav-number">2.4.</span> <span class="nav-text">大三</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#大四"><span class="nav-number">2.5.</span> <span class="nav-text">大四</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#研究生"><span class="nav-number">3.</span> <span class="nav-text">研究生</span></a></li></ol></div>
             
 
           </div>
@@ -567,7 +579,7 @@
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">Anan Zhang</span>
+  <span class="author" itemprop="copyrightHolder">张阿楠</span>
 </div>
 
 
@@ -578,7 +590,7 @@
 <div class="theme-info">
   主题 -
   <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
-    NexT.Muse
+    NexT.Pisces
   </a>
 </div>
 
@@ -657,6 +669,13 @@
 
   
   
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.2"></script>
+
+
 
   
   <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>

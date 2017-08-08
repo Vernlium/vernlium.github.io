@@ -5,7 +5,7 @@
   
 
 
-<html class="theme-next muse use-motion" lang="zh-Hans">
+<html class="theme-next pisces use-motion" lang="zh-Hans">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -61,11 +61,17 @@
   
 
   
+    
+      
+    
+
+    
+  
 
   
     
     
-    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Consolas:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
   
 
 
@@ -94,13 +100,16 @@
 
 
 
+<meta name="description" content="Keep codeing and thinking!">
 <meta property="og:type" content="website">
 <meta property="og:title" content="AnanZhang">
 <meta property="og:url" content="http://vernlium.github.io/page/2/index.html">
 <meta property="og:site_name" content="AnanZhang">
+<meta property="og:description" content="Keep codeing and thinking!">
 <meta property="og:locale" content="zh-Hans">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="AnanZhang">
+<meta name="twitter:description" content="Keep codeing and thinking!">
 
 
 
@@ -108,7 +117,7 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
-    scheme: 'Muse',
+    scheme: 'Pisces',
     sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
     fancybox: true,
     tabs: true,
@@ -209,7 +218,7 @@
       
         
         <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
+          <a href="/archives" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
@@ -219,11 +228,21 @@
       
         
         <li class="menu-item menu-item-tags">
-          <a href="/tags/" rel="section">
+          <a href="/tags" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
             
             标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
           </a>
         </li>
       
@@ -263,9 +282,9 @@
     <link itemprop="mainEntityOfPage" href="http://vernlium.github.io/2015/06/28/log4j使用教程/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Anan Zhang">
+      <meta itemprop="name" content="张阿楠">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="/images/wukong.png">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -331,181 +350,17 @@
       
         
           
-            <h2 id="入门实例"><a href="#入门实例" class="headerlink" title="入门实例"></a>入门实例</h2><p>下载log4j的jar包，目前的最新版本是1.2.17，<a href="http://logging.apache.org/log4j/1.2/" target="_blank" rel="external">下载地址</a>。</p>
-<p>新建项目，新建lib文件夹，拷贝log4j-1.2.17.jar到lib下，导入到项目中。</p>
-<p>新建class Log4JTest，代码如下：</p>
-<pre><code>package com.anan.log;
-import org.apache.log4j.Logger;
-
-public class Log4JTest {
-    private static final Logger log = Logger.getLogger(Log4JTest.class);
-
-    public static void main(String[] args) {
-        log.debug(&quot;this is debug message&quot;);
-        log.error(&quot;this is error message&quot;);
-        log.info(&quot;this is INFO message&quot;);
-        log.warn(&quot;this  is warnning message&quot;);
-    }
-}
-</code></pre><p>src下新建文件log4j.properties,内容如下：</p>
-<pre><code>log4j.rootCategory=DEBUG, stdout, file1
-
-log4j.appender.stdout=org.apache.log4j.ConsoleAppender
-log4j.appender.stdout.layout=org.apache.log4j.PatternLayout
-log4j.appender.stdout.layout.ConversionPattern=[QC] %p [%t] %C.%M(%L) - %m%n
-
-log4j.appender.file1=org.apache.log4j.DailyRollingFileAppender
-log4j.appender.file1.File=D:\\logs\\qc.log
-log4j.appender.file1.layout=org.apache.log4j.PatternLayout
-log4j.appender.file1.layout.ConversionPattern=%d-[TS] %p %t %c - %m%n
-</code></pre><p>运行程序，控制台中得到如下输出：</p>
-<pre><code>[QC] DEBUG [main] com.anan.log.Log4JTest.main(13) - this is debug message
-[QC] ERROR [main] com.anan.log.Log4JTest.main(14) - this is error message
-[QC] INFO [main] com.anan.log.Log4JTest.main(15) - this is INFO message
-[QC] WARN [main] com.anan.log.Log4JTest.main(16) - this  is warnning message
-</code></pre><p>同时在D:\logs\文件夹下可以看到qc.log文件，其内容和上面输出的内容类似。</p>
-<p>从上面的例子可以看出，log4j正常运行了，下面对配置文件和使用方法进行说明。</p>
-<h2 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h2><h3 id="log4j-rootCategory-DEBUG-stdout"><a href="#log4j-rootCategory-DEBUG-stdout" class="headerlink" title="log4j.rootCategory=DEBUG, stdout"></a>log4j.rootCategory=DEBUG, stdout</h3><p>此句为将等级为DEBUG的日志信息输出到stdout这个目的地，stdout的定义在下面的代码，可以任意起名。等级可分为OFF、FATAL、ERROR、WARN、INFO、DEBUG、ALL.Log4j建议只使用四个级别，优先级从高到低分别是ERROR、WARN、INFO、DEBUG。</p>
-<p>DEBUG：显示ERROR、WARN、INFO、DEBUG；</p>
-<p>INFO： 显示ERROR、WARN、INFO；</p>
-<p>WARN：显示ERROR、WARN；</p>
-<p>ERROR：只显示ERROR；</p>
-<p>可以通过修改DEBUG分别为另外三个值，看一下输出结果的区别。</p>
-<h3 id="log4j-appender-stdout-org-apache-log4j-ConsoleAppender"><a href="#log4j-appender-stdout-org-apache-log4j-ConsoleAppender" class="headerlink" title="log4j.appender.stdout=org.apache.log4j.ConsoleAppender"></a>log4j.appender.stdout=org.apache.log4j.ConsoleAppender</h3><p>此句为定义名为stdout的输出端是哪种类型，可以是</p>
-<ul>
-<li>org.apache.log4j.ConsoleAppender（控制台），</li>
-<li>org.apache.log4j.FileAppender（文件），</li>
-<li>org.apache.log4j.DailyRollingFileAppender（每天产生一个日志文件），</li>
-<li>org.apache.log4j.RollingFileAppender（文件大小到达指定尺寸的时候产生一个新的文件）</li>
-<li>org.apache.log4j.WriterAppender（将日志信息以流格式发送到任意指定的地方）</li>
-</ul>
-<p>此处指定为输出端为控制台。</p>
-<h3 id="log4j-appender-stdout-layout-org-apache-log4j-PatternLayout"><a href="#log4j-appender-stdout-layout-org-apache-log4j-PatternLayout" class="headerlink" title="log4j.appender.stdout.layout=org.apache.log4j.PatternLayout"></a>log4j.appender.stdout.layout=org.apache.log4j.PatternLayout</h3><p>此句为定义名为stdout的输出端的layout是哪种类型，可以是</p>
-<ul>
-<li>org.apache.log4j.HTMLLayout（以HTML表格形式布局），</li>
-<li>org.apache.log4j.PatternLayout（可以灵活地指定布局模式），</li>
-<li>org.apache.log4j.SimpleLayout（包含日志信息的级别和信息字符串），</li>
-<li>org.apache.log4j.TTCCLayout（包含日志产生的时间、线程、类别等等信息）</li>
-</ul>
-<h3 id="log4j-appender-stdout-layout-ConversionPattern-QC-p-t-C-M-L-m-n"><a href="#log4j-appender-stdout-layout-ConversionPattern-QC-p-t-C-M-L-m-n" class="headerlink" title="log4j.appender.stdout.layout.ConversionPattern=[QC] %p [%t] %C.%M(%L) - %m%n"></a>log4j.appender.stdout.layout.ConversionPattern=[QC] %p [%t] %C.%M(%L) - %m%n</h3><p>如果使用pattern布局就要指定的打印信息的具体格式ConversionPattern，打印参数如下：</p>
-<p>%m 输出代码中指定的消息；</p>
-<p>%M 输出打印该条日志的方法名；</p>
-<p>%p 输出优先级，即DEBUG，INFO，WARN，ERROR，FATAL；</p>
-<p>%r 输出自应用启动到输出该log信息耗费的毫秒数；</p>
-<p>%c 输出所属的类目，通常就是所在类的全名；</p>
-<p>%t 输出产生该日志事件的线程名；</p>
-<p>%n 输出一个回车换行符，Windows平台为”rn”，Unix平台为”n”；</p>
-<p>%d 输出日志时间点的日期或时间，默认格式为ISO8601，也可以在其后指定格式，比如：%d{ yyy-MM-dd HH:mm:ss,SSS}，输出类似：2002-10-18 22:10:28,921；</p>
-<p>%l 输出日志事件的发生位置，及在代码中的行数；</p>
-<p>[QC]是log信息的开头，可以为任意字符，一般为项目简称。</p>
-<h3 id="log4j-appender-file1-org-apache-log4j-DailyRollingFileAppender"><a href="#log4j-appender-file1-org-apache-log4j-DailyRollingFileAppender" class="headerlink" title="log4j.appender.file1=org.apache.log4j.DailyRollingFileAppender"></a>log4j.appender.file1=org.apache.log4j.DailyRollingFileAppender</h3><p>定义名为file1的输出端的类型为每天产生一个日志文件。</p>
-<pre><code>log4j.appender.file1.File=D:\\logs\\qc.log
-</code></pre><p>此句为定义名为file1的输出端的文件名为D:\logs\qc.log可以自行修改。</p>
-<h2 id="详解"><a href="#详解" class="headerlink" title="详解"></a>详解</h2><h3 id="定义配置文件"><a href="#定义配置文件" class="headerlink" title="定义配置文件"></a>定义配置文件</h3><p>Log4j支持两种配置文件格式，一种是XML格式的文件，一种是Java特性文件log4j.properties（键=值）。项目中一般使用后一种方法。下面将介绍使用log4j.properties文件作为配置文件的方法:</p>
-<p>①、配置根Logger<br>Logger 负责处理日志记录的大部分操作。</p>
-<p>其语法为：</p>
-<pre><code>log4j.rootLogger = [ level ] , appenderName, appenderName, …
-</code></pre><p>其中，level 是日志记录的优先级，分为OFF、FATAL、ERROR、WARN、INFO、DEBUG、ALL或者自定义的级别。Log4j建议只使用四个级别，优先级从高到低分别是ERROR、WARN、INFO、DEBUG。通过在这里定义的级别，您可以控制到应用程序中相应级别的日志信息的开关。比如在这里定义了INFO级别，只有等于及高于这个级别的才进行处理，则应用程序中所有DEBUG级别的日志信息将不被打印出来。ALL:打印所有的日志，OFF：关闭所有的日志输出。 appenderName就是指定日志信息输出到哪个地方。可同时指定多个输出目的地。</p>
-<p>②、配置日志信息输出目的地 Appender</p>
-<p>Appender 负责控制日志记录操作的输出。</p>
-<p>其语法为：</p>
-<pre><code>log4j.appender.appenderName = fully.qualified.name.of.appender.class
-log4j.appender.appenderName.option1 = value1
-…
-log4j.appender.appenderName.optionN = valueN
-</code></pre><p>这里的appenderName为在①里定义的，可任意起名。</p>
-<p>其中，Log4j提供的appender有以下几种：</p>
-<ul>
-<li>org.apache.log4j.ConsoleAppender（控制台），</li>
-<li>org.apache.log4j.FileAppender（文件），</li>
-<li>org.apache.log4j.DailyRollingFileAppender（每天产生一个日志文件），</li>
-<li>org.apache.log4j.RollingFileAppender（文件大小到达指定尺寸的时候产生一个新的文件），可通过log4j.appender.R.MaxFileSize=100KB设置文件大小，还可通过log4j.appender.R.MaxBackupIndex=1设置为保存一个备份文件。</li>
-<li>org.apache.log4j.WriterAppender（将日志信息以流格式发送到任意指定的地方）</li>
-</ul>
-<p>例如：log4j.appender.stdout=org.apache.log4j.ConsoleAppender<br>定义一个名为stdout的输出目的地，ConsoleAppender为控制台。</p>
-<p>③、配置日志信息的格式（布局）Layout</p>
-<p>Layout 负责格式化Appender的输出。</p>
-<p>其语法为：</p>
-<pre><code>log4j.appender.appenderName.layout = fully.qualified.name.of.layout.class
-log4j.appender.appenderName.layout.option1 = value1
-…
-log4j.appender.appenderName.layout.optionN = valueN
-</code></pre><p>其中，Log4j提供的layout有以下几种：</p>
-<ul>
-<li>org.apache.log4j.HTMLLayout（以HTML表格形式布局），</li>
-<li>org.apache.log4j.PatternLayout（可以灵活地指定布局模式），</li>
-<li>org.apache.log4j.SimpleLayout（包含日志信息的级别和信息字符串），</li>
-<li>org.apache.log4j.TTCCLayout（包含日志产生的时间、线程、类别等等信息）</li>
-</ul>
-<p>格式化日志</p>
-<p>Log4J采用类似C语言中的printf函数的打印格式格式化日志信息，打印参数如下：<br>%m 输出代码中指定的消息；<br>%M 输出打印该条日志的方法名；<br>%p 输出优先级，即DEBUG，INFO，WARN，ERROR，FATAL；<br>%r 输出自应用启动到输出该log信息耗费的毫秒数；<br>%c 输出所属的类目，通常就是所在类的全名；<br>%t 输出产生该日志事件的线程名；<br>%n 输出一个回车换行符，Windows平台为”rn”，Unix平台为”n”；<br>%d 输出日志时间点的日期或时间，默认格式为ISO8601，也可以在其后指定格式，比如：%d{yyyy-MM-dd HH:mm:ss,SSS}，输出类似：2002-10-18 22:10:28,921；<br>%l 输出日志事件的发生位置，及在代码中的行数。</p>
-<h3 id="运用在代码中"><a href="#运用在代码中" class="headerlink" title="运用在代码中"></a>运用在代码中</h3><p>在需要输出日志信息的类中做如下的三个工作：</p>
-<p>1、导入所有需的Logger类：</p>
-<pre><code>import org.apache.log4j.Logger;
-</code></pre><p>2、在自己的类中定义一个org.apache.log4j.Logger类的私有静态类成员：</p>
-<pre><code>private static final Logger log = Logger.getLogger(Log4JTest.class);
-</code></pre><p>Logger.getLogger()方法的参数使用的是当前类的class。</p>
-<p>3、使用Logger类的成员方法输出日志信息：</p>
-<pre><code>log.debug(&quot;this is debug message&quot;);
-log.error(&quot;this is error message&quot;);
-log.info(&quot;this is INFO message&quot;);
-log.warn(&quot;this  is warnning message&quot;);
-</code></pre><h2 id="log4j类图"><a href="#log4j类图" class="headerlink" title="log4j类图"></a>log4j类图</h2><p>看看Log4J的类图：</p>
-<p><img src="http://7xngpc.com1.z0.glb.clouddn.com/vernlog4j类图.png" alt="log4j类图"></p>
-<p>Logger - 日志写出器，供程序员输出日志信息 </p>
-<p>Appender - 日志目的地，把格式化好的日志信息输出到指定的地方去 </p>
-<p>ConsoleAppender - 目的地为控制台的Appender </p>
-<p>FileAppender - 目的地为文件的Appender </p>
-<p>RollingFileAppender - 目的地为大小受限的文件的Appender </p>
-<p>Layout - 日志格式化器，用来把程序员的logging request格式化成字符串 </p>
-<p>PatternLayout - 用指定的pattern格式化logging request的Layout</p>
-<p>总结一下，作为记录日志的工具，它至少应该包含如下几个组成部分(组件)： </p>
-<ol>
-<li>Logger </li>
-</ol>
-<p>记录器组件负责产生日志，并能够对日志信息进行分类筛选志应该被输出，什么样的日志应该被忽略。</p>
-<ol>
-<li><p>Level </p>
-<p> 日志级别组件。 </p>
-</li>
-<li><p>Appender </p>
-</li>
-</ol>
-<p>日志记录工具基本上通过 Appender 组件来输出到目ppender 实例就表示了一个输出的目的地。 </p>
-<ol>
-<li>Layout </li>
-</ol>
-<p>Layout 组件负责格式化输出的日志信息，一个 Appenderayout。 </p>
-<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><p>我们在看其他项目的代码时有时候还会看到如下的Log类：</p>
-<pre><code>import org.apache.commons.logging.Log;  
-</code></pre><p>其引入的jar包为commons-logging.jar,这个jar包和log4j-xx.jar有什么关系呢？</p>
-<p>我们应该知道，真正的记录日志的工具是 log4j 和 sun 公司提供的日志工具。而 commons-logging 把这两个(实际上，在 org.apache.commons.logging.impl 包下，commons-logging 仅仅为我们封装了 log4j 和 sun logger)记录日志的工具重新封装了一遍(Log4JLogger.java 和 Jdk14Logger.java)，可以认为 org.apache.commons.logging.Log 是个傀儡，它只是提供了对外的统一接口。因此我们只要能拿到 org.apache.commons.logging.Log，而不用关注到底使用的是 log4j 还是 sun logger。在项目中这样写： </p>
-<pre><code>// Run 是我们自己写的类，LogFactory 是一个专为提供 Log 的工厂(abstract class)  
-private static final Log logger = LogFactory.getLog(Run.class);  
-</code></pre><p>可是问题又来了，org.apache.commons.logging.Log 和 org.apache.log4j.Logger 这两个类，通过包名我们可以发现它们都是 apache 的项目，既然如下，为何要动如此大的动作搞两个东西(指的是 commons-logging 和 log4j)出来呢？事实上，在 sun 开发 logger 前，apache 项目已经开发了功能强大的 log4j 日志工具，并向 sun 推荐将其纳入到 jdk 的一部分，可是 sun 拒绝了 apache 的提议，sun 后来自己开发了一套记录日志的工具。可是现在的开源项目都使用的是 log4j，log4j 已经成了事实上的标准，但由于又有一部分开发者在使用 sun logger，因此 apache 才推出 commons-logging，使得我们不必关注我们正在使用何种日志工具。</p>
-<p>在较新的代码中，我们还可以看到如下的Logger类：</p>
-<pre><code>import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-private static final Logger log = LoggerFactory.getLogger(ClassName.class);
-</code></pre><p>其jar包是slf4j-api-1.7.5.jar，这个jar包和上述的log4j-1.2.15.jar又有什么区别呢？</p>
-<p>实际上，log4j 和 commons-logging 在 2007 年相继停止了更新，对于得到如此广泛应用的框架来说，这是个让人不安的事实。</p>
-<p>SLF4J,简单日记门面(simple logging Facade for java),是为各种loging APIs提供一个简单统一的接口，从而使得最终用户能够在部署的时候配置自己希望的loging APIs实现。<br>准确的说，slf4j并不是一种具体的日志系统，而是一个用户日志系统的facade，允许用户在部署最终应用时方便的变更其日志系统。</p>
-<p>SLF4J 作者就是 log4j 的作者 Ceki G&uuml;lc&uuml;，他宣称 SLF4J 比 log4j 更有效率，比 Apache Commons Logging (JCL) 简单、稳定。</p>
-<p>可以说SLF4J和commons-logging类似，只不过SLF4J支持更多的logging APIs，细节方面有所改进。</p>
-<p>在系统开发中，统一按照slf4j的API进行开发，在部署时，选择不同的日志系统包，即可自动转换到不同的日志系统上。比如：选择JDK自带的日志系统，则只需要将slf4j-api-1.5.10.jar和slf4j-jdk14-1.5.10.jar放置到classpath中即可，如果中途无法忍受JDK自带的日志系统了，想换成log4j的日志系统，仅需要用slf4j-log4j12-1.5.10.jar替换slf4j-jdk14-1.5.10.jar即可（ 当然也需要log4j的jar及 配置文件）。</p>
-<p>slf4j门面原理</p>
-<p><img src="http://img.my.csdn.net/uploads/201304/07/1365322278_9117.jpg"></p>
-<p>目前，较新的代码中使用的都是slf4j，也推荐大家在以后的项目中使用slf4j。</p>
-<h2 id="log4j在spring项目中的应用"><a href="#log4j在spring项目中的应用" class="headerlink" title="log4j在spring项目中的应用"></a>log4j在spring项目中的应用</h2><p>。。。</p>
-<h3 id="【参考文献】"><a href="#【参考文献】" class="headerlink" title="【参考文献】"></a>【参考文献】</h3><ol>
-<li><a href="http://www.iteye.com/topic/378077" target="_blank" rel="external">http://www.iteye.com/topic/378077</a></li>
-<li><a href="http://baike.baidu.com/link?url=Wo0Jla0bb5jJeK5H4WeB2UCcYYBfzj1uJuG5DPndwQRl9R1oNkZwy6xRdTA8j8Zy47WCd8jzxMbG_fkZQDUfs_" target="_blank" rel="external">百度百科log4j</a></li>
-<li><a href="http://blog.csdn.net/azheng270/article/details/2173430/" target="_blank" rel="external">http://blog.csdn.net/azheng270/article/details/2173430/</a></li>
-<li><a href="http://sishuok.com/forum/blogPost/list/3740.html" target="_blank" rel="external">http://sishuok.com/forum/blogPost/list/3740.html</a></li>
-<li><a href="http://www.cnblogs.com/eflylab/archive/2007/01/11/618001.html" target="_blank" rel="external">http://www.cnblogs.com/eflylab/archive/2007/01/11/618001.html</a></li>
-</ol>
-
-          
+          入门实例下载log4j的jar包，目前的最新版本是1.2.17，下载地址。
+新建项目，新建lib文件夹，拷贝log4j-1.2.17.jar到lib下，导入到项目中。
+新建class Log4JTes
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2015/06/28/log4j使用教程/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -555,9 +410,9 @@ private static final Logger log = LoggerFactory.getLogger(ClassName.class);
     <link itemprop="mainEntityOfPage" href="http://vernlium.github.io/2015/06/25/FBReader源码分析/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Anan Zhang">
+      <meta itemprop="name" content="张阿楠">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="/images/wukong.png">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -623,18 +478,16 @@ private static final Logger log = LoggerFactory.getLogger(ClassName.class);
       
         
           
-            <h2 id="FBReader自定义文件格式"><a href="#FBReader自定义文件格式" class="headerlink" title="FBReader自定义文件格式"></a>FBReader自定义文件格式</h2><p>FBReader程序自己定义的三种文件格式类以及资源文件、epub文件又都对应着哪类文件格式。</p>
-<p>FBReader的自定义文件格式类分别在org.geometerplus.zlibrary.core.filesystem包与org.amse.ys.zip包里面。</p>
-<p>org.geometerplus.zlibrary.core.filesystem包里面，</p>
-<p><strong>ZLFile</strong>类是基类，ZLResourceFile、ZLPhysicalFile、ZLArchiveFile是ZLFile类的子类，ZLZipEntryFile是ZLArchiveFile的子类。</p>
-<ul>
-<li><strong>ZLResourceFile</strong>类专门用来处理资源文件，这一章中要解析的assets文件夹下的资源文件都可以ZLResourceFile类来处理。</li>
-<li><strong>ZLPhysicalFile</strong>类专门用来处理普通文件，eoub文件就可以用一个ZLPhysicalFile类来代表。</li>
-<li><strong>ZLZipEntryFile</strong>类用来处理epub文件内部的xml文件，这个类会在第五章“epub文件处理 – 解压epub文件”中出现。</li>
-</ul>
-<p>这三个文件类都实现了getInputStream抽象方法，不用的文件类会通过这个方法获得针对当前文件类的字节流类。</p>
-
-          
+          FBReader自定义文件格式FBReader程序自己定义的三种文件格式类以及资源文件、epub文件又都对应着哪类文件格式。
+FBReader的自定义文件格式类分别在org.geometerplus.
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2015/06/25/FBReader源码分析/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -684,9 +537,9 @@ private static final Logger log = LoggerFactory.getLogger(ClassName.class);
     <link itemprop="mainEntityOfPage" href="http://vernlium.github.io/2015/06/17/Java解析xml文件的方法/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Anan Zhang">
+      <meta itemprop="name" content="张阿楠">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="/images/wukong.png">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -752,118 +605,19 @@ private static final Logger log = LoggerFactory.getLogger(ClassName.class);
       
         
           
-            <h2 id="什么是-XML"><a href="#什么是-XML" class="headerlink" title="什么是 XML?"></a>什么是 XML?</h2><ul>
-<li>XML指可扩展标记语言（EXtensible Markup Language）</li>
-<li>XML 是一种标记语言，很类似 HTML </li>
-<li>XML 的设计宗旨是传输数据，而非显示数据 </li>
-<li>XML 标签没有被预定义。您需要自行定义标签。 </li>
-<li>XML 被设计为具有自我描述性。 </li>
-<li>XML 是 W3C 的推荐标准 </li>
-<li>XML 与 HTML 的主要差异</li>
-<li>XML 不是 HTML 的替代。</li>
-</ul>
-<p>###XML 和 HTML 为不同的目的而设计：</p>
-<ul>
-<li>XML 被设计为传输和存储数据，其焦点是数据的内容。</li>
-<li>HTML 被设计用来显示数据，其焦点是数据的外观。</li>
-<li>HTML 旨在显示信息，而 XML 旨在传输信息。</li>
-</ul>
-<p>XML是一种通用的数据交换格式，它与平台、语言、系统无关，给数据集成与交互带来了极大的方便。对XML本身的语法与技术细节，可以参阅<a href="http://www.w3c.org" target="_blank" rel="external">w3c官方网站</a>上相关的技术文献，包括：DOM(Document Object Model)、DTD(Document Type Definition)、SAX(Simple API for XML)、XSD(Xml Schema Definition)、XSLT(Extensible Stylesheet Language Transformation)。</p>
-<h3 id="XML-文档形成一种树结构"><a href="#XML-文档形成一种树结构" class="headerlink" title="XML 文档形成一种树结构"></a>XML 文档形成一种树结构</h3><p>XML文档必须包含根元素。该元素是所有其他元素的父元素。</p>
-<p>XML文档中的元素形成了一棵文档树。这棵树从根部开始，并扩展到树的最底端。</p>
-<p>所有元素均可拥有子元素：</p>
-<pre><code>&lt;root&gt;
-    &lt;child&gt;
-        &lt;subchild&gt;.....&lt;/subchild&gt;
-    &lt;/child&gt;
-&lt;/root&gt;
-</code></pre><p>父、子以及同胞等术语用于描述元素之间的关系。父元素拥有子元素。相同层级上的子元素成为同胞（兄弟或姐妹）。</p>
-<p>所有元素均可拥有文本内容和属性（类似 HTML 中）。<br>实例</p>
-<p><img src="http://7xngpc.com1.z0.glb.clouddn.com/vernct_nodetree1.gif" alt="domtree"></p>
-<p>上图表示下面的 XML 中的一本书：</p>
-<pre><code>&lt;bookstore&gt;
-    &lt;book category=&quot;COOKING&quot;&gt;
-        &lt;title lang=&quot;en&quot;&gt;Everyday Italian&lt;/title&gt; 
-        &lt;author&gt;Giada De Laurentiis&lt;/author&gt; 
-        &lt;year&gt;2005&lt;/year&gt; 
-        &lt;price&gt;30.00&lt;/price&gt; 
-    &lt;/book&gt;
-    &lt;book category=&quot;CHILDREN&quot;&gt;
-        &lt;title lang=&quot;en&quot;&gt;Harry Potter&lt;/title&gt; 
-        &lt;author&gt;J K. Rowling&lt;/author&gt; 
-        &lt;year&gt;2005&lt;/year&gt; 
-        &lt;price&gt;29.99&lt;/price&gt; 
-    &lt;/book&gt;
-    &lt;book category=&quot;WEB&quot;&gt;
-        &lt;title lang=&quot;en&quot;&gt;Learning XML&lt;/title&gt; 
-        &lt;author&gt;Erik T. Ray&lt;/author&gt; 
-        &lt;year&gt;2003&lt;/year&gt; 
-        &lt;price&gt;39.95&lt;/price&gt; 
-    &lt;/book&gt;
-&lt;/bookstore&gt;
-</code></pre><p>例子中的根元素是<code>&lt;bookstore&gt;</code> 。文档中的所有 <code>&lt;book&gt;</code> 元素都被包含在 <code>&lt;bookstore&gt;</code> 中。</p>
-<p><code>&lt;book&gt;</code>元素有 4 个子元素：<code>&lt;title&gt;</code>、<code>&lt;author&gt;</code>、<code>&lt;year&gt;</code>、<code>&lt;price&gt;</code>。</p>
-<p>XML在不同语言里解析方式都是一样的，只不过实现的语法不同。基本的解析方式有两种，一种是DOM，另一种是SAX。DOM是基于XML文档树结构的解析，SAX是基于事件流的解析。<br>本文介绍Java解析xml文档的几种方法。</p>
-<p>##DOM解析xml文档<br>为xml文档的已解析版本定义了一组接口。解析器读入整个文档，然后构建一个驻留内存的DOM树结构，然后可以使用DOM接口来操作这个树结构。<br><em>优点</em>：整个文档树在内存中，便于操作；支持删除、修改、重新排列等多种功能。<br><em>缺点</em>：将整个文档调入内存（包括无用的节点），如果文档过大，则占用过多空间且浪费时间。<br><em>适用场合</em>：一旦解析了文档还需多次访问这些数据，硬件资源充足（内存、CPU）。</p>
-<p>解析代码如下：</p>
-<pre><code>public class DomTest {
-    public void parseXmlPath(String xmlPath) throws Exception{
-        parseXmlFile(new File(xmlPath));
-    }
-    private void parseXmlFile(File file) throws Exception{
-        //获取DocumentBuilder工厂
-        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-        //从DocumentBuilder工厂中获取DocumentBuilder对象
-        DocumentBuilder db = dbf.newDocumentBuilder();
-        //从DocumentBuilder对象中获取Document对象
-        Document doc = db.parse(file);
-        //从Document对象中获取根元素对象
-        //Element 接口表示 HTML 或 XML 文档中的一个元素。
-        //元素可能有与它们相关的属性；由于 Element 接口继承自 Node，
-        //所以可以使用一般 Node 接口属性 attributes 来获得元素所有属性的集合。
-        //Element 接口上有通过名称获得 Attr 对象或通过名称获得属性值的方法。
-        //在 XML 中（其中的属性值可能包含实体引用），应该获得 Attr 对象来检查表示属性值的可能相当复杂的子树。
-        Element root = doc.getDocumentElement();
-        parseElement(root);
-    }
-    private void parseElement(Element element){
-        String tagName = element.getNodeName();
-        //获取当前元素的子节点
-        NodeList childern = element.getChildNodes();
-        System.out.println(&quot;&lt;&quot; + tagName +&quot;&gt;&quot;);
-        //实现 NamedNodeMap 接口的对象用于表示可以通过名称访问的节点的集合。
-        NamedNodeMap map = element.getAttributes();
-        if(map != null){
-            for(int i = 0;i&lt;map.getLength();i++){
-                Attr attr = (Attr) map.item(i);
-                String attrName = attr.getName();
-                String attrValue = attr.getValue();
-                System.out.println(&quot;  &quot; + attrName +&quot;=\&quot;&quot;+attrValue+&quot;\&quot;&quot;);
-            }
-        }
-        for(int i=0;i&lt;childern.getLength();i++){
-            Node node = childern.item(i);
-            short nodeType = node.getNodeType();
-            if(nodeType == Node.ELEMENT_NODE){
-                parseElement((Element)node);
-           }else if(nodeType == Node.TEXT_NODE){
-                System.out.println(node.getNodeName()+&quot;:&quot;+node.getNodeValue());
-            }else if(nodeType == Node.COMMENT_NODE){
-                System.out.print(&quot;&lt;!--&quot;);
-                Comment comment = (Comment)node;
-                String data = comment.getText();
-                System.out.print(data);
-                System.out.print(&quot;--&gt;&quot;);
-            }
-        }
-        System.out.println(&quot;&lt;/&quot;+tagName + &quot;&gt;&quot;);
-    }
-}
-</code></pre><p>##SAX解析XML文档<br>为解决DOM的问题，出现了SAX。SAX，事件驱动。当解析器发现元素开始、元素结束、文本、文档的开始或结束等时，发送事件，编写响应这些事件的代码，保存数据。<br><em>优点</em>：不用事先调入整个文档，占用资源少；SAX解析器代码比DOM解析器代码小。<br><em>缺点</em>：不是持久的；事件过后，若没有保存数据，那么数据丢失；无状态；从事件中只能得到文本，但不知道给文本属于哪个元素。<br><em>适用场合</em>：Applet；只需要XML文档的少量内容，很少回头访问；机器内存小。</p>
-<p>代码如下：</p>
-<p>##DOM4J解析xml文档<br>DOM4J是一个非常优秀的Java Xml API，具有性能优异、功能强大和易于使用的特点，同时它也是一个开放源代码的软件。现在很多Java项目中都使用DOM4J读写xml文件，很多Spring项目也是。</p>
-
-          
+          什么是 XML?
+XML指可扩展标记语言（EXtensible Markup Language）
+XML 是一种标记语言，很类似 HTML 
+XML 的设计宗旨是传输数据，而非显示数据 
+XML 标签
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2015/06/17/Java解析xml文件的方法/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -913,9 +667,9 @@ private static final Logger log = LoggerFactory.getLogger(ClassName.class);
     <link itemprop="mainEntityOfPage" href="http://vernlium.github.io/2015/06/15/Pattern类的使用/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Anan Zhang">
+      <meta itemprop="name" content="张阿楠">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="/images/wukong.png">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -981,38 +735,18 @@ private static final Logger log = LoggerFactory.getLogger(ClassName.class);
       
         
           
-            <p>Pattern类的定义为：</p>
-<pre><code>public final class Pattern extends Object implements Serializable
-</code></pre><p>此类为正则表达式的编译表示形式。 </p>
-<p>指定为字符串的正则表达式必须首先被编译为此类的实例。然后，可将得到的模式用于创建 Matcher 对象，依照正则表达式，该对象可以与任意字符序列匹配。执行匹配所涉及的所有状态都驻留在匹配器中，所以多个匹配器可以共享同一模式。 </p>
-<p>因此，典型的调用顺序是 </p>
-<pre><code>Pattern p = Pattern.compile(&quot;a*b&quot;);
-Matcher m = p.matcher(&quot;aaaaab&quot;);
-boolean b = m.matches();
-</code></pre><p>在仅使用一次正则表达式时，可以方便地通过此类定义 matches 方法。此方法编译表达式并在单个调用中将输入序列与其匹配。语句 </p>
-<pre><code>boolean b = Pattern.matches(&quot;a*b&quot;, &quot;aaaaab&quot;);
-</code></pre><p>等效于上面的三个语句，尽管对于重复的匹配而言它效率不高，因为它不允许重用已编译的模式。<br>此类的实例是不可变的，可供多个并发线程安全使用。Matcher类的实例用于此目的则不安全。 </p>
-<p>实例：</p>
-<pre><code>public class DirList {
-    public static void main(String[] args) {
-        // TODO Auto-generated method stub
-        File path = new File(&quot;.&quot;);
-        String regex = &quot;.*java$&quot;
-        String[] list;
-        list = path.list(new FilenameFilter(){
-            private Pattern pattern = Pattern.compile(regex);
-            public boolean accept(File dir, String name) {
-                return pattern.matcher(name).matches();
-            }
-        });
-        Arrays.sort(list,String.CASE_INSENSITIVE_ORDER);
-        for(String dirItem: list)
-            System.out.println(dirItem);
-    }
-}
-</code></pre><p>该类的作用是获取 当前目录下所有以java结尾的文件。<br>list()方法会回调accept()方法，这种结构称为回调，更具体的说这是一个“策略模式”的例子。因为list()实现了基本的功能，而且按照FilenameFilter的形式提供了这个策略，以便完善list()在提供服务时所需的算法。<br>因为list()接受FilenameFilter对象作为参数，这意味着我们可以传递实现了FilenameFilter接口的任何类的对象，用以选择list()方法的行为方式。策略的目的就是提供了代码行为的灵活性。<br>accept()会使用一个正则表达式的matcher对象，在查看此正则表达式regex是否匹配这个文件的名字。通过使用accept(),list()方法会返还一个数组。</p>
-
-          
+          Pattern类的定义为：
+1public final class Pattern extends Object implements Serializable
+此类为正则表达式的编译表示形式。 
+指
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2015/06/15/Pattern类的使用/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1062,9 +796,9 @@ boolean b = m.matches();
     <link itemprop="mainEntityOfPage" href="http://vernlium.github.io/2015/06/10/epub格式解析/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Anan Zhang">
+      <meta itemprop="name" content="张阿楠">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="/images/wukong.png">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -1130,225 +864,15 @@ boolean b = m.matches();
       
         
           
-            <p>EPUB 2 was initially standardized in 2007 as a successor format to the Open eBook Publication Structure or “OEB”, which was originally developed in 1999. A maintenance release, EPUB 2.0.1, approved in 2010, was the final release in the EPUB 2 branch.</p>
-<p>In October, 2011, EPUB 3 superseded EPUB 2 when EPUB 3.0 was approved as a final Recommended Specification. A maintenance release, EPUB 3.0.1, was approved as a Final Recommended specification and became the current version of EPUB in June, 2014.</p>
-<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>epub格式是一种常见的电子书格式，其优点是体积小、与设备无关，在任何尺寸的屏幕上都能自动排版，因此比较流行。</p>
-<p>epub格式建立在EPUB标准的基础之上。目前EPUB标准的最新版本是3.0.1,EPUB 3较其前一版本EPUB2有较大改动。EPUB 2在2007年发布，2010年的EPUB 2.0.1是EPUB 2的最后一个版本。EPUB 3在2011年10月发布，并被IDOP组织认可为最终推荐规范，EPUB 3取代了EPUB 2。2014年7月，EPUB 3.0.1发布。</p>
-<p>先来看一下EPUB 2.0.1</p>
-<blockquote>
-<p>EPUB 2.0.1</p>
-<p>EPUB 2.0.1 is a maintenance release of EPUB 2. Its development was chartered in 2009, and the final standard was approved by the IDPF Membership as a Recommended Specification in May, 2010.</p>
-<p>EPUB 2.0.1 is defined by three open standard specifications, the Open Publication Structure (OPS), Open Packaging Format (OPF) and Open Container Format (OCF)</p>
-<p>EPUB 2.0.1 was superseded by  EPUB 3.0 in October, 2011. As of June 2014 the latest released version of EPUB is EPUB 3.0.1. EPUB 2.x is now considered obsolete and is no longer under active maintenance.</p>
-</blockquote>
-<p>EPUB 2.0.1包含三个部分，也就是三个标准：</p>
-<ul>
-<li>内容容器标准（a content container standard：开放容器格式，Open Container Format - OCF):OCF定义了把一组文件集合打包进一个ZIP压缩文件的规则。</li>
-<li>打包标准（a packaging atandard：开放打包格式，Open Packaging Format - OPF):此标准定义了把一个OPS出版物的不同组件组合在一起的机制和提供了电子出版物的附加的结构和语义。OPF的作用如下：<ul>
-<li>描述和引用电子出版物的所有组件（例如：markup files、images、navigation structures）</li>
-<li>提供出版级别元数据</li>
-<li>指定出版物的线性阅读顺序</li>
-<li>提供了一种指定描述全局导航结构（NCX）的机制</li>
-</ul>
-</li>
-<li>内容审定标准（a content markup standard：开放出版结构，Open publication Structure - OPS):OPS提供了一种表示电子出版物内容的标准。</li>
-</ul>
-<p>EPUB 3较EPUB 2有较大改进，除了OCF其他两个标准都进行了修改，并添加了一个新的标准。</p>
-<blockquote>
-<p>EPUB 3, the third major release of the standard, consists of a set of four specifications, each defining an important component of an overall EPUB Publication:</p>
-<ul>
-<li><p>EPUB Publications 3.0 [Publications30], which defines publication-level semantics and overarching conformance requirements for EPUB Publications.</p>
-</li>
-<li><p>EPUB Content Documents 3.0 [ContentDocs30], which defines profiles of XHTML, SVG and CSS for use in the context of EPUB Publications.</p>
-</li>
-<li><p>EPUB Open Container Format (OCF) 3.0 [OCF3], which defines a file format and processing model for encapsulating a set of related resources into a single-file (ZIP) EPUB Container.</p>
-</li>
-<li><p>EPUB Media Overlays 3.0 [MediaOverlays30], which defines a format and a processing model for synchronization of text and audio.</p>
-</li>
-</ul>
-</blockquote>
-<p>EPUB 3由四部分组成：</p>
-<ul>
-<li>EPUB Publications 3.0：取代OPF2.0.1。</li>
-<li>EPUB Content Documents 3.0：取代OPS2.0.1。</li>
-<li>EPUB Open Container Format (OCF) 3.0：继承自OCF2.0.1。</li>
-<li>EPUB Media Overlays 3.0：定义文字和音频同步的格式和处理模式。</li>
-</ul>
-<h4 id="EPUB3和EPUB2比较"><a href="#EPUB3和EPUB2比较" class="headerlink" title="EPUB3和EPUB2比较"></a>EPUB3和EPUB2比较</h4><table>
-<thead>
-<tr>
-<th>Area</th>
-<th>EPUB 3 Specification</th>
-<th>EPUB 2.0.1 Specification</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Overview</td>
-<td>EPUB 3 Overview</td>
-<td>(throughout)</td>
-</tr>
-<tr>
-<td>Publication-level Specification &amp; Package Docs</td>
-<td>EPUB Publications 3.0</td>
-<td>Open Packaging Format 2.0.1</td>
-</tr>
-<tr>
-<td>EPUB Navigation Documents</td>
-<td>EPUB Content Documents 3.0</td>
-<td>N/A (NCX referenced as DAISY specification)</td>
-</tr>
-<tr>
-<td>Media Overlays</td>
-<td>EPUB Media Overlays 3.0</td>
-<td>N/A</td>
-</tr>
-<tr>
-<td>Container packaging</td>
-<td>EPUB Open Container Format 3.0</td>
-<td>Open Container Format 2.0.1</td>
-</tr>
-<tr>
-<td>Changes from previous version</td>
-<td>EPUB 3 Changes from EPUB 2.0.1</td>
-<td>(throughout)</td>
-</tr>
-</tbody>
-</table>
-<h2 id="文件组成"><a href="#文件组成" class="headerlink" title="文件组成"></a>文件组成</h2><p>一个未经加密处理的epub电子书由以下三部分组成：</p>
-<ol>
-<li>META-INF（文件夹，有一个文件container.xml）</li>
-<li>OEBPS（文件夹，包含images文件夹、很多xhtml文件、*.css文件和content.opf文件）</li>
-<li>mimetype</li>
-</ol>
-<h3 id="文件mimetype"><a href="#文件mimetype" class="headerlink" title="文件mimetype"></a>文件mimetype</h3><p>每一个epub电子书均包含一个名为mimtype的文件，且内容不变，用以说明epub的文件格式。文件内容为：</p>
-<pre><code>application/epub+zip
-</code></pre><h3 id="目录：META-INF"><a href="#目录：META-INF" class="headerlink" title="目录：META-INF"></a>目录：META-INF</h3><p>META-INF用于存放容器信息，默认情况下改目录包含一个文件，即container.xml，文件内容如下：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version="1.0"?&gt;</div><div class="line"><span class="tag">&lt;<span class="name">container</span> <span class="attr">version</span>=<span class="string">"1.0"</span> <span class="attr">xmlns</span>=<span class="string">"urn:oasis:names:tc:opendocument:xmlns:container"</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">rootfiles</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">rootfile</span> <span class="attr">full-path</span>=<span class="string">"OEBPS/content.opf"</span> <span class="attr">media-type</span>=<span class="string">"application/oebps-package+xml"</span>/&gt;</span></div><div class="line">	<span class="tag">&lt;/<span class="name">rootfiles</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">container</span>&gt;</span></div></pre></td></tr></table></figure>
-<p>container.xml文件的主要功能用于告诉阅读器，电子书的根文件（rootfile）的路径和打开格式，一般来说，该containerxml文件也不需要任何修改，除非改变了根文件的路径和文件名称。<br>除了container.xml文件之外，OCF还规定了以下几个文件：</p>
-<ul>
-<li>manifest.xml         文件列表</li>
-<li>metadata.xml         元数据</li>
-<li>signatures.xml     数字签名 </li>
-<li>encryption.xml     加密</li>
-<li>rights.xml         权限管理</li>
-</ul>
-<p>这些目录是可选的</p>
-<h3 id="目录：OEBPS"><a href="#目录：OEBPS" class="headerlink" title="目录：OEBPS"></a>目录：OEBPS</h3><p>OEPBS目录用于存放OPF文档、CSS文件、NCX文档。</p>
-<h4 id="OPF文件（★）"><a href="#OPF文件（★）" class="headerlink" title="OPF文件（★）"></a>OPF文件（★）</h4><p>OPF文档是epub的核心文件，且是一个标准的xml文件，依据OPF规范，此文件的根元素为<code>&lt;package&gt;</code></p>
-<pre><code>&lt;package xmlns=&quot;http://www.idpf.org/2007/opf&quot; version=&quot;2.0&quot; unique-identifier=&quot;uuid_id&quot;&gt;
-</code></pre><p>其内容主要由五部分组成：</p>
-<h5 id="1-lt-metadata-gt"><a href="#1-lt-metadata-gt" class="headerlink" title="1.&lt;metadata&gt;"></a>1.<code>&lt;metadata&gt;</code></h5><p>元数据信息，此信息是书籍的出版信息，由两个子元素组成。</p>
-<p>(1)<code>&lt;dc-metadata&gt;</code>,其元素构成采用<a href="http://baike.baidu.com/link?url=zgnNQm9IxPVmr5-BxhvoipgAPEfQiZf-fMGa0ZEhyF7qpuTUVXVDpfKCacvkrhNX7icjg7TDPtgEvc5Rx0HllK" target="_blank" rel="external">dubline core(DC)</a>的15项核心元素，包括：</p>
-<ul>
-<li><code>&lt;dc-title&gt;</code>：标题</li>
-<li><code>&lt;dc-creator&gt;</code>：责任者</li>
-<li><code>&lt;dc-subject&gt;</code>：主题词或关键词</li>
-<li><code>&lt;dc-descributor&gt;</code>：内容描述</li>
-<li><code>&lt;dc-date&gt;</code>：日期</li>
-<li><code>&lt;dc-type&gt;</code>：类型</li>
-<li><code>&lt;dc-publisher&gt;</code>：出版者</li>
-<li><code>&lt;dc-contributor&gt;</code>：发行者</li>
-<li><code>&lt;dc-format&gt;</code>：格式</li>
-<li><code>&lt;dc-identifier&gt;</code>：标识信息</li>
-<li><code>&lt;dc-source&gt;</code>：来源信息</li>
-<li><code>&lt;dc-language&gt;</code>：语言</li>
-<li><code>&lt;dc-relation&gt;</code>：相关资料</li>
-<li><code>&lt;dc-coverage&gt;</code>：覆盖范围</li>
-<li><code>&lt;dc-rights&gt;</code>：权限描述</li>
-</ul>
-<p>(2)<code>&lt;x-metadata&gt;</code></p>
-<p>扩展元素。如果有些信息在上述元素中无法描述，则在此元素中进行扩展。</p>
-<p>例如：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">metadata</span> <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance</span></span></div><div class="line"><span class="tag"><span class="string">xmlns:opf="</span><span class="attr">http:</span>//<span class="attr">www.idpf.org</span>/<span class="attr">2007</span>/<span class="attr">opf</span>" <span class="attr">xmlns:dcterms</span>=<span class="string">"http://purl.org/dc/terms/</span></span></div><div class="line"><span class="tag"><span class="string">xmlns:calibre="</span><span class="attr">http:</span>//<span class="attr">calibre.kovidgoyal.net</span>/<span class="attr">2009</span>/<span class="attr">metadata</span></span></div><div class="line"><span class="tag"><span class="attr">xmlns:dc</span>=<span class="string">"http://purl.org/dc/elements/1.1/"</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">dc:title</span>&gt;</span>1984<span class="tag">&lt;/<span class="name">dc:title</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">dc:creator</span>&gt;</span>[英] 乔治·奥威尔<span class="tag">&lt;/<span class="name">dc:creator</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">dc:subject</span>&gt;</span>ibook.178.com<span class="tag">&lt;/<span class="name">dc:subject</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">dc:language</span>&gt;</span>zh-cn<span class="tag">&lt;/<span class="name">dc:language</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">dc:date</span>&gt;</span>2010-12-30<span class="tag">&lt;/<span class="name">dc:date</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">dc:contributor</span>&gt;</span>ibook.178.com [http://ibook.178.com]<span class="tag">&lt;/<span class="name">dc:contributor</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">dc:type</span>&gt;</span>普通图书<span class="tag">&lt;/<span class="name">dc:type</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">dc:format</span>&gt;</span>Text/html(.xhtml,.html)<span class="tag">&lt;/<span class="name">dc:format</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"cover"</span> <span class="attr">content</span>=<span class="string">"cover-image"</span>/&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">metadata</span>&gt;</span></div></pre></td></tr></table></figure>
-<h5 id="2-lt-manifest-gt"><a href="#2-lt-manifest-gt" class="headerlink" title="2.&lt;manifest&gt;"></a>2.<code>&lt;manifest&gt;</code></h5><p>文件列表，列出书籍出版的所有文件，但是不包括：mimetype、container.xml、content.opf，由一个子元素构成</p>
-<pre><code>&lt;item id=&quot;&quot; href=&quot;&quot; media-type=&quot;&quot;&gt;
-</code></pre><p>其中</p>
-<ul>
-<li>id:文件的id号</li>
-<li>href:文件的相对路径</li>
-<li>media-type:文件的媒体类型</li>
-</ul>
-<p>例如：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">manifest</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">item</span> <span class="attr">id</span>=<span class="string">"ncx"</span> <span class="attr">href</span>=<span class="string">"toc.ncx"</span> <span class="attr">media-type</span>=<span class="string">"application/x-dtbncx+xml"</span> /&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">item</span> <span class="attr">href</span>=<span class="string">"cover.xhtml"</span> <span class="attr">id</span>=<span class="string">"cover"</span> <span class="attr">media-type</span>=<span class="string">"application/xhtml+xml"</span>/&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">item</span> <span class="attr">href</span>=<span class="string">"copyright.xhtml"</span> <span class="attr">id</span>=<span class="string">"copyright"</span> <span class="attr">media-type</span>=<span class="string">"application/xhtml+xml"</span>/&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">item</span> <span class="attr">href</span>=<span class="string">"catalog.xhtml"</span> <span class="attr">id</span>=<span class="string">"catalog"</span> <span class="attr">media-type</span>=<span class="string">"application/xhtml+xml"</span>/&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">item</span> <span class="attr">href</span>=<span class="string">"chap0.xhtml"</span> <span class="attr">id</span>=<span class="string">"chap0"</span> <span class="attr">media-type</span>=<span class="string">"application/xhtml+xml"</span>/&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">manifest</span>&gt;</span></div></pre></td></tr></table></figure>
-<h5 id="3-lt-spine-toc-quot-ncx-quot-gt"><a href="#3-lt-spine-toc-quot-ncx-quot-gt" class="headerlink" title="3.&lt;spine toc=&quot;ncx&quot;&gt;"></a>3.<code>&lt;spine toc=&quot;ncx&quot;&gt;</code></h5><p>脊骨，其主要功能是提供书籍的线性阅读次序。由一个子元素构成：</p>
-<pre><code>&lt;itemref idref=&quot;copyright&quot;&gt;
-</code></pre><p>其中<br>idref:即参照manifest列出的id<br>例如：</p>
-<pre><code>&lt;spine toc=&quot;ncx&quot;&gt;
-    &lt;itemref idref=&quot;cover&quot; /&gt;
-    &lt;itemref idref=&quot;copyright&quot; /&gt;
-&lt;/spine&gt;
-</code></pre><h5 id="4-lt-guide-gt"><a href="#4-lt-guide-gt" class="headerlink" title="4.&lt;guide&gt;"></a>4.<code>&lt;guide&gt;</code></h5><p>指南，一次列出电子书的特定页面，例如封面、目录、序言等，属性值指向文件保存地址。一般情况下，epub电子书可以不用该元素。</p>
-<p>例如：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">guide</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">reference</span> <span class="attr">href</span>=<span class="string">"cover.xhtml"</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">title</span>=<span class="string">"封面"</span>/&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">reference</span> <span class="attr">href</span>=<span class="string">"catalog.xhtml"</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">title</span>=<span class="string">"目录"</span>/&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">guide</span>&gt;</span></div></pre></td></tr></table></figure>
-<h5 id="5-lt-tour-gt"><a href="#5-lt-tour-gt" class="headerlink" title="5.&lt;tour&gt;"></a>5.<code>&lt;tour&gt;</code></h5><p>导读，可以根据不同的读者水平或阅读目的，按一定的次序，选择电子书中的部分页面组成导读。一般情况下，epub电子书可以不用该元素。</p>
-<h4 id="NCX文件（★）"><a href="#NCX文件（★）" class="headerlink" title="NCX文件（★）"></a>NCX文件（★）</h4><p>NCX文件是epub电子书的又一个核心文件，用于制作电子书的目录，其文件的命名通常为toc.ncx。ncx文件也是一个xml文件。<br>ncx代表“Navigation Center eXtended”，意思大致就是导航文件，这个文件与目录有直接的关系。</p>
-<p>.ncx文件中最主要的节点是navMap。navMap节点是由许多navPoint节点组成的。而navPoint节点则是由navLabel、content两个子节点组成。</p>
-<ul>
-<li><p>navPoint节点中，playOrder属性定义当前项在目录中显示的次序。navLabel子节点中的text节点定义了每个目录的名字。</p>
-</li>
-<li><p>content子节点的src属性定义了对应每个章节的文件的具体位置。</p>
-</li>
-</ul>
-<p>nvaPoint节点可以嵌套，就是书籍的目录是层级目录。</p>
-<p>下面是一个toc.ncx文件的实例。</p>
-<pre><code class="xml">&lt;?xml version="1.0" encoding="utf-8"?&gt;
-<span class="tag">&lt;<span class="name">ncx</span> <span class="attr">xmlns</span>=<span class="string">"http://www.daisy.org/z3986/2005/ncx/"</span> <span class="attr">version</span>=<span class="string">"2005-1"</span>&gt;</span>
-    <span class="tag">&lt;<span class="name">head</span>&gt;</span>
-        <span class="tag">&lt;<span class="name">meta</span> <span class="attr">content</span>=<span class="string">"178_0"</span> <span class="attr">name</span>=<span class="string">"dtb:uid"</span>/&gt;</span>
-        <span class="tag">&lt;<span class="name">meta</span> <span class="attr">content</span>=<span class="string">"2"</span> <span class="attr">name</span>=<span class="string">"dtb:depth"</span>/&gt;</span>
-        <span class="tag">&lt;<span class="name">meta</span> <span class="attr">content</span>=<span class="string">"0"</span> <span class="attr">name</span>=<span class="string">"dtb:totalPageCount"</span>/&gt;</span>
-        <span class="tag">&lt;<span class="name">meta</span> <span class="attr">content</span>=<span class="string">"0"</span> <span class="attr">name</span>=<span class="string">"dtb:maxPageNumber"</span>/&gt;</span>
-    <span class="tag">&lt;/<span class="name">head</span>&gt;</span>
-    <span class="tag">&lt;<span class="name">docTitle</span>&gt;</span>
-        <span class="tag">&lt;<span class="name">text</span>&gt;</span>1984<span class="tag">&lt;/<span class="name">text</span>&gt;</span>
-    <span class="tag">&lt;/<span class="name">docTitle</span>&gt;</span>
-    <span class="tag">&lt;<span class="name">docAuthor</span>&gt;</span>
-        <span class="tag">&lt;<span class="name">text</span>&gt;</span>[英] 乔治·奥威尔<span class="tag">&lt;/<span class="name">text</span>&gt;</span>
-    <span class="tag">&lt;/<span class="name">docAuthor</span>&gt;</span>
-    <span class="tag">&lt;<span class="name">navMap</span>&gt;</span>
-        <span class="tag">&lt;<span class="name">navPoint</span> <span class="attr">id</span>=<span class="string">"catalog"</span> <span class="attr">playOrder</span>=<span class="string">"0"</span>&gt;</span>
-            <span class="tag">&lt;<span class="name">navLabel</span>&gt;</span>
-                <span class="tag">&lt;<span class="name">text</span>&gt;</span>目录<span class="tag">&lt;/<span class="name">text</span>&gt;</span>
-            <span class="tag">&lt;/<span class="name">navLabel</span>&gt;</span>
-            <span class="tag">&lt;<span class="name">content</span> <span class="attr">src</span>=<span class="string">"catalog.xhtml"</span>/&gt;</span>
-        <span class="tag">&lt;/<span class="name">navPoint</span>&gt;</span>
-        <span class="tag">&lt;<span class="name">navPoint</span> <span class="attr">id</span>=<span class="string">"chap0"</span> <span class="attr">playOrder</span>=<span class="string">"1"</span>&gt;</span>
-            <span class="tag">&lt;<span class="name">navLabel</span>&gt;</span>
-                <span class="tag">&lt;<span class="name">text</span>&gt;</span>前言<span class="tag">&lt;/<span class="name">text</span>&gt;</span>
-            <span class="tag">&lt;/<span class="name">navLabel</span>&gt;</span>
-            <span class="tag">&lt;<span class="name">content</span> <span class="attr">src</span>=<span class="string">"chap0.xhtml"</span>/&gt;</span>
-        <span class="tag">&lt;/<span class="name">navPoint</span>&gt;</span>
-        <span class="tag">&lt;<span class="name">navPoint</span> <span class="attr">id</span>=<span class="string">"chap1"</span> <span class="attr">playOrder</span>=<span class="string">"2"</span>&gt;</span>
-            <span class="tag">&lt;<span class="name">navLabel</span>&gt;</span>
-                <span class="tag">&lt;<span class="name">text</span>&gt;</span>　　第一部<span class="tag">&lt;/<span class="name">text</span>&gt;</span>
-            <span class="tag">&lt;/<span class="name">navLabel</span>&gt;</span>
-            <span class="tag">&lt;<span class="name">content</span> <span class="attr">src</span>=<span class="string">"chap1.xhtml"</span>/&gt;</span>
-        <span class="tag">&lt;/<span class="name">navPoint</span>&gt;</span>
-        <span class="tag">&lt;<span class="name">navPoint</span> <span class="attr">id</span>=<span class="string">"chap2"</span> <span class="attr">playOrder</span>=<span class="string">"3"</span>&gt;</span>
-            <span class="tag">&lt;<span class="name">navLabel</span>&gt;</span>
-                <span class="tag">&lt;<span class="name">text</span>&gt;</span>　　第1节<span class="tag">&lt;/<span class="name">text</span>&gt;</span>
-            <span class="tag">&lt;/<span class="name">navLabel</span>&gt;</span>
-            <span class="tag">&lt;<span class="name">content</span> <span class="attr">src</span>=<span class="string">"chap2.xhtml"</span>/&gt;</span>
-        <span class="tag">&lt;/<span class="name">navPoint</span>&gt;</span>
-        <span class="tag">&lt;<span class="name">navPoint</span> <span class="attr">id</span>=<span class="string">"chap3"</span> <span class="attr">playOrder</span>=<span class="string">"4"</span>&gt;</span>
-            <span class="tag">&lt;<span class="name">navLabel</span>&gt;</span>
-                <span class="tag">&lt;<span class="name">text</span>&gt;</span>　　第2节<span class="tag">&lt;/<span class="name">text</span>&gt;</span>
-            <span class="tag">&lt;/<span class="name">navLabel</span>&gt;</span>
-            <span class="tag">&lt;<span class="name">content</span> <span class="attr">src</span>=<span class="string">"chap3.xhtml"</span>/&gt;</span>
-        <span class="tag">&lt;/<span class="name">navPoint</span>&gt;</span>
-        <span class="tag">&lt;<span class="name">navPoint</span> <span class="attr">id</span>=<span class="string">"chap4"</span> <span class="attr">playOrder</span>=<span class="string">"5"</span>&gt;</span>
-            <span class="tag">&lt;<span class="name">navLabel</span>&gt;</span>
-                <span class="tag">&lt;<span class="name">text</span>&gt;</span>　　第3节<span class="tag">&lt;/<span class="name">text</span>&gt;</span>
-            <span class="tag">&lt;/<span class="name">navLabel</span>&gt;</span>
-            <span class="tag">&lt;<span class="name">content</span> <span class="attr">src</span>=<span class="string">"chap4.xhtml"</span>/&gt;</span>
-        <span class="tag">&lt;/<span class="name">navPoint</span>&gt;</span>
-    <span class="tag">&lt;/<span class="name">navMap</span>&gt;</span>
-<span class="tag">&lt;/<span class="name">ncx</span>&gt;</span>
-</code></pre>
-<p>看到这里，可能会有有人觉得.opf文件与.ncx文件有一点重复：.opf文件的item节点中的href属性描述了各个章节文件的位置与顺序，.ncx文件中的conten节点中的src属性也描述了各个章节文件的位置与顺序。其实他们还是有区别的，区别就在于，.opf文件定义的是读者在顺序阅读时会用到的章节文件与它们的顺序，.ncx文件则定义的是目录中会用到的章节文件与它们的顺序。如果存在某些附件性质的内容被希望在目录中出现，但却不希望在读者顺序阅读的时候出现时，那么就可以通过对.opf文件和.ncx文件进行不同的设置来达到这个目的。当然，大部分的时候，.opf与.ncx这两个文件的内容基本是重合的。</p>
-
-          
+          EPUB 2 was initially standardized in 2007 as a successor format to the Open eBook Publication Struct
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2015/06/10/epub格式解析/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1398,9 +922,9 @@ boolean b = m.matches();
     <link itemprop="mainEntityOfPage" href="http://vernlium.github.io/2015/06/05/离别/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Anan Zhang">
+      <meta itemprop="name" content="张阿楠">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="/images/wukong.png">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -1466,28 +990,15 @@ boolean b = m.matches();
       
         
           
-            <p>在华三实习了近一年的时间，认识了一群好朋友，离职的那天，一个朋友各位发了一封邮件，看着看着不知不觉眼睛湿润了，这封邮件不仅包含了一个程序员对自己经验的分享，更包含了一个老大哥对我的殷切的期望和深厚的感情，现在我把这封邮件贴出来与大家分享。</p>
-<blockquote>
-<p>在短短的邮件里，我没有什么复杂的技术可以教你们。说教其实也是言重，论年龄，我也没有比你们大多少，我不过在这个行业里比你们先行了几年，甚至还没有走得多深。我只能说一点这些年我的经验和体会，有些东西书本是上没有的，却实实在在推动了一个人地成长。希望我的经验和思想可以让你们在将来的路上走地更快一些。</p>
-<p>###应该掌握的工具</p>
-<p>#####掌握文本处理的能力：<br>在开发过程中，对文本的处理和分析远比能想到的多。这些文本有可能是代码，有可能是数据，也有可能是日志。以下的一些文本处理工具，适用于各种场景：<br>-a)    正则表达式<br>-b)    简单命令: sed, awk, cut,grep<br>-c)    交互处理: vim, emacs, excel<br>-d)    自定义逻辑: python，perl</p>
-<p>#####趁手的编辑器：<br>在你没从更好的环境中尝到甜头之前，你永远不知道自己当前的工作是多么的低效。如果当初不是偶然间铁了心学Vim，我也许也是沉浸在VS或者Eclipse中怡然自得。根据实际的场景，选择合适的编辑器。在2013这样的工作环境中，Vim是比较好的选择。</p>
-<p>#####善用SCM：<br>SCM的好处，不仅在于高效地管理你的代码，更在于让你学习一个软件的发展及学习他人的工作。同时为了你的劳动成果和让别人也能学习你的工作，请规范地使用SCM。这是我要讲svn和git的原因。</p>
-<p>#####Google, github, stackoverflow：</p>
-<p>#####编程语言：<br>在刚开始的几年，语言一定是你必须精通的东西。而且你至少要熟悉一门面向对象语言和脚本语言，而且要多多少少知道些设计模式。目前大部分语言还难脱这两者框架，你不一定写得很熟练，但是看代码的时候，不要让语言成为你理解逻辑的障碍。</p>
-<p>   使用一个工具，就要用到极致，压榨它所有可利用的价值，来节省自己的时间。使用工具，不要为工具所累：依赖工具，却忽视了它的实现原理。工具始终是工具，是人先有了巧妙地思维，才得以发挥死板工具的用途。如果未搞清楚自己想要什么，即使工具摆在你眼前，你也想不到该去用它。</p>
-<p>###关于工作</p>
-<p>#####不留余力地改进工作效率：<br>机器能完成的事情，不要人工重复来做。即使写脚本费事，但也值得去写脚本去解决可以用脚本解决的事情。为什么优秀的程序员常在喝咖啡？因为他们已经写了自动化脚本，代替了普通人的埋头苦干。为什么不喝咖啡的程序员更可怕？因为他们不仅跑着自动化脚本，还拿别人喝咖啡的时候来写代码。</p>
-<p>#####团队协作之外的单打独斗：<br>团队协作之外，你要具备独当一面的能力。要养成独立思考，独立解决问题的习惯。团队会流动，你也有可能会离开。当你孤身一人的时候，你应当依然可以毫无阻塞地完成全部的工作。有队可以依赖是好事，没队友也是自由自在。闲暇之时多学习。就似雨后缓缓织一张大网，被命运派来的飞虫不经意间就会落入在某个点上。</p>
-<p>#####剖根揭底地发掘事实真相：<br>我们要学习，那就去学最好的东西。我们要追究原因，那就去追逐更深层的东西。程序的世界，远没有人类世界那么复杂。人类那些解不开的谜团，想不开的哲学，是因为先有宇宙后有人。而程序的世界里，是人类发明了计算机，对于我们来讲大部分工作都还是在学习这个已知的计算机世界。溯本求源，抽丝拨茧，没有解不开的迷团，只缺迎难而上的勇气。</p>
-<p>#####对代码质量的不停追求：<br>文档会过时，人会遗忘，但代码永远不会说谎，写下的代码最后会成为唯一的真理。什么代码才是好的代码，我不敢说。然而在我心中却一直有个美好的比方。纸上的代码就像故事般娓娓道来。故事思路行云流水，条理清晰；言语朴实，意义深远；场面宏大，疏而不漏；一语言毕，无多余赘述，也不需额外雕琢。读者安静听完，始末了然于胸。这，未必没有可能。大道之简，殊途同归，错误的方式千奇百怪，但正确的想法却往往相似，能引发共鸣。写出的代码不仅是为了更高的执行效率，更是为了更好的可读性。</p>
-<p>#####不懂英语的程序员不是好程序员：<br>不得不承认，目前国内技术落后国外很多，人心也浮躁许多。大多最准确，最前沿的往往来自国外。也许今天中文资料已经满足了你，但等有一天你资深了，等你站在行业最前沿时，已经没有中文资料供你参考了。那时再开始阅读外文时，可能已经太晚。<br>读英文资料不是件轻松的活，但我依然强烈建议你们坚持去做。你们的英语应该比我要好，至少没在考研的时候败在英语上。我在工作后受氛围影响，才开始阅读大量的英文资料。这些年看过的书应该是英文多于中文，更不用说网页上的资料及官方文档。读英文的时候，速度会比看中文慢，理解上也可能会少，然而久了，自然会进步。等你习惯了英文的阅读，你的世界会比现在大很多。</p>
-<p>#####看淡批评，看重意见：<br>我相信人绝大多数是善良的，尤其是人畜无害的程序员。然而善良，并不意味着脾气好。工作的路上，你可能会挨很多的骂，有善意的，无意的，也会有恶意的。不管别人对或不对，你多多少少要在自身上反思挨骂的原因。以后的路有很长要走，在骂声中吸取教训，而不能滋生仇怨。<br>这同时也提醒我们更加珍惜身边那些不骂你的人：他可能是词语匮乏，可能是懒得骂你，也有可能是不舍得骂你。比如说我。</p>
-<p>###关于你我<br>工作这些年经历的这些离离散散，我似乎早也已经习惯，说句“再见”容易，兑现却难。我不会忘记过去的一年，而我想我知道我以后也不会惦记你们太久，所以就无妨让情绪在离别之前多伤感几分。昨日时光荏苒，今日的离别依依，明日终是物是人非。<br>说了这么多话，请原谅我在工作上还把你们当作未经世面的孩子。我们都还有很长的路要走。希望有缘还会再相见，相见依然能如当初。<br>珍重</p>
-</blockquote>
-<p>以上邮件作者主页为<a href="http://hanxueluo.github.io/" target="_blank" rel="external">http://hanxueluo.github.io/</a></p>
-
-          
+          在华三实习了近一年的时间，认识了一群好朋友，离职的那天，一个朋友各位发了一封邮件，看着看着不知不觉眼睛湿润了，这封邮件不仅包含了一个程序员对自己经验的分享，更包含了一个老大哥对我的殷切的期望和深厚的感
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2015/06/05/离别/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1537,9 +1048,9 @@ boolean b = m.matches();
     <link itemprop="mainEntityOfPage" href="http://vernlium.github.io/2015/06/05/Lambda表达式/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Anan Zhang">
+      <meta itemprop="name" content="张阿楠">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="/images/wukong.png">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -1605,264 +1116,16 @@ boolean b = m.matches();
       
         
           
-            <p>本来想自己总结的，但是这篇博客写的太好了，就直接转了过来<br>原文链接：<a href="http://blog.csdn.net/ioriogami/article/details/12782141" target="_blank" rel="external">http://blog.csdn.net/ioriogami/article/details/12782141</a></p>
-<h2 id="什么是λ表达式"><a href="#什么是λ表达式" class="headerlink" title="什么是λ表达式"></a>什么是λ表达式</h2><p>λ表达式本质上是一个匿名方法。让我们来看下面这个例子：</p>
-<pre><code>public int add(int x, int y) {
-    return x + y;
-}
-</code></pre><p>转成λ表达式后是这个样子： </p>
-<pre><code>(int x, int y) -&gt; x + y;
-</code></pre><p>参数类型也可以省略，Java编译器会根据上下文推断出来：</p>
-<pre><code>(x, y) -&gt; x + y; //返回两数之和
-</code></pre><p>或者</p>
-<pre><code>(x, y) -&gt; { return x + y; } //显式指明返回值
-</code></pre><p>可见λ表达式有三部分组成：参数列表，箭头（-&gt;），以及一个表达式或语句块。</p>
-<p>下面这个例子里的λ表达式没有参数，也没有返回值（相当于一个方法接受0个参数，返回void，其实就是Runnable里run方法的一个实现）：</p>
-<pre><code>() -&gt; { System.out.println(&quot;Hello Lambda!&quot;); }
-</code></pre><p>如果只有一个参数且可以被Java推断出类型，那么参数列表的括号也可以省略：</p>
-<pre><code>c -&gt; { return c.size(); }
-</code></pre><h2 id="λ表达式的类型（它是Object吗？）"><a href="#λ表达式的类型（它是Object吗？）" class="headerlink" title="λ表达式的类型（它是Object吗？）"></a>λ表达式的类型（它是Object吗？）</h2><p>λ表达式可以被当做是一个Object（注意措辞）。λ表达式的类型，叫做“目标类型（target type）”。λ表达式的目标类型是“函数接口（functional interface）”，这是Java8新引入的概念。它的定义是：一个接口，如果只有一个显式声明的抽象方法，那么它就是一个函数接口。一般用@FunctionalInterface标注出来（也可以不标）。举例如下：</p>
-<pre><code>@FunctionalInterface
-public interface Runnable { void run(); }
-
-public interface Callable&lt;V&gt; { V call() throws Exception; }
-
-public interface ActionListener { void actionPerformed(ActionEvent e); }
-
-public interface Comparator&lt;T&gt; { int compare(T o1, T o2); boolean equals(Object obj); }
-</code></pre><p>注意最后这个Comparator接口。它里面声明了两个方法，貌似不符合函数接口的定义，但它的确是函数接口。这是因为equals方法是Object的，所有的接口都会声明Object的public方法——虽然大多是隐式的。所以，Comparator显式的声明了equals不影响它依然是个函数接口。</p>
-<p>你可以用一个λ表达式为一个函数接口赋值：</p>
-<pre><code>Runnable r1 = () -&gt; {System.out.println(&quot;Hello Lambda!&quot;);};
-</code></pre><p>然后再赋值给一个Object：</p>
-<pre><code>Object obj = r1;
-</code></pre><p>但却不能这样干：</p>
-<pre><code>Object obj = () -&gt; {System.out.println(&quot;Hello Lambda!&quot;);}; // ERROR! Object is not a functional interface!
-</code></pre><p>必须显式的转型成一个函数接口才可以：</p>
-<pre><code>Object o = (Runnable) () -&gt; { System.out.println(&quot;hi&quot;); }; // correct
-</code></pre><p>一个λ表达式只有在转型成一个函数接口后才能被当做Object使用。所以下面这句也不能编译：</p>
-<pre><code>System.out.println( () -&gt; {} ); //错误! 目标类型不明
-</code></pre><p>必须先转型:</p>
-<pre><code>System.out.println( (Runnable)() -&gt; {} ); // 正确
-</code></pre><p>假设你自己写了一个函数接口，长的跟Runnable一模一样：</p>
-<pre><code>@FunctionalInterface
-public interface MyRunnable {
-    public void run();
-}
-</code></pre><p>那么</p>
-<pre><code>Runnable r1 =    () -&gt; {System.out.println(&quot;Hello Lambda!&quot;);};
-MyRunnable2 r2 = () -&gt; {System.out.println(&quot;Hello Lambda!&quot;);};
-</code></pre><p>都是正确的写法。这说明一个λ表达式可以有多个目标类型（函数接口），只要函数匹配成功即可。<br>但需注意一个λ表达式必须至少有一个目标类型。</p>
-<p>JDK预定义了很多函数接口以避免用户重复定义。最典型的是Function：</p>
-<pre><code>@FunctionalInterface
-public interface Function&lt;T, R&gt; {  
-    R apply(T t);
-}
-</code></pre><p>这个接口代表一个函数，接受一个T类型的参数，并返回一个R类型的返回值。   </p>
-<p>另一个预定义函数接口叫做Consumer，跟Function的唯一不同是它没有返回值。</p>
-<pre><code>@FunctionalInterface
-public interface Consumer&lt;T&gt; {
-    void accept(T t);
-}
-</code></pre><p>还有一个Predicate，用来判断某项条件是否满足。经常用来进行筛滤操作：</p>
-<pre><code>@FunctionalInterface
-public interface Predicate&lt;T&gt; {
-    boolean test(T t);
-}
-</code></pre><p>综上所述，一个λ表达式其实就是定义了一个匿名方法，只不过这个方法必须符合至少一个函数接口。</p>
-<h2 id="λ表达式的使用"><a href="#λ表达式的使用" class="headerlink" title="λ表达式的使用"></a>λ表达式的使用</h2><h3 id="λ表达式用在何处"><a href="#λ表达式用在何处" class="headerlink" title="λ表达式用在何处"></a>λ表达式用在何处</h3><p>λ表达式主要用于替换以前广泛使用的内部匿名类，各种回调，比如事件响应器、传入Thread类的Runnable等。看下面的例子：</p>
-<pre><code>Thread oldSchool = new Thread( new Runnable () {
-    @Override
-    public void run() {
-        System.out.println(&quot;This is from an anonymous class.&quot;);
-    }
-} );
-
-Thread gaoDuanDaQiShangDangCi = new Thread( () -&gt; {
-    System.out.println(&quot;This is from an anonymous method (lambda exp).&quot;);
-} );
-</code></pre><p>注意第二个线程里的λ表达式，你并不需要显式地把它转成一个Runnable，因为Java能根据上下文自动推断出来：一个Thread的构造函数接受一个Runnable参数，而传入的λ表达式正好符合其run()函数，所以Java编译器推断它为Runnable。</p>
-<p>从形式上看，λ表达式只是为你节省了几行代码。但将λ表达式引入Java的动机并不仅仅为此。Java8有一个短期目标和一个长期目标。短期目标是：配合“集合类批处理操作”的内部迭代和并行处理（下面将要讲到）；长期目标是将Java向函数式编程语言这个方向引导（并不是要完全变成一门函数式编程语言，只是让它有更多的函数式编程语言的特性），也正是由于这个原因，Oracle并没有简单地使用内部类去实现λ表达式，而是使用了一种更动态、更灵活、易于将来扩展和改变的策略（invokedynamic）。</p>
-<h3 id="λ表达式与集合类批处理操作（或者叫块操作）"><a href="#λ表达式与集合类批处理操作（或者叫块操作）" class="headerlink" title="λ表达式与集合类批处理操作（或者叫块操作）"></a>λ表达式与集合类批处理操作（或者叫块操作）</h3><p>上文提到了集合类的批处理操作。这是Java8的另一个重要特性，它与λ表达式的配合使用乃是Java8的最主要特性。集合类的批处理操作API的目的是实现集合类的“内部迭代”，并期望充分利用现代多核CPU进行并行计算。<br>Java8之前集合类的迭代（Iteration）都是外部的，即客户代码。而内部迭代意味着改由Java类库来进行迭代，而不是客户代码。例如：</p>
-<pre><code>for(Object o: list) { // 外部迭代
-    System.out.println(o);
-}
-</code></pre><p>可以写成：</p>
-<pre><code>list.forEach(o -&gt; {System.out.println(o);}); //forEach函数实现内部迭代
-</code></pre><p>集合类（包括List）现在都有一个forEach方法，对元素进行迭代（遍历），所以我们不需要再写for循环了。forEach方法接受一个函数接口Consumer做参数，所以可以使用λ表达式。</p>
-<p>这种内部迭代方法广泛存在于各种语言，如C++的STL算法库、python、ruby、scala等。</p>
-<p>Java8为集合类引入了另一个重要概念：流（stream）。一个流通常以一个集合类实例为其数据源，然后在其上定义各种操作。流的API设计使用了管道（pipelines）模式。对流的一次操作会返回另一个流。如同IO的API或者StringBuffer的append方法那样，从而多个不同的操作可以在一个语句里串起来。看下面的例子：</p>
-<pre><code>List&lt;Shape&gt; shapes = ...
-shapes.stream()
-  .filter(s -&gt; s.getColor() == BLUE)
-  .forEach(s -&gt; s.setColor(RED));
-</code></pre><p>首先调用stream方法，以集合类对象shapes里面的元素为数据源，生成一个流。然后在这个流上调用filter方法，挑出蓝色的，返回另一个流。最后调用forEach方法将这些蓝色的物体喷成红色。（forEach方法不再返回流，而是一个终端方法，类似于StringBuffer在调用若干append之后的那个toString）</p>
-<p>filter方法的参数是Predicate类型，forEach方法的参数是Consumer类型，它们都是函数接口，所以可以使用λ表达式。</p>
-<p>还有一个方法叫parallelStream()，顾名思义它和stream()一样，只不过指明要并行处理，以期充分利用现代CPU的多核特性。</p>
-<pre><code>shapes.parallelStream(); // 或shapes.stream().parallel()
-</code></pre><p>来看更多的例子。下面是典型的大数据处理方法，Filter-Map-Reduce：</p>
-<pre><code>//给出一个String类型的数组，找出其中所有不重复的素数
-public void distinctPrimary(String... numbers) {
-    List&lt;String&gt; l = Arrays.asList(numbers);
-    List&lt;Integer&gt; r = l.stream()
-            .map(e -&gt; new Integer(e))
-            .filter(e -&gt; Primes.isPrime(e))
-            .distinct()
-            .collect(Collectors.toList());
-    System.out.println(&quot;distinctPrimary result is: &quot; + r);
-}
-</code></pre><p>第一步：传入一系列String（假设都是合法的数字），转成一个List，然后调用stream()方法生成流。</p>
-<p>第二步：调用流的map方法把每个元素由String转成Integer，得到一个新的流。map方法接受一个Function类型的参数，上面介绍了，Function是个函数接口，所以这里用λ表达式。</p>
-<p>第三步：调用流的filter方法，过滤那些不是素数的数字，并得到一个新流。filter方法接受一个Predicate类型的参数，上面介绍了，Predicate是个函数接口，所以这里用λ表达式。</p>
-<p>第四步：调用流的distinct方法，去掉重复，并得到一个新流。这本质上是另一个filter操作。</p>
-<p>第五步：用collect方法将最终结果收集到一个List里面去。collect方法接受一个Collector类型的参数，这个参数指明如何收集最终结果。在这个例子中，结果简单地收集到一个List中。我们也可以用Collectors.toMap(e-&gt;e, e-&gt;e)把结果收集到一个Map中，它的意思是：把结果收到一个Map，用这些素数自身既作为键又作为值。toMap方法接受两个Function类型的参数，分别用以生成键和值，Function是个函数接口，所以这里都用λ表达式。</p>
-<p>你可能会觉得在这个例子里，List l被迭代了好多次，map，filter，distinct都分别是一次循环，效率会不好。实际并非如此。这些返回另一个Stream的方法都是“懒（lazy）”的，而最后返回最终结果的collect方法则是“急（eager）”的。在遇到eager方法之前，lazy的方法不会执行。</p>
-<p>当遇到eager方法时，前面的lazy方法才会被依次执行。而且是管道贯通式执行。这意味着每一个元素依次通过这些管道。例如有个元素“3”，首先它被map成整数型3；然后通过filter，发现是素数，被保留下来；又通过distinct，如果已经有一个3了，那么就直接丢弃，如果还没有则保留。这样，3个操作其实只经过了一次循环。</p>
-<p>除collect外其它的eager操作还有forEach，toArray，reduce等。</p>
-<p>下面来看一下也许是最常用的收集器方法，groupingBy：</p>
-<pre><code>//给出一个String类型的数组，找出其中各个素数，并统计其出现次数
-public void primaryOccurrence(String... numbers) {
-    List&lt;String&gt; l = Arrays.asList(numbers);
-    Map&lt;Integer, Integer&gt; r = l.stream()
-        .map(e -&gt; new Integer(e))
-        .filter(e -&gt; Primes.isPrime(e))
-        .collect( Collectors.groupingBy(p-&gt;p, Collectors.summingInt(p-&gt;1)) );
-    System.out.println(&quot;primaryOccurrence result is: &quot; + r);
-}
-</code></pre><p>注意这一行：</p>
-<pre><code>Collectors.groupingBy(p-&gt;p, Collectors.summingInt(p-&gt;1))
-</code></pre><p>它的意思是：把结果收集到一个Map中，用统计到的各个素数自身作为键，其出现次数作为值。</p>
-<p>下面是一个reduce的例子：</p>
-<pre><code>//给出一个String类型的数组，求其中所有不重复素数的和
-public void distinctPrimarySum(String... numbers) {
-    List&lt;String&gt; l = Arrays.asList(numbers);
-    int sum = l.stream()
-        .map(e -&gt; new Integer(e))
-        .filter(e -&gt; Primes.isPrime(e))
-        .distinct()
-        .reduce(0, (x,y) -&gt; x+y); // equivalent to .sum()
-    System.out.println(&quot;distinctPrimarySum result is: &quot; + sum);
-}
-</code></pre><p>reduce方法用来产生单一的一个最终结果。<br>流有很多预定义的reduce操作，如sum()，max()，min()等。</p>
-<p>再举个现实世界里的栗子比如：</p>
-<pre><code>// 统计年龄在25-35岁的男女人数、比例
-public void boysAndGirls(List&lt;Person&gt; persons) {
-    Map&lt;Integer, Integer&gt; result = persons.parallelStream().filter(p -&gt; p.getAge()&gt;=25 &amp;&amp; p.getAge()&lt;=35).
-        collect(
-            Collectors.groupingBy(p-&gt;p.getSex(), Collectors.summingInt(p-&gt;1))
-    );
-    System.out.print(&quot;boysAndGirls result is &quot; + result);
-    System.out.println(&quot;, ratio (male : female) is &quot; + (float)result.get(Person.MALE)/result.get(Person.FEMALE));
-}
-</code></pre><h3 id="λ表达式的更多用法"><a href="#λ表达式的更多用法" class="headerlink" title="λ表达式的更多用法"></a>λ表达式的更多用法</h3><pre><code>// 嵌套的λ表达式
-Callable&lt;Runnable&gt; c1 = () -&gt; () -&gt; { System.out.println(&quot;Nested lambda&quot;); };
-c1.call().run();
-
-// 用在条件表达式中
-Callable&lt;Integer&gt; c2 = true ? (() -&gt; 42) : (() -&gt; 24);
-System.out.println(c2.call());
-
-// 定义一个递归函数，注意须用this限定
-protected UnaryOperator&lt;Integer&gt; factorial = i -&gt; i == 0 ? 1 : i * this.factorial.apply( i - 1 );
-...
-System.out.println(factorial.apply(3));
-</code></pre><p>在Java中，随声明随调用的方式是不行的，比如下面这样，声明了一个λ表达式(x, y) -&gt; x + y，同时企图通过传入实参(2, 3)来调用它：</p>
-<pre><code>int five = ( (x, y) -&gt; x + y ) (2, 3); // ERROR! try to call a lambda in-place
-</code></pre><p>这在C++中是可以的，但Java中不行。Java的λ表达式只能用作赋值、传参、返回值等。</p>
-<h2 id="其它相关概念"><a href="#其它相关概念" class="headerlink" title="其它相关概念"></a>其它相关概念</h2><h3 id="捕获（Capture）"><a href="#捕获（Capture）" class="headerlink" title="捕获（Capture）"></a>捕获（Capture）</h3><p>捕获的概念在于解决在λ表达式中我们可以使用哪些外部变量（即除了它自己的参数和内部定义的本地变量）的问题。</p>
-<p>答案是：与内部类非常相似，但有不同点。不同点在于内部类总是持有一个其外部类对象的引用。而λ表达式呢，除非在它内部用到了其外部类（包围类）对象的方法或者成员，否则它就不持有这个对象的引用。</p>
-<p>在Java8以前，如果要在内部类访问外部对象的一个本地变量，那么这个变量必须声明为final才行。在Java8中，这种限制被去掉了，代之以一个新的概念，“effectively final”。它的意思是你可以声明为final，也可以不声明final但是按照final来用，也就是一次赋值永不改变。换句话说，保证它加上final前缀后不会出编译错误。</p>
-<p>在Java8中，内部类和λ表达式都可以访问effectively final的本地变量。λ表达式的例子如下：</p>
-<pre><code>...    
-int tmp1 = 1; //包围类的成员变量
-static int tmp2 = 2; //包围类的静态成员变量
-public void testCapture() {
-    int tmp3 = 3; //没有声明为final，但是effectively final的本地变量
-    final int tmp4 = 4; //声明为final的本地变量
-    int tmp5 = 5; //普通本地变量
-
-    Function&lt;Integer, Integer&gt; f1 = i -&gt; i + tmp1;
-    Function&lt;Integer, Integer&gt; f2 = i -&gt; i + tmp2;
-    Function&lt;Integer, Integer&gt; f3 = i -&gt; i + tmp3;
-    Function&lt;Integer, Integer&gt; f4 = i -&gt; i + tmp4;
-    Function&lt;Integer, Integer&gt; f5 = i -&gt; {
-        tmp5  += i; // 编译错！对tmp5赋值导致它不是effectively final的
-        return tmp5;
-    };
-    ...
-    tmp5 = 9; // 编译错！对tmp5赋值导致它不是effectively final的
-}
-...
-</code></pre><p>Java要求本地变量final或者effectively final的原因是多线程并发问题。内部类、λ表达式都有可能在不同的线程中执行，允许多个线程同时修改一个本地变量不符合Java的设计理念。</p>
-<h3 id="方法引用（Method-reference）"><a href="#方法引用（Method-reference）" class="headerlink" title="方法引用（Method reference）"></a>方法引用（Method reference）</h3><p>任何一个λ表达式都可以代表某个函数接口的唯一方法的匿名描述符。我们也可以使用某个类的某个具体方法来代表这个描述符，叫做方法引用。例如：</p>
-<pre><code>Integer::parseInt //静态方法引用
-System.out::print //实例方法引用
-Person::new       //构造器引用
-</code></pre><p>下面是一组例子，教你使用方法引用代替λ表达式：</p>
-<pre><code>//c1 与 c2 是一样的（静态方法引用）
-Comparator&lt;Integer&gt; c2 = (x, y) -&gt; Integer.compare(x, y);
-Comparator&lt;Integer&gt; c1 = Integer::compare;
-
-//下面两句是一样的（实例方法引用1）
-persons.forEach(e -&gt; System.out.println(e));
-persons.forEach(System.out::println);
-
-//下面两句是一样的（实例方法引用2）
-persons.forEach(person -&gt; person.eat());
-persons.forEach(Person::eat);
-
-//下面两句是一样的（构造器引用）
-strList.stream().map(s -&gt; new Integer(s));
-strList.stream().map(Integer::new);
-</code></pre><p>使用方法引用，你的程序会变得更短些。现在distinctPrimarySum方法可以改写如下：</p>
-<pre><code>public void distinctPrimarySum(String... numbers) {
-    List&lt;String&gt; l = Arrays.asList(numbers);
-    int sum = l.stream().map(Integer::new).filter(Primes::isPrime).distinct().sum();
-    System.out.println(&quot;distinctPrimarySum result is: &quot; + sum);
-}
-</code></pre><p>还有一些其它的方法引用:</p>
-<pre><code>super::toString //引用某个对象的父类方法
-String[]::new //引用一个数组的构造器
-</code></pre><h3 id="默认方法（Default-method）"><a href="#默认方法（Default-method）" class="headerlink" title="默认方法（Default method）"></a>默认方法（Default method）</h3><p>Java8中，接口声明里可以有方法实现了，叫做默认方法。在此之前，接口里的方法全部是抽象方法。</p>
-<pre><code>public interface MyInterf {
-
-    String m1();
-
-    default String m2() {
-        return &quot;Hello default method!&quot;;
-    }
-
-}
-</code></pre><p>这实际上混淆了接口和抽象类，但一个类仍然可以实现多个接口，而只能继承一个抽象类。</p>
-<p>这么做的原因是：由于Collection库需要为批处理操作添加新的方法，如forEach()，stream()等，但是不能修改现有的Collection接口——如果那样做的话所有的实现类都要进行修改，包括很多客户自制的实现类。所以只好使用这种妥协的办法。</p>
-<p>如此一来，我们就面临一种类似多继承的问题。如果类Sub继承了两个接口，Base1和Base2，而这两个接口恰好具有完全相同的两个默认方法，那么就会产生冲突。这时Sub类就必须通过重载来显式指明自己要使用哪一个接口的实现（或者提供自己的实现）：</p>
-<pre><code>public class Sub implements Base1, Base2 {
-
-    public void hello() {
-        Base1.super.hello(); //使用Base1的实现
-    }
-
-}
-</code></pre><p>除了默认方法，Java8的接口也可以有静态方法的实现：</p>
-<pre><code>public interface MyInterf {
-
-    String m1();
-
-    default String m2() {
-        return &quot;Hello default method!&quot;;
-    }
-
-    static String m3() {
-        return &quot;Hello static method in Interface!&quot;;
-    }
-
-}
-</code></pre><h3 id="生成器函数（Generator-function）"><a href="#生成器函数（Generator-function）" class="headerlink" title="生成器函数（Generator function）"></a>生成器函数（Generator function）</h3><p>有时候一个流的数据源不一定是一个已存在的集合对象，也可能是个“生成器函数”。一个生成器函数会产生一系列元素，供给一个流。Stream.generate(Supplier<t> s)就是一个生成器函数。其中参数Supplier是一个函数接口，里面有唯一的抽象方法 <t> get()。</t></t></p>
-<p>下面这个例子生成并打印5个随机数：</p>
-<pre><code>Stream.generate(Math::random).limit(5).forEach(System.out::println);
-</code></pre><p>注意这个limit(5)，如果没有这个调用，那么这条语句会永远地执行下去。也就是说这个生成器是无穷的。这种调用叫做终结操作，或者短路（short-circuiting）操作。</p>
-<p>参考资料：<br><a href="http://openjdk.java.net/projects/lambda/" target="_blank" rel="external">http://openjdk.java.net/projects/lambda/</a><br><a href="http://docs.oracle.com/javase/tutorial/java/javaOO/lambdaexpressions.html" target="_blank" rel="external">http://docs.oracle.com/javase/tutorial/java/javaOO/lambdaexpressions.html</a></p>
-
-          
+          本来想自己总结的，但是这篇博客写的太好了，就直接转了过来原文链接：http://blog.csdn.net/ioriogami/article/details/12782141
+什么是λ表达式λ表达式
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2015/06/05/Lambda表达式/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1912,9 +1175,9 @@ String[]::new //引用一个数组的构造器
     <link itemprop="mainEntityOfPage" href="http://vernlium.github.io/2015/04/21/博客开篇/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Anan Zhang">
+      <meta itemprop="name" content="张阿楠">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="/images/wukong.png">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -1980,22 +1243,16 @@ String[]::new //引用一个数组的构造器
       
         
           
-            <p>这是我的第一篇博客。很久之前就想自己搭建一个属于自己的博客，总结自己技术学习的方方面面。</p>
-<h2 id="编程初体验"><a href="#编程初体验" class="headerlink" title="编程初体验"></a>编程初体验</h2><p>先说说我和计算机的结缘。小时候生活在农村，所以接触到的事物很少。第一次见到电脑应该是上初一的时候（2001），下午放学，同村的小伙伴说我们一块去街上新开的网吧玩吧，出于好奇就和他们一块去了，但是我只是在一旁看着，看着他们玩游戏，叫做什么暴力摩托。看着他们玩的很过瘾，我对游戏这东西并没有多大兴趣，只是觉得电脑好神奇，可以玩那么好玩的游戏。后来上初三，学校竟然开始开设电脑课，开始真正的使用电脑，但是接触的东西都很简单，比如开关机、换个电脑屏幕背景，这些都让我开心不已。<br>上来高中，学校依然有电脑课，高一的时候电脑课老师无非教一些电脑的常识，还有一些办公软件的使用。高二，电脑课开始学习编程，是VB6.0，刚开始时，上课先听老师讲并看老师演示，然后老师就让自己按着书敲代码并运行。刚开始接触这些东西，完全不懂，但是照着书上的代码抄一遍，也能运行出来结果。虽然不懂，但是我觉得和好玩，大部分人在老师让写代码时其实都是在玩，没有几个人写。虽然半学期的编程课并没有学到什么东西，但是让我真正的接触到了编程的世界，为我大学时学C语言打下了良好的基础。</p>
-<p>##大学时代<br>高考发挥一般，进入了上海一所一本院校，报志愿时对很多专业也没什么概念，就随便填了一些，比如数学、机械工程、计算机科学与技术等。更可悲的是，分数是压着录取线进的，所以被调剂到了印刷工程专业，对这个专业更是摸不着头脑，相信很多人也没有听说过。上了大一，一下子空闲时间很多，对于我这种高中只会学习没啥兴趣爱好的人来说，真的不知道要干嘛了。就这样在迷茫中开始了我的大学。</p>
-<p>###继续VB</p>
-<p>大一上半学期，课程不多，学业不紧，有时候确实挺无聊。后来想起了高中学的VB，对这些东西还有些兴趣，于是没事的时候就跑去图书馆找些VB的书来看，当然仅仅是看，那时还没有电脑。看的很多东西都是一些控件的使用，因为那时我觉得做出很好看的界面很厉害。差不多看完一本书大一上学期也就结束了。这时要面临一个问题：选大一下学期的编程语言课，有两个选择C和VB。虽然我一直在看VB的书，但是我还是随着大流选了C。</p>
-<p>###C语言<br>下学期开始了C语言的学习，使用的教材是学校自己老师编的一本教材，真是要多烂有多烂，还不如谭浩强的C语言。但是上课的时候老师讲的还是很好的。班上很多同学第一次学习编程，对很多概念根本无法理解，所以班上大部分人学的都是云里雾里，上课完全听不懂。由于我高中时接触过VB，所以对很多概念很容易理解，基本上一听就会。上课时老师出的一些编程题我能很快做出来。（这是我应该认识到自己在这方面的天赋，在大一结束的时候转专业到计算机去，可是我并没有这样，也是我大学的一个遗憾）<br>由于其他课程作业也比较多，除了完成老师布置的作业以外，我并没有花过多的时间在C上面。大一下买了电脑，所以很多程序都能在电脑上跑，这种学习的效果还是很好的。大一结束，由于一些原因，我并没有转专业，现在想想很可惜，就这样开始呆着印刷专业开始后面的大学生活。</p>
-<p>###大二<br>大二上学期，时间是很多的，没事的时候找一下编程练习题来做，但是并没有什么进步。下学期的时候，开始接触到了java语言，看到网上很多人在学，想想自己没事又对程序比较感兴趣，就像学一下。刚开始时，也不知道用什么教材或教程，那时候美国一些名校的公开课刚开始兴起，真好有个斯坦福大学的公开课叫做《编程方法学》，真好讲的是java，然后就决定用这个作为课程来学。一方面自己没啥基础，另一方面这个课的老师语速真的很快，大概两个月的时间才看了十集，而且效果不怎么好。这个课程并不是真正的讲java语言，而是为了让学生学习一些编程的基本概念，对java的库进行了一个封装，开发了一个新的库作为教学用。学的效果很不好。<br>快到期末的时候，要做数据库课程的大作业了（好吧，我们是印刷工程专业，但是确实有数据库的课程，没错我们不仅有数据库的课程，还有其他一些奇葩的课程，如：中外音乐鉴赏、微机原理、市场调查与预测、自动控制原理等，大一的时候就学微机原理，班上几乎没人能听懂。后来想想真是被这专业给坑了，很多可能都是用来凑学分的，这种专业根本就不应该出现在本校学校中）。数据库的大作业老师要求做一个界面出来并操作数据库。当时虽然对C语言比较熟悉，但是并无法做出一个有界面的东西，只能选择使用VB。想一想当时班上有四个同学的大作业都是我一个人做的，老师竟然没发现。<br>大二下学期参加了全国二级C的考试，笔试92+机试100（5分钟交卷的），想想这个成绩还有点小激动，但是这个证书在计算机专业的学生面前根本不值一提。</p>
-<p>###大三</p>
-<p>大二学期结束，继续学习java，由于之前失败的学习经历，觉得还是不在装逼了（看斯坦福的公开课确实有点小装逼的心理），开始看韩水平老师的视频教程，这个教程确实很不错，从基础讲起，很多东西讲的很透彻。跟着视频做了坦克大战的游戏和酒楼的管理系统。大三上学期基本上看完了j2se的所有课程。虽然视频看完了，但是真正记住的并没有多少，很多东西自己还是无法写出来。<br>这是面临一个选择，是毕业后直接找工作还是考研继续深造。通过向很多的学长了解，感觉印刷这个行业已经是夕阳行业了，工资水平偏低。想想这点工资以后如何生存下去，还是决定考研。考研就不能在学印刷了，由于一直以来对编程的兴趣，还是决定考计算机专业。大三下学期开始着手准备考研的事情。一方面是学习计算机专业的基础课程，这些课主要是旁听计算机专业的课程，上了数据结构、计算机组成原理和计算机网络。由于下学期并没有开设操作系统的课程，操作系统只能在网上看。另一方面是开始复习数学和英语。由于开始了考研准备，java的学习只能放一放。<br>大三还做了一件事情，和同专业的同学申请了一个上海市大学生创新项目，做一个软件来评价印刷品的质量。我们五个人里面只有我和另外一个同学姑且称他为菊花同学会编程。当时为了做界面方便，我们使用VC++做这个项目，但是我对C++又不太熟，菊花同学做界面，我做图像处理的算法部分，图像处理的那些算法很多公式，虽然原理搞不懂，但是程序实现还是很简单的。同时我也稍微学了一下C++，只是学了要用的东西，并没有系统的学习。刚开始做的时候很痛苦的，各种程序出错，一个错误都找半天，后来慢慢就好了。虽然这个项目不算成功，但是最后还是做出来了一个东西，并顺利通过验收。（其实验收的时候很水，验收的那些老师都不懂程序算法什么的，我当时在台上吹了一通，他们也听不懂，还是这个东西很不错，其实我们感觉就是一坨屎）。</p>
-<p>###大四</p>
-<p>大四上学期每天都是在图书馆度过的，天天英语数学专业课，虽然很辛苦，但是感觉那段时间是大学学到知识最多的一段时间，最能静下心了学习的时间，后来再也找不到那种感觉了。<br>考研考的是东南大学计算机专业，由于东大是第一年专业课自主命题，没有什么资料可以参考，只能按照408的要求来复习，但是考试的时候傻眼了，本来408一些不可能用来考大题的知识点被拿到大题来考，准备不足，好几个大题没做，考完试就感觉完了。没办法只能硬着头皮坚持考完。<br>分数下来，不是很高，尤其是专业课只有80分，感觉很悬。但是按照排名和招生人数来看，还是有机会进入复试的。于是就好好准备复试的课程，认真学了一下C++，但是也仅限看书。最后还是没法进入复试，最终调剂到了东南大学软件学院。<br>研究生复试结束，有了一段空闲的时间，利用这个时间开始学习j2ee的东西，学习了servlet和jsp。又oracle数据库和mysql数据库，已经linux的一些东西。学的都不深入，但是都入了门，有了大致的了解。</p>
-<p>##研究生</p>
-<p>进入研一，感觉周围的同学都很厉害，自己基础确实太差。一方面补基础的知识，又开始学习SSH框架，通过一个课程项目把SSH框架实践了一遍，这个过程学的东西很是很多的。<br>研一下学期一开学，学校就开始为期一个月的工程实训项目，我们做的是一个基于B2C的购物平台，这次真正的对一个项目的完整流程有个熟悉，并且也做了很多的东西。项目做完就开始找实习了。</p>
-<p>总结下来，自己算是半路出家，很多的知识都没有系统的学习，学的一知半解。我觉得这样很不好，基础不牢固，会后面的学习很不利。虽然基础不行，但是还是凭着自己对编程的热爱，走到了现在。要学的东西还有很，只有不断的学习，才能追赶上别人的脚步。</p>
-
-          
+          这是我的第一篇博客。很久之前就想自己搭建一个属于自己的博客，总结自己技术学习的方方面面。
+编程初体验先说说我和计算机的结缘。小时候生活在农村，所以接触到的事物很少。第一次见到电脑应该是上初一的时候（2
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2015/04/21/博客开篇/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -2067,18 +1324,18 @@ String[]::new //引用一个数组的构造器
       <section class="site-overview sidebar-panel sidebar-panel-active">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
-               src="/images/avatar.gif"
-               alt="Anan Zhang" />
-          <p class="site-author-name" itemprop="name">Anan Zhang</p>
+               src="/images/wukong.png"
+               alt="张阿楠" />
+          <p class="site-author-name" itemprop="name">张阿楠</p>
            
-              <p class="site-description motion-element" itemprop="description"></p>
+              <p class="site-description motion-element" itemprop="description">Keep codeing and thinking!</p>
           
         </div>
         <nav class="site-state motion-element">
 
           
             <div class="site-state-item site-state-posts">
-              <a href="/archives/">
+              <a href="/archives">
                 <span class="site-state-item-count">18</span>
                 <span class="site-state-item-name">日志</span>
               </a>
@@ -2089,10 +1346,10 @@ String[]::new //引用一个数组的构造器
             
             
             <div class="site-state-item site-state-categories">
-              
+              <a href="/categories/index.html">
                 <span class="site-state-item-count">2</span>
                 <span class="site-state-item-name">分类</span>
-              
+              </a>
             </div>
           
 
@@ -2100,10 +1357,10 @@ String[]::new //引用一个数组的构造器
             
             
             <div class="site-state-item site-state-tags">
-              
+              <a href="/tags/index.html">
                 <span class="site-state-item-count">14</span>
                 <span class="site-state-item-name">标签</span>
-              
+              </a>
             </div>
           
 
@@ -2171,7 +1428,7 @@ String[]::new //引用一个数组的构造器
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">Anan Zhang</span>
+  <span class="author" itemprop="copyrightHolder">张阿楠</span>
 </div>
 
 
@@ -2182,7 +1439,7 @@ String[]::new //引用一个数组的构造器
 <div class="theme-info">
   主题 -
   <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
-    NexT.Muse
+    NexT.Pisces
   </a>
 </div>
 
@@ -2261,6 +1518,13 @@ String[]::new //引用一个数组的构造器
 
   
   
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.2"></script>
+
+
 
   
     <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>

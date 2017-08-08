@@ -5,7 +5,7 @@
   
 
 
-<html class="theme-next muse use-motion" lang="zh-Hans">
+<html class="theme-next pisces use-motion" lang="zh-Hans">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -61,11 +61,17 @@
   
 
   
+    
+      
+    
+
+    
+  
 
   
     
     
-    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Consolas:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
   
 
 
@@ -122,7 +128,7 @@
 <meta property="og:image" content="http://7xngpc.com1.z0.glb.clouddn.com/vernsimple-project_depgraph.png">
 <meta property="og:image" content="http://7xngpc.com1.z0.glb.clouddn.com/vernshotpath.png">
 <meta property="og:image" content="http://7xngpc.com1.z0.glb.clouddn.com/vernfirstdefine.png">
-<meta property="og:updated_time" content="2015-12-03T14:48:36.250Z">
+<meta property="og:updated_time" content="2017-08-06T02:02:48.926Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Maven简明教程">
 <meta name="twitter:description" content="这是一个Maven简明教程，包括Maven入门和深入了解">
@@ -134,7 +140,7 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
-    scheme: 'Muse',
+    scheme: 'Pisces',
     sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
     fancybox: true,
     tabs: true,
@@ -233,7 +239,7 @@
       
         
         <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
+          <a href="/archives" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
@@ -243,11 +249,21 @@
       
         
         <li class="menu-item menu-item-tags">
-          <a href="/tags/" rel="section">
+          <a href="/tags" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
             
             标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
           </a>
         </li>
       
@@ -287,9 +303,9 @@
     <link itemprop="mainEntityOfPage" href="http://vernlium.github.io/2015/10/29/Maven简明教程/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Anan Zhang">
+      <meta itemprop="name" content="张阿楠">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="/images/wukong.png">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -395,84 +411,16 @@
 <p><img src="http://7xngpc.com1.z0.glb.clouddn.com/vern验证是否安装成功.png" alt="验证是否安装成功"></p>
 <h2 id="3-Maven入门实例"><a href="#3-Maven入门实例" class="headerlink" title="3 Maven入门实例"></a>3 Maven入门实例</h2><p>maven安装成功后，我们先来通过一个例子来认识他。</p>
 <p>新建文件夹MavenProject，在下面按照如下目录创建maven项目HelloMaven：</p>
-<pre><code>HelloMaven
-   │  pom.xml
-   │
-   ├─src
-      ├─main
-      │  └─java
-      │      └─com
-      │          └─anan
-      │              └─hellomaven
-      │                      HelloMaven.java
-      │
-      └─test
-          └─java
-              └─com
-                  └─anan
-                      └─hellomaven
-                              HelloMavenTest.java
-</code></pre><p>HelloMaven.java文件的内容为：</p>
-<pre><code>package com.anan.hellomaven;
-
-    public class HelloMaven{
-        public String sayHello(String name){
-            return &quot;Hello &quot;+name;
-    }
-} 
-</code></pre><p>HelloMavenTest.java文件的内容为：</p>
-<pre><code>package com.anan.hellomaven;
-
-import static org.junit.Assert.assertEquals;
-import org.junit.Test;
-
-public class HelloMavenTest{
-
-    @Test
-    public void testSayHello(){
-        assertEquals(&quot;Hello maven&quot;,new HelloMaven().sayHello(&quot;maven&quot;));
-    }
-}
-</code></pre><p>pom.xml文件的内容为：</p>
-<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
-&lt;project xmlns=&quot;http://maven.apache.org/POM/4.0.0&quot; 
-         xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; 
-         xsi:schemaLocation=&quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd&quot;&gt;
-  &lt;!--
-      modelVersion指定当前pom模型的版本，对于Maven2及Maven3来说，它只能是4.0.0
-  --&gt;
-  &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
-  &lt;!--
-      groupId，artifactId和version这三个元素定义了一个项目基本的坐标,
-      在Maven的世界，任何的jar、pom或者war都是以基于这些基本的坐标进行区分
-  --&gt;
-  &lt;!--
-    groupId定义了项目属于哪个组，一般是公司网站反写+项目名
-  --&gt;
-  &lt;groupId&gt;com.anan.hellomaven&lt;/groupId&gt;
-  &lt;!--
-    artifactId定义了当前Maven项目在组中唯一的ID，一般是项目名+模块名
-  --&gt;
-  &lt;artifactId&gt;hellomaven-module1&lt;/artifactId&gt;
-  &lt;!--
-    项目当前版本，SNAPSHOT意为快照，说明该项目还处于开发中，是不稳定的版本
-  --&gt;
-  &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
-
-  &lt;name&gt;HelloMaven Project&lt;/name&gt;
-  &lt;!--依赖的包--&gt;
-  &lt;dependencies&gt;
-    &lt;dependency&gt;
-      &lt;groupId&gt;junit&lt;/groupId&gt;
-      &lt;artifactId&gt;junit&lt;/artifactId&gt;
-      &lt;version&gt;4.7&lt;/version&gt;
-      &lt;scope&gt;test&lt;/scope&gt;
-    &lt;/dependency&gt;
-  &lt;/dependencies&gt;
-&lt;/project&gt;
-</code></pre><p>上面的文件写完后保存，在项目根目录下按住Shift键右击，选择在此处打开命令窗口，输入命令：</p>
-<pre><code>mvn compile
-</code></pre><p>执行命令可以看到如下信息，提示项目编译成功。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">HelloMaven</div><div class="line">   │  pom.xml</div><div class="line">   │</div><div class="line">   ├─src</div><div class="line">      ├─main</div><div class="line">      │  └─java</div><div class="line">      │      └─com</div><div class="line">      │          └─anan</div><div class="line">      │              └─hellomaven</div><div class="line">      │                      HelloMaven.java</div><div class="line">      │</div><div class="line">      └─test</div><div class="line">          └─java</div><div class="line">              └─com</div><div class="line">                  └─anan</div><div class="line">                      └─hellomaven</div><div class="line">                              HelloMavenTest.java</div></pre></td></tr></table></figure>
+<p>HelloMaven.java文件的内容为：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.anan.hellomaven;</div><div class="line">    <span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloMaven</span></span>&#123;</div><div class="line">        <span class="function"><span class="keyword">public</span> String <span class="title">sayHello</span><span class="params">(String name)</span></span>&#123;</div><div class="line">            <span class="keyword">return</span> <span class="string">"Hello "</span>+name;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>HelloMavenTest.java文件的内容为：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.anan.hellomaven;</div><div class="line"></div><div class="line"><span class="keyword">import</span> <span class="keyword">static</span> org.junit.Assert.assertEquals;</div><div class="line"><span class="keyword">import</span> org.junit.Test;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloMavenTest</span></span>&#123;</div><div class="line">    <span class="meta">@Test</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testSayHello</span><span class="params">()</span></span>&#123;</div><div class="line">        assertEquals(<span class="string">"Hello maven"</span>,<span class="keyword">new</span> HelloMaven().sayHello(<span class="string">"maven"</span>));</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>pom.xml文件的内容为：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</div><div class="line"><span class="tag">&lt;<span class="name">project</span> <span class="attr">xmlns</span>=<span class="string">"http://maven.apache.org/POM/4.0.0"</span> </span></div><div class="line"><span class="tag">         <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span> </span></div><div class="line"><span class="tag">         <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://maven.apache.org/POM/4.0.http://maven.apache.org/xsd/maven-4.0.0.xsd"</span>&gt;</span></div><div class="line">  <span class="comment">&lt;!--</span></div><div class="line"><span class="comment">      modelVersion指定当前pom模型的版本，对于Maven2及Maven3来说，它只能是4.0.0</span></div><div class="line"><span class="comment">  --&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">modelVersion</span>&gt;</span>4.0.0<span class="tag">&lt;/<span class="name">modelVersion</span>&gt;</span></div><div class="line">  <span class="comment">&lt;!--</span></div><div class="line"><span class="comment">      groupId，artifactId和version这三个元素定义了一个项目基本的坐标,</span></div><div class="line"><span class="comment">      在Maven的世界，任何的jar、pom或者war都是以基于这些基本的坐标进行区分</span></div><div class="line"><span class="comment">  --&gt;</span></div><div class="line">  <span class="comment">&lt;!--</span></div><div class="line"><span class="comment">    groupId定义了项目属于哪个组，一般是公司网站反写+项目名</span></div><div class="line"><span class="comment">  --&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.anan.hellomaven<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">  <span class="comment">&lt;!--</span></div><div class="line"><span class="comment">    artifactId定义了当前Maven项目在组中唯一的ID，一般是项目名+模块名</span></div><div class="line"><span class="comment">  --&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>hellomaven-module1<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">  <span class="comment">&lt;!--</span></div><div class="line"><span class="comment">    项目当前版本，SNAPSHOT意为快照，说明该项目还处于开发中，是不稳定的版本</span></div><div class="line"><span class="comment">  --&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line"> </div><div class="line">  <span class="tag">&lt;<span class="name">name</span>&gt;</span>HelloMaven Project<span class="tag">&lt;/<span class="name">name</span>&gt;</span></div><div class="line">  <span class="comment">&lt;!--依赖的包--&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">version</span>&gt;</span>4.7<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">project</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>上面的文件写完后保存，在项目根目录下按住Shift键右击，选择在此处打开命令窗口，输入命令：</p>
+<p><code>mvn compile</code></p>
+<p>执行命令可以看到如下信息，提示项目编译成功。</p>
 <pre><code>[INFO] Compiling 1 source file to F:\MavenTest\HelloMaven\target\classes
 [INFO] -----------------------------------------------------------------
 [INFO] BUILD SUCCESS
@@ -483,8 +431,8 @@ public class HelloMavenTest{
 [INFO] ------------------------------------------------------------------
 </code></pre><p>可以在项目根目录下看到多了一个target文件夹，里面的内容是..\HelloMaven\target\classes\com\anan\hellomaven\HelloMaven.class，也就是HelloMaven.java的编译文件。</p>
 <p>继续执行命令：</p>
-<pre><code>mvn test
-</code></pre><p>可以看到如下信息，提示项目测试成功。</p>
+<p><code>mvn test</code></p>
+<p>可以看到如下信息，提示项目测试成功。</p>
 <pre><code>-------------------------------------------------------
  T E S T S
 -------------------------------------------------------
@@ -501,8 +449,8 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
 [INFO] -----------------------------------------------------------------
 </code></pre><p>这时我们可以在..\HelloMaven\target\surefire-reports目录下看到com.anan.hellomaven.HelloMavenTest.txt文件，这个是测试的结果。</p>
 <p>最后执行命令：</p>
-<pre><code>mvn package
-</code></pre><p>支持命令看到如下信息，提示打包成功：</p>
+<p><code>mvn package</code></p>
+<p>支持命令看到如下信息，提示打包成功：</p>
 <pre><code>-------------------------------------------------------
  T E S T S
 -------------------------------------------------------
@@ -537,23 +485,11 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
 <h3 id="4-2-创建多项目"><a href="#4-2-创建多项目" class="headerlink" title="4.2 创建多项目"></a>4.2 创建多项目</h3><p>一般情况下，我们会将一个项目，分为多个子项目，这样便于项目开发和分工，这些子项目都是一个独立的maven工程，我们把这些子项目放在一个父项目下便于管理，下面我们就创建一个多项目聚合的maven项目。</p>
 <p>大部分同学应该都做过基于ssh的web项目，我们现在就是用maven来创建一个这样的项目。</p>
 <p>我们将这个项目分为如下四部分：</p>
-<pre><code>ssh-parent
-  |-- pom.xml
-  |
-  |-- ssh-domain（实体类，jar）
-  |
-  |-- ssh-dao（数据持久化子项目,jar）
-  |
-  |-- ssh-service（服务类子项目,jar）
-  |
-  |-- ssh-web（web前端子项目,war）
-</code></pre><p>父项目也是maven项目，所以也有pom.xml文件，其他四个子项目中，前三个是普通maven项目，是用maven-archetype-quick来创建，ssh-web是web项目，所以要使用maven-archetype-webapp来创建。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">ssh-parent</div><div class="line">  |-- pom.xml</div><div class="line">  |</div><div class="line">  |-- ssh-domain（实体类，jar）</div><div class="line">  |</div><div class="line">  |-- ssh-dao（数据持久化子项目,jar）</div><div class="line">  |</div><div class="line">  |-- ssh-service（服务类子项目,jar）</div><div class="line">  |</div><div class="line">  |-- ssh-web（web前端子项目,war）</div></pre></td></tr></table></figure>
+<p>父项目也是maven项目，所以也有pom.xml文件，其他四个子项目中，前三个是普通maven项目，是用maven-archetype-quick来创建，ssh-web是web项目，所以要使用maven-archetype-webapp来创建。</p>
 <p>先创建父项目，其方式和上面的单项目创建流程一致，groupId为com.anan.ssh，artifactId为ssh-parent。创建完成后，需要修改pom.xml中的packaging值为pom。</p>
-<pre><code>&lt;groupId&gt;com.anan.ssh&lt;/groupId&gt;
-&lt;artifactId&gt;ssh-parent&lt;/artifactId&gt;
-&lt;version&gt;0.0.1-SNAPSHOT&lt;/version&gt;
-&lt;packaging&gt;pom&lt;/packaging&gt;
-</code></pre><p>因为作为父项目，其packaging必须为pom。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;groupId&gt;com.anan.ssh&lt;/groupId&gt;</div><div class="line">&lt;artifactId&gt;ssh-parent&lt;/artifactId&gt;</div><div class="line">&lt;version&gt;0.0.1-SNAPSHOT&lt;/version&gt;</div><div class="line">&lt;packaging&gt;pom&lt;/packaging&gt;</div></pre></td></tr></table></figure>
+<p>因为作为父项目，其packaging必须为pom。</p>
 <p>下面创建四个子项目，需要注意的是，子项目创建时是创建Maven Module。</p>
 <p>File-New-Other，选择Maven Module；</p>
 <p><img src="http://7xngpc.com1.z0.glb.clouddn.com/vernmult-pro-create-1.png" alt="mutl-create-pro-1"></p>
@@ -564,20 +500,11 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
 <p>ssh-web创建时使用的Archetype为maven-archetype-web。</p>
 <p><img src="http://7xngpc.com1.z0.glb.clouddn.com/vernmult-pro-create-4.png" alt="mutl-create-pro-4"></p>
 <p>五个项目创建完成后，分别查看项目的pom.xml文件。在ssh-parent的pom中我们可以看到如下配置：</p>
-<pre><code>&lt;modules&gt;
-  &lt;module&gt;ssh-domain&lt;/module&gt;
-  &lt;module&gt;ssh-dao&lt;/module&gt;
-  &lt;module&gt;ssh-service&lt;/module&gt;
-  &lt;module&gt;ssh-web&lt;/module&gt;
-&lt;/modules&gt;
-</code></pre><p>这段配置表示ssh-parent这个项目由四个子项目“聚合”而成。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;modules&gt;</div><div class="line">  &lt;module&gt;ssh-domain&lt;/module&gt;</div><div class="line">  &lt;module&gt;ssh-dao&lt;/module&gt;</div><div class="line">  &lt;module&gt;ssh-service&lt;/module&gt;</div><div class="line">  &lt;module&gt;ssh-web&lt;/module&gt;</div><div class="line">&lt;/modules&gt;</div></pre></td></tr></table></figure>
+<p>这段配置表示ssh-parent这个项目由四个子项目“聚合”而成。</p>
 <p>四个子项目的pom中都可以看到如下配置：</p>
-<pre><code>&lt;parent&gt;
-  &lt;groupId&gt;com.anan.ssh&lt;/groupId&gt;
-  &lt;artifactId&gt;ssh-parent&lt;/artifactId&gt;
-  &lt;version&gt;0.0.1-SNAPSHOT&lt;/version&gt;
-&lt;/parent&gt;
-</code></pre><p>这段配置表示项目的父项目为ssh-parent，其可以从父项目中继承一些配置。这些配置是创建项目后自动加入的。单个项目中则不会有类似的配置。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;parent&gt;</div><div class="line">  &lt;groupId&gt;com.anan.ssh&lt;/groupId&gt;</div><div class="line">  &lt;artifactId&gt;ssh-parent&lt;/artifactId&gt;</div><div class="line">  &lt;version&gt;0.0.1-SNAPSHOT&lt;/version&gt;</div><div class="line">&lt;/parent&gt;</div></pre></td></tr></table></figure>
+<p>这段配置表示项目的父项目为ssh-parent，其可以从父项目中继承一些配置。这些配置是创建项目后自动加入的。单个项目中则不会有类似的配置。</p>
 <p>多个项目创建完成后，我们来进行多项目的编译和测试。</p>
 <p>选中ssh-parent项目，右键run as -&gt; maven build</p>
 <p><img src="http://7xngpc.com1.z0.glb.clouddn.com/vernmult-pro-create-6.png" alt="vernmult-pro-create-5"></p>
@@ -603,143 +530,16 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
 <h2 id="5-pom-xml详解"><a href="#5-pom-xml详解" class="headerlink" title="5 pom.xml详解"></a>5 pom.xml详解</h2><p>通过上面的例子，我们可能会有一个疑问：我们的项目并没有指定项目的源代码的位置，maven编译时是如何找到这些文件的位置的呢？这就要从pom.xml文件讲起。</p>
 <p>就像Java中的类隐式继承Object一样，对于pom.xml来说，它隐式继承超级POM。针对Maven3来说，该超级POM位于maven-model-builder-VERSION.jar包中（该jar包位于maven根目录/lib下)解压该jar包，可以在maven-model-builder-VERSION/org/apache/maven/model目录中找到pom-4.0.0.xml，即超级POM。</p>
 <p>该超级POM的配置成为了Maven提倡的约定。该文件的具体内容如下：</p>
-<pre><code>&lt;project&gt;
-  &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
-  &lt;repositories&gt;
-    &lt;repository&gt;
-      &lt;id&gt;central&lt;/id&gt;
-      &lt;name&gt;Central Repository&lt;/name&gt;
-      &lt;url&gt;https://repo.maven.apache.org/maven2&lt;/url&gt;
-      &lt;layout&gt;default&lt;/layout&gt;
-      &lt;snapshots&gt;
-        &lt;enabled&gt;false&lt;/enabled&gt;
-      &lt;/snapshots&gt;
-    &lt;/repository&gt;
-  &lt;/repositories&gt;
-
-  &lt;pluginRepositories&gt;
-    &lt;pluginRepository&gt;
-      &lt;id&gt;central&lt;/id&gt;
-      &lt;name&gt;Central Repository&lt;/name&gt;
-      &lt;url&gt;https://repo.maven.apache.org/maven2&lt;/url&gt;
-      &lt;layout&gt;default&lt;/layout&gt;
-      &lt;snapshots&gt;
-        &lt;enabled&gt;false&lt;/enabled&gt;
-      &lt;/snapshots&gt;
-      &lt;releases&gt;
-        &lt;updatePolicy&gt;never&lt;/updatePolicy&gt;
-      &lt;/releases&gt;
-    &lt;/pluginRepository&gt;
-  &lt;/pluginRepositories&gt;
-
-  &lt;build&gt;
-    &lt;directory&gt;${project.basedir}/target&lt;/directory&gt;
-    &lt;outputDirectory&gt;${project.build.directory}/classes&lt;/outputDirectory&gt;
-    &lt;finalName&gt;${project.artifactId}-${project.version}&lt;/finalName&gt;
-    &lt;testOutputDirectory&gt;${project.build.directory}/test-classes&lt;   /testOutputDirectory&gt;
-    &lt;sourceDirectory&gt;${project.basedir}/src/main/java&lt;/sourceDirectory&gt;
-    &lt;scriptSourceDirectory&gt;${project.basedir}/src/main/scripts&lt;   /scriptSourceDirectory&gt;
-    &lt;testSourceDirectory&gt;${project.basedir}/src/test/java&lt;    /testSourceDirectory&gt;
-    &lt;resources&gt;
-      &lt;resource&gt;
-        &lt;directory&gt;${project.basedir}/src/main/resources&lt;/directory&gt;
-      &lt;/resource&gt;
-    &lt;/resources&gt;
-    &lt;testResources&gt;
-      &lt;testResource&gt;
-        &lt;directory&gt;${project.basedir}/src/test/resources&lt;/directory&gt;
-      &lt;/testResource&gt;
-    &lt;/testResources&gt;
-    &lt;pluginManagement&gt;
-      &lt;!-- NOTE: These plugins will be removed from future versions of the    super POM --&gt;
-      &lt;!-- They are kept for the moment as they are very unlikely to    conflict with lifecycle mappings (MNG-4453) --&gt;
-      &lt;plugins&gt;
-        &lt;plugin&gt;
-          &lt;artifactId&gt;maven-antrun-plugin&lt;/artifactId&gt;
-          &lt;version&gt;1.3&lt;/version&gt;
-        &lt;/plugin&gt;
-        &lt;plugin&gt;
-          &lt;artifactId&gt;maven-assembly-plugin&lt;/artifactId&gt;
-          &lt;version&gt;2.2-beta-5&lt;/version&gt;
-        &lt;/plugin&gt;
-        &lt;plugin&gt;
-          &lt;artifactId&gt;maven-dependency-plugin&lt;/artifactId&gt;
-          &lt;version&gt;2.8&lt;/version&gt;
-        &lt;/plugin&gt;
-        &lt;plugin&gt;
-          &lt;artifactId&gt;maven-release-plugin&lt;/artifactId&gt;
-          &lt;version&gt;2.3.2&lt;/version&gt;
-        &lt;/plugin&gt;
-      &lt;/plugins&gt;
-    &lt;/pluginManagement&gt;
-  &lt;/build&gt;
-
-  &lt;reporting&gt;
-    &lt;outputDirectory&gt;${project.build.directory}/site&lt;/outputDirectory&gt;
-  &lt;/reporting&gt;
-
-  &lt;profiles&gt;
-    &lt;!-- NOTE: The release profile will be removed from future versions of    the super POM --&gt;
-    &lt;profile&gt;
-      &lt;id&gt;release-profile&lt;/id&gt;
-
-      &lt;activation&gt;
-        &lt;property&gt;
-          &lt;name&gt;performRelease&lt;/name&gt;
-          &lt;value&gt;true&lt;/value&gt;
-        &lt;/property&gt;
-      &lt;/activation&gt;
-
-      &lt;build&gt;
-        &lt;plugins&gt;
-          &lt;plugin&gt;
-            &lt;inherited&gt;true&lt;/inherited&gt;
-            &lt;artifactId&gt;maven-source-plugin&lt;/artifactId&gt;
-            &lt;executions&gt;
-              &lt;execution&gt;
-                &lt;id&gt;attach-sources&lt;/id&gt;
-                &lt;goals&gt;
-                  &lt;goal&gt;jar&lt;/goal&gt;
-                &lt;/goals&gt;
-              &lt;/execution&gt;
-            &lt;/executions&gt;
-          &lt;/plugin&gt;
-          &lt;plugin&gt;
-            &lt;inherited&gt;true&lt;/inherited&gt;
-            &lt;artifactId&gt;maven-javadoc-plugin&lt;/artifactId&gt;
-            &lt;executions&gt;
-              &lt;execution&gt;
-                &lt;id&gt;attach-javadocs&lt;/id&gt;
-                &lt;goals&gt;
-                  &lt;goal&gt;jar&lt;/goal&gt;
-                &lt;/goals&gt;
-              &lt;/execution&gt;
-            &lt;/executions&gt;
-          &lt;/plugin&gt;
-          &lt;plugin&gt;
-            &lt;inherited&gt;true&lt;/inherited&gt;
-            &lt;artifactId&gt;maven-deploy-plugin&lt;/artifactId&gt;
-            &lt;configuration&gt;
-              &lt;updateReleaseInfo&gt;true&lt;/updateReleaseInfo&gt;
-            &lt;/configuration&gt;
-          &lt;/plugin&gt;
-        &lt;/plugins&gt;
-      &lt;/build&gt;
-    &lt;/profile&gt;
-  &lt;/profiles&gt;
-&lt;/project&gt;
-</code></pre><p>我们可以在这个pom中看到build标签下有这样的配置：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">project</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">modelVersion</span>&gt;</span>4.0.0<span class="tag">&lt;/<span class="name">modelVersion</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">repositories</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">repository</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">id</span>&gt;</span>central<span class="tag">&lt;/<span class="name">id</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">name</span>&gt;</span>Central Repository<span class="tag">&lt;/<span class="name">name</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">url</span>&gt;</span>https://repo.maven.apache.org/maven2<span class="tag">&lt;/<span class="name">url</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">layout</span>&gt;</span>default<span class="tag">&lt;/<span class="name">layout</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">snapshots</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">enabled</span>&gt;</span>false<span class="tag">&lt;/<span class="name">enabled</span>&gt;</span></div><div class="line">      <span class="tag">&lt;/<span class="name">snapshots</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">repository</span>&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">repositories</span>&gt;</span></div><div class="line"></div><div class="line">  <span class="tag">&lt;<span class="name">pluginRepositories</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">pluginRepository</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">id</span>&gt;</span>central<span class="tag">&lt;/<span class="name">id</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">name</span>&gt;</span>Central Repository<span class="tag">&lt;/<span class="name">name</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">url</span>&gt;</span>https://repo.maven.apache.org/maven2<span class="tag">&lt;/<span class="name">url</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">layout</span>&gt;</span>default<span class="tag">&lt;/<span class="name">layout</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">snapshots</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">enabled</span>&gt;</span>false<span class="tag">&lt;/<span class="name">enabled</span>&gt;</span></div><div class="line">      <span class="tag">&lt;/<span class="name">snapshots</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">releases</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">updatePolicy</span>&gt;</span>never<span class="tag">&lt;/<span class="name">updatePolicy</span>&gt;</span></div><div class="line">      <span class="tag">&lt;/<span class="name">releases</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">pluginRepository</span>&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">pluginRepositories</span>&gt;</span></div><div class="line"></div><div class="line">  <span class="tag">&lt;<span class="name">build</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">directory</span>&gt;</span>$&#123;project.basedir&#125;/target<span class="tag">&lt;/<span class="name">directory</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">outputDirectory</span>&gt;</span>$&#123;project.build.directory&#125;/classes<span class="tag">&lt;/<span class="name">outputDirectory</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">finalName</span>&gt;</span>$&#123;project.artifactId&#125;-$&#123;project.version&#125;<span class="tag">&lt;/<span class="name">finalName</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">testOutputDirectory</span>&gt;</span>$&#123;project.build.directory&#125;/test-classes<span class="tag">&lt;   /<span class="attr">testOutputDirectory</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">sourceDirectory</span>&gt;</span>$&#123;project.basedir&#125;/src/main/java<span class="tag">&lt;/<span class="name">sourceDirectory</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">scriptSourceDirectory</span>&gt;</span>$&#123;project.basedir&#125;/src/main/scripts<span class="tag">&lt;   /<span class="attr">scriptSourceDirectory</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">testSourceDirectory</span>&gt;</span>$&#123;project.basedir&#125;/src/test/java<span class="tag">&lt;    /<span class="attr">testSourceDirectory</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">resources</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">resource</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">directory</span>&gt;</span>$&#123;project.basedir&#125;/src/main/resources<span class="tag">&lt;/<span class="name">directory</span>&gt;</span></div><div class="line">      <span class="tag">&lt;/<span class="name">resource</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">resources</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">testResources</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">testResource</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">directory</span>&gt;</span>$&#123;project.basedir&#125;/src/test/resources<span class="tag">&lt;/<span class="name">directory</span>&gt;</span></div><div class="line">      <span class="tag">&lt;/<span class="name">testResource</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">testResources</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">pluginManagement</span>&gt;</span></div><div class="line">      <span class="comment">&lt;!-- <span class="doctag">NOTE:</span> These plugins will be removed from future versions of the    super POM --&gt;</span></div><div class="line">      <span class="comment">&lt;!-- They are kept for the moment as they are very unlikely to    conflict wilifecycle mappings (MNG-4453) --&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">plugins</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></div><div class="line">          <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven-antrun-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">          <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.3<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></div><div class="line">          <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven-assembly-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">          <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.2-beta-5<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></div><div class="line">          <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven-dependency-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">          <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.8<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></div><div class="line">          <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven-release-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">          <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.3.2<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></div><div class="line">      <span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">pluginManagement</span>&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">build</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">reporting</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">outputDirectory</span>&gt;</span>$&#123;project.build.directory&#125;/site<span class="tag">&lt;/<span class="name">outputDirectory</span>&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">reporting</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">profiles</span>&gt;</span></div><div class="line">    <span class="comment">&lt;!-- <span class="doctag">NOTE:</span> The release profile will be removed from future versions of    the supPOM --&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">profile</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">id</span>&gt;</span>release-profile<span class="tag">&lt;/<span class="name">id</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">activation</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">property</span>&gt;</span></div><div class="line">          <span class="tag">&lt;<span class="name">name</span>&gt;</span>performRelease<span class="tag">&lt;/<span class="name">name</span>&gt;</span></div><div class="line">          <span class="tag">&lt;<span class="name">value</span>&gt;</span>true<span class="tag">&lt;/<span class="name">value</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line">      <span class="tag">&lt;/<span class="name">activation</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">build</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">plugins</span>&gt;</span></div><div class="line">          <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">inherited</span>&gt;</span>true<span class="tag">&lt;/<span class="name">inherited</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven-source-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">executions</span>&gt;</span></div><div class="line">              <span class="tag">&lt;<span class="name">execution</span>&gt;</span></div><div class="line">                <span class="tag">&lt;<span class="name">id</span>&gt;</span>attach-sources<span class="tag">&lt;/<span class="name">id</span>&gt;</span></div><div class="line">                <span class="tag">&lt;<span class="name">goals</span>&gt;</span></div><div class="line">                  <span class="tag">&lt;<span class="name">goal</span>&gt;</span>jar<span class="tag">&lt;/<span class="name">goal</span>&gt;</span></div><div class="line">                <span class="tag">&lt;/<span class="name">goals</span>&gt;</span></div><div class="line">              <span class="tag">&lt;/<span class="name">execution</span>&gt;</span></div><div class="line">            <span class="tag">&lt;/<span class="name">executions</span>&gt;</span></div><div class="line">          <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></div><div class="line">          <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">inherited</span>&gt;</span>true<span class="tag">&lt;/<span class="name">inherited</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven-javadoc-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">executions</span>&gt;</span></div><div class="line">              <span class="tag">&lt;<span class="name">execution</span>&gt;</span></div><div class="line">                <span class="tag">&lt;<span class="name">id</span>&gt;</span>attach-javadocs<span class="tag">&lt;/<span class="name">id</span>&gt;</span></div><div class="line">                <span class="tag">&lt;<span class="name">goals</span>&gt;</span></div><div class="line">                  <span class="tag">&lt;<span class="name">goal</span>&gt;</span>jar<span class="tag">&lt;/<span class="name">goal</span>&gt;</span></div><div class="line">                <span class="tag">&lt;/<span class="name">goals</span>&gt;</span></div><div class="line">              <span class="tag">&lt;/<span class="name">execution</span>&gt;</span></div><div class="line">            <span class="tag">&lt;/<span class="name">executions</span>&gt;</span></div><div class="line">          <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></div><div class="line">          <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">inherited</span>&gt;</span>true<span class="tag">&lt;/<span class="name">inherited</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven-deploy-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></div><div class="line">              <span class="tag">&lt;<span class="name">updateReleaseInfo</span>&gt;</span>true<span class="tag">&lt;/<span class="name">updateReleaseInfo</span>&gt;</span></div><div class="line">            <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></div><div class="line">          <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></div><div class="line">      <span class="tag">&lt;/<span class="name">build</span>&gt;</span></div><div class="line"></div><div class="line">    <span class="tag">&lt;/<span class="name">profile</span>&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">profiles</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">project</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>我们可以在这个pom中看到build标签下有这样的配置：</p>
 <pre><code>&lt;sourceDirectory&gt;${project.basedir}/src/main/java&lt;/sourceDirectory&gt;
 </code></pre><p>这个就是用来配置源代码的位置，maven进行编译时就会到此目录下查找源代码，并将编译的文件放在target目录下。directory配置了编译文件目录的位置。</p>
   <directory>${project.basedir}/target</directory>
 
 <p>在pom文件中，我们需要关注如下一些标签：</p>
 <h3 id="5-1-坐标"><a href="#5-1-坐标" class="headerlink" title="5.1 坐标"></a>5.1 坐标</h3><p>Maven坐标为各种构件引入了秩序，任何一个构件都必须明确定义自己的坐标，而一组Maven坐标是通过一些元素定义的，它们是groupId,artifactId,version,packaging,class-sifer。下面是一组坐标定义：</p>
-<pre><code>&lt;groupId&gt;com.mycompany.app&lt;/groupId&gt;  
-&lt;artifactId&gt;my-app&lt;/artifactId&gt;  
-&lt;packaging&gt;jar&lt;/packaging&gt;  
-&lt;version&gt;0.0.1-SNAPSHOT&lt;/version&gt;  
-</code></pre><p>下面讲解一下各个坐标元素：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;groupId&gt;com.mycompany.app&lt;/groupId&gt;  </div><div class="line">&lt;artifactId&gt;my-app&lt;/artifactId&gt;  </div><div class="line">&lt;packaging&gt;jar&lt;/packaging&gt;  </div><div class="line">&lt;version&gt;0.0.1-SNAPSHOT&lt;/version&gt;</div></pre></td></tr></table></figure>
+<p>下面讲解一下各个坐标元素：</p>
 <p><strong>groupId</strong> ：定义当前Maven项目隶属的实际项目。首先，Maven项目和实际项目不一定是一对一的关系。比如SpringFrameWork这一实际项目，其对应的Maven项目会有很多，如spring-core,spring-context等。这是由于Maven中模块的概念，因此，一个实际项目往往会被划分成很多模块。其次，groupId不应该对应项目隶属的组织或公司。原因很简单，一个组织下会有很多实际项目，如果groupId只定义到组织级别，而后面我们会看到，artifactId只能定义Maven项目（模块），那么实际项目这个层次将难以定义。最后，groupId的表示方式与Java包名的表达方式类似，通常与域名反向一一对应。</p>
 <p><strong>artifactId</strong> : 该元素定义当前实际项目中的一个Maven项目（模块），推荐的做法是使用实际项目名称作为artifactId的前缀。比如上例中的my-app。</p>
 <p><strong>version</strong> : 该元素定义Maven项目当前的版本</p>
@@ -761,14 +561,8 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
 <p>provided: 已提供依赖范围。使用此依赖范围的Maven依赖，对于编译和测试classpath有效，但在运行时无效。典型的例子是servlet-api，编译和测试项目的时候需要该依赖，但在运行项目的时候，由于容器已经提供，就不需要Maven重复地引入一遍。</p>
 <p>runtime: 运行时依赖范围。使用此依赖范围的Maven依赖，对于测试和运行classpath有效，但在编译主代码时无效。典型的例子是JDBC驱动实现，项目主代码的编译只需要JDK提供的JDBC接口，只有在执行测试或者运行项目的时候才需要实现上述接口的具体JDBC驱动。</p>
 <p>system: 系统依赖范围。该依赖与三种classpath的关系，和provided依赖范围完全一致。但是，使用system范围依赖时必须通过systemPath元素显式地指定依赖文件的路径。由于此类依赖不是通过Maven仓库解析的，而且往往与本机系统绑定，可能造成构建的不可移植，因此应该谨慎使用。systemPath元素可以引用环境变量，如：</p>
-<pre><code>&lt;dependency&gt;  
-  &lt;groupId&gt;javax.sql&lt;/groupId&gt;  
-  &lt;artifactId&gt;jdbc-stdext&lt;/artifactId&gt;  
-  &lt;version&gt;2.0&lt;/version&gt;  
-  &lt;scope&gt;&lt;/scope&gt;  
-  &lt;systemPath&gt;${java.home}/lib/rt.jar&lt;/systemPath&gt;  
-&lt;/dependency&gt;       
-</code></pre><p>import(Maven 2.0.9及以上): 导入依赖范围。该依赖范围不会对三种classpath产生实际的影响，稍后会介绍到。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span>  </div><div class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>javax.sql<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span>  </div><div class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jdbc-stdext<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span>  </div><div class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span>  </div><div class="line">  <span class="tag">&lt;<span class="name">scope</span>&gt;</span><span class="tag">&lt;/<span class="name">scope</span>&gt;</span>  </div><div class="line">  <span class="tag">&lt;<span class="name">systemPath</span>&gt;</span>$&#123;java.home&#125;/lib/rt.jar<span class="tag">&lt;/<span class="name">systemPath</span>&gt;</span>  </div><div class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>import(Maven 2.0.9及以上): 导入依赖范围。该依赖范围不会对三种classpath产生实际的影响，稍后会介绍到。</p>
 <h3 id="5-3-仓库"><a href="#5-3-仓库" class="headerlink" title="5.3 仓库"></a>5.3 仓库</h3><h4 id="5-3-1-仓库简介"><a href="#5-3-1-仓库简介" class="headerlink" title="5.3.1 仓库简介"></a>5.3.1 仓库简介</h4><p>　　没有 Maven 时，项目用到的 .jar 文件通常需要拷贝到 /lib 目录，项目多了，拷贝的文件副本就多了，占用磁盘空间，且难于管理。Maven 使用一个称之为仓库的目录，根据构件的坐标统一存储这些构件的唯一副本，在项目中通过依赖声明，可以方便的引用构件。</p>
 <h4 id="5-3-2-仓库的布局"><a href="#5-3-2-仓库的布局" class="headerlink" title="5.3.2 仓库的布局"></a>5.3.2 仓库的布局</h4><p>构件都有唯一的坐标，Maven 根据坐标管理构件的存储。如以下对 spring-core-4.1.0 的存储：</p>
 <p><img src="http://7xngpc.com1.z0.glb.clouddn.com/vernartifact-1.png" alt="仓库布局">   文件路径对应了：groupId/artifactId/version/artifactId-version.packaging</p>
@@ -777,103 +571,22 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
 <p>通过修改 %MAVEN_HOME%/conf/settings.xml （或者：${user.home}/.m2/settings.xml，针对当前用户（推荐））配置文件可以更改本地仓库的位置。这个文件的配置会在后文中细讲。</p>
 <h5 id="5-3-3-2-中央仓库"><a href="#5-3-3-2-中央仓库" class="headerlink" title="5.3.3.2 中央仓库"></a>5.3.3.2 中央仓库</h5><p>安装完 Maven ，本地仓库几乎是空的，这时需要从远程仓库下载所需构件。Maven 配置了一个默认的远程仓库，即中央仓库，找到 %MAVEN_HOME%/lib/maven-model-builder-3.2.1.jar，打开 org/apache/maven/model/pom-4.0.0.xml 超级POM：</p>
 <h5 id="5-3-3-3-在项目中添加其他远程仓库"><a href="#5-3-3-3-在项目中添加其他远程仓库" class="headerlink" title="5.3.3.3 在项目中添加其他远程仓库"></a>5.3.3.3 在项目中添加其他远程仓库</h5><p>当中央仓库找不到所需的构件时，我们可以配置 pom.xml ，添加其它的远程仓库。</p>
-<pre><code>&lt;repositories&gt;
-   &lt;repository&gt;
-       &lt;id&gt;Sonatype&lt;/id&gt;
-       &lt;name&gt;Sonatype Repository&lt;/name&gt;
-       &lt;url&gt;http://repository.sonatype.org/content/groups/public/&lt;/url&gt;
-       &lt;layout&gt;default&lt;/layout&gt;
-       &lt;releases&gt;
-           &lt;enabled&gt;true&lt;/enabled&gt;
-       &lt;/releases&gt;
-       &lt;snapshots&gt;
-           &lt;enabled&gt;false&lt;/enabled&gt;
-       &lt;/snapshots&gt;
-   &lt;/repository&gt;
-&lt;/repositories&gt;
-</code></pre><p>其中 id 必须唯一，若不唯一，如设置为 central 将覆盖中央仓库的配置。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">repositories</span>&gt;</span></div><div class="line">   <span class="tag">&lt;<span class="name">repository</span>&gt;</span></div><div class="line">       <span class="tag">&lt;<span class="name">id</span>&gt;</span>Sonatype<span class="tag">&lt;/<span class="name">id</span>&gt;</span></div><div class="line">       <span class="tag">&lt;<span class="name">name</span>&gt;</span>Sonatype Repository<span class="tag">&lt;/<span class="name">name</span>&gt;</span></div><div class="line">       <span class="tag">&lt;<span class="name">url</span>&gt;</span>http://repository.sonatype.org/content/groups/public/<span class="tag">&lt;/<span class="name">url</span>&gt;</span></div><div class="line">       <span class="tag">&lt;<span class="name">layout</span>&gt;</span>default<span class="tag">&lt;/<span class="name">layout</span>&gt;</span></div><div class="line">       <span class="tag">&lt;<span class="name">releases</span>&gt;</span></div><div class="line">           <span class="tag">&lt;<span class="name">enabled</span>&gt;</span>true<span class="tag">&lt;/<span class="name">enabled</span>&gt;</span></div><div class="line">       <span class="tag">&lt;/<span class="name">releases</span>&gt;</span></div><div class="line">       <span class="tag">&lt;<span class="name">snapshots</span>&gt;</span></div><div class="line">           <span class="tag">&lt;<span class="name">enabled</span>&gt;</span>false<span class="tag">&lt;/<span class="name">enabled</span>&gt;</span></div><div class="line">       <span class="tag">&lt;/<span class="name">snapshots</span>&gt;</span></div><div class="line">   <span class="tag">&lt;/<span class="name">repository</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">repositories</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>其中 id 必须唯一，若不唯一，如设置为 central 将覆盖中央仓库的配置。</p>
 <h4 id="5-3-4-配置仓库的标签"><a href="#5-3-4-配置仓库的标签" class="headerlink" title="5.3.4 配置仓库的标签"></a>5.3.4 配置仓库的标签</h4><p>下面两个标签分别配置远程仓库和插件远程仓库</p>
-<pre><code>&lt;repositories&gt;
-  &lt;repository&gt;
-    &lt;id&gt;central&lt;/id&gt;
-    &lt;name&gt;Central Repository&lt;/name&gt;
-    &lt;url&gt;https://repo.maven.apache.org/maven2&lt;/url&gt;
-    &lt;layout&gt;default&lt;/layout&gt;
-    &lt;snapshots&gt;
-      &lt;enabled&gt;false&lt;/enabled&gt;
-    &lt;/snapshots&gt;
-  &lt;/repository&gt;
-&lt;/repositories&gt;
-
-&lt;pluginRepositories&gt;
-  &lt;pluginRepository&gt;
-    &lt;id&gt;central&lt;/id&gt;
-    &lt;name&gt;Central Repository&lt;/name&gt;
-    &lt;url&gt;https://repo.maven.apache.org/maven2&lt;/url&gt;
-    &lt;layout&gt;default&lt;/layout&gt;
-    &lt;snapshots&gt;
-      &lt;enabled&gt;false&lt;/enabled&gt;
-    &lt;/snapshots&gt;
-    &lt;releases&gt;
-      &lt;updatePolicy&gt;never&lt;/updatePolicy&gt;
-    &lt;/releases&gt;
-  &lt;/pluginRepository&gt;
-&lt;/pluginRepositories&gt;
-</code></pre><p>也可以通过setttings.xml文件配置仓库地址：</p>
-<pre><code>&lt;profiles&gt;
-    &lt;profile&gt;
-      &lt;id&gt;ChinaMaven&lt;/id&gt;
-      &lt;repositories&gt;
-        &lt;repository&gt;
-          &lt;id&gt;ChinaMaven&lt;/id&gt;
-          &lt;name&gt;ChinaMaven&lt;/name&gt;
-          &lt;url&gt;http://maven.net.cn/content/groups/public/&lt;/url&gt;
-          &lt;layout&gt;default&lt;/layout&gt;
-          &lt;snapshotPolicy&gt;never&lt;/snapshotPolicy&gt;
-        &lt;/repository&gt;
-      &lt;/repositories&gt;
-      &lt;pluginRepositories&gt;
-        &lt;pluginRepository&gt;
-          &lt;id&gt;pluginMaven&lt;/id&gt;
-          &lt;name&gt;pluginMaven&lt;/name&gt;
-          &lt;url&gt;http://maven.net.cn/content/groups/public/&lt;/url&gt;
-          &lt;layout&gt;default&lt;/layout&gt;
-          &lt;snapshotPolicy&gt;always&lt;/snapshotPolicy&gt;
-        &lt;/pluginRepository&gt;
-      &lt;/pluginRepositories&gt;
-    &lt;/profile&gt;
-&lt;/profiles&gt;
-&lt;activeProfiles&gt;
-  &lt;activeProfile&gt;ChinaMaven&lt;/activeProfile&gt;
-&lt;/activeProfiles&gt;
-</code></pre><h5 id="镜像仓库"><a href="#镜像仓库" class="headerlink" title="镜像仓库"></a>镜像仓库</h5><p>镜像仓库可以理解为仓库的副本，从仓库中可以找到的构件，从镜像仓库中也可以找到。比如针对中央仓库 <a href="http://repo1.maven.org/maven2" target="_blank" rel="external">http://repo1.maven.org/maven2</a> ，在中国有它的镜像仓库，这样我们直接访问镜像仓库，更快更稳定。</p>
-<pre><code>&lt;settings&gt;
-  ...
-  &lt;mirrors&gt;
-      &lt;mirror&gt;
-          &lt;id&gt;maven.net.cn&lt;/id&gt;
-          &lt;name&gt;central mirror in china&lt;/name&gt;
-          &lt;url&gt;http://maven.net.cn/content/groups/public&lt;/url&gt;
-          &lt;mirrorOf&gt;central&lt;/mirrorOf&gt;    &lt;!  表明为central中央仓库配置镜像仓库--&gt;
-      &lt;/mirror&gt;
-  &lt;/mirrors&gt;
-  ...
-&lt;/settings&gt;
-</code></pre><p>　　其中，<mirrorof> 指明了为哪个仓库配置镜像，可以使用通配符如：<mirrorof>*</mirrorof>，或者 <mirrorof>repo1,repo2</mirrorof> 等进行匹配。一旦配置了镜像，所有针对原仓库的访问将转到镜像仓库的访问，原仓库将不再能直接访问，即使镜像仓库不稳定或停用。在搭建私服的时候，我们通常为所有仓库设置镜像为私服地址，通过私服对所有仓库进行统一管理。</mirrorof></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">&lt;repositories&gt;</div><div class="line">  &lt;repository&gt;</div><div class="line">    &lt;id&gt;central&lt;/id&gt;</div><div class="line">    &lt;name&gt;Central Repository&lt;/name&gt;</div><div class="line">    &lt;url&gt;https://repo.maven.apache.org/maven2&lt;/url&gt;</div><div class="line">    &lt;layout&gt;default&lt;/layout&gt;</div><div class="line">    &lt;snapshots&gt;</div><div class="line">      &lt;enabled&gt;false&lt;/enabled&gt;</div><div class="line">    &lt;/snapshots&gt;</div><div class="line">  &lt;/repository&gt;</div><div class="line">&lt;/repositories&gt;</div><div class="line">&lt;pluginRepositories&gt;</div><div class="line">  &lt;pluginRepository&gt;</div><div class="line">    &lt;id&gt;central&lt;/id&gt;</div><div class="line">    &lt;name&gt;Central Repository&lt;/name&gt;</div><div class="line">    &lt;url&gt;https://repo.maven.apache.org/maven2&lt;/url&gt;</div><div class="line">    &lt;layout&gt;default&lt;/layout&gt;</div><div class="line">    &lt;snapshots&gt;</div><div class="line">      &lt;enabled&gt;false&lt;/enabled&gt;</div><div class="line">    &lt;/snapshots&gt;</div><div class="line">    &lt;releases&gt;</div><div class="line">      &lt;updatePolicy&gt;never&lt;/updatePolicy&gt;</div><div class="line">    &lt;/releases&gt;</div><div class="line">  &lt;/pluginRepository&gt;</div><div class="line">&lt;/pluginRepositories&gt;</div></pre></td></tr></table></figure>
+<p>也可以通过setttings.xml文件配置仓库地址：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">&lt;profiles&gt;</div><div class="line">    &lt;profile&gt;</div><div class="line">      &lt;id&gt;ChinaMaven&lt;/id&gt;</div><div class="line">      &lt;repositories&gt;</div><div class="line">        &lt;repository&gt;</div><div class="line">          &lt;id&gt;ChinaMaven&lt;/id&gt;</div><div class="line">          &lt;name&gt;ChinaMaven&lt;/name&gt;</div><div class="line">          &lt;url&gt;http://maven.net.cn/content/groups/public/&lt;/url&gt;</div><div class="line">          &lt;layout&gt;default&lt;/layout&gt;</div><div class="line">          &lt;snapshotPolicy&gt;never&lt;/snapshotPolicy&gt;</div><div class="line">        &lt;/repository&gt;</div><div class="line">      &lt;/repositories&gt;</div><div class="line">      &lt;pluginRepositories&gt;</div><div class="line">        &lt;pluginRepository&gt;</div><div class="line">          &lt;id&gt;pluginMaven&lt;/id&gt;</div><div class="line">          &lt;name&gt;pluginMaven&lt;/name&gt;</div><div class="line">          &lt;url&gt;http://maven.net.cn/content/groups/public/&lt;/url&gt;</div><div class="line">          &lt;layout&gt;default&lt;/layout&gt;</div><div class="line">          &lt;snapshotPolicy&gt;always&lt;/snapshotPolicy&gt;</div><div class="line">        &lt;/pluginRepository&gt;</div><div class="line">      &lt;/pluginRepositories&gt;</div><div class="line">    &lt;/profile&gt;</div><div class="line">&lt;/profiles&gt;</div><div class="line">&lt;activeProfiles&gt;</div><div class="line">  &lt;activeProfile&gt;ChinaMaven&lt;/activeProfile&gt;</div><div class="line">&lt;/activeProfiles&gt;</div></pre></td></tr></table></figure>
+<h5 id="镜像仓库"><a href="#镜像仓库" class="headerlink" title="镜像仓库"></a>镜像仓库</h5><p>镜像仓库可以理解为仓库的副本，从仓库中可以找到的构件，从镜像仓库中也可以找到。比如针对中央仓库 <a href="http://repo1.maven.org/maven2" target="_blank" rel="external">http://repo1.maven.org/maven2</a> ，在中国有它的镜像仓库，这样我们直接访问镜像仓库，更快更稳定。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">&lt;settings&gt;</div><div class="line">  ...</div><div class="line">  &lt;mirrors&gt;</div><div class="line">      &lt;mirror&gt;</div><div class="line">          &lt;id&gt;maven.net.cn&lt;/id&gt;</div><div class="line">          &lt;name&gt;central mirror in china&lt;/name&gt;</div><div class="line">          &lt;url&gt;http://maven.net.cn/content/groups/public&lt;/url&gt;</div><div class="line">          &lt;mirrorOf&gt;central&lt;/mirrorOf&gt;    &lt;!  表明为central中央仓库配置镜像仓库--&gt;</div><div class="line">      &lt;/mirror&gt;</div><div class="line">  &lt;/mirrors&gt;</div><div class="line">  ...</div><div class="line">&lt;/settings&gt;</div></pre></td></tr></table></figure>
+<p>其中，<mirrorof> 指明了为哪个仓库配置镜像，可以使用通配符如：<mirrorof>*</mirrorof>，或者 <mirrorof>repo1,repo2</mirrorof> 等进行匹配。一旦配置了镜像，所有针对原仓库的访问将转到镜像仓库的访问，原仓库将不再能直接访问，即使镜像仓库不稳定或停用。在搭建私服的时候，我们通常为所有仓库设置镜像为私服地址，通过私服对所有仓库进行统一管理。</mirrorof></p>
 <h3 id="5-4-build标签"><a href="#5-4-build标签" class="headerlink" title="5.4 build标签"></a>5.4 build标签</h3><p>build标签中用于配置编译时使用的一些配置，比如源码位置、测试代码位置、编译结果输出位置、插件的使用等。build标签是比较重要的标签，可以包含很多的内容。</p>
 <p>这一块的内容较多，就不展开讲了，刚开始时也不太用得到，等后面用到的时候再去查。</p>
 <h3 id="5-5-properties标签"><a href="#5-5-properties标签" class="headerlink" title="5.5 properties标签"></a>5.5 properties标签</h3><p>此标签中可以定义一些常量，比如某个依赖的版本。</p>
-<pre><code>&lt;properties&gt;
-  &lt;project.build.sourceEncoding&gt;UTF-8&lt;/project.build.sourceEncoding&gt;
-  &lt;spring.version&gt;1.2.6&lt;/spring.version&gt;
-&lt;/properties&gt;
-</code></pre><p>后面使用到依赖于spring的构件的时候，可以使用如下方式设置版本号。如果有多处使用此版本，只需在properties标签中修改，可以省事。</p>
-<pre><code>&lt;dependency&gt;
-  &lt;groupId&gt;org.springframework&lt;/groupId&gt;
-  &lt;artifactId&gt;spring-core&lt;/artifactId&gt;
-  &lt;version&gt;${spring.version}&lt;/version&gt;
-&lt;/dependency&gt;
-</code></pre><p><a href="http://blog.csdn.net/sunzhenhua0608/article/details/32938533" target="_blank" rel="external">这篇博客</a>中有一个比较全的pom文件，里面包含了几乎所有的pom标签，可以参考一下。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;properties&gt;</div><div class="line">  &lt;project.build.sourceEncoding&gt;UTF-8&lt;/project.build.sourceEncoding&gt;</div><div class="line">  &lt;spring.version&gt;1.2.6&lt;/spring.version&gt;</div><div class="line">&lt;/properties&gt;</div></pre></td></tr></table></figure>
+<p>后面使用到依赖于spring的构件的时候，可以使用如下方式设置版本号。如果有多处使用此版本，只需在properties标签中修改，可以省事。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;dependency&gt;</div><div class="line">  &lt;groupId&gt;org.springframework&lt;/groupId&gt;</div><div class="line">  &lt;artifactId&gt;spring-core&lt;/artifactId&gt;</div><div class="line">  &lt;version&gt;$&#123;spring.version&#125;&lt;/version&gt;</div><div class="line">&lt;/dependency&gt;</div></pre></td></tr></table></figure>
+<p><a href="http://blog.csdn.net/sunzhenhua0608/article/details/32938533" target="_blank" rel="external">这篇博客</a>中有一个比较全的pom文件，里面包含了几乎所有的pom标签，可以参考一下。</p>
 <h2 id="6-生命周期与插件"><a href="#6-生命周期与插件" class="headerlink" title="6 生命周期与插件"></a>6 生命周期与插件</h2><h3 id="6-1-生命周期模型"><a href="#6-1-生命周期模型" class="headerlink" title="6.1 生命周期模型"></a>6.1 生命周期模型</h3><p>在maven出现之前，项目构建的生命周期已经存在，软件开发人员每天都在对项目进行清理、编译、测试和部署。可能大家使用的方式有所不同。</p>
 <p>Maven的生命周期就是对所有的构建过程进行抽象和统一。Maven从项目和构建工具中学习和反思，总结了一套高度完善的、易于扩展的生命周期。这个生命周期包含了项目的情理、初始化、编译、测试、打包、集成测试、验证、部署和站点生成等几乎所有构建步骤。</p>
 <p>Maven的生命周期是抽象的，也就是说生命周期本身不做任何实际的工作，实际的任务由插件来完成。<br>Maven的生命周期有三套，且是相互独立的，它们分别是clean、default和site。clean生命周期的目的是清理项目，default生命周期的项目是构建项目，而site生命周期的目的是建立项目站点。</p>
@@ -1003,35 +716,10 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
 <p>值得注意的是，执行一个生命周期阶段时，这个阶段之前的阶段上绑定的插件都将被执行。</p>
 <h4 id="6-3-1-内置的绑定"><a href="#6-3-1-内置的绑定" class="headerlink" title="6.3.1 内置的绑定"></a>6.3.1 内置的绑定</h4><p>Maven对一些生命周期的阶段（phase）默认绑定了插件目标，因为不同的项目有jar、war、pom等不同的打包方式，因此对应的有不同的绑定关系，其中针对default生命周期的jar包打包方式的绑定关系如下：</p>
 <h4 id="6-3-2-自定义绑定"><a href="#6-3-2-自定义绑定" class="headerlink" title="6.3.2 自定义绑定"></a>6.3.2 自定义绑定</h4><p>用户可以根据需要将任何插件目标绑定到任何生命周期的阶段，如：将maven-source-plugin的jar-no-fork目标绑定到default生命周期的package阶段，这样，以后在执行mvn package命令打包项目时，在package阶段之后会执行源代码打包，生成如：ehcache-core-2.5.0-sources.jar形式的源码包。</p>
-<pre><code>&lt;build&gt;
-    &lt;plugins&gt;
-        &lt;plugin&gt;
-            &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
-            &lt;artifactId&gt;maven-source-plugin&lt;/artifactId&gt;
-            &lt;version&gt;2.2.1&lt;/version&gt;
-            &lt;executions&gt;
-                &lt;execution&gt;
-                    &lt;id&gt;attach-source&lt;/id&gt;
-                    &lt;phase&gt;package&lt;/phase&gt;&lt;!-- 要绑定到的生命周期的阶段 --&gt;
-                    &lt;goals&gt;
-                        &lt;goal&gt;jar-no-fork&lt;/goal&gt;&lt;!-- 要绑定的插件的目标 --&gt;
-                    &lt;/goals&gt;
-                &lt;/execution&gt;
-            &lt;/executions&gt;
-        &lt;/plugin&gt;
-    &lt;/plugins&gt;
-    ……
-&lt;/build&gt;
-</code></pre><h5 id="6-3-3配置插件"><a href="#6-3-3配置插件" class="headerlink" title="6.3.3配置插件"></a>6.3.3配置插件</h5><p>Maven插件高度易扩展，可以方便的进行自定义配置。如：配置maven-compiler-plugin插件编译源代码的JDK版本为1.7：</p>
-<pre><code>&lt;plugin&gt;
-    &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
-    &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;
-    &lt;configuration&gt;
-        &lt;source&gt;1.7&lt;/source&gt;
-        &lt;target&gt;1.7&lt;/target&gt;
-    &lt;/configuration&gt;
-&lt;/plugin&gt;
-</code></pre><h2 id="7-依赖、继承和聚合"><a href="#7-依赖、继承和聚合" class="headerlink" title="7 依赖、继承和聚合"></a>7 依赖、继承和聚合</h2><h3 id="7-1-依赖"><a href="#7-1-依赖" class="headerlink" title="7.1 依赖"></a>7.1 依赖</h3><h4 id="7-1-1-传递性依赖"><a href="#7-1-1-传递性依赖" class="headerlink" title="7.1.1 传递性依赖"></a>7.1.1 传递性依赖</h4><p>项目A依赖项目B，项目B依赖项目C，则项目A传递依赖于项目C。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">&lt;build&gt;</div><div class="line">    &lt;plugins&gt;</div><div class="line">        &lt;plugin&gt;</div><div class="line">            &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;</div><div class="line">            &lt;artifactId&gt;maven-source-plugin&lt;/artifactId&gt;</div><div class="line">            &lt;version&gt;2.2.1&lt;/version&gt;</div><div class="line">            &lt;executions&gt;</div><div class="line">                &lt;execution&gt;</div><div class="line">                    &lt;id&gt;attach-source&lt;/id&gt;</div><div class="line">                    &lt;phase&gt;package&lt;/phase&gt;&lt;!-- 要绑定到的生命周期的阶段 --&gt;</div><div class="line">                    &lt;goals&gt;</div><div class="line">                        &lt;goal&gt;jar-no-fork&lt;/goal&gt;&lt;!-- 要绑定的插件的目标 --&gt;</div><div class="line">                    &lt;/goals&gt;</div><div class="line">                &lt;/execution&gt;</div><div class="line">            &lt;/executions&gt;</div><div class="line">        &lt;/plugin&gt;</div><div class="line">    &lt;/plugins&gt;</div><div class="line">    ……</div><div class="line">&lt;/build&gt;</div></pre></td></tr></table></figure>
+<h5 id="6-3-3配置插件"><a href="#6-3-3配置插件" class="headerlink" title="6.3.3配置插件"></a>6.3.3配置插件</h5><p>Maven插件高度易扩展，可以方便的进行自定义配置。如：配置maven-compiler-plugin插件编译源代码的JDK版本为1.7：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&lt;plugin&gt;</div><div class="line">    &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;</div><div class="line">    &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;</div><div class="line">    &lt;configuration&gt;</div><div class="line">        &lt;source&gt;1.7&lt;/source&gt;</div><div class="line">        &lt;target&gt;1.7&lt;/target&gt;</div><div class="line">    &lt;/configuration&gt;</div><div class="line">&lt;/plugin&gt;</div></pre></td></tr></table></figure>
+<h2 id="7-依赖、继承和聚合"><a href="#7-依赖、继承和聚合" class="headerlink" title="7 依赖、继承和聚合"></a>7 依赖、继承和聚合</h2><h3 id="7-1-依赖"><a href="#7-1-依赖" class="headerlink" title="7.1 依赖"></a>7.1 依赖</h3><h4 id="7-1-1-传递性依赖"><a href="#7-1-1-传递性依赖" class="headerlink" title="7.1.1 传递性依赖"></a>7.1.1 传递性依赖</h4><p>项目A依赖项目B，项目B依赖项目C，则项目A传递依赖于项目C。</p>
 <p><img src="http://7xngpc.com1.z0.glb.clouddn.com/vernsimple-project_depgraph.png" alt="依赖传递"></p>
 <p>图中project-a传递依赖于project-d和project-e。</p>
 <p>上图中，我们可能会思考一个问题：如果project-b和project-c同时依赖于project-d，但是版本不同，这时project-a该依赖porject-d的哪个版本呢？</p>
@@ -1045,62 +733,40 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
 <p><img src="http://7xngpc.com1.z0.glb.clouddn.com/vernfirstdefine.png" alt="第一声明优先"></p>
 <p>如上图，两条路径长度一致，在a的pom中，如果依赖b写在依赖c前面，则a依赖e1.0，反之a依赖e2.0。</p>
 <h4 id="7-1-2-可选依赖"><a href="#7-1-2-可选依赖" class="headerlink" title="7.1.2 可选依赖"></a>7.1.2 可选依赖</h4><p>有时候我们不想让依赖传递，那么可配置该依赖为可选依赖，将元素optional设置为true即可,例如：</p>
-<pre><code>&lt;dependency&gt;  
-  &lt;groupId&gt;commons-logging&lt;/groupId&gt;   
-  &lt;artifactId&gt;commons-logging&lt;/artifactId&gt;   
-  &lt;version&gt;1.1.1&lt;/version&gt;   
-  &lt;optional&gt;true&lt;optional&gt;  
-&lt;/dependency&gt;  
-</code></pre><p>那么依赖该项目的另以项目将不会得到此依赖的传递</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;dependency&gt;  </div><div class="line">  &lt;groupId&gt;commons-logging&lt;/groupId&gt;   </div><div class="line">  &lt;artifactId&gt;commons-logging&lt;/artifactId&gt;   </div><div class="line">  &lt;version&gt;1.1.1&lt;/version&gt;   </div><div class="line">  &lt;optional&gt;true&lt;optional&gt;  </div><div class="line">&lt;/dependency&gt;</div></pre></td></tr></table></figure>
+<p>那么依赖该项目的另以项目将不会得到此依赖的传递</p>
 <h4 id="7-1-3-排除依赖"><a href="#7-1-3-排除依赖" class="headerlink" title="7.1.3 排除依赖"></a>7.1.3 排除依赖</h4><p>当我们引入第三方jar包的时候，难免会引入传递性依赖，有些时候这是好事，然而有些时候我们不需要其中的一些传递性依赖。比如我们的项目依赖spring-core,而spring-core依赖commons-logging，我们不想引入传递性依赖commons-logging，我们可以使用exclusions元素声明排除依赖，exclusions可以包含一个或者多个exclusion子元素，因此可以排除一个或者多个传递性依赖。需要注意的是，声明exclusions的时候只需要groupId和artifactId，而不需要version元素，这是因为只需要groupId和artifactId就能唯一定位依赖图中的某个依赖。</p>
-<pre><code>&lt;dependency&gt;    
-     &lt;groupId&gt;org.springframework&lt;/groupId&gt;  
-     &lt;artifactId&gt;spring-core&lt;/artifactId&gt;  
-     &lt;version&gt;4.10&lt;/version&gt;  
-     &lt;exclusions&gt;  
-           &lt;exclusion&gt;      
-                &lt;groupId&gt;commons-logging&lt;/groupId&gt;          
-                &lt;artifactId&gt;commons-logging&lt;/artifactId&gt;  
-           &lt;/exclusion&gt;  
-     &lt;/exclusions&gt;  
-&lt;/dependency&gt;  
-</code></pre><p>则我们的项目不依赖commons-loggins。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">&lt;dependency&gt;    </div><div class="line">     &lt;groupId&gt;org.springframework&lt;/groupId&gt;  </div><div class="line">     &lt;artifactId&gt;spring-core&lt;/artifactId&gt;  </div><div class="line">     &lt;version&gt;4.10&lt;/version&gt;  </div><div class="line">     &lt;exclusions&gt;  </div><div class="line">           &lt;exclusion&gt;      </div><div class="line">                &lt;groupId&gt;commons-logging&lt;/groupId&gt;          </div><div class="line">                &lt;artifactId&gt;commons-logging&lt;/artifactId&gt;  </div><div class="line">           &lt;/exclusion&gt;  </div><div class="line">     &lt;/exclusions&gt;  </div><div class="line">&lt;/dependency&gt;</div></pre></td></tr></table></figure>
+<p>则我们的项目不依赖commons-loggins。</p>
 <h3 id="7-2-聚合"><a href="#7-2-聚合" class="headerlink" title="7.2 聚合"></a>7.2 聚合</h3><p>4.2的例子中我们已经讲到了聚合的概念，聚合就是为了将多个项目集合起来，一条命令可以执行多个项目的生命周期。</p>
 <p>聚合以modules标签来配置。</p>
-<pre><code>&lt;modules&gt;
-  &lt;module&gt;ssh-domain&lt;/module&gt;
-  &lt;module&gt;ssh-dao&lt;/module&gt;
-  &lt;module&gt;ssh-service&lt;/module&gt;
-  &lt;module&gt;ssh-web&lt;/module&gt;
-&lt;/modules&gt;
-</code></pre><p>需要注意的是作为聚合的父项目，其packaging的类型必须为pom。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;modules&gt;</div><div class="line">  &lt;module&gt;ssh-domain&lt;/module&gt;</div><div class="line">  &lt;module&gt;ssh-dao&lt;/module&gt;</div><div class="line">  &lt;module&gt;ssh-service&lt;/module&gt;</div><div class="line">  &lt;module&gt;ssh-web&lt;/module&gt;</div><div class="line">&lt;/modules&gt;</div></pre></td></tr></table></figure>
+<p>需要注意的是作为聚合的父项目，其packaging的类型必须为pom。</p>
 <h3 id="7-3-继承"><a href="#7-3-继承" class="headerlink" title="7.3 继承"></a>7.3 继承</h3><p>子项目的pom可以继承父项目的pom中的元素，这样就可以避免一些重复的配置，比如子项目中都依赖的包可以放到父项目中。继承通过parent标签配置。</p>
-<pre><code>&lt;parent&gt;
-  &lt;groupId&gt;com.anan.ssh&lt;/groupId&gt;
-  &lt;artifactId&gt;ssh-parent&lt;/artifactId&gt;
-  &lt;version&gt;0.0.1-SNAPSHOT&lt;/version&gt;
-&lt;/parent&gt;
-</code></pre><p>pom中可被继承的元素有：</p>
-<pre><code>groupId ：项目组 ID ，项目坐标的核心元素；  
-version ：项目版本，项目坐标的核心元素；  
-description ：项目的描述信息；  
-organization ：项目的组织信息；  
-inceptionYear ：项目的创始年份；  
-url ：项目的 url 地址  
-develoers ：项目的开发者信息；  
-contributors ：项目的贡献者信息；  
-distributionManagerment ：项目的部署信息；  
-issueManagement ：缺陷跟踪系统信息；  
-ciManagement ：项目的持续继承信息；  
-scm ：项目的版本控制信息；  
-mailingListserv ：项目的邮件列表信息；  
-properties ：自定义的 Maven 属性；  
-dependencies ：项目的依赖配置；  
-dependencyManagement ：醒目的依赖管理配置；  
-repositories ：项目的仓库配置；  
-build ：包括项目的源码目录配置、输出目录配置、插件配置、插件管理配置等；  
-reporting ：包括项目的报告输出目录配置、报告插件配置等。  
-</code></pre><h3 id="7-4-聚合与继承的关系"><a href="#7-4-聚合与继承的关系" class="headerlink" title="7.4 聚合与继承的关系"></a>7.4 聚合与继承的关系</h3><p>区别 ：<br>1.对于聚合模块来说，它知道有哪些被聚合的模块，但那些被聚合的模块不知道这个聚合模块的存在。<br>2.对于继承关系的父 POM来说，它不知道有哪些子模块继承与它，但那些子模块都必须知道自己的父 POM是什么。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;parent&gt;</div><div class="line">  &lt;groupId&gt;com.anan.ssh&lt;/groupId&gt;</div><div class="line">  &lt;artifactId&gt;ssh-parent&lt;/artifactId&gt;</div><div class="line">  &lt;version&gt;0.0.1-SNAPSHOT&lt;/version&gt;</div><div class="line">&lt;/parent&gt;</div></pre></td></tr></table></figure>
+<p>pom中可被继承的元素有：</p>
+<ul>
+<li>groupId ：项目组 ID ，项目坐标的核心元素；  </li>
+<li>version ：项目版本，项目坐标的核心元素；  </li>
+<li>description ：项目的描述信息；  </li>
+<li>organization ：项目的组织信息；  </li>
+<li>inceptionYear ：项目的创始年份；  </li>
+<li>url ：项目的 url 地址  </li>
+<li>develoers ：项目的开发者信息；  </li>
+<li>contributors ：项目的贡献者信息；  </li>
+<li>distributionManagerment ：项目的部署信息；  </li>
+<li>issueManagement ：缺陷跟踪系统信息；  </li>
+<li>ciManagement ：项目的持续继承信息；  </li>
+<li>scm ：项目的版本控制信息；  </li>
+<li>mailingListserv ：项目的邮件列表信息；  </li>
+<li>properties ：自定义的 Maven 属性；  </li>
+<li>dependencies ：项目的依赖配置；  </li>
+<li>dependencyManagement ：醒目的依赖管理配置；  </li>
+<li>repositories ：项目的仓库配置；  </li>
+<li>build ：包括项目的源码目录配置、输出目录配置、插件配置、插件管理配置等；  </li>
+<li>reporting ：包括项目的报告输出目录配置、报告插件配置等。  </li>
+</ul>
+<h3 id="7-4-聚合与继承的关系"><a href="#7-4-聚合与继承的关系" class="headerlink" title="7.4 聚合与继承的关系"></a>7.4 聚合与继承的关系</h3><p>区别 ：<br>1.对于聚合模块来说，它知道有哪些被聚合的模块，但那些被聚合的模块不知道这个聚合模块的存在。<br>2.对于继承关系的父 POM来说，它不知道有哪些子模块继承与它，但那些子模块都必须知道自己的父 POM是什么。</p>
 <p>共同点 ：<br>1.聚合 POM与继承关系中的父POM的 packaging都是pom<br>2.聚合模块与继承关系中的父模块除了 POM之外都没有实际的内容。<br>Maven聚合关系与继承关系的比较<br>注：在现有的实际项目中一个 POM既是聚合POM，又是父 POM，这么做主要是为了方便</p>
 <p>ps:这个博客拖拖拉拉写了近一个月终于写完了，强迫症和拖延症太严重了，有些 地方写的也不好，主要就是拖太久了，有些概念不如当时看的时候清晰了。以后要改正，一段时间只做一件事，而且要做好。</p>
 
@@ -1210,18 +876,18 @@ reporting ：包括项目的报告输出目录配置、报告插件配置等。
       <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
-               src="/images/avatar.gif"
-               alt="Anan Zhang" />
-          <p class="site-author-name" itemprop="name">Anan Zhang</p>
+               src="/images/wukong.png"
+               alt="张阿楠" />
+          <p class="site-author-name" itemprop="name">张阿楠</p>
            
-              <p class="site-description motion-element" itemprop="description"></p>
+              <p class="site-description motion-element" itemprop="description">Keep codeing and thinking!</p>
           
         </div>
         <nav class="site-state motion-element">
 
           
             <div class="site-state-item site-state-posts">
-              <a href="/archives/">
+              <a href="/archives">
                 <span class="site-state-item-count">18</span>
                 <span class="site-state-item-name">日志</span>
               </a>
@@ -1232,10 +898,10 @@ reporting ：包括项目的报告输出目录配置、报告插件配置等。
             
             
             <div class="site-state-item site-state-categories">
-              
+              <a href="/categories/index.html">
                 <span class="site-state-item-count">2</span>
                 <span class="site-state-item-name">分类</span>
-              
+              </a>
             </div>
           
 
@@ -1243,10 +909,10 @@ reporting ：包括项目的报告输出目录配置、报告插件配置等。
             
             
             <div class="site-state-item site-state-tags">
-              
+              <a href="/tags/index.html">
                 <span class="site-state-item-count">14</span>
                 <span class="site-state-item-name">标签</span>
-              
+              </a>
             </div>
           
 
@@ -1330,7 +996,7 @@ reporting ：包括项目的报告输出目录配置、报告插件配置等。
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">Anan Zhang</span>
+  <span class="author" itemprop="copyrightHolder">张阿楠</span>
 </div>
 
 
@@ -1341,7 +1007,7 @@ reporting ：包括项目的报告输出目录配置、报告插件配置等。
 <div class="theme-info">
   主题 -
   <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
-    NexT.Muse
+    NexT.Pisces
   </a>
 </div>
 
@@ -1420,6 +1086,13 @@ reporting ：包括项目的报告输出目录配置、报告插件配置等。
 
   
   
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.2"></script>
+
+
 
   
   <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
