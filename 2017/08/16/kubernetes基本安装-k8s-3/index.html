@@ -98,16 +98,17 @@
 
 
 
-<meta name="description" content="Keep codeing and thinking!">
-<meta property="og:type" content="website">
-<meta property="og:title" content="AnanZhang">
-<meta property="og:url" content="://vernlium.github.io/archives/2015/12/index.html">
+<meta name="description" content="12345create_etcd_init_conf() &amp;#123;    ETCD_OPTS=&amp;quot;--name etcd0 --listen-client-urls http://127.0.0.1:2379&amp;quot; --advertise-client-urls http://127.0.0.1:2379&amp;quot;&amp;#125; ```create_kube_apiserver_">
+<meta property="og:type" content="article">
+<meta property="og:title" content="kubernetes基本安装-k8s-3">
+<meta property="og:url" content="://vernlium.github.io/2017/08/16/kubernetes基本安装-k8s-3/index.html">
 <meta property="og:site_name" content="AnanZhang">
-<meta property="og:description" content="Keep codeing and thinking!">
+<meta property="og:description" content="12345create_etcd_init_conf() &amp;#123;    ETCD_OPTS=&amp;quot;--name etcd0 --listen-client-urls http://127.0.0.1:2379&amp;quot; --advertise-client-urls http://127.0.0.1:2379&amp;quot;&amp;#125; ```create_kube_apiserver_">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-08-16T14:26:02.319Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="AnanZhang">
-<meta name="twitter:description" content="Keep codeing and thinking!">
+<meta name="twitter:title" content="kubernetes基本安装-k8s-3">
+<meta name="twitter:description" content="12345create_etcd_init_conf() &amp;#123;    ETCD_OPTS=&amp;quot;--name etcd0 --listen-client-urls http://127.0.0.1:2379&amp;quot; --advertise-client-urls http://127.0.0.1:2379&amp;quot;&amp;#125; ```create_kube_apiserver_">
 
 
 
@@ -136,13 +137,13 @@
 
 
 
-  <link rel="canonical" href="://vernlium.github.io/archives/2015/12/"/>
+  <link rel="canonical" href="://vernlium.github.io/2017/08/16/kubernetes基本安装-k8s-3/"/>
 
 
 
 
 
-  <title>归档 | AnanZhang</title>
+  <title>kubernetes基本安装-k8s-3 | AnanZhang</title>
   
 
 
@@ -167,7 +168,7 @@
     
   
 
-  <div class="container sidebar-position-left  page-archive  ">
+  <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -261,74 +262,142 @@
           <div id="content" class="content">
             
 
+  <div id="posts" class="posts-expand">
+    
+
+  
+
   
   
   
-  <div class="post-block archive">
-    <div id="posts" class="posts-collapse">
-      <span class="archive-move-on"></span>
-
-      <span class="archive-page-counter">
-        
-        
-        
-          
-        
-        嗯..! 目前共计 22 篇日志。 继续努力。
-      </span>
-
-      
-
-        
-        
-        
-
-        
-          
-          <div class="collection-title">
-            <h2 class="archive-year motion-element" id="archive-year-2015">2015</h2>
-          </div>
-        
-        
-
-        
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="://vernlium.github.io/2017/08/16/kubernetes基本安装-k8s-3/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="张阿楠">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/wukong.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="AnanZhang">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/2015/12/27/Java正则表达式/" itemprop="url">
-              
-                <span itemprop="name">Java正则表达式</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">kubernetes基本安装-k8s-3</h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2015-12-27T22:43:35+08:00"
-              content="2015-12-27" >
-          12-27
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-16T22:20:26+08:00">
+                2017-08-16
+              </time>
+            
 
-    </header>
-  </article>
+            
 
+            
+          </span>
 
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
+      
 
+      
+        <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">create_etcd_init_conf() </div><div class="line">&#123;</div><div class="line"></div><div class="line">    ETCD_OPTS=&quot;--name etcd0 --listen-client-urls http://127.0.0.1:2379&quot; --advertise-client-urls http://127.0.0.1:2379&quot;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>```<br>create_kube_apiserver_init_conf()<br>{<br>    KUBE_APISERVER_OPTS=”–insecure-bind-address=0.0.0.0 –insecure-port=8080 –cors-allowed-origins=.* –etcd_servers=<a href="http://127.0.0.1:2379" target="_blank" rel="external">http://127.0.0.1:2379</a> “<br>}</p>
+
+      
     </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/08/14/docker镜像仓库的安装-k8s-2/" rel="next" title="docker镜像仓库的安装-k8s_2">
+                <i class="fa fa-chevron-left"></i> docker镜像仓库的安装-k8s_2
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
 
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -336,6 +405,10 @@
 
 
           
+  <div class="comments" id="comments">
+    
+  </div>
+
 
         </div>
         
@@ -563,7 +636,9 @@
 
 
   
-  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
 
 
   
