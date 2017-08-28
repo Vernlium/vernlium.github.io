@@ -98,17 +98,19 @@
 
 
 
-<meta name="description" content="12345create_etcd_init_conf() &amp;#123;    ETCD_OPTS=&amp;quot;--name etcd0 --listen-client-urls http://127.0.0.1:2379&amp;quot; --advertise-client-urls http://127.0.0.1:2379&amp;quot;&amp;#125; ```create_kube_apiserver_">
+<meta name="description" content="这篇博客来讲解下k8s的安装。 为什么标题中叫“基本安装”呢？因为一般生产环境中会考虑可靠性等问题，需要k8s master安装成集群，集群的安装稍微复杂，我们可先从基本的安装开始，学习如何安装单master的k8s集群，然后在扩展成master 集群，这样有个循序渐进的过程，会了解的更清晰。 k8s的安装有多种方式，本文中以手动的方式安装，最后形成shell脚本，可以一键安装k8s集群，并且可以">
 <meta property="og:type" content="article">
 <meta property="og:title" content="kubernetes基本安装-k8s-3">
 <meta property="og:url" content="://vernlium.github.io/2017/08/16/kubernetes基本安装-k8s-3/index.html">
 <meta property="og:site_name" content="AnanZhang">
-<meta property="og:description" content="12345create_etcd_init_conf() &amp;#123;    ETCD_OPTS=&amp;quot;--name etcd0 --listen-client-urls http://127.0.0.1:2379&amp;quot; --advertise-client-urls http://127.0.0.1:2379&amp;quot;&amp;#125; ```create_kube_apiserver_">
+<meta property="og:description" content="这篇博客来讲解下k8s的安装。 为什么标题中叫“基本安装”呢？因为一般生产环境中会考虑可靠性等问题，需要k8s master安装成集群，集群的安装稍微复杂，我们可先从基本的安装开始，学习如何安装单master的k8s集群，然后在扩展成master 集群，这样有个循序渐进的过程，会了解的更清晰。 k8s的安装有多种方式，本文中以手动的方式安装，最后形成shell脚本，可以一键安装k8s集群，并且可以">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-08-16T14:26:02.319Z">
+<meta property="og:image" content="https://user-images.githubusercontent.com/11350907/29775709-c46db038-8c38-11e7-989d-164e49669cef.jpg">
+<meta property="og:updated_time" content="2017-08-28T13:35:04.854Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="kubernetes基本安装-k8s-3">
-<meta name="twitter:description" content="12345create_etcd_init_conf() &amp;#123;    ETCD_OPTS=&amp;quot;--name etcd0 --listen-client-urls http://127.0.0.1:2379&amp;quot; --advertise-client-urls http://127.0.0.1:2379&amp;quot;&amp;#125; ```create_kube_apiserver_">
+<meta name="twitter:description" content="这篇博客来讲解下k8s的安装。 为什么标题中叫“基本安装”呢？因为一般生产环境中会考虑可靠性等问题，需要k8s master安装成集群，集群的安装稍微复杂，我们可先从基本的安装开始，学习如何安装单master的k8s集群，然后在扩展成master 集群，这样有个循序渐进的过程，会了解的更清晰。 k8s的安装有多种方式，本文中以手动的方式安装，最后形成shell脚本，可以一键安装k8s集群，并且可以">
+<meta name="twitter:image" content="https://user-images.githubusercontent.com/11350907/29775709-c46db038-8c38-11e7-989d-164e49669cef.jpg">
 
 
 
@@ -343,8 +345,29 @@
       
 
       
-        <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">create_etcd_init_conf() </div><div class="line">&#123;</div><div class="line"></div><div class="line">    ETCD_OPTS=&quot;--name etcd0 --listen-client-urls http://127.0.0.1:2379&quot; --advertise-client-urls http://127.0.0.1:2379&quot;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>```<br>create_kube_apiserver_init_conf()<br>{<br>    KUBE_APISERVER_OPTS=”–insecure-bind-address=0.0.0.0 –insecure-port=8080 –cors-allowed-origins=.* –etcd_servers=<a href="http://127.0.0.1:2379" target="_blank" rel="external">http://127.0.0.1:2379</a> “<br>}</p>
+        <p>这篇博客来讲解下k8s的安装。</p>
+<p>为什么标题中叫“基本安装”呢？因为一般生产环境中会考虑可靠性等问题，需要k8s master安装成集群，集群的安装稍微复杂，我们可先从基本的安装开始，学习如何安装单master的k8s集群，然后在扩展成master 集群，这样有个循序渐进的过程，会了解的更清晰。</p>
+<p>k8s的安装有多种方式，本文中以手动的方式安装，最后形成shell脚本，可以一键安装k8s集群，并且可以扩容node节点。</p>
+<h3 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h3><h3 id="组网图"><a href="#组网图" class="headerlink" title="组网图"></a>组网图</h3><p><img src="https://user-images.githubusercontent.com/11350907/29775709-c46db038-8c38-11e7-989d-164e49669cef.jpg" alt="kubernetes-1master"></p>
+<h4 id="etcd"><a href="#etcd" class="headerlink" title="etcd"></a>etcd</h4><p>etcd的upstart脚本</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">description &quot;Etcd service&quot;</div><div class="line"></div><div class="line">respawn</div><div class="line"></div><div class="line">start on (net-device-up</div><div class="line">        and local-filesystem</div><div class="line">        and runlevel[12345])</div><div class="line">stop on runlevel[12345]</div><div class="line"></div><div class="line">pre-start script</div><div class="line">    ETCD=/usr/local/bin/$UPSTART_JOB</div><div class="line">    if [ -f /etc/default/$UPSTART_JOB ]; then</div><div class="line">        . /etc/default/$UPSTART_JOB</div><div class="line">    fi</div><div class="line">    if [ -f $ETCD ]; then</div><div class="line">        exit 0</div><div class="line">    fi</div><div class="line">    echo &quot;$ETCD binary not found,exiting&quot;</div><div class="line">    exit 22</div><div class="line">end script</div><div class="line"></div><div class="line">script </div><div class="line">    ETCD=/usr/bin/$UPSTART_JOB</div><div class="line">    ETCD_OPTS=&quot;&quot;</div><div class="line">    if [ -f /etc/default/$UPSTART_JOB ]; then</div><div class="line">        . /etc/default/$UPSTART_JOB</div><div class="line">    fi</div><div class="line">    export HOME=/root</div><div class="line">    exec &quot;$ETCD&quot; $ETCD_OPTS</div><div class="line">end script</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">create_etcd_init_conf() </div><div class="line">&#123;</div><div class="line"></div><div class="line">    ETCD_OPTS=&quot;--name etcd0 --listen-client-urls http://127.0.0.1:2379&quot; --advertise-client-urls http://127.0.0.1:2379&quot;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="kube-apiserver"><a href="#kube-apiserver" class="headerlink" title="kube-apiserver"></a>kube-apiserver</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">create_kube_apiserver_init_conf()</div><div class="line">&#123;</div><div class="line">    KUBE_APISERVER_OPTS=&quot;--insecure-bind-address=0.0.0.0 --insecure-port=8080 --cors-allowed-origins=.* --etcd_servers=http://127.0.0.1:2379 &quot;</div><div class="line">&#125;</div><div class="line"></div><div class="line">kube-apiserver的upstart脚本</div></pre></td></tr></table></figure>
+<p>description “Kube-Apiserver service”</p>
+<p>respawn</p>
+<p>#start in conjunction with etcd<br>start on started etcd<br>stop on stopping etcd</p>
+<p>pre-start script<br>    KUBE_APISERVER=/usr/local/bin/$UPSTART_JOB<br>    if [ -f /etc/default/$UPSTART_JOB ]; then<br>        . /etc/default/$UPSTART_JOB<br>    fi<br>    if [ -f $KUBE_APISERVER ]; then<br>        exit 0<br>    fi<br>    echo “$KUBE_APISERVER binary not found,exiting”<br>    exit 22<br>end script</p>
+<p>script<br>    KUBE_APISERVER=/usr/bin/$UPSTART_JON<br>    KUBE_APISERVER_OPTS=””<br>    if [ -f /etc/default/$UPSTART_JOB ]; then<br>        . /etc/default/$UPSTART_JOB<br>    fi<br>    exec “$KUBE_APISERVER” $KUBE_APISERVER<br>end script<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">#### kube-controller-manager</div><div class="line"></div><div class="line">create_kube-controller_manager_init_conf()</div><div class="line">&#123;</div><div class="line">    KUBE_CONTROLLER_MANAGER_OPTS=&quot;--master=127.0.0.1:8080 --enable_hostpath_provisioner=false&quot;</div><div class="line">&#125;</div><div class="line"></div><div class="line">kube-controler-manager的upstart脚本</div></pre></td></tr></table></figure></p>
+<p>description “Kube-Controller-Manager service”</p>
+<p>respawn</p>
+<p>#start in conjunction with etcd<br>start on started etcd<br>stop on stopping etcd</p>
+<p>pre-start script<br>    KUBE_CONTROLLER_MANAGER=/usr/local/bin/$UPSTART_JOB<br>    if [ -f /etc/default/$UPSTART_JOB ]; then<br>        . /etc/default/$UPSTART_JOB<br>    fi<br>    if [ -f $KUBE_CONTROLLER_MANAGER ]; then<br>        exit 0<br>    fi<br>    echo “$KUBE_CONTROLLER_MANAGER binary not found,exiting”<br>    exit 22<br>end script</p>
+<p>script<br>    KUBE_CONTROLLER_MANAGER=/usr/bin/$UPSTART_JON<br>    KUBE_CONTROLLER_MANAGER_OPTS=””<br>    if [ -f /etc/default/$UPSTART_JOB ]; then<br>        . /etc/default/$UPSTART_JOB<br>    fi<br>    exec “$KUBE_CONTROLLER_MANAGER” $KUBE_CONTROLLER_MANAGER_OPTS<br>end script<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">#### kube-scheduler</div><div class="line"></div><div class="line">kube-scheduler的upstart脚本</div></pre></td></tr></table></figure></p>
+<p>description “Kube-Scheduler service”</p>
+<p>respawn</p>
+<p>#start in conjunction with etcd<br>start on started etcd<br>stop on stopping etcd</p>
+<p>pre-start script<br>    KUBE_SCHEDULER=/usr/local/bin/$UPSTART_JOB<br>    if [ -f /etc/default/$UPSTART_JOB ]; then<br>        . /etc/default/$UPSTART_JOB<br>    fi<br>    if [ -f $KUBE_SCHEDULER ]; then<br>        exit 0<br>    fi<br>    echo “$KUBE_SCHEDULER binary not found,exiting”<br>    exit 22<br>end script</p>
+<p>script<br>    KUBE_SCHEDULER=/usr/bin/$UPSTART_JON<br>    KUBE_SCHEDULER_OPTS=””<br>    if [ -f /etc/default/$UPSTART_JOB ]; then<br>        . /etc/default/$UPSTART_JOB<br>    fi<br>    exec “$KUBE_SCHEDULER” $KUBE_SCHEDULER_OPTS<br>end script<br>```</p>
 
       
     </div>
@@ -429,8 +452,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/wukong.png"
@@ -516,6 +548,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#环境准备"><span class="nav-number">1.</span> <span class="nav-text">环境准备</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#组网图"><span class="nav-number">2.</span> <span class="nav-text">组网图</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#etcd"><span class="nav-number">2.1.</span> <span class="nav-text">etcd</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#kube-apiserver"><span class="nav-number">2.2.</span> <span class="nav-text">kube-apiserver</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
