@@ -106,7 +106,7 @@
 <meta property="og:description" content="这篇博客来讲解下k8s的安装。 为什么标题中叫“基本安装”呢？因为一般生产环境中会考虑可靠性等问题，需要k8s master安装成集群，集群的安装稍微复杂，我们可先从基本的安装开始，学习如何安装单master的k8s集群，然后在扩展成master 集群，这样有个循序渐进的过程，会了解的更清晰。 k8s的安装有多种方式，本文中以手动的方式安装，最后形成shell脚本，可以一键安装k8s集群，并且可以">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://user-images.githubusercontent.com/11350907/29775709-c46db038-8c38-11e7-989d-164e49669cef.jpg">
-<meta property="og:updated_time" content="2017-08-30T00:14:03.491Z">
+<meta property="og:updated_time" content="2017-08-30T00:16:25.187Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="kubernetes基本安装-k8s-3">
 <meta name="twitter:description" content="这篇博客来讲解下k8s的安装。 为什么标题中叫“基本安装”呢？因为一般生产环境中会考虑可靠性等问题，需要k8s master安装成集群，集群的安装稍微复杂，我们可先从基本的安装开始，学习如何安装单master的k8s集群，然后在扩展成master 集群，这样有个循序渐进的过程，会了解的更清晰。 k8s的安装有多种方式，本文中以手动的方式安装，最后形成shell脚本，可以一键安装k8s集群，并且可以">
@@ -360,7 +360,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">description &quot;Kube-Controller-Manager service&quot;</div><div class="line"></div><div class="line">respawn</div><div class="line"></div><div class="line">#start in conjunction with etcd</div><div class="line">start on started etcd</div><div class="line">stop on stopping etcd</div><div class="line"></div><div class="line">pre-start script</div><div class="line">    KUBE_CONTROLLER_MANAGER=/usr/local/bin/$UPSTART_JOB</div><div class="line">    if [ -f /etc/default/$UPSTART_JOB ]; then</div><div class="line">        . /etc/default/$UPSTART_JOB</div><div class="line">    fi</div><div class="line">    if [ -f $KUBE_CONTROLLER_MANAGER ]; then</div><div class="line">        exit 0</div><div class="line">    fi</div><div class="line">    echo &quot;$KUBE_CONTROLLER_MANAGER binary not found,exiting&quot;</div><div class="line">    exit 22</div><div class="line">end script</div><div class="line"></div><div class="line">script</div><div class="line">    KUBE_CONTROLLER_MANAGER=/usr/bin/$UPSTART_JON</div><div class="line">    KUBE_CONTROLLER_MANAGER_OPTS=&quot;&quot;</div><div class="line">    if [ -f /etc/default/$UPSTART_JOB ]; then</div><div class="line">        . /etc/default/$UPSTART_JOB</div><div class="line">    fi</div><div class="line">    exec &quot;$KUBE_CONTROLLER_MANAGER&quot; $KUBE_CONTROLLER_MANAGER_OPTS</div><div class="line">end script</div></pre></td></tr></table></figure>
 <h4 id="kube-scheduler"><a href="#kube-scheduler" class="headerlink" title="kube-scheduler"></a>kube-scheduler</h4><p>kube-scheduler的upstart脚本</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">description &quot;Kube-Scheduler service&quot;</div><div class="line"></div><div class="line">respawn</div><div class="line"></div><div class="line">#start in conjunction with etcd</div><div class="line">start on started etcd</div><div class="line">stop on stopping etcd</div><div class="line"></div><div class="line">pre-start script</div><div class="line">    KUBE_SCHEDULER=/usr/local/bin/$UPSTART_JOB</div><div class="line">    if [ -f /etc/default/$UPSTART_JOB ]; then</div><div class="line">        . /etc/default/$UPSTART_JOB</div><div class="line">    fi</div><div class="line">    if [ -f $KUBE_SCHEDULER ]; then</div><div class="line">        exit 0</div><div class="line">    fi</div><div class="line">    echo &quot;$KUBE_SCHEDULER binary not found,exiting&quot;</div><div class="line">    exit 22</div><div class="line">end script</div><div class="line"></div><div class="line">script </div><div class="line">    KUBE_SCHEDULER=/usr/bin/$UPSTART_JON</div><div class="line">    KUBE_SCHEDULER_OPTS=&quot;&quot;</div><div class="line">    if [ -f /etc/default/$UPSTART_JOB ]; then</div><div class="line">        . /etc/default/$UPSTART_JOB</div><div class="line">    fi</div><div class="line">    exec &quot;$KUBE_SCHEDULER&quot; $KUBE_SCHEDULER_OPTS</div><div class="line">end script</div></pre></td></tr></table></figure>
-<h4 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h4><p>使用如下命令启动node上的两个组件</p>
+<h4 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h4><p>使用如下命令启动master上的4个组件</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">start etcd</div><div class="line">start kube-apiserver</div><div class="line">start kube-controller-manager</div><div class="line">start kube-scheduler</div></pre></td></tr></table></figure>
 <p>启动后，可以查看到如下进程：</p>
 <h3 id="k8s-node安装"><a href="#k8s-node安装" class="headerlink" title="k8s node安装"></a>k8s node安装</h3><h4 id="kubelet"><a href="#kubelet" class="headerlink" title="kubelet"></a>kubelet</h4><p>kubelet的upstart脚本</p>
@@ -411,6 +411,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/08/30/kubernetes高可用集群安装-k8s-4/" rel="prev" title="kubernetes高可用集群安装-k8s-4">
+                kubernetes高可用集群安装-k8s-4 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -487,7 +491,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">22</span>
+                <span class="site-state-item-count">23</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
