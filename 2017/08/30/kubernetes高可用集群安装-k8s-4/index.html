@@ -98,18 +98,18 @@
 
 
 
-<meta name="description" content="这篇博客来讲解下k8s高可用集群的安装。 上篇博客中，已经介绍了k8s集群的基础安装，对k8s的组件和使用用了大致的了解。 一般在生产环境中，考虑到可靠性和可用性，避免单节点故障时，环境不可用，需要需要通过安装k8s master集群来提供系统可用性。本篇博客来讨论如何安装k8s master集群。 环境准备组网图">
+<meta name="description" content="这篇博客来讲解下k8s高可用集群的安装。 上篇博客中，已经介绍了k8s集群的基础安装，对k8s的组件和使用用了大致的了解。 一般在生产环境中，考虑到可靠性和可用性，避免单节点故障时，环境不可用，需要需要通过安装k8s master集群来提供系统可用性。本篇博客来讨论如何安装k8s master集群。 环境准备准备7台虚拟机，其用途分别如下：    IP 用途 配置     192.168.0.1">
 <meta property="og:type" content="article">
 <meta property="og:title" content="kubernetes高可用集群安装-k8s-4">
 <meta property="og:url" content="://vernlium.github.io/2017/08/30/kubernetes高可用集群安装-k8s-4/index.html">
 <meta property="og:site_name" content="AnanZhang">
-<meta property="og:description" content="这篇博客来讲解下k8s高可用集群的安装。 上篇博客中，已经介绍了k8s集群的基础安装，对k8s的组件和使用用了大致的了解。 一般在生产环境中，考虑到可靠性和可用性，避免单节点故障时，环境不可用，需要需要通过安装k8s master集群来提供系统可用性。本篇博客来讨论如何安装k8s master集群。 环境准备组网图">
+<meta property="og:description" content="这篇博客来讲解下k8s高可用集群的安装。 上篇博客中，已经介绍了k8s集群的基础安装，对k8s的组件和使用用了大致的了解。 一般在生产环境中，考虑到可靠性和可用性，避免单节点故障时，环境不可用，需要需要通过安装k8s master集群来提供系统可用性。本篇博客来讨论如何安装k8s master集群。 环境准备准备7台虚拟机，其用途分别如下：    IP 用途 配置     192.168.0.1">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://user-images.githubusercontent.com/11350907/29849869-41e46f06-8d5c-11e7-9c05-9c8e47f43c21.jpg">
-<meta property="og:updated_time" content="2017-08-30T00:21:53.288Z">
+<meta property="og:updated_time" content="2017-09-06T00:25:29.628Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="kubernetes高可用集群安装-k8s-4">
-<meta name="twitter:description" content="这篇博客来讲解下k8s高可用集群的安装。 上篇博客中，已经介绍了k8s集群的基础安装，对k8s的组件和使用用了大致的了解。 一般在生产环境中，考虑到可靠性和可用性，避免单节点故障时，环境不可用，需要需要通过安装k8s master集群来提供系统可用性。本篇博客来讨论如何安装k8s master集群。 环境准备组网图">
+<meta name="twitter:description" content="这篇博客来讲解下k8s高可用集群的安装。 上篇博客中，已经介绍了k8s集群的基础安装，对k8s的组件和使用用了大致的了解。 一般在生产环境中，考虑到可靠性和可用性，避免单节点故障时，环境不可用，需要需要通过安装k8s master集群来提供系统可用性。本篇博客来讨论如何安装k8s master集群。 环境准备准备7台虚拟机，其用途分别如下：    IP 用途 配置     192.168.0.1">
 <meta name="twitter:image" content="https://user-images.githubusercontent.com/11350907/29849869-41e46f06-8d5c-11e7-9c05-9c8e47f43c21.jpg">
 
 
@@ -348,8 +348,88 @@
         <p>这篇博客来讲解下k8s高可用集群的安装。</p>
 <p>上篇博客中，已经介绍了k8s集群的基础安装，对k8s的组件和使用用了大致的了解。</p>
 <p>一般在生产环境中，考虑到可靠性和可用性，避免单节点故障时，环境不可用，需要需要通过安装k8s master集群来提供系统可用性。本篇博客来讨论如何安装k8s master集群。</p>
-<h3 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h3><h3 id="组网图"><a href="#组网图" class="headerlink" title="组网图"></a>组网图</h3><p><img src="https://user-images.githubusercontent.com/11350907/29849869-41e46f06-8d5c-11e7-9c05-9c8e47f43c21.jpg" alt="kubernetes"></p>
-
+<h3 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h3><p>准备7台虚拟机，其用途分别如下：</p>
+<table>
+<thead>
+<tr>
+<th>IP</th>
+<th>用途</th>
+<th>配置</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>192.168.0.1</td>
+<td>nginx</td>
+<td>4C16G</td>
+</tr>
+<tr>
+<td>192.168.0.2</td>
+<td>master</td>
+<td>4C16G</td>
+</tr>
+<tr>
+<td>192.168.0.3</td>
+<td>master</td>
+<td>4C16G</td>
+</tr>
+<tr>
+<td>192.168.0.4</td>
+<td>master</td>
+<td>4C16G</td>
+</tr>
+<tr>
+<td>192.168.0.5</td>
+<td>node</td>
+<td>4C16G</td>
+</tr>
+<tr>
+<td>192.168.0.6</td>
+<td>node</td>
+<td>4C16G</td>
+</tr>
+<tr>
+<td>192.168.0.7</td>
+<td>node</td>
+<td>4C16G</td>
+</tr>
+</tbody>
+</table>
+<h3 id="组网图"><a href="#组网图" class="headerlink" title="组网图"></a>组网图</h3><p><img src="https://user-images.githubusercontent.com/11350907/29849869-41e46f06-8d5c-11e7-9c05-9c8e47f43c21.jpg" alt="kubernetes"></p>
+<p>一般集群为了保障可用性，避免单点故障，至少需要3个节点。</p>
+<h3 id="master集群安装"><a href="#master集群安装" class="headerlink" title="master集群安装"></a>master集群安装</h3><p>从上面的组网图中可以看出， 需要使用nginx对三个master进行负载均衡。所以需要启动一个nginx。为了方便安装和使用，我们使用容器的方式启动nginx。</p>
+<h4 id="nginx"><a href="#nginx" class="headerlink" title="nginx"></a>nginx</h4><p>首先需要下载nginx的镜像，从可以连接外网的机器上<code>docker pull nginx</code>下载。</p>
+<p>然后修改nginx的配置文件，创建文件<code>pwd/conf.d/mynginx.conf</code>，修改其内容为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">upstream k8smaster &#123;</div><div class="line">    server 192.168.0.2:8080;</div><div class="line">    server 192.168.0.3:8080;</div><div class="line">    server 192.168.0.4:8080;    </div><div class="line">&#125;</div><div class="line"></div><div class="line">server &#123;</div><div class="line">    listen  8888;</div><div class="line">    server_name localhost;</div><div class="line"></div><div class="line">    location / &#123;</div><div class="line">        proxy_pass http://k8smaster;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>其中，三个server的地址对应的是三个master的地址。</p>
+<p>然后使用docker run的方式启动nginx，需要将这个配置文件挂载上去，启动命令为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">docker run -d --name k8snginx -p 8543:8888 \</div><div class="line">-v `pwd`/conf.d:/etc/nginx/conf.d nginx</div></pre></td></tr></table></figure>
+<h4 id="3个master的安装"><a href="#3个master的安装" class="headerlink" title="3个master的安装"></a>3个master的安装</h4><p>上的组网图中，etcd是一个独立的集群，master也是一个集群，kube-apiserver和etcd集群连接，kube-apiserver需要配置etcd的地址（集群中的3个节点的地址都要配）。每个master上启动四个组件，etcd组成一个集群，k8s也组成一个集群。</p>
+<p>这4个组件的启动依然使用upstart脚本，这些在基本安装中已经讲过，不再赘述。</p>
+<p>主要讲一下各组件的启动参数。</p>
+<h4 id="etcd"><a href="#etcd" class="headerlink" title="etcd"></a>etcd</h4><p>etcd0:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">ETCD_OPTS=&quot;--name etcd0 --data-dir=/etcd0.etcd \</div><div class="line">--initial-advertise-peer-urls http://192.168.0.2:2380 \</div><div class="line">--listen-peer-urls http://0.0.0.0:2380 \</div><div class="line">--listen-client-urls http://0.0.0.0:2379,http://0.0.0.0:4001 \</div><div class="line">--advertise-client-urls http://192.168.0.2:2379,http://192.168.0.2:4001 \</div><div class="line">--initial-cluster-token k8setcd \</div><div class="line">--initial-cluster etcd0=http://192.168.0.2:2380,etcd1=http://192.168.0.3:2380,etcd2=http://192.168.0.4:2380 \</div><div class="line">--initial-cluster-state new&quot;</div></pre></td></tr></table></figure>
+<p>etcd1:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">ETCD_OPTS=&quot;--name etcd1 --data-dir=/etcd1.etcd \</div><div class="line">--initial-advertise-peer-urls http://192.168.0.3:2380 \</div><div class="line">--listen-peer-urls http://0.0.0.0:2380 \</div><div class="line">--listen-client-urls http://0.0.0.0:2379,http://0.0.0.0:4001 \</div><div class="line">--advertise-client-urls http://192.168.0.3:2379,http://192.168.0.3:4001 \</div><div class="line">--initial-cluster-token k8setcd \</div><div class="line">--initial-cluster etcd0=http://192.168.0.2:2380,etcd1=http://192.168.0.3:2380,etcd2=http://192.168.0.4:2380 \</div><div class="line">--initial-cluster-state new&quot;</div></pre></td></tr></table></figure>
+<p>etcd2:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">ETCD_OPTS=&quot;--name etcd2 --data-dir=/etcd2.etcd \</div><div class="line">--initial-advertise-peer-urls http://192.168.0.4:2380 \</div><div class="line">--listen-peer-urls http://0.0.0.0:2380 \</div><div class="line">--listen-client-urls http://0.0.0.0:2379,http://0.0.0.0:4001 \</div><div class="line">--advertise-client-urls http://192.168.0.4:2379,http://192.168.0.4:4001 \</div><div class="line">--initial-cluster-token k8setcd \</div><div class="line">--initial-cluster etcd0=http://192.168.0.2:2380,etcd1=http://192.168.0.3:2380,etcd2=http://192.168.0.4:2380 \</div><div class="line">--initial-cluster-state new&quot;</div></pre></td></tr></table></figure>
+<p>etcd集群需要leader选举，所以初始时，其中任意一个节点都有知道其他节点的地址，其中initial-cluster参数配置的就是集群中的所有etcd的地址。</p>
+<p>其中，几个参数的作用为：</p>
+<ul>
+<li>name : etcd的名称</li>
+<li>data-dir : 存放数据的路径</li>
+<li>initial-advertise-peer-urls : 广播给集群内部其他成员访问的url</li>
+<li>listen-peer-urls : 集群内部通信使用的url</li>
+<li>listen-client-urls : 外部客户端使用的url</li>
+<li>advertise-client-urls : 广播给外部客户端使用的url</li>
+<li>initial-cluster-token : etcd集群名称，用于区分不同集群</li>
+<li>initial-cluster : 初始集群成员列表，集群中所有的节点都有列出</li>
+<li>initial-cluster-state : 初始集群状态，new为新建集群</li>
+</ul>
+<p>集群中三个etcd节点都启动成功后，可以检测集群状态是否ok。</p>
+<p>执行 <code>etcdctl cluster-health</code>可以看到集群整体的健康度：</p>
+<p>执行<code>etcdctl member list</code>可以查看集群的leader以及所有成员：</p>
+<h3 id="k8s-master集群"><a href="#k8s-master集群" class="headerlink" title="k8s master集群"></a>k8s master集群</h3>
       
     </div>
     
@@ -539,7 +619,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#环境准备"><span class="nav-number">1.</span> <span class="nav-text">环境准备</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#组网图"><span class="nav-number">2.</span> <span class="nav-text">组网图</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#环境准备"><span class="nav-number">1.</span> <span class="nav-text">环境准备</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#组网图"><span class="nav-number">2.</span> <span class="nav-text">组网图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#master集群安装"><span class="nav-number">3.</span> <span class="nav-text">master集群安装</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#nginx"><span class="nav-number">3.1.</span> <span class="nav-text">nginx</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3个master的安装"><span class="nav-number">3.2.</span> <span class="nav-text">3个master的安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#etcd"><span class="nav-number">3.3.</span> <span class="nav-text">etcd</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#k8s-master集群"><span class="nav-number">4.</span> <span class="nav-text">k8s master集群</span></a></li></ol></div>
             
 
           </div>
