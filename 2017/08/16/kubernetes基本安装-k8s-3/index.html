@@ -111,7 +111,7 @@
 <meta property="og:image" content="https://user-images.githubusercontent.com/11350907/30040034-f54d340c-920b-11e7-869a-120c42a55d5b.png">
 <meta property="og:image" content="https://user-images.githubusercontent.com/11350907/30040034-f54d340c-920b-11e7-869a-120c42a55d5b.png">
 <meta property="og:image" content="https://user-images.githubusercontent.com/11350907/29775709-c46db038-8c38-11e7-989d-164e49669cef.jpg">
-<meta property="og:updated_time" content="2017-09-06T14:56:49.056Z">
+<meta property="og:updated_time" content="2017-09-06T15:01:14.699Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="kubernetes基本安装-k8s-3">
 <meta name="twitter:description" content="这篇博客来讲解下k8s的安装。 为什么标题中叫“基本安装”呢？因为一般生产环境中会考虑可靠性等问题，需要k8s master安装成集群，集群的安装稍微复杂，我们可先从基本的安装开始，学习如何安装单master的k8s集群，然后在扩展成master 集群，这样有个循序渐进的过程，会了解的更清晰。 k8s的安装有多种方式，本文中以手动的方式安装，最后形成shell脚本，可以一键安装k8s集群，并且可以">
@@ -507,7 +507,7 @@
 <li>f.通过<code>start xxxx</code>启动四个组件</li>
 </ul>
 </li>
-<li>4.读取nod_ip文件，得到node机器的ip列表，对每个node依次做如下操作（可以使用shell的并行执行能力，加快执行速度）</li>
+<li>4.读取node_ip文件，得到node机器的ip列表，对每个node依次做如下操作（可以使用shell的并行执行能力，加快执行速度）</li>
 <li>5.scp命令将node的安装脚本和k8s_node_pkg.tar.gz发送的node机器上</li>
 <li>6.远程执行node安裝脚本，做如下操作:<ul>
 <li>a.检查是否安装了docker，如没有则安装docker；安装成则继续，安装失败则退出（单个node的失败不影响其他node的安装）</li>
@@ -525,10 +525,10 @@
 </ul>
 </li>
 </ul>
-<p>这里给出的大致的流程，具体的脚本就不给出了，写的过程中还有很多细节需要处理，比如使用e×pect执行scp和执行命令<br>等，比如记录日志，方便出错时定位等。</p>
+<p>这里给出的大致的流程，具体的脚本就不给出了，写的过程中还有很多细节需要处理，比如使用expect执行scp和执行命令等，比如记录日志，方便出错时定位等。</p>
 <h4 id="远程发送文件和执行命令"><a href="#远程发送文件和执行命令" class="headerlink" title="远程发送文件和执行命令"></a>远程发送文件和执行命令</h4><p>这个操作在脚本安装的过程中很多次用到，所以可以封装一下。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line">#远程发送文件</div><div class="line">function run_scp() &#123;</div><div class="line">    local ip=$1 </div><div class="line">    local port=$2 </div><div class="line">    local SCP_FILE=$3 </div><div class="line">    </div><div class="line">#scp file </div><div class="line">expect -c &quot; </div><div class="line">set timeout $TIMEOUT </div><div class="line">spawn scp -P $&#123;port&#125; $&#123;SCP_FILE&#125; root@$&#123;ip&#125;:/root/ </div><div class="line">expect &#123; </div><div class="line">    \&quot;*yes/no*\&quot; &#123; send \&quot;yes\r\&quot;;exp_continue&#125;</div><div class="line">    \&quot;*assword*\&quot; &#123; send \&quot;$&#123;PASSWD&#125;\r\&quot;;&#125;</div><div class="line">&#125;</div><div class="line">expect &#123; </div><div class="line">    eof &#123; puts \&quot;expect ok\&quot;; exit 0&#125; </div><div class="line">    timeout &#123; puts \&quot;expect timeout\&quot;; exit 1&#125;</div><div class="line">    default &#123; puts \&quot;expect error\&quot;; exit 2&#125;</div><div class="line">&#125;</div><div class="line">&quot; &gt;&gt; $&#123;LOG_FILE&#125; 2&gt;&amp;1</div><div class="line">&#125; </div><div class="line"></div><div class="line">#远程执行命令</div><div class="line">function run_cmd() &#123;</div><div class="line">    local ip=$1 </div><div class="line">    local port=$2 </div><div class="line">    local CMD=$3 </div><div class="line">    </div><div class="line">#exec cmd</div><div class="line">expect -c &quot; </div><div class="line">set timeout $TIMEOUT </div><div class="line">spawn ssh -p $&#123;port&#125; root@$&#123;ip&#125; \&quot;$CMD\&quot;</div><div class="line">expect &#123; </div><div class="line">    \&quot;*yes/no*\&quot; &#123; send \&quot;yes\r\&quot;;exp_continue&#125;</div><div class="line">    \&quot;*assword*\&quot; &#123; send \&quot;$&#123;PASSWD&#125;\r\&quot;;&#125;</div><div class="line">&#125;</div><div class="line">expect &#123; </div><div class="line">    eof &#123; puts \&quot;expect ok\&quot;; exit 0&#125; </div><div class="line">    timeout &#123; puts \&quot;expect timeout\&quot;; exit 1&#125;</div><div class="line">    default &#123; puts \&quot;expect error\&quot;; exit 2&#125;</div><div class="line">&#125;</div><div class="line">&quot; &gt;&gt; $&#123;LOG_FILE&#125; 2&gt;&amp;1</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h4 id="dashboard安装脚本化"><a href="#dashboard安装脚本化" class="headerlink" title="dashboard安装脚本化"></a>dashboard安装脚本化</h4><p>dashboard也可以脚本执行，我们需将两yaml文件和dashboard的镜像（通过dockersave保存地文件）都放到pkg<br>压縮包中，使用的时候dockerload把镜像恢复，然再使用kubectl命令创建即可。</p>
+<h4 id="dashboard安装脚本化"><a href="#dashboard安装脚本化" class="headerlink" title="dashboard安装脚本化"></a>dashboard安装脚本化</h4><p>dashboard也可以脚本执行，我们需将两yaml文件和dashboard的镜像（通过dockersave保存地文件）都放到pkg压缩包中，使用的时候dockerload把镜像恢复，然再使用kubectl命令创建即可。</p>
 <p>有兴的读者可自行尝试，这里就不细讲了。</p>
 
       
@@ -643,7 +643,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">23</span>
+                <span class="site-state-item-count">24</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
