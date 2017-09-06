@@ -106,7 +106,7 @@
 <meta property="og:description" content="这篇博客来讲解下k8s高可用集群的安装。 上篇博客中，已经介绍了k8s集群的基础安装，对k8s的组件和使用用了大致的了解。 一般在生产环境中，考虑到可靠性和可用性，避免单节点故障时，环境不可用，需要需要通过安装k8s master集群来提供系统可用性。本篇博客来讨论如何安装k8s master集群。 环境准备准备7台虚拟机，其用途分别如下：    IP 用途 配置     192.168.0.1">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://user-images.githubusercontent.com/11350907/29849869-41e46f06-8d5c-11e7-9c05-9c8e47f43c21.jpg">
-<meta property="og:updated_time" content="2017-09-06T13:22:03.359Z">
+<meta property="og:updated_time" content="2017-09-06T14:56:57.340Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="kubernetes高可用集群安装-k8s-4">
 <meta name="twitter:description" content="这篇博客来讲解下k8s高可用集群的安装。 上篇博客中，已经介绍了k8s集群的基础安装，对k8s的组件和使用用了大致的了解。 一般在生产环境中，考虑到可靠性和可用性，避免单节点故障时，环境不可用，需要需要通过安装k8s master集群来提供系统可用性。本篇博客来讨论如何安装k8s master集群。 环境准备准备7台虚拟机，其用途分别如下：    IP 用途 配置     192.168.0.1">
@@ -449,7 +449,59 @@
 <h4 id="kube-proxy"><a href="#kube-proxy" class="headerlink" title="kube-proxy"></a>kube-proxy</h4><p>kube-proxy的启动参数</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">KUBE_PROXY_OPTS=&quot;--master=http://192.168.0.1:8543 \</div><div class="line">--proxy-mode=iptables \</div><div class="line">--v=1 --logtostderr=false --log_dir=/var/k8slogs/kube-proxy&quot;</div></pre></td></tr></table></figure>
 <p>和单master的node安装基本一致，修改master参数为nginx的地址即可。</p>
-<h3 id="安装脚本化"><a href="#安装脚本化" class="headerlink" title="安装脚本化"></a>安装脚本化</h3>
+<h3 id="安装脚本化"><a href="#安装脚本化" class="headerlink" title="安装脚本化"></a>安装脚本化</h3><p>上述的流程已经比较详细了，但是每个节点上都要手工操作一次会略显复杂，尤其是node节点，很多。所以我们需要将这些流程用脚本来执行，可以提升我们的效率。</p>
+<p>首先，需要将用到的k8s组件放到一个压缩文件中；</p>
+<ul>
+<li>将kube-apiserver、kube-controller-manager、kube-scheduler、kubectl、etcd放到k8s-master-pkg.tar.gz中</li>
+<li>将kubelet、kube-proxy放到k8s-node-pkg.tar.gz中</li>
+<li>同时，将镜像仓库的证书、配置文件等亚务放到k8s-node-pkg.tar.gz中</li>
+</ul>
+<p>将master的安装过程和node的安装过程分别编写一个sh脚本，命名为：k8s-master-install.sh和k8s-node-install.sh</p>
+<p>将安装master的虚机的ip放到文件master_ip中，安装node的虚机的ip列表放到node_ip中。</p>
+<p>然后在任意一个和这些虚机都能互通的机器上执行如下的安装流程：</p>
+<ul>
+<li>1.读取master_ip文件，得到master机器的ip</li>
+<li>2.安装nginx<ul>
+<li>将3个master的apiserver地址写入到ngin×的配置文件，然后docker run方式启动nginx</li>
+</ul>
+</li>
+<li>3.参数组装，需要将安装过程中需要用到的参数组装好<ul>
+<li>etcd的参数initial_cluster，按如下格式组装</li>
+<li>etcd0:<a href="http://192.168.0.2:2380" target="_blank" rel="external">http://192.168.0.2:2380</a>, etcdl:<a href="http://192.168.0.2:2380" target="_blank" rel="external">http://192.168.0.2:2380</a>, etcd2:<a href="http://192.168.0.2:2380" target="_blank" rel="external">http://192.168.0.2:2380</a></li>
+<li>apiserver的参数etcd_servers，按如下格式组装·</li>
+<li><a href="http://192.168.0.2:2380,http://192.168.0.2:2380,http://192.168.0.2:2380" target="_blank" rel="external">http://192.168.0.2:2380,http://192.168.0.2:2380,http://192.168.0.2:2380</a></li>
+</ul>
+</li>
+<li>4.依次执行scp命令将k8s_master_install.sh脚本和k8s_master_pkg.tar.gz发送的3个master机器上</li>
+<li>5.依次在3个master机器上远程执行master安装脚本，需要传入ngin×地址和上面组装的两个etcd的参数，做如下操作:<ul>
+<li>a，检查是否安装了docker，如没有则安装docker（ubuntu中使用apt-getinstalldocker-engine安装）；安装成功则继续，安装失败则退出</li>
+<li>b.将k8s-master-pkg.tar.gz解压，然后将其中的几个k8s组件拷贝到/usr/al/bin目录下</li>
+<li>c.生成master上4个组件的upstart脚本文件（/etc/init目录下）</li>
+<li>d.生成master上4个组件的启动参数配置文件（/etc/default目录下）</li>
+<li>e.检耷是否有4个组件在运行，如果有则停掉</li>
+<li>f.通过<code>start xxxx</code>启动四个组件</li>
+</ul>
+</li>
+<li>6.读取nod_ip文件，得到node机器的ip列表，对每个node依次做如下操作（可以使用shell的并行执行能力，加快执行速度）</li>
+<li>7.scp命令将node的安装脚本和k8s_node_pkg.tar.gz发送的node机器上</li>
+<li>8.远程执行node安裝脚本，做如下操作:<ul>
+<li>a.检查是否安装了docker，如没有则安装docker；安装成则继续，安装失败则退出（单个node的失败不影响其他node的安装）</li>
+<li>b.将k8s_node_pkg.tar.gz解压，然后将其中的2个k8s node组件拷贝到/usr/local/bin目录下</li>
+<li>c.镜像仓库的配置<ul>
+<li>I.  把<code>registry_ip registry域名</code>加入的/etc/hosts文件中</li>
+<li>II. 在/etc/docker/certs.d/目录下建立registry域名:5005的文件夹，并将证书拷贝进去</li>
+<li>III.将config.json文件放到/root/.docker/目录下</li>
+</ul>
+</li>
+<li>d.生成node上2个组件的upstart脚本文件（/etc/init目录下）</li>
+<li>e.生成node上2个组件的启动参数配置文件（/etc/default目录下）</li>
+<li>f·检查是否有2个组件在运行，如果有，则停掉</li>
+<li>g.通过<code>start xxx</code>，启动2个组件</li>
+</ul>
+</li>
+</ul>
+<p>这里给出的大致的流程，具体的脚本就不给出了，写的过程中还有很多细节需要处理，比如使用e×pect执行scp和执行命令<br>等，比如记录日志，方便出错时定位等。</p>
+
       
     </div>
     
