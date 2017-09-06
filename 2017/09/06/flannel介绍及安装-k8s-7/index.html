@@ -98,17 +98,17 @@
 
 
 
-<meta name="description" content="今天晚上看了一部电影《土拔鼠之日》，感触颇多。 认真的过好每一天，你想要的美好的明天就会到来。 当你自暴自弃的放弃一天时，你会发现今天就是昨天的重复，每一天都像是昨天，每天醒来都会让你觉得仿佛在昨天。你想要的明天永远不会到来。 当你充实的过每一天，仿佛每一天都是新的，每一天都不同，每一天的自己都是快乐的。不知不觉中，明天悄然来临。 不要让自己重复在昨天，每一天都不一样，每一天都值得你去学习，去进步">
+<meta name="description" content="flannel简介flannel安装流程1·下载flannel安装包https://github.com/coreos/flanneI/releases/tag/vO.7.1将下载的安装包解压，将其中的flannel拷贝到/usr/local/bin/目录下。 安装etcdctl将etcd中的etcdctl可执行二进制文件拷贝到/usr/local/bin目录下。 2·配置文件新建文件/etc/d">
 <meta property="og:type" content="article">
-<meta property="og:title" content="today is tomorrow">
-<meta property="og:url" content="://vernlium.github.io/2017/04/19/today-is-tomorrow/index.html">
+<meta property="og:title" content="flannel介绍及安装-k8s_7">
+<meta property="og:url" content="://vernlium.github.io/2017/09/06/flannel介绍及安装-k8s-7/index.html">
 <meta property="og:site_name" content="AnanZhang">
-<meta property="og:description" content="今天晚上看了一部电影《土拔鼠之日》，感触颇多。 认真的过好每一天，你想要的美好的明天就会到来。 当你自暴自弃的放弃一天时，你会发现今天就是昨天的重复，每一天都像是昨天，每天醒来都会让你觉得仿佛在昨天。你想要的明天永远不会到来。 当你充实的过每一天，仿佛每一天都是新的，每一天都不同，每一天的自己都是快乐的。不知不觉中，明天悄然来临。 不要让自己重复在昨天，每一天都不一样，每一天都值得你去学习，去进步">
+<meta property="og:description" content="flannel简介flannel安装流程1·下载flannel安装包https://github.com/coreos/flanneI/releases/tag/vO.7.1将下载的安装包解压，将其中的flannel拷贝到/usr/local/bin/目录下。 安装etcdctl将etcd中的etcdctl可执行二进制文件拷贝到/usr/local/bin目录下。 2·配置文件新建文件/etc/d">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-04-19T14:27:12.624Z">
+<meta property="og:updated_time" content="2017-09-06T15:21:43.261Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="today is tomorrow">
-<meta name="twitter:description" content="今天晚上看了一部电影《土拔鼠之日》，感触颇多。 认真的过好每一天，你想要的美好的明天就会到来。 当你自暴自弃的放弃一天时，你会发现今天就是昨天的重复，每一天都像是昨天，每天醒来都会让你觉得仿佛在昨天。你想要的明天永远不会到来。 当你充实的过每一天，仿佛每一天都是新的，每一天都不同，每一天的自己都是快乐的。不知不觉中，明天悄然来临。 不要让自己重复在昨天，每一天都不一样，每一天都值得你去学习，去进步">
+<meta name="twitter:title" content="flannel介绍及安装-k8s_7">
+<meta name="twitter:description" content="flannel简介flannel安装流程1·下载flannel安装包https://github.com/coreos/flanneI/releases/tag/vO.7.1将下载的安装包解压，将其中的flannel拷贝到/usr/local/bin/目录下。 安装etcdctl将etcd中的etcdctl可执行二进制文件拷贝到/usr/local/bin目录下。 2·配置文件新建文件/etc/d">
 
 
 
@@ -137,13 +137,13 @@
 
 
 
-  <link rel="canonical" href="://vernlium.github.io/2017/04/19/today-is-tomorrow/"/>
+  <link rel="canonical" href="://vernlium.github.io/2017/09/06/flannel介绍及安装-k8s-7/"/>
 
 
 
 
 
-  <title>today is tomorrow | AnanZhang</title>
+  <title>flannel介绍及安装-k8s_7 | AnanZhang</title>
   
 
 
@@ -276,7 +276,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="://vernlium.github.io/2017/04/19/today-is-tomorrow/">
+    <link itemprop="mainEntityOfPage" href="://vernlium.github.io/2017/09/06/flannel介绍及安装-k8s-7/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="张阿楠">
@@ -293,7 +293,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">today is tomorrow</h1>
+          <h1 class="post-title" itemprop="name headline">flannel介绍及安装-k8s_7</h1>
         
 
         <div class="post-meta">
@@ -305,8 +305,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-19T21:21:57+08:00">
-                2017-04-19
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-06T23:04:12+08:00">
+                2017-09-06
               </time>
             
 
@@ -343,17 +343,15 @@
       
 
       
-        <p>今天晚上看了一部电影《土拔鼠之日》，感触颇多。</p>
-<p>认真的过好每一天，你想要的美好的明天就会到来。</p>
-<p>当你自暴自弃的放弃一天时，你会发现今天就是昨天的重复，每一天都像是昨天，每天醒来都会让你觉得仿佛在昨天。你想要的明天永远不会到来。</p>
-<p>当你充实的过每一天，仿佛每一天都是新的，每一天都不同，每一天的自己都是快乐的。不知不觉中，明天悄然来临。</p>
-<p>不要让自己重复在昨天，每一天都不一样，每一天都值得你去学习，去进步，去成长，去发现生活的美，去帮助别人，去让自己快乐。美好的结局不是处心积虑的谋划，是点点滴滴的积累。开心快乐积极的拥抱每一天，美好的明天总会到来。</p>
-<p>享受每一个今天，不管明天会不会来。</p>
-<p>前几天，荣生哥哥微信分享的一句话很好：<strong>现状系前因，现因承后果。</strong>不要在叹息昨天的失去中让今天变成了昨天，每一天都是新的，抓住今天，明天会有所不同。</p>
-<p>这部电影的一些台词也很好，记录几个：</p>
-<blockquote>
-<p>No mater what happen tomorrow or the rest of my life,I am happy now because I love you.</p>
-</blockquote>
+        <h3 id="flannel简介"><a href="#flannel简介" class="headerlink" title="flannel简介"></a>flannel简介</h3><h3 id="flannel安装流程"><a href="#flannel安装流程" class="headerlink" title="flannel安装流程"></a>flannel安装流程</h3><h4 id="1·下载flannel安装包"><a href="#1·下载flannel安装包" class="headerlink" title="1·下载flannel安装包"></a>1·下载flannel安装包</h4><p><a href="https://github.com/coreos/flanneI/releases/tag/vO.7.1" target="_blank" rel="external">https://github.com/coreos/flanneI/releases/tag/vO.7.1</a><br>将下载的安装包解压，将其中的flannel拷贝到/usr/local/bin/目录下。</p>
+<h5 id="安装etcdctl"><a href="#安装etcdctl" class="headerlink" title="安装etcdctl"></a>安装etcdctl</h5><p>将etcd中的etcdctl可执行二进制文件拷贝到/usr/local/bin目录下。</p>
+<h4 id="2·配置文件"><a href="#2·配置文件" class="headerlink" title="2·配置文件"></a>2·配置文件</h4><p>新建文件/etc/default/flanneld，其内容为:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">FLANNELD_OPTS=&quot;--etcd-endpoints=http://192.168.0.2:2379,http://192.168.0.2:2379,http://192.168.0.2:2379</div></pre></td></tr></table></figure>
+<p>编写flannel的upstart脚本，新建文件/etc/init/flanneld.conf，其内容为:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">description &quot;flanneld service&quot;</div><div class="line"></div><div class="line">respawn </div><div class="line"></div><div class="line">start on (net-device-up </div><div class="line">    and local-filesystems </div><div class="line">    and runlevel [2345])</div><div class="line"></div><div class="line">stop on runlevel [ !2345])</div><div class="line"></div><div class="line">pre-start script </div><div class="line">    FLANNELD=/usr/IocaI/bin/$UPSTART_JOB</div><div class="line">    if [ -f $FLANNELD ]; then </div><div class="line">        exit 0</div><div class="line">    fi </div><div class="line">    exit 22 </div><div class="line">end script </div><div class="line"></div><div class="line">script </div><div class="line">    FLANNELD=/usr/locaI/bin/$UPSTART_JOB</div><div class="line">    FLANNELD_OPTS=&quot;&quot; </div><div class="line">    if [ -f /etc/defauIt/$UPSTART_JOB ]; then </div><div class="line">        · /etc/default/$UPSTART_JOB</div><div class="line">    fi </div><div class="line">    export HOME:/root </div><div class="line">    exec &quot;$FLANNELD&quot; $FLANNELD_OPTS </div><div class="line">end script</div></pre></td></tr></table></figure>
+<h4 id="3-flannel配置信息写入etcd"><a href="#3-flannel配置信息写入etcd" class="headerlink" title="3.flannel配置信息写入etcd"></a>3.flannel配置信息写入etcd</h4><p>flannel的配置信息全部在etcd里面记录，往etcd里面写入下面这个最简单的配置，只指定flannel能用来分配给每个Docker节点的拟IP地址段:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">etcdctl --endpoints http://192.168.0.2:2379,http://192.168.0.2:2379,http://192.168.0.2:2379 \ </div><div class="line">set /coreos.com/network/config \</div><div class="line">&apos;&#123;&quot;Network&quot;: &quot;172.100.0.0/16,&quot;SubnetLen&quot;: 28,&quot;Backend&quot;: &#123;&quot;Type&quot;: &quot;vxlan&quot;&#125;&#125;&apos;</div></pre></td></tr></table></figure>
+<p>其中<code>{&quot;Network&quot;: &quot;172.100.0.0/16,&quot;SubnetLen&quot;: 28,&quot;Backend&quot;: {&quot;Type&quot;: &quot;vxlan&quot;}}</code>配置中各字段的含义如下：</p>
 
       
     </div>
@@ -378,8 +376,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/12/27/Java正则表达式/" rel="next" title="Java正则表达式">
-                <i class="fa fa-chevron-left"></i> Java正则表达式
+              <a href="/2017/08/30/kubernetes高可用集群安装-k8s-4/" rel="next" title="kubernetes高可用集群安装-k8s-4">
+                <i class="fa fa-chevron-left"></i> kubernetes高可用集群安装-k8s-4
               </a>
             
           </div>
@@ -388,8 +386,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/08/08/回归/" rel="prev" title="回归">
-                回归 <i class="fa fa-chevron-right"></i>
+              <a href="/2017/09/06/k8s实践-k8s-5/" rel="prev" title="k8s实践-k8s_5">
+                k8s实践-k8s_5 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -442,8 +440,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/wukong.png"
@@ -529,6 +536,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#flannel简介"><span class="nav-number">1.</span> <span class="nav-text">flannel简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#flannel安装流程"><span class="nav-number">2.</span> <span class="nav-text">flannel安装流程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1·下载flannel安装包"><span class="nav-number">2.1.</span> <span class="nav-text">1·下载flannel安装包</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#安装etcdctl"><span class="nav-number">2.1.1.</span> <span class="nav-text">安装etcdctl</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2·配置文件"><span class="nav-number">2.2.</span> <span class="nav-text">2·配置文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-flannel配置信息写入etcd"><span class="nav-number">2.3.</span> <span class="nav-text">3.flannel配置信息写入etcd</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
