@@ -106,7 +106,7 @@
 <meta property="og:description" content="这篇博客来讲解下k8s高可用集群的安装。 上篇博客中，已经介绍了k8s集群的基础安装，对k8s的组件和使用用了大致的了解。 一般在生产环境中，考虑到可靠性和可用性，避免单节点故障时，环境不可用，需要需要通过安装k8s master集群来提供系统可用性。本篇博客来讨论如何安装k8s master集群。 环境准备准备7台虚拟机，其用途分别如下：    IP 用途 配置     192.168.0.1">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://user-images.githubusercontent.com/11350907/29849869-41e46f06-8d5c-11e7-9c05-9c8e47f43c21.jpg">
-<meta property="og:updated_time" content="2017-09-06T00:25:29.628Z">
+<meta property="og:updated_time" content="2017-09-06T13:22:03.359Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="kubernetes高可用集群安装-k8s-4">
 <meta name="twitter:description" content="这篇博客来讲解下k8s高可用集群的安装。 上篇博客中，已经介绍了k8s集群的基础安装，对k8s的组件和使用用了大致的了解。 一般在生产环境中，考虑到可靠性和可用性，避免单节点故障时，环境不可用，需要需要通过安装k8s master集群来提供系统可用性。本篇博客来讨论如何安装k8s master集群。 环境准备准备7台虚拟机，其用途分别如下：    IP 用途 配置     192.168.0.1">
@@ -429,7 +429,27 @@
 <p>集群中三个etcd节点都启动成功后，可以检测集群状态是否ok。</p>
 <p>执行 <code>etcdctl cluster-health</code>可以看到集群整体的健康度：</p>
 <p>执行<code>etcdctl member list</code>可以查看集群的leader以及所有成员：</p>
-<h3 id="k8s-master集群"><a href="#k8s-master集群" class="headerlink" title="k8s master集群"></a>k8s master集群</h3>
+<h3 id="k8s-master集群"><a href="#k8s-master集群" class="headerlink" title="k8s master集群"></a>k8s master集群</h3><p>etcd集群启动后，再启动k8s的3个组件。3个master上的k8s的3个组件的启动参数是相同的。</p>
+<p>master集群的启动参数和单master的略有不同，不同之处在于：</p>
+<ul>
+<li>apiserver的etcd_server配置为etcd集群的3个节点的地址，用逗号隔开；</li>
+<li>controller-manager和schedule的master参数配置为nginx的地址；</li>
+<li>controller-manager和schedule的启动参数多了一个<code>--leader-elect=true</code>，因为是一个集群，需要leader选举；</li>
+</ul>
+<p>kube-apiserver的启动参数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">KUBE_APISERVER_OPTS=&quot;--insecure-bind-address=0.0.0.0 \</div><div class="line">--insecure-port=8080 \</div><div class="line">--cors-allowed-origins=.* \</div><div class="line">--etcd_servers=http://192.168.0.2:2379,http://192.168.0.3:2379,http://192.168.0.4:2379 \</div><div class="line">--service-cluster-ip=172.17.0.0/16 \</div><div class="line">--v=1 --logtostderr=false --log_dir=/var/k8slogs/apiserver&quot;</div></pre></td></tr></table></figure>
+<p>kube-controller-manager的启动参数<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">KUBE_CONTROLLER_MANAGER_OPTS=&quot;--master=192.168.0.1:8543 \</div><div class="line">--enable-hostpath-provisioner=false \</div><div class="line">--pod-eviction-timeout=60m0s</div><div class="line">--v=1 --logtostderr=false --log_dir=/var/k8slogs/controller-manager \</div><div class="line">--leader-elect=true&quot;</div></pre></td></tr></table></figure></p>
+<p>kube-scheduler的启动参数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">KUBE_SCHEDULER_OPTS=&quot;--master=192.168.0.1:8543  \</div><div class="line">--v=1 --logtostderr=false --log_dir=/var/k8slogs/scheduler \</div><div class="line">--leader-elect=true&quot;</div></pre></td></tr></table></figure>
+<p>启动命令依然是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">start etcd</div><div class="line">start kube-apiserver</div><div class="line">start kube-controller-manager</div><div class="line">start kube-scheduler</div></pre></td></tr></table></figure>
+<p>3个master都启动后，通过nginx地址就可以访问k8s集群了。</p>
+<h3 id="node的安装"><a href="#node的安装" class="headerlink" title="node的安装"></a>node的安装</h3><h4 id="kubelet"><a href="#kubelet" class="headerlink" title="kubelet"></a>kubelet</h4><p>kubelet的启动参数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">KUBELET_OPTS=&quot;--address=0.0.0.0 \</div><div class="line">--port=10250 \</div><div class="line">--api_servers=http://192.168.0.1:8543 \</div><div class="line">--pod-infra-container-image=docker.io/kubernetes/pause \</div><div class="line">--node-labels=node=anannode \</div><div class="line">--v=1 --logtostderr=false --log_dir=/var/k8slogs/kubelet&quot;</div></pre></td></tr></table></figure>
+<h4 id="kube-proxy"><a href="#kube-proxy" class="headerlink" title="kube-proxy"></a>kube-proxy</h4><p>kube-proxy的启动参数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">KUBE_PROXY_OPTS=&quot;--master=http://192.168.0.1:8543 \</div><div class="line">--proxy-mode=iptables \</div><div class="line">--v=1 --logtostderr=false --log_dir=/var/k8slogs/kube-proxy&quot;</div></pre></td></tr></table></figure>
+<p>和单master的node安装基本一致，修改master参数为nginx的地址即可。</p>
+<h3 id="安装脚本化"><a href="#安装脚本化" class="headerlink" title="安装脚本化"></a>安装脚本化</h3>
       
     </div>
     
@@ -619,7 +639,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#环境准备"><span class="nav-number">1.</span> <span class="nav-text">环境准备</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#组网图"><span class="nav-number">2.</span> <span class="nav-text">组网图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#master集群安装"><span class="nav-number">3.</span> <span class="nav-text">master集群安装</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#nginx"><span class="nav-number">3.1.</span> <span class="nav-text">nginx</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3个master的安装"><span class="nav-number">3.2.</span> <span class="nav-text">3个master的安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#etcd"><span class="nav-number">3.3.</span> <span class="nav-text">etcd</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#k8s-master集群"><span class="nav-number">4.</span> <span class="nav-text">k8s master集群</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#环境准备"><span class="nav-number">1.</span> <span class="nav-text">环境准备</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#组网图"><span class="nav-number">2.</span> <span class="nav-text">组网图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#master集群安装"><span class="nav-number">3.</span> <span class="nav-text">master集群安装</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#nginx"><span class="nav-number">3.1.</span> <span class="nav-text">nginx</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3个master的安装"><span class="nav-number">3.2.</span> <span class="nav-text">3个master的安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#etcd"><span class="nav-number">3.3.</span> <span class="nav-text">etcd</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#k8s-master集群"><span class="nav-number">4.</span> <span class="nav-text">k8s master集群</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#node的安装"><span class="nav-number">5.</span> <span class="nav-text">node的安装</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#kubelet"><span class="nav-number">5.1.</span> <span class="nav-text">kubelet</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#kube-proxy"><span class="nav-number">5.2.</span> <span class="nav-text">kube-proxy</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装脚本化"><span class="nav-number">6.</span> <span class="nav-text">安装脚本化</span></a></li></ol></div>
             
 
           </div>

@@ -111,7 +111,7 @@
 <meta property="og:image" content="https://user-images.githubusercontent.com/11350907/30040034-f54d340c-920b-11e7-869a-120c42a55d5b.png">
 <meta property="og:image" content="https://user-images.githubusercontent.com/11350907/30040034-f54d340c-920b-11e7-869a-120c42a55d5b.png">
 <meta property="og:image" content="https://user-images.githubusercontent.com/11350907/29775709-c46db038-8c38-11e7-989d-164e49669cef.jpg">
-<meta property="og:updated_time" content="2017-09-05T00:18:27.134Z">
+<meta property="og:updated_time" content="2017-09-06T13:52:43.701Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="kubernetes基本安装-k8s-3">
 <meta name="twitter:description" content="这篇博客来讲解下k8s的安装。 为什么标题中叫“基本安装”呢？因为一般生产环境中会考虑可靠性等问题，需要k8s master安装成集群，集群的安装稍微复杂，我们可先从基本的安装开始，学习如何安装单master的k8s集群，然后在扩展成master 集群，这样有个循序渐进的过程，会了解的更清晰。 k8s的安装有多种方式，本文中以手动的方式安装，最后形成shell脚本，可以一键安装k8s集群，并且可以">
@@ -399,6 +399,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">description &quot;Kube-Scheduler service&quot;</div><div class="line"></div><div class="line">respawn</div><div class="line"></div><div class="line">#start in conjunction with etcd</div><div class="line">start on started etcd</div><div class="line">stop on stopping etcd</div><div class="line"></div><div class="line">pre-start script</div><div class="line">    KUBE_SCHEDULER=/usr/local/bin/$UPSTART_JOB</div><div class="line">    if [ -f /etc/default/$UPSTART_JOB ]; then</div><div class="line">        . /etc/default/$UPSTART_JOB</div><div class="line">    fi</div><div class="line">    if [ -f $KUBE_SCHEDULER ]; then</div><div class="line">        exit 0</div><div class="line">    fi</div><div class="line">    echo &quot;$KUBE_SCHEDULER binary not found,exiting&quot;</div><div class="line">    exit 22</div><div class="line">end script</div><div class="line"></div><div class="line">script </div><div class="line">    KUBE_SCHEDULER=/usr/bin/$UPSTART_JON</div><div class="line">    KUBE_SCHEDULER_OPTS=&quot;&quot;</div><div class="line">    if [ -f /etc/default/$UPSTART_JOB ]; then</div><div class="line">        . /etc/default/$UPSTART_JOB</div><div class="line">    fi</div><div class="line">    exec &quot;$KUBE_SCHEDULER&quot; $KUBE_SCHEDULER_OPTS</div><div class="line">end script</div></pre></td></tr></table></figure>
 <h4 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h4><p>使用如下命令启动master上的4个组件</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">start etcd</div><div class="line">start kube-apiserver</div><div class="line">start kube-controller-manager</div><div class="line">start kube-scheduler</div></pre></td></tr></table></figure>
+<p>其实，启动etcd后，后面三个组件会自动启动，这是upstart的机制（注意upstart脚本中的<code>start on</code>）。</p>
 <p>启动后，可以查看到如下进程：</p>
 <h3 id="k8s-node安装"><a href="#k8s-node安装" class="headerlink" title="k8s node安装"></a>k8s node安装</h3><h4 id="软件包-1"><a href="#软件包-1" class="headerlink" title="软件包"></a>软件包</h4><p>需要将上面下载的二进制可执行文件拷贝到相关目录下。</p>
 <p>将上的kubelet、kube-proxy两个组件拷贝到node机器上的/usr/local/bin/目录下。</p>
@@ -484,7 +485,49 @@
 <p>创建一段时候后，可以通过如下命令看到</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">kubectl get svc --namesapce=kube-system</div><div class="line">kubectl get pod --namespace=kube-system</div></pre></td></tr></table></figure>
 <p>在浏览器输入地址：httpL//ip:9090 ，即可看到dashboard的界面了</p>
-<h3 id="安装脚本化"><a href="#安装脚本化" class="headerlink" title="安装脚本化"></a>安装脚本化</h3>
+<h3 id="安装脚本化"><a href="#安装脚本化" class="headerlink" title="安装脚本化"></a>安装脚本化</h3><p>上述的流程已经比较详细了，但是每个节点上都要手工操作一次会略显复杂，尤其是node节点，很多。所以我们需要将这些流程用脚本来执行，可以提升我们的效率。</p>
+<p>首先，需要将用到的k8s组件放到一个压缩文件中；</p>
+<ul>
+<li>将kube-apiserver、kube-controller-manager、kube-scheduler、kubectl、etcd放到k8s-master-pkg.tar.gz中</li>
+<li>将kubelet、kube-proxy放到k8s-node-pkg.tar.gz中</li>
+<li>同时，将镜像仓库的证书、配置文件等亚务放到k8s-node-pkg.tar.gz中</li>
+</ul>
+<p>将master的安装过程和node的安装过程分别编写一个sh脚本，命名为：k8s-master-install.sh和k8s-node-install.sh</p>
+<p>将安装master的虚机的ip放到文件master_ip中，安装node的虚机的ip列表放到node_ip中。</p>
+<p>然后在任意一个和这些虚机都能互通的机器上执行如下的安装流程：</p>
+<ul>
+<li>1.读取master_ip文件，得到master机器的ip</li>
+<li>2.scp命令将k8s-master-install.sh脚本和k8s-master-pkg.tar.gz发送的master机器上</li>
+<li>3．远程执行master安装脚本，做如下操作:<ul>
+<li>a．检查是否安装了docker，如没有则安装docker（ubuntu中使用apt-getinstalldocker-engine安装）;安装成功则继续，安装失败则退出</li>
+<li>b.将k8s_master-pkg.tar.gz解压，然后将其中的几个k8s组件拷贝到/usr/bin目录下</li>
+<li>c.生成master上4个组件的upstart脚本文件（/etc/init目录下）</li>
+<li>d.生成master上4个组件的启动参数配置文件（/etc/default目录下）</li>
+<li>e.检耷是否有4个组件在运行，如果有则停掉</li>
+<li>f.通过<code>start xxxx</code>启动四个组件</li>
+</ul>
+</li>
+<li>4.读取nod_ip文件，得到node机器的ip列表，对每个node依次做如下操作（可以使用shell的并行执行能力，加快执行速度）</li>
+<li>5.scp命令将node的安装脚本和k8s_node_pkg.tar.gz发送的node机器上</li>
+<li>6.远程执行node安裝脚本，做如下操作:<ul>
+<li>a.检查是否安装了docker，如没有则安装docker；安装成则继续，安装失败则退出（单个node的失败不影响其他node的安装）</li>
+<li>b.将k8s_node_pkg.tar.gz解压，然后将其中的2个k8s node组件拷贝到/usr/local/bin目录下</li>
+<li>c.镜像仓库的配置<ul>
+<li>I.  把<code>registry_ip registry域名</code>加入的/etc/hosts文件中</li>
+<li>II. 在/etc/docker/certs.d/目录下建立registry域名:5005的文件夹，并将证书拷贝进去</li>
+<li>III.将config.json文件放到/root/.docker/目录下</li>
+</ul>
+</li>
+<li>d.生成node上2个组件的upstart脚本文件（/etc/init目录下）</li>
+<li>e．生成node上2个组件的启动参数配置文件（/etc/default目录下）</li>
+<li>f·检查是否有2个组件在运行，如果有，则停掉</li>
+<li>g.通过<code>start xxx</code>，启动2个组件</li>
+</ul>
+</li>
+</ul>
+<p>这里给出的大致的流惺，具体的脚本就不给出了，写的过程中还有很多细节需要处理，比如使用e×pect执行scp和执行命令<br>等，比如记录日志，方便出错时定位等。</p>
+<h3 id="远程发送文件和执行命令"><a href="#远程发送文件和执行命令" class="headerlink" title="远程发送文件和执行命令"></a>远程发送文件和执行命令</h3><p>这个操作在脚本安装的过程中很多次用到，所以可以封装一下。</p>
+
       
     </div>
     
@@ -678,7 +721,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#获取安装包"><span class="nav-number">1.</span> <span class="nav-text">获取安装包</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#etcd"><span class="nav-number">1.1.</span> <span class="nav-text">etcd</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#k8s"><span class="nav-number">1.2.</span> <span class="nav-text">k8s</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#组网图"><span class="nav-number">2.</span> <span class="nav-text">组网图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#环境准备"><span class="nav-number">3.</span> <span class="nav-text">环境准备</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#k8s-master安装"><span class="nav-number">4.</span> <span class="nav-text">k8s master安装</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#软件包"><span class="nav-number">4.1.</span> <span class="nav-text">软件包</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#etcd-1"><span class="nav-number">4.2.</span> <span class="nav-text">etcd</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#kube-apiserver"><span class="nav-number">4.3.</span> <span class="nav-text">kube-apiserver</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#kube-controller-manager"><span class="nav-number">4.4.</span> <span class="nav-text">kube-controller-manager</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#kube-scheduler"><span class="nav-number">4.5.</span> <span class="nav-text">kube-scheduler</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#启动"><span class="nav-number">4.6.</span> <span class="nav-text">启动</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#k8s-node安装"><span class="nav-number">5.</span> <span class="nav-text">k8s node安装</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#软件包-1"><span class="nav-number">5.1.</span> <span class="nav-text">软件包</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#kubelet"><span class="nav-number">5.2.</span> <span class="nav-text">kubelet</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#kube-proxy"><span class="nav-number">5.3.</span> <span class="nav-text">kube-proxy</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#启动-1"><span class="nav-number">5.4.</span> <span class="nav-text">启动</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#k8s集群的使用"><span class="nav-number">6.</span> <span class="nav-text">k8s集群的使用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#kubectl（命令行方式）"><span class="nav-number">6.1.</span> <span class="nav-text">kubectl（命令行方式）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#k8s-api"><span class="nav-number">6.2.</span> <span class="nav-text">k8s api</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#dashboard"><span class="nav-number">7.</span> <span class="nav-text">dashboard</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装脚本化"><span class="nav-number">8.</span> <span class="nav-text">安装脚本化</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#获取安装包"><span class="nav-number">1.</span> <span class="nav-text">获取安装包</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#etcd"><span class="nav-number">1.1.</span> <span class="nav-text">etcd</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#k8s"><span class="nav-number">1.2.</span> <span class="nav-text">k8s</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#组网图"><span class="nav-number">2.</span> <span class="nav-text">组网图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#环境准备"><span class="nav-number">3.</span> <span class="nav-text">环境准备</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#k8s-master安装"><span class="nav-number">4.</span> <span class="nav-text">k8s master安装</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#软件包"><span class="nav-number">4.1.</span> <span class="nav-text">软件包</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#etcd-1"><span class="nav-number">4.2.</span> <span class="nav-text">etcd</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#kube-apiserver"><span class="nav-number">4.3.</span> <span class="nav-text">kube-apiserver</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#kube-controller-manager"><span class="nav-number">4.4.</span> <span class="nav-text">kube-controller-manager</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#kube-scheduler"><span class="nav-number">4.5.</span> <span class="nav-text">kube-scheduler</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#启动"><span class="nav-number">4.6.</span> <span class="nav-text">启动</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#k8s-node安装"><span class="nav-number">5.</span> <span class="nav-text">k8s node安装</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#软件包-1"><span class="nav-number">5.1.</span> <span class="nav-text">软件包</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#kubelet"><span class="nav-number">5.2.</span> <span class="nav-text">kubelet</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#kube-proxy"><span class="nav-number">5.3.</span> <span class="nav-text">kube-proxy</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#启动-1"><span class="nav-number">5.4.</span> <span class="nav-text">启动</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#k8s集群的使用"><span class="nav-number">6.</span> <span class="nav-text">k8s集群的使用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#kubectl（命令行方式）"><span class="nav-number">6.1.</span> <span class="nav-text">kubectl（命令行方式）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#k8s-api"><span class="nav-number">6.2.</span> <span class="nav-text">k8s api</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#dashboard"><span class="nav-number">7.</span> <span class="nav-text">dashboard</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装脚本化"><span class="nav-number">8.</span> <span class="nav-text">安装脚本化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#远程发送文件和执行命令"><span class="nav-number">9.</span> <span class="nav-text">远程发送文件和执行命令</span></a></li></ol></div>
             
 
           </div>
