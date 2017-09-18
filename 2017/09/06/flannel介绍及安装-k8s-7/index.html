@@ -107,7 +107,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://user-images.githubusercontent.com/11350907/30549280-f3a39ee6-9cc6-11e7-96bf-3872bba098c9.png">
 <meta property="og:image" content="https://user-images.githubusercontent.com/11350907/30548777-a060a9a0-9cc5-11e7-8e28-f0b62d60aa96.png">
-<meta property="og:updated_time" content="2017-09-18T15:32:13.841Z">
+<meta property="og:updated_time" content="2017-09-18T23:45:33.612Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="flannel介绍及安装-k8s_7">
 <meta name="twitter:description" content="flannel简介flannel安装流程1·下载flannel安装包https://github.com/coreos/flanneI/releases/tag/v0.7.1将下载的安装包解压，将其中的flannel拷贝到/usr/local/bin/目录下。 安装etcdctl将etcd中的etcdctl可执行二进制文件拷贝到/usr/local/bin目录下。 2·配置文件新建文件/etc/d">
@@ -370,7 +370,7 @@
 </ul>
 <p>我们配置的<code>&quot;Network&quot;:&quot;172.100.0.0/16&quot;,&quot;SubnetLen&quot;:28</code>含义为：</p>
 <p>flannel集群（包含k8s master和node）的所有节点以及节点上的容器的ip都在<code>172.100.0.0/16</code>子网内。</p>
-<p>子网长度28表示每个node节点上的子网长度，即每个node上也有一个小的子网，这个子网最多可支持2^（32-28）- 1=2^4 - 1=15个容器·（-1是因为docker0网桥占了一个ip）<br>这个flannel集群最多支持2^（28-16）=2^12=4096个节点。</p>
+<p>子网长度28表示每个node节点上的子网长度，即每个node上也有一个小的子网，这个子网最多可支持2^（32-28）- 1=2^4 - 1=15个容器（-1是因为docker0网桥占了一个ip）<br>这个flannel集群最多支持2^（28-16）=2^12=4096个节点。</p>
 <p>这个子网长度根据自己的场景来选择，例如项目的使用场景，每个node上容器个数少，node节点多，所以长度长一些。如果节点多，节点上的容器也多，可以将上面设置的<code>172.100.0.0/16</code>其中的16变小，子网的容量更大一些。</p>
 <p>还有两个字段这里没有使用:</p>
 <ul>
@@ -381,7 +381,13 @@
 <p>启动成功后，会新增一个文件<code>/run/flannel/subnet.env</code>，查看其中的内容：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">FLANNEL_NETWORK=172.100.0.0/16 </div><div class="line">FLANNEL_SUBNET=172.100.4.49/28 </div><div class="line">FLANNEL_MTU=1450</div><div class="line">FLANNEL_IPMASQ=false</div></pre></td></tr></table></figure>
 <p>这个是flanneld进程从etcd上拉取到的配置写入到本地文件中。</p>
-<p>其中，FLANNEL_NETWORK为</p>
+<p>其中:</p>
+<ul>
+<li>FLANNEL_NETWORK: flannel的网络地址</li>
+<li>FLANNEL_SUBNET: 本节点上的子网网段 </li>
+<li>FLANNEL_MTU: 最大传输单元大小</li>
+<li>FLANNEL_IPMASQ: 是否开启IPMASQ防火墙</li>
+</ul>
 <p>5· 重 启 docker </p>
 <p>将 /run/flannel/subnet.env 文 件 中 的 内 容 加 入 到 docker 启 动 的 配 置 项 中<br>`–bip=${FLANNEL_SUBNET} –mtu=${FLANNEL_MTU}。然后重启docker0 </p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">root@LFG1000826665:~# stop docker </div><div class="line">root@LFG1000826665:~# cat /run/flannel/subnet.env </div><div class="line">FLANNEL_NETWORK=172.100.0.0/16 </div><div class="line">FLANNEL_SUBNET=172.100.32.1/28 </div><div class="line">FLANNEL_MTU=1450 </div><div class="line">FLANNEL_IPMASQ=false</div><div class="line">root@LFG1000826665:~# cat /etc/default/docker </div><div class="line">DOCKER_OPTS=&quot;$DOCKER_OPTS -H unix:///var/run/docker.sock -H tcp://0.0.0.0:2375 -bip=172.100.4.49/28 --mtu=1450&quot; </div><div class="line">DOCKER_CERT_PATH=&quot;/etc/docker&quot; </div><div class="line">root@LFG1000826665:~#</div><div class="line">root@LFG1000826665:~# start docker </div><div class="line">root@LFG1000826665:~# ps ex 丨 grep dockerd </div><div class="line">1039 ? Ssl 1:13 /usr/bin/dockerd -H unix:///var/run/docker.sock -H  tcp://0.0.0.0:2375 -bip=172.100.4.49/28 --mtu=1450</div></pre></td></tr></table></figure>
