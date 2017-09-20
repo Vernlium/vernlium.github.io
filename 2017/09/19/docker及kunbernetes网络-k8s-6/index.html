@@ -82,7 +82,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="docker,k8s,iptables," />
 
 
 
@@ -99,6 +99,7 @@
 
 
 <meta name="description" content="docker网络原理docker的网络结构如下图所示  其中：  最下面的一层：各种网络设备，比如主机的网卡、各种网桥、overlay的网络设备等 libnetwork:是docker的网络库，其中使用了CNM(Container Network Model)。CNM定义了构建容器虚拟化网络的模型，同时还提供了可以用于开发各种网络驱动的标准化接口和组件。 Dockerdaemon：就是docker">
+<meta name="keywords" content="docker,k8s,iptables">
 <meta property="og:type" content="article">
 <meta property="og:title" content="docker及kunbernetes网络-k8s-6">
 <meta property="og:url" content="://vernlium.github.io/2017/09/19/docker及kunbernetes网络-k8s-6/index.html">
@@ -106,7 +107,7 @@
 <meta property="og:description" content="docker网络原理docker的网络结构如下图所示  其中：  最下面的一层：各种网络设备，比如主机的网卡、各种网桥、overlay的网络设备等 libnetwork:是docker的网络库，其中使用了CNM(Container Network Model)。CNM定义了构建容器虚拟化网络的模型，同时还提供了可以用于开发各种网络驱动的标准化接口和组件。 Dockerdaemon：就是docker">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://user-images.githubusercontent.com/11350907/30645929-e668263c-9e49-11e7-98bc-6969f66c604b.png">
-<meta property="og:updated_time" content="2017-09-20T13:50:37.686Z">
+<meta property="og:updated_time" content="2017-09-20T23:27:59.807Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="docker及kunbernetes网络-k8s-6">
 <meta name="twitter:description" content="docker网络原理docker的网络结构如下图所示  其中：  最下面的一层：各种网络设备，比如主机的网卡、各种网桥、overlay的网络设备等 libnetwork:是docker的网络库，其中使用了CNM(Container Network Model)。CNM定义了构建容器虚拟化网络的模型，同时还提供了可以用于开发各种网络驱动的标准化接口和组件。 Dockerdaemon：就是docker">
@@ -318,6 +319,28 @@
           </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/k8s/" itemprop="url" rel="index">
+                    <span itemprop="name">k8s</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -429,6 +452,16 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/docker/" rel="tag"># docker</a>
+          
+            <a href="/tags/k8s/" rel="tag"># k8s</a>
+          
+            <a href="/tags/iptables/" rel="tag"># iptables</a>
+          
+        </div>
+      
 
       
       
@@ -447,6 +480,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/09/21/iptables介绍及其在k8s中的应用-k8s-8/" rel="prev" title="iptables介绍及其在k8s中的应用-k8s_8">
+                iptables介绍及其在k8s中的应用-k8s_8 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -523,7 +560,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">26</span>
+                <span class="site-state-item-count">29</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -534,7 +571,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-count">4</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -545,7 +582,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">15</span>
+                <span class="site-state-item-count">19</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

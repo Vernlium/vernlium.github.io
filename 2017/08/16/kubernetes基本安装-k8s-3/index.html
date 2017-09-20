@@ -82,7 +82,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="docker k8s," />
 
 
 
@@ -99,6 +99,7 @@
 
 
 <meta name="description" content="这篇博客来讲解下k8s的安装。 为什么标题中叫“基本安装”呢？因为一般生产环境中会考虑可靠性等问题，需要k8s master安装成集群，集群的安装稍微复杂，我们可先从基本的安装开始，学习如何安装单master的k8s集群，然后在扩展成master 集群，这样有个循序渐进的过程，会了解的更清晰。 k8s的安装有多种方式，本文中以手动的方式安装，最后形成shell脚本，可以一键安装k8s集群，并且可以">
+<meta name="keywords" content="docker k8s">
 <meta property="og:type" content="article">
 <meta property="og:title" content="kubernetes基本安装-k8s-3">
 <meta property="og:url" content="://vernlium.github.io/2017/08/16/kubernetes基本安装-k8s-3/index.html">
@@ -111,7 +112,7 @@
 <meta property="og:image" content="https://user-images.githubusercontent.com/11350907/30040034-f54d340c-920b-11e7-869a-120c42a55d5b.png">
 <meta property="og:image" content="https://user-images.githubusercontent.com/11350907/30040034-f54d340c-920b-11e7-869a-120c42a55d5b.png">
 <meta property="og:image" content="https://user-images.githubusercontent.com/11350907/29775709-c46db038-8c38-11e7-989d-164e49669cef.jpg">
-<meta property="og:updated_time" content="2017-09-06T15:01:14.699Z">
+<meta property="og:updated_time" content="2017-09-20T13:55:49.293Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="kubernetes基本安装-k8s-3">
 <meta name="twitter:description" content="这篇博客来讲解下k8s的安装。 为什么标题中叫“基本安装”呢？因为一般生产环境中会考虑可靠性等问题，需要k8s master安装成集群，集群的安装稍微复杂，我们可先从基本的安装开始，学习如何安装单master的k8s集群，然后在扩展成master 集群，这样有个循序渐进的过程，会了解的更清晰。 k8s的安装有多种方式，本文中以手动的方式安装，最后形成shell脚本，可以一键安装k8s集群，并且可以">
@@ -322,6 +323,28 @@
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/k8s/" itemprop="url" rel="index">
+                    <span itemprop="name">k8s</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -545,6 +568,12 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/docker-k8s/" rel="tag"># docker k8s</a>
+          
+        </div>
+      
 
       
       
@@ -643,7 +672,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">26</span>
+                <span class="site-state-item-count">29</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -654,7 +683,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-count">4</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -665,7 +694,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">15</span>
+                <span class="site-state-item-count">19</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
