@@ -82,7 +82,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="k8s," />
+  <meta name="keywords" content="k8s,scheduler,源码分析," />
 
 
 
@@ -98,18 +98,21 @@
 
 
 
-<meta name="description" content="Keep codeing and thinking!">
-<meta name="keywords" content="k8s">
+<meta name="description" content="kubernetesScheduler运行在master节点，它的核心功能是监听apiserver来获取PodSpec.N0deName为空的pod,然后为每个这样的pod创建一个binding指示pod应该调度到哪个节点上。 从apiserver读取还没有调度的pod。可以通过spec.nodeName指定pod要部署在特定的节点上。调度器也是一样，它会向apiserver请求spec.node">
+<meta name="keywords" content="k8s,scheduler,源码分析">
 <meta property="og:type" content="article">
 <meta property="og:title" content="kube-scheduler原理及源码解析-k8s_10">
 <meta property="og:url" content="://vernlium.github.io/2017/09/21/kube-scheduler原理及源码解析-k8s-10/index.html">
 <meta property="og:site_name" content="AnanZhang">
-<meta property="og:description" content="Keep codeing and thinking!">
+<meta property="og:description" content="kubernetesScheduler运行在master节点，它的核心功能是监听apiserver来获取PodSpec.N0deName为空的pod,然后为每个这样的pod创建一个binding指示pod应该调度到哪个节点上。 从apiserver读取还没有调度的pod。可以通过spec.nodeName指定pod要部署在特定的节点上。调度器也是一样，它会向apiserver请求spec.node">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-09-20T23:33:31.739Z">
+<meta property="og:image" content="https://user-images.githubusercontent.com/11350907/30699597-ba4381f4-9f17-11e7-9131-b31adf6139f8.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/11350907/30699633-d21a9e52-9f17-11e7-8e1a-67c50ed9c245.png">
+<meta property="og:updated_time" content="2017-09-21T14:00:44.199Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="kube-scheduler原理及源码解析-k8s_10">
-<meta name="twitter:description" content="Keep codeing and thinking!">
+<meta name="twitter:description" content="kubernetesScheduler运行在master节点，它的核心功能是监听apiserver来获取PodSpec.N0deName为空的pod,然后为每个这样的pod创建一个binding指示pod应该调度到哪个节点上。 从apiserver读取还没有调度的pod。可以通过spec.nodeName指定pod要部署在特定的节点上。调度器也是一样，它会向apiserver请求spec.node">
+<meta name="twitter:image" content="https://user-images.githubusercontent.com/11350907/30699597-ba4381f4-9f17-11e7-9131-b31adf6139f8.png">
 
 
 
@@ -317,8 +320,41 @@
           </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/k8s/" itemprop="url" rel="index">
+                    <span itemprop="name">k8s</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/09/21/kube-scheduler原理及源码解析-k8s-10/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/09/21/kube-scheduler原理及源码解析-k8s-10/" itemprop="commentCount"></span>
+                </a>
+              </span>
             
           
 
@@ -344,7 +380,33 @@
       
 
       
-        
+        <p>kubernetesScheduler运行在master节点，它的核心功能是监听apiserver来获取PodSpec.N0deName为空的pod,然后为每个这样的pod创建一个binding指示pod应该调度到哪个节点上。</p>
+<p>从apiserver读取还没有调度的pod。可以通过spec.nodeName指定pod要部署在特定的节点上。调度器也是一样，它会向apiserver请求spec.nodeName字段为空的pod，然后调度得到结果之后，把结果写入apiserver。</p>
+<p>调度分为两个过程predicate和priority。</p>
+<p><img src="https://user-images.githubusercontent.com/11350907/30699597-ba4381f4-9f17-11e7-9131-b31adf6139f8.png" alt="image"></p>
+<ul>
+<li>首先是过滤掉不满足条件的节占这个过程称为predicate；</li>
+<li>然后对通过的节点按照优先级排序，这个是priorlty；</li>
+<li>最后从中选择优先级最高的节点。</li>
+</ul>
+<h3 id="代码解析"><a href="#代码解析" class="headerlink" title="代码解析"></a>代码解析</h3><p>scheduler的代码在plugin/目录下：plugin/cmd/kube-scheduler/是代码的main函数入囗，plugin/pkg/scheduler/是具体调度算法。从这个目录结构也可以看出来，kube-scheduler是作为插件接入到集群中的，它的最终形态一定是用户可以很容易地去定制化和二次开发的。</p>
+<p>Config的定义在文件plugins/pkg/scheduler/scheduler.go中。它把调度器的逻辑分成几个组件，提供了这些功能：</p>
+<ul>
+<li>NextPod()方法能返回下一个需要调度的pod</li>
+<li>Algorithm.Schedule()方法能计算出某个pod在节点中的结果</li>
+<li>Error（）方法能够在出错的时候重新把pod放到调度队列中进行重试</li>
+<li>schedulerCache能够暂时保存调度中的保证pod信息，占用着pod需要的资源，资源不会冲突</li>
+<li>Binder.Bind在调度成功之后把调度结果发送到apiserver中保存起来后面可以看到Scheduler对象就是组合这些逻辑组件来完成最终的调度任务的。</li>
+</ul>
+<p>Config中的逻辑组件中，负责调度pod的是Algorithm.Schedule()方法。其对应的值是GenericScheduler,GenericScheduler是Scheduler的一种实现，也是kube-scheduler默认使用的调度器，它只负责单个pod的调度并返回结果。<br>总结起来，configFactory、config和scheduler三者的关系如下图所示：</p>
+<p><img src="https://user-images.githubusercontent.com/11350907/30699633-d21a9e52-9f17-11e7-8e1a-67c50ed9c245.png" alt="image"></p>
+<ul>
+<li>configFactory对应工厂模式的工厂模型根据不同的配置和参数生成config，当然事先会准备好config需要的各种数据</li>
+<li>config是调度器中最重要的组件，里面实现了调度的各个组件逻辑</li>
+<li>scheduler使用config提供的功能来完成调度</li>
+</ul>
+<p>参考<br><a href="https://feisky.gitbooks.io/kubernetes/plugins/scheduler.html" target="_blank" rel="external">https://feisky.gitbooks.io/kubernetes/plugins/scheduler.html</a><br><a href="http://dockone.i0/articIe/895" target="_blank" rel="external">http://dockone.i0/articIe/895</a></p>
+
       
     </div>
     
@@ -362,6 +424,10 @@
         <div class="post-tags">
           
             <a href="/tags/k8s/" rel="tag"># k8s</a>
+          
+            <a href="/tags/scheduler/" rel="tag"># scheduler</a>
+          
+            <a href="/tags/源码分析/" rel="tag"># 源码分析</a>
           
         </div>
       
@@ -412,6 +478,13 @@
           
   <div class="comments" id="comments">
     
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
   </div>
 
 
@@ -434,8 +507,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/wukong.png"
@@ -472,7 +554,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-count">22</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -521,6 +603,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#代码解析"><span class="nav-number">1.</span> <span class="nav-text">代码解析</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -658,6 +756,26 @@
 
   
 
+    
+      <script id="dsq-count-scr" src="https://https-vernlium-github-io.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = '://vernlium.github.io/2017/09/21/kube-scheduler原理及源码解析-k8s-10/';
+          this.page.identifier = '2017/09/21/kube-scheduler原理及源码解析-k8s-10/';
+          this.page.title = 'kube-scheduler原理及源码解析-k8s_10';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://https-vernlium-github-io.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
 
 
 
@@ -670,10 +788,6 @@
   
 
 
-
-
-
-  
 
 
 
