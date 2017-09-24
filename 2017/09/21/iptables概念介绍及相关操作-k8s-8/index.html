@@ -82,7 +82,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="k8s,iptables," />
+  <meta name="keywords" content="iptables,k8s," />
 
 
 
@@ -99,7 +99,7 @@
 
 
 <meta name="description" content="iptables是一个很复杂内容很多的概念，而且有很多的命令，想要在一篇文章中清晰的介绍它有点难度。本篇博客也无法能对iptables说的很清楚。本篇博客记录一些iptables的要点，并记录一些自己在使用过程中的理解。 iptables的介绍我们知道，linux系统中有route，用来和其他网络连接。如果没有它，linux就无法和外部通信了。 iptables是一系列的规则，用来对内核中的数据进">
-<meta name="keywords" content="k8s,iptables">
+<meta name="keywords" content="iptables,k8s">
 <meta property="og:type" content="article">
 <meta property="og:title" content="iptables介绍及其在k8s中的应用-k8s_8">
 <meta property="og:url" content="://vernlium.github.io/2017/09/21/iptables概念介绍及相关操作-k8s-8/index.html">
@@ -107,7 +107,8 @@
 <meta property="og:description" content="iptables是一个很复杂内容很多的概念，而且有很多的命令，想要在一篇文章中清晰的介绍它有点难度。本篇博客也无法能对iptables说的很清楚。本篇博客记录一些iptables的要点，并记录一些自己在使用过程中的理解。 iptables的介绍我们知道，linux系统中有route，用来和其他网络连接。如果没有它，linux就无法和外部通信了。 iptables是一系列的规则，用来对内核中的数据进">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://user-images.githubusercontent.com/11350907/30672495-514cb576-9e9f-11e7-8072-5baa7df3eab7.png">
-<meta property="og:updated_time" content="2017-09-21T00:24:30.555Z">
+<meta property="og:image" content="https://user-images.githubusercontent.com/11350907/30783185-2dc63062-a171-11e7-956f-e66e707ff512.png">
+<meta property="og:updated_time" content="2017-09-24T14:44:44.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iptables介绍及其在k8s中的应用-k8s_8">
 <meta name="twitter:description" content="iptables是一个很复杂内容很多的概念，而且有很多的命令，想要在一篇文章中清晰的介绍它有点难度。本篇博客也无法能对iptables说的很清楚。本篇博客记录一些iptables的要点，并记录一些自己在使用过程中的理解。 iptables的介绍我们知道，linux系统中有route，用来和其他网络连接。如果没有它，linux就无法和外部通信了。 iptables是一系列的规则，用来对内核中的数据进">
@@ -467,6 +468,7 @@
 <p>为了更方便的管理，我们还可以在某个表里面创建自定义链，将针对某个应用程序所设置的规则放置在这个自定义链中，但是自定义链接不能直接使用，只能被某个默认的链当做动作去调用才能起作用，我们可以这样想象，自定义链就是一段比较”短”的链子，这条”短”链子上的规则都是针对某个应用程序制定的，但是这条短的链子并不能直接使用，而是需要”焊接”在iptables默认定义链子上，才能被IPtables使用，这就是为什么默认定义的”链”需要把”自定义链”当做”动作”去引用的原因。这是后话，后面再聊，在实际使用时我们即可更加的明白。</p>
 <p>数据经过防火墙流程</p>
 <p>结合上述所有的描述，我们可以将数据包通过防火墙的流程总结为下图：</p>
+<p><img src="https://user-images.githubusercontent.com/11350907/30783185-2dc63062-a171-11e7-956f-e66e707ff512.png" alt="image"></p>
 <p>我们在写Iptables规则的时候，要时刻牢记这张路由次序图，灵活配置规则。</p>
 <h4 id="规则的概念"><a href="#规则的概念" class="headerlink" title="规则的概念"></a>规则的概念</h4><p><strong>规则（rule）</strong>：根据指定的匹配条件来尝试匹配每个流经此处的报文，一旦匹配成功，则由规则后面指定的处理动作进行处理；</p>
 <p>规则由匹配条件和处理动作组成。</p>
@@ -522,9 +524,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/k8s/" rel="tag"># k8s</a>
-          
             <a href="/tags/iptables/" rel="tag"># iptables</a>
+          
+            <a href="/tags/k8s/" rel="tag"># k8s</a>
           
         </div>
       
@@ -628,7 +630,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">29</span>
+                <span class="site-state-item-count">30</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -650,7 +652,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-count">21</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

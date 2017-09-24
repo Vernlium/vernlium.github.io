@@ -82,7 +82,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="docker,k8s,iptables," />
+  <meta name="keywords" content="iptables,k8s,docker," />
 
 
 
@@ -99,7 +99,7 @@
 
 
 <meta name="description" content="前面讲了k8s的安装，我们下面来了解一些k8s的网络。 说到k8s的网络，不得不说docker，k8s说白了还是一个调度工具，其用到的容器技术还是docker。docker的网络对于k8s来说也很重要，我们先来了解一些docker的网络，再来看k8s是如何使用docker网络的，以及k8s针对网络所做的工作。 docker网络原理docker的网络结构如下图所示  其中：  最下面的一层：各种网络">
-<meta name="keywords" content="docker,k8s,iptables">
+<meta name="keywords" content="iptables,k8s,docker">
 <meta property="og:type" content="article">
 <meta property="og:title" content="docker及kunbernetes网络-k8s-6">
 <meta property="og:url" content="://vernlium.github.io/2017/09/15/docker及kunbernetes网络-k8s-6/index.html">
@@ -108,7 +108,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://user-images.githubusercontent.com/11350907/30645929-e668263c-9e49-11e7-98bc-6969f66c604b.png">
 <meta property="og:image" content="https://user-images.githubusercontent.com/11350907/30779279-0fbf7094-a11f-11e7-8870-ed61304785d2.png">
-<meta property="og:updated_time" content="2017-09-24T07:01:34.757Z">
+<meta property="og:updated_time" content="2017-09-24T13:36:22.044Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="docker及kunbernetes网络-k8s-6">
 <meta name="twitter:description" content="前面讲了k8s的安装，我们下面来了解一些k8s的网络。 说到k8s的网络，不得不说docker，k8s说白了还是一个调度工具，其用到的容器技术还是docker。docker的网络对于k8s来说也很重要，我们先来了解一些docker的网络，再来看k8s是如何使用docker网络的，以及k8s针对网络所做的工作。 docker网络原理docker的网络结构如下图所示  其中：  最下面的一层：各种网络">
@@ -427,6 +427,9 @@
 </li>
 </ul>
 <p>我们在实践中，主要用到的是bridge驱动模式，下面着重讲解一下这个模式的实现原理。</p>
+<blockquote>
+<p>注：<strong>网桥的概念</strong>：网桥是一个二层网络设备，可以解析收发的报文，读取目标MAC地址的信息，和自己记录的MAC表结合，来决策报文的转发端口。为了实现这些功能，网桥会学习源MAC。在转发报文的时候，网桥只需要向特定的网络接口进行转发，从而避免不必要的网络交互。</p>
+</blockquote>
 <h3 id="bridge驱动实现机制"><a href="#bridge驱动实现机制" class="headerlink" title="bridge驱动实现机制"></a>bridge驱动实现机制</h3><h4 id="docker0网桥"><a href="#docker0网桥" class="headerlink" title="docker0网桥"></a>docker0网桥</h4><p>docker网络的bridge模式示意图如下：</p>
 <p><img src="https://user-images.githubusercontent.com/11350907/30779279-0fbf7094-a11f-11e7-8870-ed61304785d2.png" alt="image"></p>
 <p>这里网桥的概念等同于交换机，为连在其上的设备转发数据帧。网桥上的veth网卡设备相当于交换机上的端口，可以将多个容器或虚机连接在其上，这些端口工作在二层，没有IP。</p>
@@ -466,7 +469,7 @@
 <li>tcp协议的数据</li>
 </ul>
 <p>nat表：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">-A DOCKER ! -i docker0 -p tcp -m tcp --dport 8543 -j DNAT --to-destination 172.17.0.2:8888</div></pre></td></tr></table></figure></p>
-<p>其作用是将从大网ip映射端口请求的流量转发到容器172.17.0.2的8888端口上。</p>
+<p>其作用是将访问宿主机8543端口请求的流量转发到容器172.17.0.2的8888端口上。所以，外界访问Docker容器是通过iptables做DNAT实现的。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">root@LFG1ee0826664:~# iptables -w -S -t filter | grep docker0 </div><div class="line">-A FORWARD -o docker0 -j DOCKER</div><div class="line">-A FORWARD -o docker0 -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT</div><div class="line">-A FORWARD -i docker0 ! -o docker0 -j ACCEPT</div><div class="line">-A FORWARD -i docker0 -o docker0 -j ACCEPT</div><div class="line">-A DOCKER -o docker0 -j ACCEPT</div><div class="line">root@LFG1ee0826664:~# </div><div class="line">root@LFG1ee0826664:~# iptables -w -S -t nat | grep docker0 </div><div class="line">-A POSTROUTING -s 172.100.5.144/28 ! -o docker0 -j MASQUERADE</div><div class="line">-A DOCKER -i docker0 -j RETURN</div></pre></td></tr></table></figure>
 <h3 id="k8s网络"><a href="#k8s网络" class="headerlink" title="k8s网络"></a>k8s网络</h3>
       
@@ -485,11 +488,11 @@
       
         <div class="post-tags">
           
-            <a href="/tags/docker/" rel="tag"># docker</a>
+            <a href="/tags/iptables/" rel="tag"># iptables</a>
           
             <a href="/tags/k8s/" rel="tag"># k8s</a>
           
-            <a href="/tags/iptables/" rel="tag"># iptables</a>
+            <a href="/tags/docker/" rel="tag"># docker</a>
           
         </div>
       
@@ -593,7 +596,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">29</span>
+                <span class="site-state-item-count">30</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -615,7 +618,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-count">21</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
