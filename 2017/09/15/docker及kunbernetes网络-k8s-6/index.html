@@ -108,7 +108,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://user-images.githubusercontent.com/11350907/30645929-e668263c-9e49-11e7-98bc-6969f66c604b.png">
 <meta property="og:image" content="https://user-images.githubusercontent.com/11350907/30779279-0fbf7094-a11f-11e7-8870-ed61304785d2.png">
-<meta property="og:updated_time" content="2017-09-24T03:57:08.926Z">
+<meta property="og:updated_time" content="2017-09-24T04:14:35.150Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="docker及kunbernetes网络-k8s-6">
 <meta name="twitter:description" content="docker网络原理docker的网络结构如下图所示  其中：  最下面的一层：各种网络设备，比如主机的网卡、各种网桥、overlay的网络设备等 libnetwork:是docker的网络库，其中使用了CNM(Container Network Model)。CNM定义了构建容器虚拟化网络的模型，同时还提供了可以用于开发各种网络驱动的标准化接口和组件。 Dockerdaemon：就是docker">
@@ -412,7 +412,7 @@
 </ul>
 </li>
 <li>overlay驱动，flannel使用的既是这种模式<ul>
-<li>overlay驱动。此驱动采用IETF标准的VXLAN方式，并且是VXLAN中被普遍认为最大规模的云计算虚拟化环境的SDN controller模式。在使用的过程中，需要一个额外的内置存储服务，例如consul、etcd或Zookeeper。还需要在启动Docker daemon的的时候额外添加参数来指定所使用的配置存储服务地址。</li>
+<li>overlay驱动。此驱动采用IETF标准的VXLAN方式，并且是VXLAN中被普遍认为最大规模的云计算虚拟化环境的SDN controller模式。在使用的过程中，需要一个额外的内置存储服务，例如consul、etcd或zookeeper。还需要在启动Docker daemon的的时候额外添加参数来指定所使用的配置存储服务地址。</li>
 </ul>
 </li>
 <li>remote驱动<ul>

@@ -98,20 +98,20 @@
 
 
 
-<meta name="description" content="flannel简介flannel安装流程1.下载flannel安装包https://github.com/coreos/flannel/releases/tag/v0.7.1将下载的安装包解压，将其中的flannel拷贝到/usr/local/bin/目录下。 安装etcdctl将etcd中的etcdctl可执行二进制文件拷贝到/usr/local/bin目录下。 2.配置文件新建文件/etc/d">
+<meta name="description" content="前面几篇博客讲述了k8s的安装和基本使用，在使用过程中我们可以发现，在每一个节点上，每个容器都有一个节点中唯一的ip，但是不同的节点上，容器的虚拟ip可能是相同的。 上一篇博客中讲到了docker网络，其中提到：  libnetwork中内置5种驱动，有一种是overlay驱动，flannel就是使用的这种驱动方式。  那么，本节我们就了讲一下flannel的安装、使用和原理。 flannel简介">
 <meta name="keywords" content="docker,k8s,flannel">
 <meta property="og:type" content="article">
 <meta property="og:title" content="flannel介绍及安装-k8s_7">
 <meta property="og:url" content="://vernlium.github.io/2017/09/19/flannel介绍及安装-k8s-7/index.html">
 <meta property="og:site_name" content="AnanZhang">
-<meta property="og:description" content="flannel简介flannel安装流程1.下载flannel安装包https://github.com/coreos/flannel/releases/tag/v0.7.1将下载的安装包解压，将其中的flannel拷贝到/usr/local/bin/目录下。 安装etcdctl将etcd中的etcdctl可执行二进制文件拷贝到/usr/local/bin目录下。 2.配置文件新建文件/etc/d">
+<meta property="og:description" content="前面几篇博客讲述了k8s的安装和基本使用，在使用过程中我们可以发现，在每一个节点上，每个容器都有一个节点中唯一的ip，但是不同的节点上，容器的虚拟ip可能是相同的。 上一篇博客中讲到了docker网络，其中提到：  libnetwork中内置5种驱动，有一种是overlay驱动，flannel就是使用的这种驱动方式。  那么，本节我们就了讲一下flannel的安装、使用和原理。 flannel简介">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://user-images.githubusercontent.com/11350907/30549280-f3a39ee6-9cc6-11e7-96bf-3872bba098c9.png">
 <meta property="og:image" content="https://user-images.githubusercontent.com/11350907/30548777-a060a9a0-9cc5-11e7-8e28-f0b62d60aa96.png">
-<meta property="og:updated_time" content="2017-09-24T04:07:15.000Z">
+<meta property="og:updated_time" content="2017-09-24T04:21:29.124Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="flannel介绍及安装-k8s_7">
-<meta name="twitter:description" content="flannel简介flannel安装流程1.下载flannel安装包https://github.com/coreos/flannel/releases/tag/v0.7.1将下载的安装包解压，将其中的flannel拷贝到/usr/local/bin/目录下。 安装etcdctl将etcd中的etcdctl可执行二进制文件拷贝到/usr/local/bin目录下。 2.配置文件新建文件/etc/d">
+<meta name="twitter:description" content="前面几篇博客讲述了k8s的安装和基本使用，在使用过程中我们可以发现，在每一个节点上，每个容器都有一个节点中唯一的ip，但是不同的节点上，容器的虚拟ip可能是相同的。 上一篇博客中讲到了docker网络，其中提到：  libnetwork中内置5种驱动，有一种是overlay驱动，flannel就是使用的这种驱动方式。  那么，本节我们就了讲一下flannel的安装、使用和原理。 flannel简介">
 <meta name="twitter:image" content="https://user-images.githubusercontent.com/11350907/30549280-f3a39ee6-9cc6-11e7-96bf-3872bba098c9.png">
 
 
@@ -381,7 +381,16 @@
       
 
       
-        <h3 id="flannel简介"><a href="#flannel简介" class="headerlink" title="flannel简介"></a>flannel简介</h3><h3 id="flannel安装流程"><a href="#flannel安装流程" class="headerlink" title="flannel安装流程"></a>flannel安装流程</h3><h4 id="1-下载flannel安装包"><a href="#1-下载flannel安装包" class="headerlink" title="1.下载flannel安装包"></a>1.下载flannel安装包</h4><p><a href="https://github.com/coreos/flannel/releases/tag/v0.7.1" target="_blank" rel="external">https://github.com/coreos/flannel/releases/tag/v0.7.1</a><br>将下载的安装包解压，将其中的flannel拷贝到/usr/local/bin/目录下。</p>
+        <p>前面几篇博客讲述了k8s的安装和基本使用，在使用过程中我们可以发现，在每一个节点上，每个容器都有一个节点中唯一的ip，但是不同的节点上，容器的虚拟ip可能是相同的。</p>
+<p>上一篇博客中讲到了docker网络，其中提到：</p>
+<blockquote>
+<p>libnetwork中内置5种驱动，有一种是overlay驱动，flannel就是使用的这种驱动方式。</p>
+</blockquote>
+<p>那么，本节我们就了讲一下flannel的安装、使用和原理。</p>
+<h3 id="flannel简介"><a href="#flannel简介" class="headerlink" title="flannel简介"></a>flannel简介</h3><p>flannel是CoreOS团队针对Kubernetes设计的一个网络规划服务，简单来说，它的功能是让集群中的不同节点主机创建的Docker容器都具有全集群唯一的虚拟IP地址。</p>
+<p>在默认的Docker配置中，每个节点上的Docker服务会分别负责所在节点容器的IP分配。这样导致的一个问题是，不同节点上容器可能获得相同的内网IP地址。这样就会带来一些问题。比如，使用类似dubbo等使用zookeeper进行服务注册和发现的场景下，分布在不同节点上的服务提供者，如果使用相同的ip到zookeeper上注册服务，那么服务消费者就无法分别这些服务，而且访问也是一个障碍。</p>
+<p>flannel的设计目的就是为集群中的所有节点重新规划IP地址的使用规则，从而使得不同节点上的容器能够获得“同属一个内网”且”不重复的”IP地址，并让属于不同节点上的容器能够直接通过内网IP通信。</p>
+<h3 id="flannel安装流程"><a href="#flannel安装流程" class="headerlink" title="flannel安装流程"></a>flannel安装流程</h3><h4 id="1-下载flannel安装包"><a href="#1-下载flannel安装包" class="headerlink" title="1.下载flannel安装包"></a>1.下载flannel安装包</h4><p><a href="https://github.com/coreos/flannel/releases/tag/v0.7.1" target="_blank" rel="external">https://github.com/coreos/flannel/releases/tag/v0.7.1</a><br>将下载的安装包解压，将其中的flannel拷贝到/usr/local/bin/目录下。</p>
 <h5 id="安装etcdctl"><a href="#安装etcdctl" class="headerlink" title="安装etcdctl"></a>安装etcdctl</h5><p>将etcd中的etcdctl可执行二进制文件拷贝到/usr/local/bin目录下。</p>
 <h4 id="2-配置文件"><a href="#2-配置文件" class="headerlink" title="2.配置文件"></a>2.配置文件</h4><p>新建文件/etc/default/flanneld，其内容为:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">FLANNELD_OPTS=&quot;--etcd-endpoints=http://192.168.0.2:2379,http://192.168.0.2:2379,http://192.168.0.2:2379&quot;</div></pre></td></tr></table></figure>
