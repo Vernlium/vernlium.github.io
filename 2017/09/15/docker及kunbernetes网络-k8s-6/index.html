@@ -98,20 +98,20 @@
 
 
 
-<meta name="description" content="docker网络原理docker的网络结构如下图所示  其中：  最下面的一层：各种网络设备，比如主机的网卡、各种网桥、overlay的网络设备等 libnetwork:是docker的网络库，其中使用了CNM(Container Network Model)。CNM定义了构建容器虚拟化网络的模型，同时还提供了可以用于开发各种网络驱动的标准化接口和组件。 Dockerdaemon：就是docker">
+<meta name="description" content="前面讲了k8s的安装，我们下面来了解一些k8s的网络。 说到k8s的网络，不得不说docker，k8s说白了还是一个调度工具，其用到的容器技术还是docker。docker的网络对于k8s来说也很重要，我们先来了解一些docker的网络，再来看k8s是如何使用docker网络的，以及k8s针对网络所做的工作。 docker网络原理docker的网络结构如下图所示  其中：  最下面的一层：各种网络">
 <meta name="keywords" content="docker,k8s,iptables">
 <meta property="og:type" content="article">
 <meta property="og:title" content="docker及kunbernetes网络-k8s-6">
 <meta property="og:url" content="://vernlium.github.io/2017/09/15/docker及kunbernetes网络-k8s-6/index.html">
 <meta property="og:site_name" content="AnanZhang">
-<meta property="og:description" content="docker网络原理docker的网络结构如下图所示  其中：  最下面的一层：各种网络设备，比如主机的网卡、各种网桥、overlay的网络设备等 libnetwork:是docker的网络库，其中使用了CNM(Container Network Model)。CNM定义了构建容器虚拟化网络的模型，同时还提供了可以用于开发各种网络驱动的标准化接口和组件。 Dockerdaemon：就是docker">
+<meta property="og:description" content="前面讲了k8s的安装，我们下面来了解一些k8s的网络。 说到k8s的网络，不得不说docker，k8s说白了还是一个调度工具，其用到的容器技术还是docker。docker的网络对于k8s来说也很重要，我们先来了解一些docker的网络，再来看k8s是如何使用docker网络的，以及k8s针对网络所做的工作。 docker网络原理docker的网络结构如下图所示  其中：  最下面的一层：各种网络">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://user-images.githubusercontent.com/11350907/30645929-e668263c-9e49-11e7-98bc-6969f66c604b.png">
 <meta property="og:image" content="https://user-images.githubusercontent.com/11350907/30779279-0fbf7094-a11f-11e7-8870-ed61304785d2.png">
-<meta property="og:updated_time" content="2017-09-24T04:14:35.150Z">
+<meta property="og:updated_time" content="2017-09-24T07:01:34.757Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="docker及kunbernetes网络-k8s-6">
-<meta name="twitter:description" content="docker网络原理docker的网络结构如下图所示  其中：  最下面的一层：各种网络设备，比如主机的网卡、各种网桥、overlay的网络设备等 libnetwork:是docker的网络库，其中使用了CNM(Container Network Model)。CNM定义了构建容器虚拟化网络的模型，同时还提供了可以用于开发各种网络驱动的标准化接口和组件。 Dockerdaemon：就是docker">
+<meta name="twitter:description" content="前面讲了k8s的安装，我们下面来了解一些k8s的网络。 说到k8s的网络，不得不说docker，k8s说白了还是一个调度工具，其用到的容器技术还是docker。docker的网络对于k8s来说也很重要，我们先来了解一些docker的网络，再来看k8s是如何使用docker网络的，以及k8s针对网络所做的工作。 docker网络原理docker的网络结构如下图所示  其中：  最下面的一层：各种网络">
 <meta name="twitter:image" content="https://user-images.githubusercontent.com/11350907/30645929-e668263c-9e49-11e7-98bc-6969f66c604b.png">
 
 
@@ -381,7 +381,9 @@
       
 
       
-        <h3 id="docker网络原理"><a href="#docker网络原理" class="headerlink" title="docker网络原理"></a>docker网络原理</h3><p>docker的网络结构如下图所示</p>
+        <p>前面讲了k8s的安装，我们下面来了解一些k8s的网络。</p>
+<p>说到k8s的网络，不得不说docker，k8s说白了还是一个调度工具，其用到的容器技术还是docker。docker的网络对于k8s来说也很重要，我们先来了解一些docker的网络，再来看k8s是如何使用docker网络的，以及k8s针对网络所做的工作。</p>
+<h3 id="docker网络原理"><a href="#docker网络原理" class="headerlink" title="docker网络原理"></a>docker网络原理</h3><p>docker的网络结构如下图所示</p>
 <p><img src="https://user-images.githubusercontent.com/11350907/30645929-e668263c-9e49-11e7-98bc-6969f66c604b.png" alt="image"></p>
 <p>其中：</p>
 <ul>
@@ -424,26 +426,33 @@
 </ul>
 </li>
 </ul>
+<p>我们在实践中，主要用到的是bridge驱动模式，下面着重讲解一下这个模式的实现原理。</p>
 <h3 id="bridge驱动实现机制"><a href="#bridge驱动实现机制" class="headerlink" title="bridge驱动实现机制"></a>bridge驱动实现机制</h3><h4 id="docker0网桥"><a href="#docker0网桥" class="headerlink" title="docker0网桥"></a>docker0网桥</h4><p>docker网络的bridge模式示意图如下：</p>
 <p><img src="https://user-images.githubusercontent.com/11350907/30779279-0fbf7094-a11f-11e7-8870-ed61304785d2.png" alt="image"></p>
 <p>这里网桥的概念等同于交换机，为连在其上的设备转发数据帧。网桥上的veth网卡设备相当于交换机上的端口，可以将多个容器或虚机连接在其上，这些端口工作在二层，没有IP。</p>
 <p>docker0网桥是在Docker daemon启动时自动创建的，其IP默认为172.17.0.1/16，之后创建的Docker容器都会在docker0子网的范围内选取一个未占用的IP使用，并连接到docker0网桥上。</p>
 <p>容器里面的eth0网卡，在宿主机上都有一个vethxxxx的虚拟网卡和其对应出现，容器里的eth0网卡即通过这个虚拟网卡和docker0网桥进行通信的。</p>
-<p>docker0网桥是在docker daemon启动时自动创建的，其IP默认为172.17.0.1/16，之后创建的<br>Docker容器都会在docker0子网的范围内选取一个未占用的IP使用，并连接到docker0网桥上。<br>Docker提供了如下参数可以帮助用户自定义docker0的设置。</p>
+<p>docker0网桥和宿主机的eth0网卡连接，所有数据最终还是从真实网卡转发出去。</p>
+<p>Docker提供了如下参数可以帮助用户自定义docker0的设置。</p>
 <ul>
-<li>–bip-CIDR：设置docker0的IP地址和子网范围，使用CIDR格式，如192.168.100.1/24。注意这个参数仅仅是配置docker0的，对其他自定义的网桥无效。并且在指定这个参数的时候，宿主机是不存在docker0的或者docker0已存在且docker0的IP和参数指定的IP一致才行。</li>
+<li>–bip-CIDR：设置docker0的IP地址和子网范围，使用CIDR格式，如192.168.100.1/24。注意这个参数仅仅是配置docker0的，对其他自定义的网桥无效。并且在指定这个参数的时候，宿主机是不存在docker0的或者docker0已存在且docker0的IP和参数指定的IP一致才行。（下一篇博客中安装flannel要用到这个参数）</li>
 <li>–fixed-cidr=CIDR：限制Docker容器获取IP的范围。Docker容器默认获取的IP范围为Docker网桥（docker0网桥或者–bridge指定的网桥）的整个子网范围，此参数可将其缩小到某个子网范围内，所以这个参数必须在Docker网桥的子网范围内。如docker0的IP为172.17.0.1/16，可将–fixedid了设为172.17.1.1/24，那么Docker容器的IP范围将为172.17.1.1~172.17.1.254。</li>
 <li>–mtu=BYTES：指定docker0的最大传输单元（MTU）。</li>
 </ul>
-<p>Docker安装完成后，将默认在宿主机系统上增加一些iptables规则，以用于Docker容器和容器之间以及和外界的通信，可以使用iptables-save命令查看其中nat表上的POSTROUTING链有这么一条规则：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">-A POSTROUTING -s 172.17.0.0/16！-o docker0 -j MASQUERADE</div></pre></td></tr></table></figure>
-<p>这条规则关系着Docker容器和外界的通信，含义是将源地址为172.17.0.0/16的数据包（即Docker容器发出的数据），当不是从docker0网卡发出时做SNAT源地址转换，将IP包的源地址替换为相应网卡的地址）。这样一来，从Docker容器访问外网的流量，在外部看来就是从宿主机上发出的，外部感觉不到Docker容器的存在。那么，外界想要访问Docker容器的服务时该怎么办？</p>
-<p>我们启动一个简单的web服务容器，观察iptables规则有何变化。</p>
-<p>MASQUERADE会动态的将源地址转换为可用的IP地址，其实与SNAT实现的功能完全一致都是修改源地址，只不过SNAT需要指明将报文的源地址改为哪个IP，而MASQUERADE则不用指定明确的IP，会动态的将报文的源地址修改为指定网卡上可用的IP地址。</p>
+<h4 id="iptables规则"><a href="#iptables规则" class="headerlink" title="iptables规则"></a>iptables规则</h4><p>Docker安装完成后，将默认在宿主机系统上增加一些iptables规则，以用于Docker容器和容器之间以及和外界的通信，可以使用iptables-save命令查看其中nat表上的POSTROUTING链有这么一条规则：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">-A POSTROUTING -s 172.17.0.0/16 ! -o docker0 -j MASQUERADE</div></pre></td></tr></table></figure>
+<p>这条规则关系着Docker容器和外界的通信，含义是将源地址为172.17.0.0/16的数据包（即Docker容器发出的数据），当不是从docker0网卡发出时做SNAT源地址转换，将IP包的源地址替换为相应网卡的地址）。这样一来，从Docker容器访问外网的流量，在外部看来就是从宿主机上发出的，外部感觉不到Docker容器的存在。</p>
+<blockquote>
+<p>注：MASQUERADE会动态的将源地址转换为可用的IP地址，其实与SNAT实现的功能完全一致都是修改源地址，只不过SNAT需要指明将报文的源地址改为哪个IP，而MASQUERADE则不用指定明确的IP，会动态的将报文的源地址修改为指定网卡上可用的IP地址。</p>
+</blockquote>
+<p>我们来通过命令查询一下和docker0网桥相关的iptabels规则</p>
 <p>和docker0相关的iptables规则：</p>
-<p>filter表<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">-A FORWARD -o docker0 -j DOCKER</div><div class="line">-A FORWARD -o docker0 -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT</div><div class="line">-A FORWARD -i docker0 ! -o docker0 -j ACCEPT</div><div class="line">-A FORWARD -i docker0 -o docker0 -j ACCEPT</div><div class="line">-A DOCKER -o dockerO -j ACCEPT</div></pre></td></tr></table></figure></p>
+<p>filter表<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"># iptables -w -S -t filter | grep docker0</div><div class="line">-A FORWARD -o docker0 -j DOCKER</div><div class="line">-A FORWARD -o docker0 -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT</div><div class="line">-A FORWARD -i docker0 ! -o docker0 -j ACCEPT</div><div class="line">-A FORWARD -i docker0 -o docker0 -j ACCEPT</div><div class="line">-A DOCKER -o docker0 -j ACCEPT</div></pre></td></tr></table></figure></p>
 <p>nat表</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">-A POSTROUTING -s 172.100.5.144/28! -o docker0 -j MASQUERADE</div><div class="line">-A DOCKER -o docker0 -j RETURN</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"># iptables -w -S -t nat | grep docker0</div><div class="line">-A POSTROUTING -s 172.100.5.144/28! -o docker0 -j MASQUERADE</div><div class="line">-A DOCKER -o docker0 -j RETURN</div></pre></td></tr></table></figure>
+<blockquote>
+<p>注：关于iptables规则，后面会专门写一篇博客介绍，可以参考这篇博客<a href="http://www.zsythink.net/archives/1199" target="_blank" rel="external">iptables概念</a>。</p>
+</blockquote>
 <h3 id="实例分折"><a href="#实例分折" class="headerlink" title="实例分折"></a>实例分折</h3><p>我们通过<code>docker run -p 8543:8888 image</code> 方式启动的容器，来观察iptables规则的变化。</p>
 <p><code>docker run -p 8543:8888 image</code> 方式启动的容器后，可以发现，会加入如下iptables规则：</p>
 <p>filter表：</p>
@@ -458,7 +467,8 @@
 </ul>
 <p>nat表：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">-A DOCKER ! -i docker0 -p tcp -m tcp --dport 8543 -j DNAT --to-destination 172.17.0.2:8888</div></pre></td></tr></table></figure></p>
 <p>其作用是将从大网ip映射端口请求的流量转发到容器172.17.0.2的8888端口上。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">root@LFG1ee0826664:~# iptables -w -S -t filter | grep docker0 </div><div class="line">-A FORWARD -o docker0 -j DOCKER</div><div class="line">-A FORWARD -o docker0 -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT</div><div class="line">-A FORWARD -i docker0 ! -o docker0 -j ACCEPT</div><div class="line">-A FORWARD -i docker0 -o docker0 -j ACCEPT</div><div class="line">-A DOCKER -o dockerO -j ACCEPT</div><div class="line">root@LFG1ee0826664:~# </div><div class="line">root@LFG1ee0826664:~# iptables -w -S -t nat | grep docker0 </div><div class="line">-A POSTROUTING -s 172.100.5.144/28! -o docker0 -j MASQUERADE</div><div class="line">-A DOCKER -o docker0 -j RETURN</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">root@LFG1ee0826664:~# iptables -w -S -t filter | grep docker0 </div><div class="line">-A FORWARD -o docker0 -j DOCKER</div><div class="line">-A FORWARD -o docker0 -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT</div><div class="line">-A FORWARD -i docker0 ! -o docker0 -j ACCEPT</div><div class="line">-A FORWARD -i docker0 -o docker0 -j ACCEPT</div><div class="line">-A DOCKER -o docker0 -j ACCEPT</div><div class="line">root@LFG1ee0826664:~# </div><div class="line">root@LFG1ee0826664:~# iptables -w -S -t nat | grep docker0 </div><div class="line">-A POSTROUTING -s 172.100.5.144/28 ! -o docker0 -j MASQUERADE</div><div class="line">-A DOCKER -i docker0 -j RETURN</div></pre></td></tr></table></figure>
+<h3 id="k8s网络"><a href="#k8s网络" class="headerlink" title="k8s网络"></a>k8s网络</h3>
       
     </div>
     
@@ -664,7 +674,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#docker网络原理"><span class="nav-number">1.</span> <span class="nav-text">docker网络原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#bridge驱动实现机制"><span class="nav-number">2.</span> <span class="nav-text">bridge驱动实现机制</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#docker0网桥"><span class="nav-number">2.1.</span> <span class="nav-text">docker0网桥</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实例分折"><span class="nav-number">3.</span> <span class="nav-text">实例分折</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#docker网络原理"><span class="nav-number">1.</span> <span class="nav-text">docker网络原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#bridge驱动实现机制"><span class="nav-number">2.</span> <span class="nav-text">bridge驱动实现机制</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#docker0网桥"><span class="nav-number">2.1.</span> <span class="nav-text">docker0网桥</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#iptables规则"><span class="nav-number">2.2.</span> <span class="nav-text">iptables规则</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实例分折"><span class="nav-number">3.</span> <span class="nav-text">实例分折</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#k8s网络"><span class="nav-number">4.</span> <span class="nav-text">k8s网络</span></a></li></ol></div>
             
 
           </div>
