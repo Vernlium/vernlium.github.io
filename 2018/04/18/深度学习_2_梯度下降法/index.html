@@ -82,7 +82,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="deeplearning," />
+  <meta name="keywords" content="deeplearning,梯度下降," />
 
 
 
@@ -98,18 +98,25 @@
 
 
 
-<meta name="description" content="//TODO 从图像识别说起深度学习MNIST相关概念">
-<meta name="keywords" content="deeplearning">
+<meta name="description" content="机器学习算法用于训练模型的迭代试错过程：  假设有时间和计算资源来计算的所有可能的损失值。对于回归问题，所产生的损失和权重值($ w_i $)的关系是凸形的，如下图所示：  凸形问题只有一个最低点：即只存在一个斜率正好为0的位置。这个最小值就是损失函数收敛之处。 通过计算整个数据集中每个可能值的损失函数来找到收敛点这种方法效率太低。机器学习领域有一种找到这个收敛点的机制，叫做梯度下降法。 梯度下降">
+<meta name="keywords" content="deeplearning,梯度下降">
 <meta property="og:type" content="article">
-<meta property="og:title" content="深度学习_1_我的理解">
-<meta property="og:url" content="://vernlium.github.io/2018/04/18/深度学习_1_我的理解/index.html">
+<meta property="og:title" content="深度学习_2_梯度下降法">
+<meta property="og:url" content="://vernlium.github.io/2018/04/18/深度学习_2_梯度下降法/index.html">
 <meta property="og:site_name" content="AnanZhang">
-<meta property="og:description" content="//TODO 从图像识别说起深度学习MNIST相关概念">
+<meta property="og:description" content="机器学习算法用于训练模型的迭代试错过程：  假设有时间和计算资源来计算的所有可能的损失值。对于回归问题，所产生的损失和权重值($ w_i $)的关系是凸形的，如下图所示：  凸形问题只有一个最低点：即只存在一个斜率正好为0的位置。这个最小值就是损失函数收敛之处。 通过计算整个数据集中每个可能值的损失函数来找到收敛点这种方法效率太低。机器学习领域有一种找到这个收敛点的机制，叫做梯度下降法。 梯度下降">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-04-18T00:01:56.887Z">
+<meta property="og:image" content="https://user-images.githubusercontent.com/11350907/38938746-e1fd0ad6-4358-11e8-924a-de88ba1fc253.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/11350907/38938953-63457aec-4359-11e8-9a03-f1349e9f17e6.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/11350907/38962596-9dbb04e8-43a0-11e8-9b4d-597341e6e69a.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/11350907/38962836-c8fd6898-43a1-11e8-8563-16747ce366e3.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/11350907/38962909-1f7ec8c4-43a2-11e8-8731-54524d7da48a.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/11350907/38963403-486e1d3c-43a4-11e8-9ac0-0d78b627fe75.png">
+<meta property="og:updated_time" content="2018-04-18T23:34:14.602Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="深度学习_1_我的理解">
-<meta name="twitter:description" content="//TODO 从图像识别说起深度学习MNIST相关概念">
+<meta name="twitter:title" content="深度学习_2_梯度下降法">
+<meta name="twitter:description" content="机器学习算法用于训练模型的迭代试错过程：  假设有时间和计算资源来计算的所有可能的损失值。对于回归问题，所产生的损失和权重值($ w_i $)的关系是凸形的，如下图所示：  凸形问题只有一个最低点：即只存在一个斜率正好为0的位置。这个最小值就是损失函数收敛之处。 通过计算整个数据集中每个可能值的损失函数来找到收敛点这种方法效率太低。机器学习领域有一种找到这个收敛点的机制，叫做梯度下降法。 梯度下降">
+<meta name="twitter:image" content="https://user-images.githubusercontent.com/11350907/38938746-e1fd0ad6-4358-11e8-924a-de88ba1fc253.png">
 
 
 
@@ -138,13 +145,13 @@
 
 
 
-  <link rel="canonical" href="://vernlium.github.io/2018/04/18/深度学习_1_我的理解/"/>
+  <link rel="canonical" href="://vernlium.github.io/2018/04/18/深度学习_2_梯度下降法/"/>
 
 
 
 
 
-  <title>深度学习_1_我的理解 | AnanZhang</title>
+  <title>深度学习_2_梯度下降法 | AnanZhang</title>
   
 
 
@@ -277,7 +284,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="://vernlium.github.io/2018/04/18/深度学习_1_我的理解/">
+    <link itemprop="mainEntityOfPage" href="://vernlium.github.io/2018/04/18/深度学习_2_梯度下降法/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="张阿楠">
@@ -294,7 +301,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">深度学习_1_我的理解</h1>
+          <h1 class="post-title" itemprop="name headline">深度学习_2_梯度下降法</h1>
         
 
         <div class="post-meta">
@@ -306,7 +313,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-18T07:55:48+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-18T22:27:48+08:00">
                 2018-04-18
               </time>
             
@@ -348,8 +355,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/04/18/深度学习_1_我的理解/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count hc-comment-count" data-xid="2018/04/18/深度学习_1_我的理解/" itemprop="commentsCount"></span>
+                <a href="/2018/04/18/深度学习_2_梯度下降法/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count hc-comment-count" data-xid="2018/04/18/深度学习_2_梯度下降法/" itemprop="commentsCount"></span>
                 </a>
               </span>
               <!--/noindex-->
@@ -378,8 +385,35 @@
       
 
       
-        <p>//TODO</p>
-<h3 id="从图像识别说起"><a href="#从图像识别说起" class="headerlink" title="从图像识别说起"></a>从图像识别说起</h3><h3 id="深度学习"><a href="#深度学习" class="headerlink" title="深度学习"></a>深度学习</h3><h3 id="MNIST"><a href="#MNIST" class="headerlink" title="MNIST"></a>MNIST</h3><h3 id="相关概念"><a href="#相关概念" class="headerlink" title="相关概念"></a>相关概念</h3>
+        <p>机器学习算法用于训练模型的迭代试错过程：</p>
+<p><img src="https://user-images.githubusercontent.com/11350907/38938746-e1fd0ad6-4358-11e8-924a-de88ba1fc253.png" alt="image"></p>
+<p>假设有时间和计算资源来计算的所有可能的损失值。对于回归问题，所产生的损失和权重值($ w_i $)的关系是凸形的，如下图所示：</p>
+<p><img src="https://user-images.githubusercontent.com/11350907/38938953-63457aec-4359-11e8-9a03-f1349e9f17e6.png" alt="image"></p>
+<p>凸形问题只有一个最低点：即只存在一个斜率正好为0的位置。这个最小值就是损失函数收敛之处。</p>
+<p>通过计算整个数据集中每个可能值的损失函数来找到收敛点这种方法效率太低。机器学习领域有一种找到这个收敛点的机制，叫做<strong>梯度下降法</strong>。</p>
+<h4 id="梯度下降法"><a href="#梯度下降法" class="headerlink" title="梯度下降法"></a>梯度下降法</h4><p>梯度下降法的第一个阶段是选择一个起始点值（起点）。起点并不只要，因此很多算法就直接将起点$ w_i $设为0或者随机选择一个值。我们选择一个稍大于0的起点，如下图所示：</p>
+<p><img src="https://user-images.githubusercontent.com/11350907/38962596-9dbb04e8-43a0-11e8-9b4d-597341e6e69a.png" alt="image"></p>
+<p>然后梯度下降法会计算损失曲线在起点处的梯度。<strong>梯度</strong>是偏导数的矢量；它可以让我们了解哪个方向距离目标“更近”或者“更远”。需要注意的是，损失相对于单个权重的梯度，就等于导数。</p>
+<p>梯度是一个矢量，因此具有如下两个特征：</p>
+<ul>
+<li>方向</li>
+<li>大小</li>
+</ul>
+<p>梯度始终指向损失函数中增长最为迅猛的方向。梯度下降法算法会沿着负梯度的方向走一步，以便尽快降低损失。</p>
+<p><img src="https://user-images.githubusercontent.com/11350907/38962836-c8fd6898-43a1-11e8-8563-16747ce366e3.png" alt="image"></p>
+<p>为了确定损失函数曲线上的下一个点，梯度下降法算法会将梯度大小的一部分与起点相加，如下图所示：</p>
+<p><img src="https://user-images.githubusercontent.com/11350907/38962909-1f7ec8c4-43a2-11e8-8731-54524d7da48a.png" alt="image"></p>
+<p>然后，梯度下降法会重复此过程，逐渐接近最低点。</p>
+<blockquote>
+<p>以上内容整理自：google机器学习速成课程-降低损失 (Reducing Loss)：梯度下降法：<a href="https://developers.google.cn/machine-learning/crash-course/reducing-loss/gradient-descent" target="_blank" rel="external">https://developers.google.cn/machine-learning/crash-course/reducing-loss/gradient-descent</a></p>
+</blockquote>
+<h3 id="个人理解"><a href="#个人理解" class="headerlink" title="个人理解"></a>个人理解</h3><p>梯度就是为了找一个方向，沿着负梯度方向走梯度乘学习速率（learning rate）(也称步长)的距离，以确定下一个点的位置。</p>
+<p>例如，当前点梯度为-2.5，学习速率为0.001,则梯度下降法会选择当前点向右、距离当前点0.025的位置作为下一个点。</p>
+<p>如下图所示：</p>
+<p>图中A点则往右走一步，即$ w_i $ 加上梯度（正）乘学习速率；<br>图中B点则往左走一步，即$ w_i $ 减去上梯度（正）乘学习速率。</p>
+<p><img src="https://user-images.githubusercontent.com/11350907/38963403-486e1d3c-43a4-11e8-9ac0-0d78b627fe75.png" alt="image"></p>
+<p><strong>梯度的正负决定下一步的计算方向，而梯度的值和学习速率决定下一步的位置</strong></p>
+
       
     </div>
     
@@ -398,6 +432,8 @@
           
             <a href="/tags/deeplearning/" rel="tag"># deeplearning</a>
           
+            <a href="/tags/梯度下降/" rel="tag"># 梯度下降</a>
+          
         </div>
       
 
@@ -409,8 +445,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/04/06/2018巴黎和巴塞罗那七日游_4_诺坎普朝圣/" rel="next" title="2018巴黎和巴塞罗那七日游_4_诺坎普朝圣">
-                <i class="fa fa-chevron-left"></i> 2018巴黎和巴塞罗那七日游_4_诺坎普朝圣
+              <a href="/2018/04/18/深度学习_1_我的理解.1/" rel="next" title="深度学习_1_我的理解">
+                <i class="fa fa-chevron-left"></i> 深度学习_1_我的理解
               </a>
             
           </div>
@@ -496,7 +532,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">35</span>
+                <span class="site-state-item-count">36</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -518,7 +554,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">23</span>
+                <span class="site-state-item-count">24</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -577,7 +613,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#从图像识别说起"><span class="nav-number">1.</span> <span class="nav-text">从图像识别说起</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#深度学习"><span class="nav-number">2.</span> <span class="nav-text">深度学习</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MNIST"><span class="nav-number">3.</span> <span class="nav-text">MNIST</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#相关概念"><span class="nav-number">4.</span> <span class="nav-text">相关概念</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#梯度下降法"><span class="nav-number">1.</span> <span class="nav-text">梯度下降法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#个人理解"><span class="nav-number"></span> <span class="nav-text">个人理解</span></a></div>
             
 
           </div>
@@ -731,7 +767,7 @@
 		_hcwp.push({widget:"Bloggerstream", widget_id: 95829, selector:".hc-comment-count", label: "{\%COUNT%\}" });
 
 		
-		_hcwp.push({widget:"Stream", widget_id: 95829, xid: "2018/04/18/深度学习_1_我的理解/"});
+		_hcwp.push({widget:"Stream", widget_id: 95829, xid: "2018/04/18/深度学习_2_梯度下降法/"});
 		
 
 		(function() {

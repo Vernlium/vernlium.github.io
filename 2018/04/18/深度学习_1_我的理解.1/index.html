@@ -82,7 +82,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="deeplearning," />
 
 
 
@@ -98,17 +98,18 @@
 
 
 
-<meta name="description" content="Keep codeing and thinking!">
-<meta property="og:type" content="website">
-<meta property="og:title" content="tags">
-<meta property="og:url" content="://vernlium.github.io/tags/index.html">
+<meta name="description" content="//TODO 从图像识别说起深度学习MNIST相关概念">
+<meta name="keywords" content="deeplearning">
+<meta property="og:type" content="article">
+<meta property="og:title" content="深度学习_1_我的理解">
+<meta property="og:url" content="://vernlium.github.io/2018/04/18/深度学习_1_我的理解.1/index.html">
 <meta property="og:site_name" content="AnanZhang">
-<meta property="og:description" content="Keep codeing and thinking!">
+<meta property="og:description" content="//TODO 从图像识别说起深度学习MNIST相关概念">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2015-10-10T15:03:45.245Z">
+<meta property="og:updated_time" content="2018-04-18T14:26:44.878Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="tags">
-<meta name="twitter:description" content="Keep codeing and thinking!">
+<meta name="twitter:title" content="深度学习_1_我的理解">
+<meta name="twitter:description" content="//TODO 从图像识别说起深度学习MNIST相关概念">
 
 
 
@@ -137,13 +138,13 @@
 
 
 
-  <link rel="canonical" href="://vernlium.github.io/tags/"/>
+  <link rel="canonical" href="://vernlium.github.io/2018/04/18/深度学习_1_我的理解.1/"/>
 
 
 
 
 
-  <title>tags | AnanZhang</title>
+  <title>深度学习_1_我的理解 | AnanZhang</title>
   
 
 
@@ -264,40 +265,182 @@
 
   <div id="posts" class="posts-expand">
     
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="://vernlium.github.io/2018/04/18/深度学习_1_我的理解.1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="张阿楠">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/wukong.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="AnanZhang">
+    </span>
+
     
-    
-    <div class="post-block page">
       <header class="post-header">
 
-	<h1 class="post-title" itemprop="name headline">tags</h1>
-
-
-
-</header>
-
-      
-      
-      
-      <div class="post-body">
         
         
-          <div class="tag-cloud">
-            <div class="tag-cloud-title">
-                目前共计 24 个标签
-            </div>
-            <div class="tag-cloud-tags">
-              <a href="/tags/JVM/" style="font-size: 12px; color: #ccc">JVM</a> <a href="/tags/Java/" style="font-size: 12px; color: #ccc">Java</a> <a href="/tags/Markdown/" style="font-size: 12px; color: #ccc">Markdown</a> <a href="/tags/Maven/" style="font-size: 12px; color: #ccc">Maven</a> <a href="/tags/deeplearning/" style="font-size: 16.5px; color: #9d9d9d">deeplearning</a> <a href="/tags/docker/" style="font-size: 25.5px; color: #404040">docker</a> <a href="/tags/epub/" style="font-size: 16.5px; color: #9d9d9d">epub</a> <a href="/tags/flannel/" style="font-size: 12px; color: #ccc">flannel</a> <a href="/tags/go/" style="font-size: 12px; color: #ccc">go</a> <a href="/tags/intellij/" style="font-size: 12px; color: #ccc">intellij</a> <a href="/tags/iptables/" style="font-size: 16.5px; color: #9d9d9d">iptables</a> <a href="/tags/java8-Lambada/" style="font-size: 12px; color: #ccc">java8 Lambada</a> <a href="/tags/java并发/" style="font-size: 12px; color: #ccc">java并发</a> <a href="/tags/java序列化/" style="font-size: 12px; color: #ccc">java序列化</a> <a href="/tags/k8s/" style="font-size: 30px; color: #111">k8s</a> <a href="/tags/log4j/" style="font-size: 12px; color: #ccc">log4j</a> <a href="/tags/scheduler/" style="font-size: 12px; color: #ccc">scheduler</a> <a href="/tags/xml/" style="font-size: 12px; color: #ccc">xml</a> <a href="/tags/性能调优/" style="font-size: 12px; color: #ccc">性能调优</a> <a href="/tags/旅行/" style="font-size: 16.5px; color: #9d9d9d">旅行</a> <a href="/tags/梯度下降/" style="font-size: 12px; color: #ccc">梯度下降</a> <a href="/tags/源码分析/" style="font-size: 16.5px; color: #9d9d9d">源码分析</a> <a href="/tags/读书笔记/" style="font-size: 12px; color: #ccc">读书笔记</a> <a href="/tags/随想/" style="font-size: 21px; color: #6f6f6f">随想</a>
-            </div>
-          </div>
+          <h1 class="post-title" itemprop="name headline">深度学习_1_我的理解</h1>
         
-      </div>
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-18T07:55:48+08:00">
+                2018-04-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/深度学习/" itemprop="url" rel="index">
+                    <span itemprop="name">深度学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            <!--noindex-->
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/04/18/深度学习_1_我的理解.1/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count hc-comment-count" data-xid="2018/04/18/深度学习_1_我的理解.1/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+              <!--/noindex-->
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
       
+
+      
+        <p>//TODO</p>
+<h3 id="从图像识别说起"><a href="#从图像识别说起" class="headerlink" title="从图像识别说起"></a>从图像识别说起</h3><h3 id="深度学习"><a href="#深度学习" class="headerlink" title="深度学习"></a>深度学习</h3><h3 id="MNIST"><a href="#MNIST" class="headerlink" title="MNIST"></a>MNIST</h3><h3 id="相关概念"><a href="#相关概念" class="headerlink" title="相关概念"></a>相关概念</h3>
       
     </div>
     
     
     
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/deeplearning/" rel="tag"># deeplearning</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/04/06/2018巴黎和巴塞罗那七日游_4_诺坎普朝圣/" rel="next" title="2018巴黎和巴塞罗那七日游_4_诺坎普朝圣">
+                <i class="fa fa-chevron-left"></i> 2018巴黎和巴塞罗那七日游_4_诺坎普朝圣
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/04/18/深度学习_2_梯度下降法/" rel="prev" title="深度学习_2_梯度下降法">
+                深度学习_2_梯度下降法 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
   </div>
 
 
@@ -332,8 +475,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/wukong.png"
@@ -419,6 +571,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#从图像识别说起"><span class="nav-number">1.</span> <span class="nav-text">从图像识别说起</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#深度学习"><span class="nav-number">2.</span> <span class="nav-text">深度学习</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MNIST"><span class="nav-number">3.</span> <span class="nav-text">MNIST</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#相关概念"><span class="nav-number">4.</span> <span class="nav-text">相关概念</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -539,10 +707,10 @@
 
 
   
-    <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
 <script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
 
-  
+
 
   
 
@@ -567,7 +735,7 @@
 		_hcwp.push({widget:"Bloggerstream", widget_id: 95829, selector:".hc-comment-count", label: "{\%COUNT%\}" });
 
 		
-		_hcwp.push({widget:"Stream", widget_id: 95829, xid: "tags/index.html"});
+		_hcwp.push({widget:"Stream", widget_id: 95829, xid: "2018/04/18/深度学习_1_我的理解.1/"});
 		
 
 		(function() {
