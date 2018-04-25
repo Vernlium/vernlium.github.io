@@ -103,7 +103,7 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="kubernetes高可用集群安装-k8s-4">
 <meta property="og:url" content="://vernlium.github.io/2017/08/30/kubernetes高可用集群安装-k8s-4/index.html">
-<meta property="og:site_name" content="AnanZhang">
+<meta property="og:site_name" content="Vernlium">
 <meta property="og:description" content="这篇博客来讲解下k8s高可用集群的安装。 上篇博客中，已经介绍了k8s集群的基础安装，对k8s的组件和使用用了大致的了解。 一般在生产环境中，考虑到可靠性和可用性，避免单节点故障时，环境不可用，需要需要通过安装k8s master集群来提供系统可用性。本篇博客来讨论如何安装k8s master集群。 环境准备准备7台虚拟机，其用途分别如下：    IP 用途 配置     192.168.0.1">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://user-images.githubusercontent.com/11350907/29849869-41e46f06-8d5c-11e7-9c05-9c8e47f43c21.jpg">
@@ -146,7 +146,7 @@
 
 
 
-  <title>kubernetes高可用集群安装-k8s-4 | AnanZhang</title>
+  <title>kubernetes高可用集群安装-k8s-4 | Vernlium</title>
   
 
 
@@ -182,7 +182,7 @@
     <div class="custom-logo-site-title">
       <a href="/"  class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">AnanZhang</span>
+        <span class="site-title">Vernlium</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
@@ -288,7 +288,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="AnanZhang">
+      <meta itemprop="name" content="Vernlium">
     </span>
 
     
@@ -817,12 +817,11 @@
   
 
 
-
-
-
-
   
-  
+
+
+
+
 
 
 
@@ -849,10 +848,7 @@
   <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
 
   
-  <script type="text/javascript" src="/lib/three/three.min.js"></script>
-
-  
-  <script type="text/javascript" src="/lib/three/canvas_lines.min.js"></script>
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
 
 
   
@@ -941,6 +937,28 @@
   
 
   
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
 
   
 

@@ -103,7 +103,7 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="java并发总结">
 <meta property="og:url" content="://vernlium.github.io/2015/07/08/java并发总结/index.html">
-<meta property="og:site_name" content="AnanZhang">
+<meta property="og:site_name" content="Vernlium">
 <meta property="og:description" content="并发1 基本的线程机制1.1 定义任务 实现Runnable接口并编写run()方法。  Thread.yield()方法的作用是：对线程调度器的一种建议,此时可以切换给其他任务执行。这完全是选择性的。  将Runnable对象交给一个Thread构造器。调用Thread对象的start()为该线程执行必需的初始化操作，然后调用Runnable的run()方法。start()调用后迅速返回。  1">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://7xngpc.com1.z0.glb.clouddn.com/vernjava线程状态转换.jpg">
@@ -146,7 +146,7 @@
 
 
 
-  <title>java并发总结 | AnanZhang</title>
+  <title>java并发总结 | Vernlium</title>
   
 
 
@@ -182,7 +182,7 @@
     <div class="custom-logo-site-title">
       <a href="/"  class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">AnanZhang</span>
+        <span class="site-title">Vernlium</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
@@ -288,7 +288,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="AnanZhang">
+      <meta itemprop="name" content="Vernlium">
     </span>
 
     
@@ -916,12 +916,11 @@
   
 
 
-
-
-
-
   
-  
+
+
+
+
 
 
 
@@ -948,10 +947,7 @@
   <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
 
   
-  <script type="text/javascript" src="/lib/three/three.min.js"></script>
-
-  
-  <script type="text/javascript" src="/lib/three/canvas_lines.min.js"></script>
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
 
 
   
@@ -1040,6 +1036,28 @@
   
 
   
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
 
   
 

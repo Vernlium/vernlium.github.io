@@ -103,7 +103,7 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="Markdown基础语法">
 <meta property="og:url" content="://vernlium.github.io/2015/06/30/Markdown基础语法/index.html">
-<meta property="og:site_name" content="AnanZhang">
+<meta property="og:site_name" content="Vernlium">
 <meta property="og:description" content="基本符号 *,-,+ 3个符号效果都一样，这3个符号被称为 Markdown符号 空白行表示另起一个段落 `是表示inline代码，tab是用来标记 代码段，分别对应html的code，pre标签  换行 单一段落( &amp;lt;p&amp;gt;) 用一个空白行 连续两个空格 会变成一个  连续3个符号，然后是空行，表示 hr横线  标题 生成h1–h6,在文字前面加上 1–6个# 来实现 文字加粗是通过">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2015-10-10T12:27:52.425Z">
@@ -144,7 +144,7 @@
 
 
 
-  <title>Markdown基础语法 | AnanZhang</title>
+  <title>Markdown基础语法 | Vernlium</title>
   
 
 
@@ -180,7 +180,7 @@
     <div class="custom-logo-site-title">
       <a href="/"  class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">AnanZhang</span>
+        <span class="site-title">Vernlium</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
@@ -286,7 +286,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="AnanZhang">
+      <meta itemprop="name" content="Vernlium">
     </span>
 
     
@@ -681,12 +681,11 @@
   
 
 
-
-
-
-
   
-  
+
+
+
+
 
 
 
@@ -713,10 +712,7 @@
   <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
 
   
-  <script type="text/javascript" src="/lib/three/three.min.js"></script>
-
-  
-  <script type="text/javascript" src="/lib/three/canvas_lines.min.js"></script>
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
 
 
   
@@ -805,6 +801,28 @@
   
 
   
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
 
   
 

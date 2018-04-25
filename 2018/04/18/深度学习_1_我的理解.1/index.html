@@ -103,7 +103,7 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="深度学习_1_我的理解">
 <meta property="og:url" content="://vernlium.github.io/2018/04/18/深度学习_1_我的理解.1/index.html">
-<meta property="og:site_name" content="AnanZhang">
+<meta property="og:site_name" content="Vernlium">
 <meta property="og:description" content="//TODO 从图像识别说起深度学习为了扩展线性模型来表示x的非线性函数，我们可以不把线性模型用于x本身，而是用在一个变换后的输入 φ(x) 上，这里φ是一个非线性变换。 如何选择映射φ。 (1) 其中一种选择是使用一个通用的φ，显然是很难找到的(2) 另外一种选择是手动地设计φ。在深度学习出现之前这是主流的方法。比如语音识别或计算机视觉。但是在不同的领域之间很难迁移。(3) 深度学习的策略是学习">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2018-04-20T23:33:30.687Z">
@@ -144,7 +144,7 @@
 
 
 
-  <title>深度学习_1_我的理解 | AnanZhang</title>
+  <title>深度学习_1_我的理解 | Vernlium</title>
   
 
 
@@ -180,7 +180,7 @@
     <div class="custom-logo-site-title">
       <a href="/"  class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">AnanZhang</span>
+        <span class="site-title">Vernlium</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
@@ -286,7 +286,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="AnanZhang">
+      <meta itemprop="name" content="Vernlium">
     </span>
 
     
@@ -665,12 +665,11 @@
   
 
 
-
-
-
-
   
-  
+
+
+
+
 
 
 
@@ -697,10 +696,7 @@
   <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
 
   
-  <script type="text/javascript" src="/lib/three/three.min.js"></script>
-
-  
-  <script type="text/javascript" src="/lib/three/canvas_lines.min.js"></script>
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
 
 
   
@@ -789,6 +785,28 @@
   
 
   
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
 
   
 

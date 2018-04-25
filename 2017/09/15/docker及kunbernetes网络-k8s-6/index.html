@@ -103,7 +103,7 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="docker及kunbernetes网络-k8s-6">
 <meta property="og:url" content="://vernlium.github.io/2017/09/15/docker及kunbernetes网络-k8s-6/index.html">
-<meta property="og:site_name" content="AnanZhang">
+<meta property="og:site_name" content="Vernlium">
 <meta property="og:description" content="前面讲了k8s的安装，我们下面来了解一些k8s的网络。 说到k8s的网络，不得不说docker，k8s说白了还是一个调度工具，其用到的容器技术还是docker。docker的网络对于k8s来说也很重要，我们先来了解一些docker的网络，再来看k8s是如何使用docker网络的，以及k8s针对网络所做的工作。 docker网络原理docker的网络结构如下图所示  其中：  最下面的一层：各种网络">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://user-images.githubusercontent.com/11350907/30645929-e668263c-9e49-11e7-98bc-6969f66c604b.png">
@@ -147,7 +147,7 @@
 
 
 
-  <title>docker及kunbernetes网络-k8s-6 | AnanZhang</title>
+  <title>docker及kunbernetes网络-k8s-6 | Vernlium</title>
   
 
 
@@ -183,7 +183,7 @@
     <div class="custom-logo-site-title">
       <a href="/"  class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">AnanZhang</span>
+        <span class="site-title">Vernlium</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
@@ -289,7 +289,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="AnanZhang">
+      <meta itemprop="name" content="Vernlium">
     </span>
 
     
@@ -754,12 +754,11 @@
   
 
 
-
-
-
-
   
-  
+
+
+
+
 
 
 
@@ -786,10 +785,7 @@
   <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
 
   
-  <script type="text/javascript" src="/lib/three/three.min.js"></script>
-
-  
-  <script type="text/javascript" src="/lib/three/canvas_lines.min.js"></script>
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
 
 
   
@@ -878,6 +874,28 @@
   
 
   
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
 
   
 

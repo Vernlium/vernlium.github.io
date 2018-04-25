@@ -103,7 +103,7 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="Lambda表达式【转】">
 <meta property="og:url" content="://vernlium.github.io/2015/06/05/Lambda表达式/index.html">
-<meta property="og:site_name" content="AnanZhang">
+<meta property="og:site_name" content="Vernlium">
 <meta property="og:description" content="本来想自己总结的，但是这篇博客写的太好了，就直接转了过来原文链接：http://blog.csdn.net/ioriogami/article/details/12782141 什么是λ表达式λ表达式本质上是一个匿名方法。让我们来看下面这个例子： 123public int add(int x, int y) &amp;#123;    return x + y;&amp;#125; 转成λ表达式后是这个样子：">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2017-08-05T04:08:44.343Z">
@@ -144,7 +144,7 @@
 
 
 
-  <title>Lambda表达式【转】 | AnanZhang</title>
+  <title>Lambda表达式【转】 | Vernlium</title>
   
 
 
@@ -180,7 +180,7 @@
     <div class="custom-logo-site-title">
       <a href="/"  class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">AnanZhang</span>
+        <span class="site-title">Vernlium</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
@@ -286,7 +286,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="AnanZhang">
+      <meta itemprop="name" content="Vernlium">
     </span>
 
     
@@ -740,12 +740,11 @@ Person::new       //构造器引用
   
 
 
-
-
-
-
   
-  
+
+
+
+
 
 
 
@@ -772,10 +771,7 @@ Person::new       //构造器引用
   <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
 
   
-  <script type="text/javascript" src="/lib/three/three.min.js"></script>
-
-  
-  <script type="text/javascript" src="/lib/three/canvas_lines.min.js"></script>
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
 
 
   
@@ -864,6 +860,28 @@ Person::new       //构造器引用
   
 
   
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
 
   
 

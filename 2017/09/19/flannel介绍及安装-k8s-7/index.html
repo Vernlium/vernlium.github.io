@@ -103,7 +103,7 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="flannel介绍及安装-k8s_7">
 <meta property="og:url" content="://vernlium.github.io/2017/09/19/flannel介绍及安装-k8s-7/index.html">
-<meta property="og:site_name" content="AnanZhang">
+<meta property="og:site_name" content="Vernlium">
 <meta property="og:description" content="前面几篇博客讲述了k8s的安装和基本使用，在使用过程中我们可以发现，在每一个节点上，每个容器都有一个节点中唯一的ip，但是不同的节点上，容器的虚拟ip可能是相同的。 上一篇博客中讲到了docker网络，其中提到：  libnetwork中内置5种驱动，有一种是overlay驱动，flannel就是使用的这种驱动方式。  那么，本节我们就了讲一下flannel的安装、使用和原理。 flannel简介">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://user-images.githubusercontent.com/11350907/30549280-f3a39ee6-9cc6-11e7-96bf-3872bba098c9.png">
@@ -147,7 +147,7 @@
 
 
 
-  <title>flannel介绍及安装-k8s_7 | AnanZhang</title>
+  <title>flannel介绍及安装-k8s_7 | Vernlium</title>
   
 
 
@@ -183,7 +183,7 @@
     <div class="custom-logo-site-title">
       <a href="/"  class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">AnanZhang</span>
+        <span class="site-title">Vernlium</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
@@ -289,7 +289,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="AnanZhang">
+      <meta itemprop="name" content="Vernlium">
     </span>
 
     
@@ -797,12 +797,11 @@
   
 
 
-
-
-
-
   
-  
+
+
+
+
 
 
 
@@ -829,10 +828,7 @@
   <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
 
   
-  <script type="text/javascript" src="/lib/three/three.min.js"></script>
-
-  
-  <script type="text/javascript" src="/lib/three/canvas_lines.min.js"></script>
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
 
 
   
@@ -921,6 +917,28 @@
   
 
   
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
 
   
 

@@ -103,7 +103,7 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="docker镜像仓库的安装-k8s_2">
 <meta property="og:url" content="://vernlium.github.io/2017/08/14/docker镜像仓库的安装-k8s-2/index.html">
-<meta property="og:site_name" content="AnanZhang">
+<meta property="og:site_name" content="Vernlium">
 <meta property="og:description" content="简介镜像仓库是存储镜像和分发镜像的系统。docker的使用离不开镜像仓库。当前最大的镜像仓库是dockerhub，这里面包含了很多镜像，比如各大常用软件的镜像，如nginx/ubuntu/mysql/redis等，还有很多个人开发者制作的镜像，或者是完全新的镜像或者是在现有镜像基础上开发的特殊需求的镜像等。 有时候开发者可能需要进行测试或者涉及安全问题不想把镜像流传到外网，这时就需要自己搭建私有镜">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://user-images.githubusercontent.com/11350907/29341217-85fdd234-8255-11e7-9a2b-1c19b39867f9.png">
@@ -146,7 +146,7 @@
 
 
 
-  <title>docker镜像仓库的安装-k8s_2 | AnanZhang</title>
+  <title>docker镜像仓库的安装-k8s_2 | Vernlium</title>
   
 
 
@@ -182,7 +182,7 @@
     <div class="custom-logo-site-title">
       <a href="/"  class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">AnanZhang</span>
+        <span class="site-title">Vernlium</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
@@ -288,7 +288,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="AnanZhang">
+      <meta itemprop="name" content="Vernlium">
     </span>
 
     
@@ -750,12 +750,11 @@
   
 
 
-
-
-
-
   
-  
+
+
+
+
 
 
 
@@ -782,10 +781,7 @@
   <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
 
   
-  <script type="text/javascript" src="/lib/three/three.min.js"></script>
-
-  
-  <script type="text/javascript" src="/lib/three/canvas_lines.min.js"></script>
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
 
 
   
@@ -874,6 +870,28 @@
   
 
   
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
 
   
 

@@ -103,7 +103,7 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java序列化">
 <meta property="og:url" content="://vernlium.github.io/2015/07/22/Java序列化/index.html">
-<meta property="og:site_name" content="AnanZhang">
+<meta property="og:site_name" content="Vernlium">
 <meta property="og:description" content="我在看程序的时候，经常会看到一些类实现了”Serializable”接口，一直对这个接口很奇怪，不知道它的作用是什么，今天专门查了一下资料，总结如下。 1、为什么要序列化？在程序中，创建一个java对象，这个对象会随着程序的终止而消亡。但是在一些情况下，如果对象能够在程序不运行的情况下仍能存在并保存其信息，将非常有用。这样，在下次运行程序时，该对象将被重建并且拥有的信息与在程序上次运行是它所拥有的">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2017-08-05T03:56:53.030Z">
@@ -144,7 +144,7 @@
 
 
 
-  <title>Java序列化 | AnanZhang</title>
+  <title>Java序列化 | Vernlium</title>
   
 
 
@@ -180,7 +180,7 @@
     <div class="custom-logo-site-title">
       <a href="/"  class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">AnanZhang</span>
+        <span class="site-title">Vernlium</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
@@ -286,7 +286,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="AnanZhang">
+      <meta itemprop="name" content="Vernlium">
     </span>
 
     
@@ -699,12 +699,11 @@
   
 
 
-
-
-
-
   
-  
+
+
+
+
 
 
 
@@ -731,10 +730,7 @@
   <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
 
   
-  <script type="text/javascript" src="/lib/three/three.min.js"></script>
-
-  
-  <script type="text/javascript" src="/lib/three/canvas_lines.min.js"></script>
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
 
 
   
@@ -823,6 +819,28 @@
   
 
   
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
 
   
 

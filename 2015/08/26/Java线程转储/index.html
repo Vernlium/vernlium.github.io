@@ -103,7 +103,7 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java线程转储">
 <meta property="og:url" content="://vernlium.github.io/2015/08/26/Java线程转储/index.html">
-<meta property="og:site_name" content="AnanZhang">
+<meta property="og:site_name" content="Vernlium">
 <meta property="og:description" content="今天看《Java并发编程实战》中讲到通过线程转储信息来分析死锁，之前并没有听说过“线程转储”这个概念，特地搜了一下，总结如下： java线程转储定义java的线程转储可以被定义为JVM中在某一个给定的时刻运行的所有线程的快照。一个线程转储可能包含一个单独的线程或者多个线程。在多线程环境中，比如J2EE应用服务器，将会有许多线程和线程组。每一个线程都有它自己的调用堆栈，在一个给定时刻，表现为一个独立">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://7xngpc.com1.z0.glb.clouddn.com/vernjava线程状态转换.jpg">
@@ -146,7 +146,7 @@
 
 
 
-  <title>Java线程转储 | AnanZhang</title>
+  <title>Java线程转储 | Vernlium</title>
   
 
 
@@ -182,7 +182,7 @@
     <div class="custom-logo-site-title">
       <a href="/"  class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">AnanZhang</span>
+        <span class="site-title">Vernlium</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
@@ -288,7 +288,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="AnanZhang">
+      <meta itemprop="name" content="Vernlium">
     </span>
 
     
@@ -725,12 +725,11 @@
   
 
 
-
-
-
-
   
-  
+
+
+
+
 
 
 
@@ -757,10 +756,7 @@
   <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
 
   
-  <script type="text/javascript" src="/lib/three/three.min.js"></script>
-
-  
-  <script type="text/javascript" src="/lib/three/canvas_lines.min.js"></script>
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
 
 
   
@@ -849,6 +845,28 @@
   
 
   
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
 
   
 

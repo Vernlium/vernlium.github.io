@@ -103,7 +103,7 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="深度学习_2_梯度下降法">
 <meta property="og:url" content="://vernlium.github.io/2018/04/18/深度学习_2_梯度下降法/index.html">
-<meta property="og:site_name" content="AnanZhang">
+<meta property="og:site_name" content="Vernlium">
 <meta property="og:description" content="机器学习算法用于训练模型的迭代试错过程：  假设有时间和计算资源来计算的所有可能的损失值。对于回归问题，所产生的损失和权重值($ w_i $)的关系是凸形的，如下图所示：  凸形问题只有一个最低点：即只存在一个斜率正好为0的位置。这个最小值就是损失函数收敛之处。 通过计算整个数据集中每个可能值的损失函数来找到收敛点这种方法效率太低。机器学习领域有一种找到这个收敛点的机制，叫做梯度下降法。 梯度下降">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://user-images.githubusercontent.com/11350907/38938746-e1fd0ad6-4358-11e8-924a-de88ba1fc253.png">
@@ -116,7 +116,9 @@
 <meta property="og:image" content="https://user-images.githubusercontent.com/11350907/39089668-980feca0-45ff-11e8-8bb7-37f158106d0b.png">
 <meta property="og:image" content="http://x-wei.github.io/images/Ng_DLMooc_c2wk2/pasted_image034.png">
 <meta property="og:image" content="http://x-wei.github.io/images/Ng_DLMooc_c2wk2/pasted_image035.png">
-<meta property="og:updated_time" content="2018-04-23T13:48:26.093Z">
+<meta property="og:image" content="/2018/04/18/深度学习_2_梯度下降法/learning_rate_too_small.JPG">
+<meta property="og:image" content="/2018/04/18/深度学习_2_梯度下降法/learning_rate_too_big.JPG">
+<meta property="og:updated_time" content="2018-04-25T14:59:59.175Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="深度学习_2_梯度下降法">
 <meta name="twitter:description" content="机器学习算法用于训练模型的迭代试错过程：  假设有时间和计算资源来计算的所有可能的损失值。对于回归问题，所产生的损失和权重值($ w_i $)的关系是凸形的，如下图所示：  凸形问题只有一个最低点：即只存在一个斜率正好为0的位置。这个最小值就是损失函数收敛之处。 通过计算整个数据集中每个可能值的损失函数来找到收敛点这种方法效率太低。机器学习领域有一种找到这个收敛点的机制，叫做梯度下降法。 梯度下降">
@@ -155,7 +157,7 @@
 
 
 
-  <title>深度学习_2_梯度下降法 | AnanZhang</title>
+  <title>深度学习_2_梯度下降法 | Vernlium</title>
   
 
 
@@ -191,7 +193,7 @@
     <div class="custom-logo-site-title">
       <a href="/"  class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">AnanZhang</span>
+        <span class="site-title">Vernlium</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
@@ -297,7 +299,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="AnanZhang">
+      <meta itemprop="name" content="Vernlium">
     </span>
 
     
@@ -443,6 +445,10 @@
 <li><a href="https://www.zhihu.com/question/52782960/answer/133724696" target="_blank" rel="external">https://www.zhihu.com/question/52782960/answer/133724696</a></li>
 <li><a href="http://x-wei.github.io/Ng_DLMooc_c2wk2.html" target="_blank" rel="external">http://x-wei.github.io/Ng_DLMooc_c2wk2.html</a></li>
 </ol>
+<h3 id="学习率（learning-rate）的选择"><a href="#学习率（learning-rate）的选择" class="headerlink" title="学习率（learning rate）的选择"></a>学习率（learning rate）的选择</h3><p>超参数是编程人员在机器学习算法中用于天真的旋钮。大多数机器学习编程人员都需要花费相当多的时间来调整学习率。如果选择的学习率过少，就会花费太长时间学习：</p>
+<img src="/2018/04/18/深度学习_2_梯度下降法/learning_rate_too_small.JPG" alt="learning rate too small" title="learning rate too small">
+<p>相反，如果选择的学习速率过大，下一个点将永远在U形曲线的底部来回弹跳，可能无法到达最小点：</p>
+<img src="/2018/04/18/深度学习_2_梯度下降法/learning_rate_too_big.JPG" alt="learning rate too big" title="learning rate too big">
 
       
     </div>
@@ -647,7 +653,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#梯度下降法"><span class="nav-number">1.</span> <span class="nav-text">梯度下降法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#个人理解"><span class="nav-number"></span> <span class="nav-text">个人理解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#思考"><span class="nav-number"></span> <span class="nav-text">思考</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解惑"><span class="nav-number"></span> <span class="nav-text">解惑</span></a></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#梯度下降法"><span class="nav-number">1.</span> <span class="nav-text">梯度下降法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#个人理解"><span class="nav-number"></span> <span class="nav-text">个人理解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#思考"><span class="nav-number"></span> <span class="nav-text">思考</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解惑"><span class="nav-number"></span> <span class="nav-text">解惑</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#学习率（learning-rate）的选择"><span class="nav-number"></span> <span class="nav-text">学习率（learning rate）的选择</span></a></div>
             
 
           </div>
@@ -724,12 +730,11 @@
   
 
 
-
-
-
-
   
-  
+
+
+
+
 
 
 
@@ -756,10 +761,7 @@
   <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
 
   
-  <script type="text/javascript" src="/lib/three/three.min.js"></script>
-
-  
-  <script type="text/javascript" src="/lib/three/canvas_lines.min.js"></script>
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
 
 
   
@@ -848,6 +850,28 @@
   
 
   
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
 
   
 
