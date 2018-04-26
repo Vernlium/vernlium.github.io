@@ -98,13 +98,13 @@
 
 
 
-<meta name="description" content="机器学习算法用于训练模型的迭代试错过程：  假设有时间和计算资源来计算的所有可能的损失值。对于回归问题，所产生的损失和权重值($ w_i $)的关系是凸形的，如下图所示：  凸形问题只有一个最低点：即只存在一个斜率正好为0的位置。这个最小值就是损失函数收敛之处。 通过计算整个数据集中每个可能值的损失函数来找到收敛点这种方法效率太低。机器学习领域有一种找到这个收敛点的机制，叫做梯度下降法。 梯度下降">
+<meta name="description" content="机器学习过程机器学习算法用于训练模型的迭代试错过程：  假设有时间和计算资源来计算的所有可能的损失值。对于回归问题，所产生的损失和权重值($ w_i $)的关系是凸形的，如下图所示：  凸形问题只有一个最低点：即只存在一个斜率正好为0的位置。这个最小值就是损失函数收敛之处。 通过计算整个数据集中每个可能值的损失函数来找到收敛点这种方法效率太低。机器学习领域有一种找到这个收敛点的机制，叫做梯度下降法">
 <meta name="keywords" content="deeplearning,梯度下降">
 <meta property="og:type" content="article">
 <meta property="og:title" content="深度学习_2_梯度下降法">
 <meta property="og:url" content="://vernlium.github.io/2018/04/18/深度学习_2_梯度下降法/index.html">
 <meta property="og:site_name" content="Vernlium">
-<meta property="og:description" content="机器学习算法用于训练模型的迭代试错过程：  假设有时间和计算资源来计算的所有可能的损失值。对于回归问题，所产生的损失和权重值($ w_i $)的关系是凸形的，如下图所示：  凸形问题只有一个最低点：即只存在一个斜率正好为0的位置。这个最小值就是损失函数收敛之处。 通过计算整个数据集中每个可能值的损失函数来找到收敛点这种方法效率太低。机器学习领域有一种找到这个收敛点的机制，叫做梯度下降法。 梯度下降">
+<meta property="og:description" content="机器学习过程机器学习算法用于训练模型的迭代试错过程：  假设有时间和计算资源来计算的所有可能的损失值。对于回归问题，所产生的损失和权重值($ w_i $)的关系是凸形的，如下图所示：  凸形问题只有一个最低点：即只存在一个斜率正好为0的位置。这个最小值就是损失函数收敛之处。 通过计算整个数据集中每个可能值的损失函数来找到收敛点这种方法效率太低。机器学习领域有一种找到这个收敛点的机制，叫做梯度下降法">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://user-images.githubusercontent.com/11350907/38938746-e1fd0ad6-4358-11e8-924a-de88ba1fc253.png">
 <meta property="og:image" content="https://user-images.githubusercontent.com/11350907/38938953-63457aec-4359-11e8-9a03-f1349e9f17e6.png">
@@ -118,10 +118,16 @@
 <meta property="og:image" content="http://x-wei.github.io/images/Ng_DLMooc_c2wk2/pasted_image035.png">
 <meta property="og:image" content="/2018/04/18/深度学习_2_梯度下降法/learning_rate_too_small.JPG">
 <meta property="og:image" content="/2018/04/18/深度学习_2_梯度下降法/learning_rate_too_big.JPG">
-<meta property="og:updated_time" content="2018-04-25T14:59:59.175Z">
+<meta property="og:image" content="/2018/04/18/深度学习_2_梯度下降法/learning_rate_is_good.JPG">
+<meta property="og:image" content="/2018/04/18/深度学习_2_梯度下降法/example_learning_rate_too_small.JPG">
+<meta property="og:image" content="/2018/04/18/深度学习_2_梯度下降法/example_learning_rate_too_big.JPG">
+<meta property="og:image" content="/2018/04/18/深度学习_2_梯度下降法/example_learning_rate_is_good.JPG">
+<meta property="og:image" content="/2018/04/18/深度学习_2_梯度下降法/example_learning_rate_is_best.JPG">
+<meta property="og:image" content="/2018/04/18/深度学习_2_梯度下降法/cost_with_different_learning_rate.JPG">
+<meta property="og:updated_time" content="2018-04-26T00:12:39.517Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="深度学习_2_梯度下降法">
-<meta name="twitter:description" content="机器学习算法用于训练模型的迭代试错过程：  假设有时间和计算资源来计算的所有可能的损失值。对于回归问题，所产生的损失和权重值($ w_i $)的关系是凸形的，如下图所示：  凸形问题只有一个最低点：即只存在一个斜率正好为0的位置。这个最小值就是损失函数收敛之处。 通过计算整个数据集中每个可能值的损失函数来找到收敛点这种方法效率太低。机器学习领域有一种找到这个收敛点的机制，叫做梯度下降法。 梯度下降">
+<meta name="twitter:description" content="机器学习过程机器学习算法用于训练模型的迭代试错过程：  假设有时间和计算资源来计算的所有可能的损失值。对于回归问题，所产生的损失和权重值($ w_i $)的关系是凸形的，如下图所示：  凸形问题只有一个最低点：即只存在一个斜率正好为0的位置。这个最小值就是损失函数收敛之处。 通过计算整个数据集中每个可能值的损失函数来找到收敛点这种方法效率太低。机器学习领域有一种找到这个收敛点的机制，叫做梯度下降法">
 <meta name="twitter:image" content="https://user-images.githubusercontent.com/11350907/38938746-e1fd0ad6-4358-11e8-924a-de88ba1fc253.png">
 
 
@@ -391,13 +397,13 @@
       
 
       
-        <p>机器学习算法用于训练模型的迭代试错过程：</p>
+        <h3 id="机器学习过程"><a href="#机器学习过程" class="headerlink" title="机器学习过程"></a>机器学习过程</h3><p>机器学习算法用于训练模型的迭代试错过程：</p>
 <p><img src="https://user-images.githubusercontent.com/11350907/38938746-e1fd0ad6-4358-11e8-924a-de88ba1fc253.png" alt="image"></p>
 <p>假设有时间和计算资源来计算的所有可能的损失值。对于回归问题，所产生的损失和权重值($ w_i $)的关系是凸形的，如下图所示：</p>
 <p><img src="https://user-images.githubusercontent.com/11350907/38938953-63457aec-4359-11e8-9a03-f1349e9f17e6.png" alt="image"></p>
 <p>凸形问题只有一个最低点：即只存在一个斜率正好为0的位置。这个最小值就是损失函数收敛之处。</p>
 <p>通过计算整个数据集中每个可能值的损失函数来找到收敛点这种方法效率太低。机器学习领域有一种找到这个收敛点的机制，叫做<strong>梯度下降法</strong>。</p>
-<h4 id="梯度下降法"><a href="#梯度下降法" class="headerlink" title="梯度下降法"></a>梯度下降法</h4><p>梯度下降法的第一个阶段是选择一个起始点值（起点）。起点并不只要，因此很多算法就直接将起点$ w_i $设为0或者随机选择一个值。我们选择一个稍大于0的起点，如下图所示：</p>
+<h3 id="梯度下降法"><a href="#梯度下降法" class="headerlink" title="梯度下降法"></a>梯度下降法</h3><p>梯度下降法的第一个阶段是选择一个起始点值（起点）。起点并不只要，因此很多算法就直接将起点$ w_i $设为0或者随机选择一个值。我们选择一个稍大于0的起点，如下图所示：</p>
 <p><img src="https://user-images.githubusercontent.com/11350907/38962596-9dbb04e8-43a0-11e8-9b4d-597341e6e69a.png" alt="image"></p>
 <p>然后梯度下降法会计算损失曲线在起点处的梯度。<strong>梯度</strong>是偏导数的矢量；它可以让我们了解哪个方向距离目标“更近”或者“更远”。需要注意的是，损失相对于单个权重的梯度，就等于导数。</p>
 <p>梯度是一个矢量，因此具有如下两个特征：</p>
@@ -424,7 +430,7 @@
 <p><img src="https://user-images.githubusercontent.com/11350907/39089632-e9c25606-45fe-11e8-9917-4a72cc9c5bb4.png" alt="image"></p>
 <p>图中有多个最小值，其中A、B、C、D为局部最小值，G为全局最小值。</p>
 <p>如果起始选取的w值为A’或者B’或者C’或者D’，那么损失会在A  B  C  D中的一个收敛，虽然找到了最小值，却不是全局最小值，这样得到的结果肯定不是我们想要的。这样的话，梯度下降法会不会有问题？</p>
-<h3 id="解惑"><a href="#解惑" class="headerlink" title="解惑"></a>解惑</h3><p>上面损失和w的关系是二维的情况，实际应用中大多是比较复杂的模型，都是多维的，那么多维的场景会不会出现上面的局部最小值呢？比如像下图中所示，会不会出现图中的蓝色点的情况，导致找到的是局部最小值，而不是红色箭头所指的全局最小值？</p>
+<h4 id="解惑"><a href="#解惑" class="headerlink" title="解惑"></a>解惑</h4><p>上面损失和w的关系是二维的情况，实际应用中大多是比较复杂的模型，都是多维的，那么多维的场景会不会出现上面的局部最小值呢？比如像下图中所示，会不会出现图中的蓝色点的情况，导致找到的是局部最小值，而不是红色箭头所指的全局最小值？</p>
 <p><img src="https://user-images.githubusercontent.com/11350907/39089668-980feca0-45ff-11e8-8bb7-37f158106d0b.png" alt="image"></p>
 <p>答案是否定的。</p>
 <p>到2014年，一篇论文<a href="https://arxiv.org/pdf/1406.2572v1.pdf" target="_blank" rel="external">《Identifying and attacking the saddle point problem in<br>high-dimensional non-convex optimization》</a>， 指出高维优化问题中根本没有那么多局部极值。作者依据统计物理，随机矩阵理论和神经网络理论的分析，以及一些经验分析提出高维非凸优化问题之所以困难，是因为存在大量的鞍点（梯度为零并且Hessian矩阵特征值有正有负）而不是局部极值。</p>
@@ -434,8 +440,7 @@
 <p>在鞍点附近，基于梯度的优化算法（几乎目前所有的实际使用的优化算法都是基于梯度的）会遇到较为严重的问题，可能会长时间卡在该点附近。在鞍点数目极大的时候，这个问题会变得非常严重（下图来自上面论文）。</p>
 <p><img src="http://x-wei.github.io/images/Ng_DLMooc_c2wk2/pasted_image035.png" alt=""></p>
 <p>这个问题目前仍有讨论，不过大体上人们接受了这种观点，即造成神经网络难以优化的一个重要（乃至主要）原因是存在大量鞍点。造成局部极值这种误解的原因在于，人们把低维的直观认识直接推到高维的情况。在一维情况下，局部极值是仅有的造成优化困难的情形（Hessian矩阵只有一个特征值）。该如何处理这种情况，目前似乎没有特别有效的方法。</p>
-<p>多解释一点。</p>
-<ul>
+<h4 id="多解释一点"><a href="#多解释一点" class="headerlink" title="多解释一点"></a>多解释一点</h4><ul>
 <li>1.鞍点也是驻点，鞍点处的梯度为零，在一定范围内沿梯度下降会沿着鞍点附近走，这个区域很平坦，梯度很小。</li>
 <li>2.优化过程不是卡在鞍点不动了(像人们以为的局部极值那样)，而是在鞍点附近梯度很小，于是变动的幅度越来越小，loss看起来就像是卡住了。但是和local minima的差别在于，如果运行时间足够长，SGD一类的算法是可以走出鞍点附近的区域的（看下面的两个链接）。由于这需要很长时间，在loss上看来就像是卡在local minima了。然而，从一个鞍点附近走出来，很可能会很快就进入另一个鞍点附近了。</li>
 <li>3.直观来看增加一些扰动，从下降的路径上跳出去就能绕过鞍点。但在高维的情形，这个鞍点附近的平坦区域范围可能非常大。此外，即便从一个鞍点跳过，这个跳出来的部分很可能很快进入另一个鞍点的平坦区域—— 鞍点的数量(可能)是指数级的。各种优化算法在鞍点附近形态的展示，可以看动态图An overview of gradient descent optimization algorithms 最下面的部分，非常生动形象。中文可见SGD，Adagrad，Adadelta，Adam等优化方法总结和比较。</li>
@@ -449,7 +454,25 @@
 <img src="/2018/04/18/深度学习_2_梯度下降法/learning_rate_too_small.JPG" alt="learning rate too small" title="learning rate too small">
 <p>相反，如果选择的学习速率过大，下一个点将永远在U形曲线的底部来回弹跳，可能无法到达最小点：</p>
 <img src="/2018/04/18/深度学习_2_梯度下降法/learning_rate_too_big.JPG" alt="learning rate too big" title="learning rate too big">
-
+<p>每个回归问题都存在一个金发姑娘(“just the right amount”)学习速率。“金发姑娘”值与损失函数的平坦程度相关。如果知道损失函数的梯度较小，则可以放心地试着采用更大的学习速率，以补偿较小的梯度并获得更大的步长。</p>
+<img src="/2018/04/18/深度学习_2_梯度下降法/learning_rate_is_good.JPG" alt="learning rate is good" title="learning rate is good">
+<h4 id="理想的学习速率。"><a href="#理想的学习速率。" class="headerlink" title="理想的学习速率。"></a>理想的学习速率。</h4><p>一维空间中的理想学习速率是 $ \frac{ 1 }{ f(x)’’ } $ （f(x) 对 x 的二阶导数的倒数）。</p>
+<p>二维或多维空间中的理想学习速率是<a href="https://en.wikipedia.org/wiki/Hessian_matrix" target="_blank" rel="external">海森矩阵</a>（由二阶偏导数组成的矩阵）的倒数。</p>
+<p>广义凸函数的情况则更为复杂。</p>
+<h4 id="学习速率选择实例"><a href="#学习速率选择实例" class="headerlink" title="学习速率选择实例"></a>学习速率选择实例</h4><p>学习速率过小的情况</p>
+<img src="/2018/04/18/深度学习_2_梯度下降法/example_learning_rate_too_small.JPG" alt="example learning rate too small" title="example learning rate too small">
+<p>学习速率过大的情况</p>
+<img src="/2018/04/18/深度学习_2_梯度下降法/example_learning_rate_too_big.JPG" alt="example learning rate too big" title="example learning rate too big">
+<p>学习速率比较好的情况</p>
+<img src="/2018/04/18/深度学习_2_梯度下降法/example_learning_rate_is_good.JPG" alt="example learning rate is good" title="example learning rate is good">
+<p>学习速率最佳情况（即金发姑娘学习速率）</p>
+<img src="/2018/04/18/深度学习_2_梯度下降法/example_learning_rate_is_best.JPG" alt="just the right amount" title="just the right amount">
+<p>下图是一个神经网络中，不同的学习速率和损失值之间的曲线，可以看到不同的学习速率的表现是不一样的。</p>
+<ul>
+<li>learning rate = 0.01时，cost值前面在跳跃，说明太大了；</li>
+<li>从图中可以判断，learning rate = 0.005(红色的线)是这几个值中的最佳选择，因为cost收敛的很快。</li>
+</ul>
+<img src="/2018/04/18/深度学习_2_梯度下降法/cost_with_different_learning_rate.JPG" alt="cost with different learning rate" title="cost with different learning rate">
       
     </div>
     
@@ -653,7 +676,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#梯度下降法"><span class="nav-number">1.</span> <span class="nav-text">梯度下降法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#个人理解"><span class="nav-number"></span> <span class="nav-text">个人理解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#思考"><span class="nav-number"></span> <span class="nav-text">思考</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解惑"><span class="nav-number"></span> <span class="nav-text">解惑</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#学习率（learning-rate）的选择"><span class="nav-number"></span> <span class="nav-text">学习率（learning rate）的选择</span></a></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#机器学习过程"><span class="nav-number">1.</span> <span class="nav-text">机器学习过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#梯度下降法"><span class="nav-number">2.</span> <span class="nav-text">梯度下降法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#个人理解"><span class="nav-number">3.</span> <span class="nav-text">个人理解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#思考"><span class="nav-number">4.</span> <span class="nav-text">思考</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#解惑"><span class="nav-number">4.1.</span> <span class="nav-text">解惑</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#多解释一点"><span class="nav-number">4.2.</span> <span class="nav-text">多解释一点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#学习率（learning-rate）的选择"><span class="nav-number">5.</span> <span class="nav-text">学习率（learning rate）的选择</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#理想的学习速率。"><span class="nav-number">5.1.</span> <span class="nav-text">理想的学习速率。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#学习速率选择实例"><span class="nav-number">5.2.</span> <span class="nav-text">学习速率选择实例</span></a></li></ol></li></ol></div>
             
 
           </div>
