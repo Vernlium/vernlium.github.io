@@ -124,7 +124,7 @@
 <meta property="og:image" content="/2018/04/18/深度学习_2_梯度下降法/example_learning_rate_is_good.JPG">
 <meta property="og:image" content="/2018/04/18/深度学习_2_梯度下降法/example_learning_rate_is_best.JPG">
 <meta property="og:image" content="/2018/04/18/深度学习_2_梯度下降法/cost_with_different_learning_rate.JPG">
-<meta property="og:updated_time" content="2018-04-26T00:12:39.517Z">
+<meta property="og:updated_time" content="2018-05-01T23:22:53.367Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="深度学习_2_梯度下降法">
 <meta name="twitter:description" content="机器学习过程机器学习算法用于训练模型的迭代试错过程：  假设有时间和计算资源来计算的所有可能的损失值。对于回归问题，所产生的损失和权重值($ w_i $)的关系是凸形的，如下图所示：  凸形问题只有一个最低点：即只存在一个斜率正好为0的位置。这个最小值就是损失函数收敛之处。 通过计算整个数据集中每个可能值的损失函数来找到收敛点这种方法效率太低。机器学习领域有一种找到这个收敛点的机制，叫做梯度下降法">
@@ -422,7 +422,9 @@
 <h3 id="个人理解"><a href="#个人理解" class="headerlink" title="个人理解"></a>个人理解</h3><p>梯度就是为了找一个方向，沿着负梯度方向走梯度乘学习速率（learning rate）(也称步长)的距离，以确定下一个点的位置。</p>
 <p>例如，当前点梯度为-2.5，学习速率为0.001,则梯度下降法会选择当前点向右、距离当前点0.025的位置作为下一个点。</p>
 <p>如下图所示：</p>
-<p>图中A点则往右走一步，即$ w_i $ 加上梯度（正）乘学习速率；<br>图中B点则往左走一步，即$ w_i $ 减去上梯度（正）乘学习速率。</p>
+<p>图中A点则往右走一步，即$ w_i $ 加上梯度（正）乘学习速率；<br>图中B点则往左走一步，</p>
+<p>计算公式为：$ w_i ＝　w_i －　α　×　dw $。</p>
+<p>其中$ α $ 为learning_rate。</p>
 <p><img src="https://user-images.githubusercontent.com/11350907/38963403-486e1d3c-43a4-11e8-9ac0-0d78b627fe75.png" alt="image"></p>
 <p><strong>梯度的正负决定下一步的计算方向，而梯度的值和学习速率决定下一步的位置</strong></p>
 <h3 id="思考"><a href="#思考" class="headerlink" title="思考"></a>思考</h3><p>对于上面的图，损失和权重的曲线只有一个最小值，即只有一个点的梯度为0.</p>
@@ -595,7 +597,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">37</span>
+                <span class="site-state-item-count">41</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -617,7 +619,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">25</span>
+                <span class="site-state-item-count">26</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
