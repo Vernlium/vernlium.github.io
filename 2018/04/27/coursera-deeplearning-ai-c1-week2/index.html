@@ -98,18 +98,18 @@
 
 
 
-<meta name="description" content="Keep codeing and thinking!">
+<meta name="description" content="逻辑回归的实现计算图前向计算： 梯度计算： 参数更新： 矢量化对于每一个 $x^{(i)}$: $$ z^{(i)} = w^T x^{(i)} + b $$ $$ \hat{y}^{(i)} = a^{(i)} = sigmoid(z^{(i)}) $$  $$ \mathcal{L}(a^{(i)}, y^{(i)}) =  - y^{(i)}  \log(a^{(i)}) - (1-y^{(">
 <meta name="keywords" content="deeplearning.ai">
 <meta property="og:type" content="article">
 <meta property="og:title" content="coursera_deeplearning.ai_c1_week2">
 <meta property="og:url" content="://vernlium.github.io/2018/04/27/coursera-deeplearning-ai-c1-week2/index.html">
 <meta property="og:site_name" content="Vernlium">
-<meta property="og:description" content="Keep codeing and thinking!">
+<meta property="og:description" content="逻辑回归的实现计算图前向计算： 梯度计算： 参数更新： 矢量化对于每一个 $x^{(i)}$: $$ z^{(i)} = w^T x^{(i)} + b $$ $$ \hat{y}^{(i)} = a^{(i)} = sigmoid(z^{(i)}) $$  $$ \mathcal{L}(a^{(i)}, y^{(i)}) =  - y^{(i)}  \log(a^{(i)}) - (1-y^{(">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-05-01T23:23:11.493Z">
+<meta property="og:updated_time" content="2018-05-08T14:56:39.792Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="coursera_deeplearning.ai_c1_week2">
-<meta name="twitter:description" content="Keep codeing and thinking!">
+<meta name="twitter:description" content="逻辑回归的实现计算图前向计算： 梯度计算： 参数更新： 矢量化对于每一个 $x^{(i)}$: $$ z^{(i)} = w^T x^{(i)} + b $$ $$ \hat{y}^{(i)} = a^{(i)} = sigmoid(z^{(i)}) $$  $$ \mathcal{L}(a^{(i)}, y^{(i)}) =  - y^{(i)}  \log(a^{(i)}) - (1-y^{(">
 
 
 
@@ -356,7 +356,26 @@
       
 
       
-        
+        <h3 id="逻辑回归的实现"><a href="#逻辑回归的实现" class="headerlink" title="逻辑回归的实现"></a>逻辑回归的实现</h3><h4 id="计算图"><a href="#计算图" class="headerlink" title="计算图"></a>计算图</h4><p>前向计算：</p>
+<p>梯度计算：</p>
+<p>参数更新：</p>
+<h3 id="矢量化"><a href="#矢量化" class="headerlink" title="矢量化"></a>矢量化</h3><p>对于每一个 $x^{(i)}$:</p>
+<p>$$ z^{(i)} = w^T x^{(i)} + b $$</p>
+<p>$$ \hat{y}^{(i)} = a^{(i)} = sigmoid(z^{(i)}) $$ </p>
+<p>$$ \mathcal{L}(a^{(i)}, y^{(i)}) =  - y^{(i)}  \log(a^{(i)}) - (1-y^{(i)} )  \log(1-a^{(i)}) $$</p>
+<p>The cost is then computed by summing over all training examples:</p>
+<p>$$ J = \frac{1}{m} \sum_{i=1}^m \mathcal{L}(a^{(i)}, y^{(i)}) $$</p>
+<p>前向计算：</p>
+<ul>
+<li>得到输入X</li>
+<li>前向计算： $A = \sigma(w^T X + b) = (a^{(1)}, a^{(2)}, …, a^{(m-1)}, a^{(m)})$</li>
+<li>计算损失函数: $J = -\frac{1}{m}\sum_{i=1}^{m}y^{(i)}\log(a^{(i)})+(1-y^{(i)})\log(1-a^{(i)})$</li>
+</ul>
+<p>计算梯度：</p>
+<p>$$ dw = \frac{\partial J}{\partial w} = \frac{1}{m}X(A-Y)^T $$<br>$$ db = \frac{\partial J}{\partial b} = \frac{1}{m} \sum_{i=1}^m (a^{(i)}-y^{(i)}) $$</p>
+<p>参数更新：</p>
+<p>$$ w = w - \alpha <em> dw $$<br>$$ b = b - \alpha </em> db $$</p>
+
       
     </div>
     
@@ -452,8 +471,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/wukong.png"
@@ -539,6 +567,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#逻辑回归的实现"><span class="nav-number">1.</span> <span class="nav-text">逻辑回归的实现</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#计算图"><span class="nav-number">1.1.</span> <span class="nav-text">计算图</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#矢量化"><span class="nav-number">2.</span> <span class="nav-text">矢量化</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
