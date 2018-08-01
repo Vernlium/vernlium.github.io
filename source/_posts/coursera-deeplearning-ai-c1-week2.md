@@ -299,7 +299,7 @@ $$ b = b - \alpha * db $$
 
 使用numpy实现 `sigmoid()` 函数. 计算公式为：
 
-$$ sigmoid( z ) = \frac{1}{1 + e^{-(z)}} $$  
+$$ sigmoid( z ) = \frac{1}{1 + e^{-z}} $$  
 
 
 ```python

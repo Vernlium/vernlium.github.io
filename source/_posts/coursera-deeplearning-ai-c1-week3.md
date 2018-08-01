@@ -41,7 +41,7 @@ week2中用到的只有一个激活函数：`sigmoid`函数，除此之外还有
 - sigmoid函数
 $$ sigmoid(z) =\frac{1}{1+e^{-z}}  $$
 - tanh函数
-$$ tanh(z) =\frac{e^{z}-e^{-z}}{e^{z}+e^{-z}}  $$
+$$ tanh(z) =\frac{e^z-e^{-z}}{e^z+e^{-z}}  $$
 - ReLU
 $$
         f(x) =
@@ -65,7 +65,7 @@ $$
 
 #### Why do you need non-linear activation functions?
 
-为什么要使用激活函数？
+**为什么要使用激活函数？**
 
 如果你使用“线性激活函数”或者叫“恒等激活函数”，那么神经网络的输出仅仅是输入函数的线性变化。深度网络会有很多层，很多隐藏层的神经网络。如果使用线性激活函数 或者说 没有使用激活函数，那么无论神经网络有多少层，它所做的仅仅是计算线性激活函数，这还不如去除所有隐藏层。请记得：线性的隐藏层没有任何用处，因为两个线性函数的组合，仍然是线性函数，除非在这里引入非线性函数，否则无论神经网络模型包含多少隐藏层，都无法实现更有趣的功能。
 
@@ -75,11 +75,15 @@ $$
 
 - Paramters :
 $$
-\begin{aligned}
-& \,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,&W^{[1]},&b^{[1]},&W^{[2]},&b^{[2]} & \\
-& dims:&(n^{[1]},n^{[0]}),&(n^{[1]},1),&(n^{[2]},n^{[1]}),&(n^{[2]},1)&
-\end{aligned}
+W^{[1]},\,\,\,b^{[1]},\,\,\,W^{[2]},\,\,\,b^{[2]}
 $$
+
+其维度分别为：
+
+$$
+dims:(n^{[1]},\,\,\,n^{[0]}),\,\,\,(n^{[1]},1),\,\,\,(n^{[2]},n^{[1]}),\,\,\,(n^{[2]},1)
+$$
+
 - Cost Function :
 $$ J(W^{[1]},b^{[1]},W^{[2]},b^{[2]}) = \frac{1}{m} \sum_{i=1}^m \mathcal{L}(a^{(i)}, y^{(i)}) $$
 - Gradient descent :
@@ -119,7 +123,7 @@ $ dW^{[2]} =\frac{1}{m} dZ^{[2]} {A^{[1]}}^{T} $
 
 $ db^{[2]} =\frac{1}{m} np.sum(dZ^{[2]},axis=1) $
 
-$ dZ^{[1]} = {W^{[2]}}^{T} dZ^{[2]} (g^{[1]})'(Z^{[1]}) $
+$ dZ^{[1]} = (W^{[2]})^T dZ^{[2]} (g^{[1]})'(Z^{[1]}) $
 
 $ dW^{[1]} =\frac{1}{m} dZ^{[1]} X^{T} $
 
@@ -268,11 +272,11 @@ Logistic regression did not work well on the "flower dataset". You are going to 
 
 For one example $x^{(i)}$:
 
-$$ z^{[1] (i)} =  W^{[1]} x^{(i)} + b^{[1]}$$ 
+$$ z^{[1] (i)} =  W^{[1]} x^{(i)} + b^{[1]} $$ 
 
-$$ a^{[1] (i)} = \tanh(z^{[1] (i)})$$
+$$ a^{[1] (i)} = \tanh(z^{[1] (i)}) $$
 
-$$z^{[2] (i)} = W^{[2]} a^{[1] (i)} + b^{[2]}$$
+$$z^{[2] (i)} = W^{[2]} a^{[1] (i)} + b^{[2]} $$
 
 $$ \hat{y}^{(i)} = a^{[2] (i)} = \sigma(z^{ [2] (i)}) $$
 
@@ -285,7 +289,9 @@ $$
 
 Given the predictions on all the examples, you can also compute the cost $J$ as follows: 
 
-$$J = - \frac{1}{m} \sum\limits_{i = 0}^{m} \large\left(\small y^{(i)}\log\left(a^{[2] (i)}\right) + (1-y^{(i)})\log\left(1- a^{[2] (i)}\right)  \large  \right) \small $$
+$$
+J = - \frac{1}{m} \sum_{i=0}^{m} (y^{(i)}\log(a^{[2] (i)}) + (1-y^{(i)})\log(1- a^{[2] (i)}))
+ $$
 
 **Reminder**: The general methodology to build a Neural Network is to:
 
@@ -446,24 +452,19 @@ def forward_propagation(X, parameters):
              "A2": A2}
     
     return A2, cache
-```python
-
-
 ```
-X_assess, parameters = forward_propagation_test_case()
-A2, cache = forward_propagation(X_assess, parameters)
-```
-
 
 Now that you have computed $A^{[2]}$ (in the Python variable "`A2`"), which contains $a^{[2](i)}$ for every example, you can compute the cost function as follows:
 
-$$ J = - \frac{1}{m} \sum\limits_{i = 0}^{m} \large{(} \small y^{(i)}\log\left(a^{[2] (i)}\right) + (1-y^{(i)})\log\left(1- a^{[2] (i)}\right) \large{)} \small $$
+$$ 
+J = - \frac{1}{m} \sum_{i = 0}^{m} ( y^{(i)}\log(a^{[2] (i)}) + (1-y^{(i)})\log(1- a^{[2] (i)} ))
+ $$
 
 **Exercise**: Implement `compute_cost()` to compute the value of the cost $J$.
 
 **Instructions**:
 - There are many ways to implement the cross-entropy loss. To help you, we give you how we would have implemented
-$ \sum\limits_{i=0}^{m}  y^{(i)}\log(a^{[2](i)})$:
+$$ \sum_{i=0}^{m}  y^{(i)}\log(a^{[2](i)}) $$
 
 ```python
 logprobs = np.multiply(np.log(A2),Y)
@@ -571,7 +572,7 @@ def backward_propagation(parameters, cache, X, Y):
 ```
 
 
-**Question**: Implement the update rule. Use gradient descent. You have to use (dW1, db1, dW2, db2) in order to update (W1, b1, W2, b2).
+**Question**: Implement the update rule. Use gradient descent. You have to use $(dW1, db1, dW2, db2)$ in order to update $(W1, b1, W2, b2)$.
 
 **General gradient descent rule**: $ \theta = \theta - \alpha \frac{\partial J }{ \partial \theta }$ where $\alpha$ is the learning rate and $\theta$ represents a parameter.
 
@@ -724,13 +725,15 @@ print("b2 = " + str(parameters["b2"]))
 **Question**: Use your model to predict by building predict().
 Use forward propagation to predict results.
 
-**Reminder**: predictions = 
-$y_{prediction} = \mathbb 1 \text{{activation > 0.5}} = 
+**Reminder**:
+$$ 
+predictions =  y_{prediction} =
 \begin{cases}
       1 & \text{if}\ activation > 0.5 \\
       0 & \text{otherwise}
-\end{cases}$  
-    
+\end{cases}
+$$ 
+
 As an example, if you would like to set the entries of a matrix X to 0 and 1 based on a threshold you would do: ```X_new = (X > threshold)```
 
 
