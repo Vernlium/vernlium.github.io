@@ -1,16 +1,31 @@
 ---
 title: coursera_deeplearning.ai_c1_week4
-date: 2018-04-27 07:52:21
+date: 2018-08-02 07:52:21
 tags: [deeplearning.ai]
 ---
+
+本周课程要点：
+
+- 多层神经网络结构
+- 多层神经的前向及后向运算
+- 构建多层神经网络
+- 神经网络中的参数和超参数
+
+**学习目标**
+
+- See deep neural networks as successive blocks put one after each other
+- Build and train a deep L-layer Neural Network
+- Analyze matrix and vector dimensions to check neural network implementations.
+- Understand how to use a cache to pass information from forward propagation to back propagation.
+- Understand the role of hyperparameters in deep learning
 
 ## 课程笔记
 
 ### Deep L-layer neural network
 
-{% asset_img deep_neural_network.jpg just the right amount %}
+{% asset_img deep_neural_network.jpg deep neural network %}
 
-{% asset_img deep_neural_network_notation.jpg just the right amount %}
+{% asset_img deep_neural_network_notation.jpg deep neural network notation %}
 
 神经网络中的一些符号：
 
@@ -24,14 +39,14 @@ tags: [deeplearning.ai]
 
 ### Forward Propagation in a Deep Network
 
-{% asset_img forward_propagation_in_deep_network.jpg just the right amount %}
+{% asset_img forward_propagation_in_deep_network.jpg forward_propagation_in_deep_network %}
 
 
 ### Getting your matrix dimensions right
 
 如何计算深度学习中各层参数的维度？
 
-{% asset_img parameters_w_and_b.jpg just the right amount %}
+{% asset_img parameters_w_and_b.jpg parameters_w_and_b %}
 
 对于单个输入：
 
@@ -43,7 +58,7 @@ $$ dW^{[l]}: (n^{[l]},n^{[l-1]}) $$
 
 $$ db^{[l]}: (n^{[l]},1) $$
 
-{% asset_img vectorized_parameters_w_and_b.jpg just the right amount %}
+{% asset_img vectorized_parameters_w_and_b.jpg vectorized_parameters_w_and_b %}
 
 对于$m$个输入：
 
@@ -69,17 +84,22 @@ Informally: There are functions you can compute with a “small” L-layer deep 
 
 ### Building blocks of deep neural networks
 
-{% asset_img forward_and_backwark_functions.jpg Why deep representations %}
+{% asset_img forward_and_backwark_functions.jpg forward_and_backwark_functions %}
 
-{% asset_img forward_and_backwark_functions_graph.jpg Why deep representations %}
+{% asset_img forward_and_backwark_functions_graph.jpg forward_and_backwark_functions_graph %}
+
+下面是清晰版。
+
+{% asset_img forward_and_backwark_functions_graph_2.jpg forward_and_backwark_functions_graph %}
+
+上面这个图，包含了神经网络前向计算和后向计算所需的全部变量。
 
 ### Forward and Backward Propagation
 
-{% asset_img forward_propagation_for_layer_l.jpg Why deep representations %}
+{% asset_img forward_propagation_for_layer_l.jpg forward_propagation_for_layer_l %}
 
-{% asset_img backward_propagation_for_layer_l.jpg Why deep representations %}
+{% asset_img backward_propagation_for_layer_l.jpg backward_propagation_for_layer_l %}
 
-上面这个图，包含了神经网络前向计算和后向计算所需的全部变量。
 
 ### Parameters vs Hyperparameters
 
@@ -178,9 +198,7 @@ To build your neural network, you will be implementing several "helper functions
     - Stack [LINEAR->RELU] backward L-1 times and add [LINEAR->SIGMOID] backward in a new L_model_backward function
 - Finally update the parameters.
 
-<img src="images/final outline.png" style="width:800px;height:500px;">
-<caption><center> **Figure 1**</center></caption><br>
-
+{% asset_img final_outline.png **Figure 1** %}
 
 **Note** that for every forward function, there is a corresponding backward function. That is why at every step of your forward module you will be storing some values in a cache. The cached values are useful for computing gradients. In the backpropagation module you will then use the cache to calculate the gradients. This assignment will show you exactly how to carry out each of these steps. 
 
@@ -188,7 +206,7 @@ To build your neural network, you will be implementing several "helper functions
 
 You will write two helper functions that will initialize the parameters for your model. The first function will be used to initialize parameters for a two layer model. The second one will generalize this initialization process to $L$ layers.
 
-##### 3.1 - 2-layer Neural Network
+##### 3.1-2-layer Neural Network
 
 **Exercise**: Create and initialize the parameters of the 2-layer neural network.
 
@@ -197,9 +215,9 @@ You will write two helper functions that will initialize the parameters for your
 - Use random initialization for the weight matrices. Use `np.random.randn(shape)*0.01` with the correct shape.
 - Use zero initialization for the biases. Use `np.zeros(shape)`.
 
+
 ```python
 #GRADED FUNCTION: initialize_parameters
-
 def initialize_parameters(n_x, n_h, n_y):
     """
     Argument:
@@ -407,12 +425,13 @@ def linear_forward(A, W, b):
 
 ##### 4.2 - Linear-Activation Forward
 
+
 In this notebook, you will use two activation functions:
+
 
 - **Sigmoid**: $\sigma(Z) = \sigma(W A + b) = \frac{1}{ 1 + e^{-(W A + b)}}$. We have provided you with the `sigmoid` function. This function returns **two** items: the activation value "`a`" and a "`cache`" that contains "`Z`" (it's what we will feed in to the corresponding backward function). To use it you could just call: 
 
         A, activation_cache = sigmoid(Z)
-
 
 - **ReLU**: The mathematical formula for ReLu is $A = RELU(Z) = max(0, Z)$. We have provided you with the `relu` function. This function returns **two** items: the activation value "`A`" and a "`cache`" that contains "`Z`" (it's what we will feed in to the corresponding backward function). To use it you could just call:
 
@@ -466,12 +485,11 @@ def linear_activation_forward(A_prev, W, b, activation):
 
 **Note**: In deep learning, the "[LINEAR->ACTIVATION]" computation is counted as a single layer in the neural network, not two layers. 
 
-##### d) L-Layer Model 
+##### L-Layer Model 
 
 For even more convenience when implementing the $L$-layer Neural Net, you will need a function that replicates the previous one (`linear_activation_forward` with RELU) $L-1$ times, then follows that with one `linear_activation_forward` with SIGMOID.
 
-<img src="images/model_architecture_kiank.png" style="width:600px;height:300px;">
-<caption><center> **Figure 2** : *[LINEAR -> RELU] $\times$ (L-1) -> LINEAR -> SIGMOID* model</center></caption><br>
+{% asset_img model_architecture_kiank.png **Figure 2** : *[LINEAR -> RELU] $\times$ (L-1) -> LINEAR -> SIGMOID* model %}
 
 **Exercise**: Implement the forward propagation of the above model.
 
@@ -529,18 +547,19 @@ def L_model_forward(X, parameters):
     return AL, caches
 ```
 
-Great! Now you have a full forward propagation that takes the input X and outputs a row vector $A^{[L]}$ containing your predictions. It also records all intermediate values in "caches". Using $A^{[L]}$, you can compute the cost of your predictions.
+Great! Now you have a full forward propagation that takes the input X and outputs a row vector $ A^{[L]} $ containing your predictions. It also records all intermediate values in "caches". Using $ A^{[L]} $, you can compute the cost of your predictions.
 
 #### 5 - Cost function
 
 Now you will implement forward and backward propagation. You need to compute the cost, because you want to check if your model is actually learning.
 
-**Exercise**: Compute the cross-entropy cost $J$, using the following formula: $$-\frac{1}{m} \sum\limits_{i = 1}^{m} (y^{(i)}\log\left(a^{[L] (i)}\right) + (1-y^{(i)})\log\left(1- a^{[L](i)}\right)) $$
+**Exercise**: Compute the cross-entropy cost $J$, using the following formula: 
+$$
+-\frac{1}{m} \sum\limits_{i = 1}^{m} (y^{(i)}\log\left(a^{[L] (i)}\right) + (1-y^{(i)})\log\left(1- a^{[L](i)}\right))
+ $$
 
 
 ```python
-#In[12]:
-
 #GRADED FUNCTION: compute_cost
 
 def compute_cost(AL, Y):
@@ -570,13 +589,14 @@ def compute_cost(AL, Y):
 
 #### 6 - Backward propagation module
 
+
 Just like with forward propagation, you will implement helper functions for backpropagation. Remember that back propagation is used to calculate the gradient of the loss function with respect to the parameters. 
 
 **Reminder**: 
 
-<img src="images/backprop_kiank.png" style="width:650px;height:250px;">
+{% asset_img backprop_kiank.png **Figure 3** : Forward and Backward propagation for *LINEAR->RELU->LINEAR->SIGMOID* %}
 
-<caption><center> **Figure 3** : Forward and Backward propagation for *LINEAR->RELU->LINEAR->SIGMOID* <br> *The purple blocks represent the forward propagation, and the red blocks represent the backward propagation.*  </center></caption>
+> *The purple blocks represent the forward propagation, and the red blocks represent the backward propagation.*  
 
 For those of you who are expert in calculus (you don't need to be to do this assignment), the chain rule of calculus can be used to derive the derivative of the loss $\mathcal{L}$ with respect to $z^{[1]}$ in a 2-layer network as follows:
 
@@ -594,14 +614,14 @@ Now, similar to forward propagation, you are going to build the backward propaga
 - LINEAR -> ACTIVATION backward where ACTIVATION computes the derivative of either the ReLU or sigmoid activation
 - [LINEAR -> RELU] $\times$ (L-1) -> LINEAR -> SIGMOID backward (whole model)
 
-### 6.1 - Linear backward
+##### 6.1 - Linear backward
 
 For layer $l$, the linear part is: $Z^{[l]} = W^{[l]} A^{[l-1]} + b^{[l]}$ (followed by an activation).
 
 Suppose you have already calculated the derivative $dZ^{[l]} = \frac{\partial \mathcal{L} }{\partial Z^{[l]}}$. You want to get $(dW^{[l]}, db^{[l]} dA^{[l-1]})$.
 
-<img src="images/linearback_kiank.png" style="width:250px;height:300px;">
-<caption><center> **Figure 4** </center></caption>
+{% asset_img linearback_kiank.png **Figure 4** %}
+
 
 The three outputs $(dW^{[l]}, db^{[l]}, dA^{[l]})$ are computed using the input $dZ^{[l]}$.Here are the formulas you need:
 $$ dW^{[l]} = \frac{\partial \mathcal{L} }{\partial W^{[l]}} = \frac{1}{m} dZ^{[l]} A^{[l-1] T} $$
@@ -669,8 +689,6 @@ If $g(.)$ is the activation function,
 **Exercise**: Implement the backpropagation for the *LINEAR->ACTIVATION* layer.
 
 ```python
-#In[16]:
-
 #GRADED FUNCTION: linear_activation_backward
 
 def linear_activation_backward(dA, cache, activation):
@@ -710,8 +728,8 @@ def linear_activation_backward(dA, cache, activation):
 Now you will implement the backward function for the whole network. Recall that when you implemented the `L_model_forward` function, at each iteration, you stored a cache which contains (X,W,b, and z). In the back propagation module, you will use those variables to compute the gradients. Therefore, in the `L_model_backward` function, you will iterate through all the hidden layers backward, starting from layer $L$. On each step, you will use the cached values for layer $l$ to backpropagate through layer $l$. Figure 5 below shows the backward pass. 
 
 
-<img src="images/mn_backward.png" style="width:450px;height:300px;">
-<caption><center>  **Figure 5** : Backward pass  </center></caption>
+{% asset_img mn_backward.png **Figure 5** : Backward pass  %}
+
 
 ** Initializing backpropagation**:
 To backpropagate through this network, we know that the output is, 
@@ -936,9 +954,8 @@ print ("test_y shape: " + str(test_y.shape))
 
 As usual, you reshape and standardize the images before feeding them to the network. The code is given in the cell below.
 
-<img src="images/imvectorkiank.png" style="width:450px;height:300px;">
 
-<caption><center> <u>Figure 1</u>: Image to vector conversion. <br> </center></caption>
+{% asset_img imvectorkiank.png >Figure 1: Image to vector conversion %}
 
 ```python
 # Reshape the training and test examples 
@@ -972,10 +989,11 @@ Let's look at the two architectures.
 
 ##### 3.1 - 2-layer neural network
 
-<img src="images/2layerNN_kiank.png" style="width:650px;height:400px;">
-<caption><center> <u>Figure 2</u>: 2-layer neural network. <br> The model can be summarized as: ***INPUT -> LINEAR -> RELU -> LINEAR -> SIGMOID -> OUTPUT***. </center></caption>
+{% asset_img 2layerNN_kiank.png  Figure 2: 2-layer neural network.  %}
 
-<u>Detailed Architecture of figure 2</u>:
+ > The model can be summarized as: ***INPUT -> LINEAR -> RELU -> LINEAR -> SIGMOID -> OUTPUT***.
+
+Detailed Architecture of figure 2:
 - The input is a (64,64,3) image which is flattened to a vector of size $(12288,1)$. 
 - The corresponding vector: $[x_0,x_1,...,x_{12287}]^T$ is then multiplied by the weight matrix $W^{[1]}$ of size $(n^{[1]}, 12288)$.
 - You then add a bias term and take its relu to get the following vector: $[a_0^{[1]}, a_1^{[1]},..., a_{n^{[1]}-1}^{[1]}]^T$.
@@ -987,8 +1005,9 @@ Let's look at the two architectures.
 
 It is hard to represent an L-layer deep neural network with the above representation. However, here is a simplified network representation:
 
-<img src="images/LlayerNN_kiank.png" style="width:650px;height:400px;">
-<caption><center> <u>Figure 3</u>: L-layer neural network. <br> The model can be summarized as: ***[LINEAR -> RELU] $\times$ (L-1) -> LINEAR -> SIGMOID***</center></caption>
+{% asset_img LlayerNN_kiank.png Figure 3: L-layer neural network. %}
+
+> The model can be summarized as: ***[LINEAR -> RELU] $\times$ (L-1) -> LINEAR -> SIGMOID***
 
 <u>Detailed Architecture of figure 3</u>:
 - The input is a (64,64,3) image which is flattened to a vector of size (12288,1).
@@ -1031,177 +1050,6 @@ def update_parameters(parameters, grads, learning_rate):
 ```
 
 
-```python
-def initialize_parameters(n_x, n_h, n_y):
-    """
-    Argument:
-    n_x -- size of the input layer
-    n_h -- size of the hidden layer
-    n_y -- size of the output layer
-    
-    Returns:
-    parameters -- python dictionary containing your parameters:
-                    W1 -- weight matrix of shape (n_h, n_x)
-                    b1 -- bias vector of shape (n_h, 1)
-                    W2 -- weight matrix of shape (n_y, n_h)
-                    b2 -- bias vector of shape (n_y, 1)
-    """
-    
-    np.random.seed(1)
-    
-    ### START CODE HERE ### (≈ 4 lines of code)
-    W1 = np.random.randn(n_h, n_x) * 0.01
-    b1 = np.zeros((n_h, 1))
-    W2 = np.random.randn(n_y, n_h) * 0.01
-    b2 = np.zeros((n_y, 1))
-    ### END CODE HERE ###
-    
-    assert(W1.shape == (n_h, n_x))
-    assert(b1.shape == (n_h, 1))
-    assert(W2.shape == (n_y, n_h))
-    assert(b2.shape == (n_y, 1))
-    
-    parameters = {"W1": W1,
-                  "b1": b1,
-                  "W2": W2,
-                  "b2": b2}
-    
-    return parameters    
-```
-
-
-```python
-def linear_activation_forward(A_prev, W, b, activation):
-    """
-    Implement the forward propagation for the LINEAR->ACTIVATION layer
-
-    Arguments:
-    A_prev -- activations from previous layer (or input data): (size of previous layer, number of examples)
-    W -- weights matrix: numpy array of shape (size of current layer, size of previous layer)
-    b -- bias vector, numpy array of shape (size of the current layer, 1)
-    activation -- the activation to be used in this layer, stored as a text string: "sigmoid" or "relu"
-
-    Returns:
-    A -- the output of the activation function, also called the post-activation value 
-    cache -- a python dictionary containing "linear_cache" and "activation_cache";
-             stored for computing the backward pass efficiently
-    """
-    
-    #Z, linear_cache = linear_forward(A_prev, W, b)
-
-    if activation == "sigmoid":
-        # Inputs: "A_prev, W, b". Outputs: "A, activation_cache".
-        ### START CODE HERE ### (≈ 2 lines of code)
-        Z, linear_cache = linear_forward(A_prev, W, b)
-        A, activation_cache = sigmoid(Z)
-        ### END CODE HERE ###
-    
-    elif activation == "relu":
-        # Inputs: "A_prev, W, b". Outputs: "A, activation_cache".
-        ### START CODE HERE ### (≈ 2 lines of code)
-        Z, linear_cache = linear_forward(A_prev, W, b)
-        A, activation_cache = relu(Z)
-        ### END CODE HERE ###
-    
-    assert (A.shape == (W.shape[0], A_prev.shape[1]))
-    cache = (linear_cache, activation_cache)
-
-    return A, cache
-```
-
-
-```python
-def compute_cost(AL, Y):
-    """
-    Implement the cost function defined by equation (7).
-
-    Arguments:
-    AL -- probability vector corresponding to your label predictions, shape (1, number of examples)
-    Y -- true "label" vector (for example: containing 0 if non-cat, 1 if cat), shape (1, number of examples)
-
-    Returns:
-    cost -- cross-entropy cost
-    """
-    
-    m = Y.shape[1]
-
-    # Compute loss from aL and y.
-    ### START CODE HERE ### (≈ 1 lines of code)
-    logprobs = (np.multiply(np.log(AL),Y)) + (np.multiply(np.log(1-AL),1-Y))
-    cost = - np.sum(logprobs)/m
-    #cost = None
-    ### END CODE HERE ###
-    
-    cost = np.squeeze(cost)      # To make sure your cost's shape is what we expect (e.g. this turns [[17]] into 17).
-    assert(cost.shape == ())
-    
-    return cost
-```
-
-
-```python
-def linear_activation_backward(dA, cache, activation):
-    """
-    Implement the backward propagation for the LINEAR->ACTIVATION layer.
-    
-    Arguments:
-    dA -- post-activation gradient for current layer l 
-    cache -- tuple of values (linear_cache, activation_cache) we store for computing backward propagation efficiently
-    activation -- the activation to be used in this layer, stored as a text string: "sigmoid" or "relu"
-    
-    Returns:
-    dA_prev -- Gradient of the cost with respect to the activation (of the previous layer l-1), same shape as A_prev
-    dW -- Gradient of the cost with respect to W (current layer l), same shape as W
-    db -- Gradient of the cost with respect to b (current layer l), same shape as b
-    """
-    #print(str(dA))
-    linear_cache, activation_cache = cache
-    #print("linear_cache " + str(linear_cache))
-    #print("activation_cache " + str(activation_cache))
-    
-    if activation == "relu":
-        ### START CODE HERE ### (≈ 2 lines of code)
-        dZ = relu_backward(dA, activation_cache)
-        dA_prev, dW, db = linear_backward(dZ, linear_cache)
-        ### END CODE HERE ###
-        
-    elif activation == "sigmoid":
-        ### START CODE HERE ### (≈ 2 lines of code)
-        dZ = sigmoid_backward(dA, activation_cache)
-        dA_prev, dW, db = linear_backward(dZ, linear_cache)
-        ### END CODE HERE ###
-    
-    return dA_prev, dW, db
-```
-
-```python
-def update_parameters(parameters, grads, learning_rate):
-    """
-    Update parameters using gradient descent
-    
-    Arguments:
-    parameters -- python dictionary containing your parameters 
-    grads -- python dictionary containing your gradients, output of L_model_backward
-    
-    Returns:
-    parameters -- python dictionary containing your updated parameters 
-                  parameters["W" + str(l)] = ... 
-                  parameters["b" + str(l)] = ...
-    """
-    
-    L = len(parameters) // 2 # number of layers in the neural network
-
-    # Update rule for each parameter. Use a for loop.
-    ### START CODE HERE ### (≈ 3 lines of code)
-    for l in range(L):
-        #parameters["W" + str(l+1)] = None
-        #parameters["b" + str(l+1)] = None
-        parameters["W" + str(l+1)] = parameters["W" + str(l+1)] - (learning_rate*grads["dW" + str(l+1)])
-        parameters["b" + str(l+1)] = parameters["b" + str(l+1)] - (learning_rate*grads["db" + str(l+1)])
-    ### END CODE HERE ###
-    return parameters
-
-```
 ```python
 ### CONSTANTS DEFINING THE MODEL ####
 n_x = 12288     # num_px * num_px * 3
@@ -1251,11 +1099,8 @@ def two_layer_model(X, Y, layers_dims, learning_rate = 0.0075, num_iterations = 
     # Loop (gradient descent)
 
     for i in range(0, num_iterations):
-
         # Forward propagation: LINEAR -> RELU -> LINEAR -> SIGMOID. Inputs: "X, W1, b1, W2, b2". Output: "A1, cache1, A2, cache2".
         ### START CODE HERE ### (≈ 2 lines of code)
-        #A1, cache1 = None
-        #A2, cache2 = None
         A1, cache1 = linear_activation_forward(X, W1, b1, "relu")
         A2, cache2 = linear_activation_forward(A1, W2, b2, "sigmoid")
         ### END CODE HERE ###
@@ -1270,8 +1115,6 @@ def two_layer_model(X, Y, layers_dims, learning_rate = 0.0075, num_iterations = 
         
         # Backward propagation. Inputs: "dA2, cache2, cache1". Outputs: "dA1, dW2, db2; also dA0 (not used), dW1, db1".
         ### START CODE HERE ### (≈ 2 lines of code)
-        #dA1, dW2, db2 = None
-        #dA0, dW1, db1 = None
         dA1, dW2, db2 = linear_activation_backward(dA2, cache2, "sigmoid")
         dA0, dW1, db1 = linear_activation_backward(dA1, cache1, "relu")
         ### END CODE HERE ###
@@ -1284,7 +1127,6 @@ def two_layer_model(X, Y, layers_dims, learning_rate = 0.0075, num_iterations = 
         
         # Update parameters.
         ### START CODE HERE ### (approx. 1 line of code)
-        #parameters = None
         parameters = update_parameters(parameters, grads, learning_rate)
         ### END CODE HERE ###
 
@@ -1317,25 +1159,34 @@ Run the cell below to train your parameters. See if your model runs. The cost sh
 parameters = two_layer_model(train_x, train_y, layers_dims = (n_x, n_h, n_y), num_iterations = 2500, print_cost=True)
 ```
 
-**Expected Output**:
-<table> 
-    <tr>
-        <td> **Cost after iteration 0**</td>
-        <td> 0.6930497356599888 </td>
-    </tr>
-    <tr>
-        <td> **Cost after iteration 100**</td>
-        <td> 0.6464320953428849 </td>
-    </tr>
-    <tr>
-        <td> **...**</td>
-        <td> ... </td>
-    </tr>
-    <tr>
-        <td> **Cost after iteration 2400**</td>
-        <td> 0.048554785628770206 </td>
-    </tr>
-</table>
+    Cost after iteration 0: 0.693049735659989 
+    Cost after iteration 100: 0.6464320953428849 
+    Cost after iteration 200: 0.6325140647912678 
+    Cost after iteration 300: 0.6015024920354665 
+    Cost after iteration 400: 0.5601966311605748 
+    Cost after iteration 500: 0.515830477276473 
+    Cost after iteration 600: 0.4754901313943325 
+    Cost after iteration 700: 0.43391631512257495 
+    Cost after iteration 800: 0.4007977536203886 
+    Cost after iteration 900: 0.35807050113237987 
+    Cost after iteration 1000: 0.3394281538366413 
+    Cost after iteration 1100: 0.30527536361962654 
+    Cost after iteration 1200: 0.2749137728213015 
+    Cost after iteration 1300: 0.24681768210614827 
+    Cost after iteration 1400: 0.1985073503746611 
+    Cost after iteration 1500: 0.17448318112556593 
+    Cost after iteration 1600: 0.1708076297809661 
+    Cost after iteration 1700: 0.11306524562164737 
+    Cost after iteration 1800: 0.09629426845937163 
+    Cost after iteration 1900: 0.08342617959726878 
+    Cost after iteration 2000: 0.0743907870431909 
+    Cost after iteration 2100: 0.06630748132267938 
+    Cost after iteration 2200: 0.05919329501038176 
+    Cost after iteration 2300: 0.05336140348560564 
+    Cost after iteration 2400: 0.048554785628770226 
+
+{% asset_img two_layer_model_out.png just the right amount %}
+
 
 Good thing you built a vectorized implementation! Otherwise it might have taken 10 times longer to train this.
 
@@ -1345,26 +1196,17 @@ Now, you can use the trained parameters to classify images from the dataset. To 
 predictions_train = predict(train_x, train_y, parameters)
 ```
 
-**Expected Output**:
-<table> 
-    <tr>
-        <td> **Accuracy**</td>
-        <td> 1.0 </td>
-    </tr>
-</table>
+**Output**:
+
+Accuracy: 1.0 
 
 ```python
 predictions_test = predict(test_x, test_y, parameters)
 ```
 
-**Expected Output**:
+**Output**:
 
-<table> 
-    <tr>
-        <td> **Accuracy**</td>
-        <td> 0.72 </td>
-    </tr>
-</table>
+Accuracy: 0.72 
 
 **Note**: You may notice that running the model on fewer iterations (say 1500) gives better accuracy on the test set. This is called "early stopping" and we will talk about it in the next course. Early stopping is a way to prevent overfitting. 
 
@@ -1395,7 +1237,6 @@ def update_parameters(parameters, grads, learning_rate):
 ```python
 ### CONSTANTS ###
 layers_dims = [12288, 20, 7, 5, 1] #  4-layer model
-print(str(layers_dims))
 ```
 
 ```python
@@ -1422,8 +1263,6 @@ def L_layer_model(X, Y, layers_dims, learning_rate = 0.0075, num_iterations = 30
     
     # Parameters initialization. (≈ 1 line of code)
     ### START CODE HERE ###
-    #parameters = None
-    #print(str(layers_dims))
     parameters = initialize_parameters_deep(layers_dims)
     ### END CODE HERE ###
     
@@ -1433,24 +1272,20 @@ def L_layer_model(X, Y, layers_dims, learning_rate = 0.0075, num_iterations = 30
         # Forward propagation: [LINEAR -> RELU]*(L-1) -> LINEAR -> SIGMOID.
         ### START CODE HERE ### (≈ 1 line of code)
         AL, caches = L_model_forward(X, parameters)
-        #print(str(AL.shape))
         ### END CODE HERE ###
         
         # Compute cost.
         ### START CODE HERE ### (≈ 1 line of code)
-        #cost = None
         cost = compute_cost(AL, Y)
         ### END CODE HERE ###
     
         # Backward propagation.
         ### START CODE HERE ### (≈ 1 line of code)
-        #grads = None
         grads = L_model_backward(AL, Y, caches)
         ### END CODE HERE ###
  
         # Update parameters.
         ### START CODE HERE ### (≈ 1 line of code)
-        #parameters = None
         parameters = update_parameters(parameters, grads, learning_rate)
         ### END CODE HERE ###
                 
@@ -1481,54 +1316,50 @@ print("starting...")
 parameters = L_layer_model(train_x, train_y, layers_dims, num_iterations = 2500, print_cost = True)
 ```
 
-**Expected Output**:
-<table> 
-    <tr>
-        <td> **Cost after iteration 0**</td>
-        <td> 0.771749 </td>
-    </tr>
-    <tr>
-        <td> **Cost after iteration 100**</td>
-        <td> 0.672053 </td>
-    </tr>
-    <tr>
-        <td> **...**</td>
-        <td> ... </td>
-    </tr>
-    <tr>
-        <td> **Cost after iteration 2400**</td>
-        <td> 0.092878 </td>
-    </tr>
-</table>
+    Cost after iteration 0: 0.771749 
+    Cost after iteration 100: 0.672053 
+    Cost after iteration 200: 0.648263 
+    Cost after iteration 300: 0.611507 
+    Cost after iteration 400: 0.567047 
+    Cost after iteration 500: 0.540138 
+    Cost after iteration 600: 0.527930 
+    Cost after iteration 700: 0.465477 
+    Cost after iteration 800: 0.369126 
+    Cost after iteration 900: 0.391747 
+    Cost after iteration 1000: 0.315187 
+    Cost after iteration 1100: 0.272700 
+    Cost after iteration 1200: 0.237419 
+    Cost after iteration 1300: 0.199601 
+    Cost after iteration 1400: 0.189263 
+    Cost after iteration 1500: 0.161189 
+    Cost after iteration 1600: 0.148214 
+    Cost after iteration 1700: 0.137775 
+    Cost after iteration 1800: 0.129740 
+    Cost after iteration 1900: 0.121225 
+    Cost after iteration 2000: 0.113821 
+    Cost after iteration 2100: 0.107839 
+    Cost after iteration 2200: 0.102855 
+    Cost after iteration 2300: 0.100897 
+    Cost after iteration 2400: 0.092878 
+
+{% asset_img l_layer_model_out.png just the right amount %}
 
 
 ```python
 pred_train = predict(train_x, train_y, parameters)
 ```
 
-<table>
-    <tr>
-    <td>
-    **Train Accuracy**
-    </td>
-    <td>
-    0.985645933014
-    </td>
-    </tr>
-</table>
+**Output**:
+
+Accuracy: 0.985645933014 
 
 ```python
 pred_test = predict(test_x, test_y, parameters)
 ```
 
-**Expected Output**:
+**Output**:
 
-<table> 
-    <tr>
-        <td> **Test Accuracy**</td>
-        <td> 0.8 </td>
-    </tr>
-</table>
+Accuracy: 0.8 
 
 Congrats! It seems that your 4-layer neural network has better performance (80%) than your 2-layer neural network (72%) on the same test set. 
 
@@ -1556,14 +1387,13 @@ print_mislabeled_images(classes, test_x, test_y, pred_test)
 #### 7) Test with your own image (optional/ungraded exercise) ##
 
 Congratulations on finishing this assignment. You can use your own image and see the output of your model. To do that:
-    1. Click on "File" in the upper bar of this notebook, then click "Open" to go on your Coursera Hub.
-    2. Add your image to this Jupyter Notebook's directory, in the "images" folder
-    3. Change your image's name in the following code
-    4. Run the code and check if the algorithm is right (1 = cat, 0 = non-cat)!
+
+- 1. Click on "File" in the upper bar of this notebook, then click "Open" to go on your Coursera Hub.
+- 2. Add your image to this Jupyter Notebook's directory, in the "images" folder
+- 3. Change your image's name in the following code
+- 4. Run the code and check if the algorithm is right (1 = cat, 0 = non-cat)!
 
 ```python
-#In[19]:
-
 ## START CODE HERE ##
 my_image = "dog1.jpg" # change this to the name of your image file 
 my_label_y = [1] # the true class of your image (1 -> cat, 0 -> non-cat)

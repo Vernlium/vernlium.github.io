@@ -1,6 +1,6 @@
 ---
 title: coursera_deeplearning.ai_c1_week1
-date: 2018-04-27 07:52:03
+date: 2018-07-05 07:52:03
 tags: [deeplearning.ai]
 ---
 
