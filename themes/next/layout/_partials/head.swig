@@ -70,6 +70,8 @@
 
 <link href="{{ url_for(theme.css) }}/main.css?v={{ theme.version }}" rel="stylesheet" type="text/css" />
 
+<link href="https://cdn.bootcss.com/KaTeX/0.7.1/katex.min.css" rel="stylesheet">
+
 {% if page.keywords %}
   <meta name="keywords" content="{{ page.keywords }}" />
 {% elif page.tags and page.tags.length %}

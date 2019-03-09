@@ -1,7 +1,8 @@
 ---
 title: coursera-deeplearning-ai-notations_for_deeplearning
+mathjax: true
 date: 2018-07-15 16:31:39
-tags:
+tags: [deeplearning.ai]
 ---
 
 本文主要总结一些深度学习中的一些符号。

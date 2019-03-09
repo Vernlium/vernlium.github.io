@@ -1,5 +1,6 @@
 ---
 title: coursera_deeplearning.ai_c1_week3
+mathjax: true
 date: 2018-07-25 07:52:15
 tags: [deeplearning.ai]
 ---

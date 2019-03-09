@@ -52,6 +52,8 @@ default_category: uncategorized
 category_map:
 tag_map:
 
+mathjax: true
+
 # Date / Time format
 ## Hexo uses Moment.js to parse and display date
 ## You can customize the date format as defined in
@@ -122,3 +124,20 @@ highlight:
 since: 2015
 
 use_motion: false   
+
+# markdown_it_plus:
+#     highlight: true
+#     html: true
+#     xhtmlOut: true
+#     breaks: true
+#     langPrefix:
+#     linkify: true
+#     typographer:
+#     quotes: “”‘’
+#     plugins:
+#       - plugin:
+#           name: markdown-it-katex
+#           enable: true
+#       - plugin:
+#           name: markdown-it-mark
+#           enable: false
