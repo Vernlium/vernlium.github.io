@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    <title></title>
+    <meta charset="utf-8">
+    <link href="css/reset.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="js/jquery-1.8.3.js"></script>
+
+    <script type="text/javascript">
+
+        // alert( 64 / Math.tan(20 / 180 * Math.PI));
+        var transform = function (element, value, key)
+        {
+            key = key || "Transform";
+            ["Moz", "O", "Ms", "Webkit", ""].forEach(function (prefix)
+            {
+                element.style[prefix + key] = value;
+            });
+
+            return element;
+        };
+
+
+        function timer(i)
+        {
+            console.log(i);
+            var deg = -40 ;
+
+            transform($("#container")[0], "rotateY(" + (deg * i) + "deg)")
+        };
+        var i = 1;
+        var timename = window.setInterval("timer((i=i+1))",1000);
+    </script>
+
+    <style type="text/css">
+
+
+        li
+        {
+            width: 256px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, .5);
+            position: absolute;
+            bottom: 0;
+        }
+
+        li img
+        {
+            width: 256px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, .5);
+            vertical-align: middle;
+        }
+
+        li span
+        {
+            display: block;
+            width: 256px;
+            text-align: center;
+            color: #333;
+            font-size: 8px;
+        }
+
+        #stage
+        {
+
+            width: 900px;
+            min-height: 100px;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 100px 50px;
+            -webkit-perspective: 900px;
+            position: relative;
+        }
+        #stage1
+        {
+            width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+            font-size: 30px;
+            color: red;
+            font-family: FZShuTi;
+            padding: 1px 1px;
+            -webkit-perspective: 900px;
+            position: relative;
+        }
+
+        #container
+        {
+            background: no-repeat 0 0;
+            margin-top: 150px;
+            width: 256px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, .5);
+            height: 200px;
+            margin-left: -128px;
+            -webkit-transition: -webkit-transform 1s;
+            transition: transform 1s;
+            -webkit-transform-style: preserve-3d;
+            position: absolute;
+            left: 50%;
+        }
+
+        li:nth-child(0)
+        {
+            -webkit-transform: rotateY(0deg) translateZ(360px);
+        }
+
+        li:nth-child(1)
+        {
+            -webkit-transform: rotateY(40deg) translateZ(360px);
+        }
+
+        li:nth-child(2)
+        {
+            -webkit-transform: rotateY(80deg) translateZ(360px);
+        }
+
+        li:nth-child(3)
+        {
+            -webkit-transform: rotateY(120deg) translateZ(360px);
+        }
+
+        li:nth-child(4)
+        {
+            -webkit-transform: rotateY(160deg) translateZ(360px);
+        }
+
+        li:nth-child(5)
+        {
+            -webkit-transform: rotateY(200deg) translateZ(360px);
+        }
+
+        li:nth-child(6)
+        {
+            -webkit-transform: rotateY(240deg) translateZ(360px);
+        }
+
+        li:nth-child(7)
+        {
+            -webkit-transform: rotateY(280deg) translateZ(360px);
+        }
+
+        li:nth-child(8)
+        {
+            -webkit-transform: rotateY(320deg) translateZ(360px);
+        }
+
+        li:nth-child(9)
+        {
+            -webkit-transform: rotateY(360deg) translateZ(360px);
+        }
+
+
+    </style>
+
+
+</head>
+<body>
+<div id="stage1">雯，楠永远爱你！<img style="height:40px;" src="http://7xngpc.com1.z0.glb.clouddn.com/rose.jpg"> You are my sunshine <img style="height:40px;" src="http://7xngpc.com1.z0.glb.clouddn.com/sunshine.jpeg"> </div>
+<div id="stage">
+    <ul id="container">
+        <li>
+            <img src="http://7xngpc.com1.z0.glb.clouddn.com/1.JPG">
+        </li>
+        <li>
+            <img src="http://7xngpc.com1.z0.glb.clouddn.com/2.JPG">
+        </li>
+        <li>
+            <img src="http://7xngpc.com1.z0.glb.clouddn.com/3.JPG">
+        </li>
+        <li>
+            <img src="http://7xngpc.com1.z0.glb.clouddn.com/4.JPG">
+        </li>
+        <li>
+            <img src="http://7xngpc.com1.z0.glb.clouddn.com/5.JPG">
+        </li>
+        <li>
+            <img src="http://7xngpc.com1.z0.glb.clouddn.com/6.JPG">
+        </li>
+        <li>
+            <img src="http://7xngpc.com1.z0.glb.clouddn.com/7.JPG">
+        </li>
+        <li>
+            <img src="http://7xngpc.com1.z0.glb.clouddn.com/8.jpg">
+        </li>
+        <li>
+            <img src="http://7xngpc.com1.z0.glb.clouddn.com/9.JPG">
+        </li>
+    </ul>
+</div>
+</body>
+</html>
