@@ -1,0 +1,1061 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next pisces" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Consolas:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
+
+<link href="https://cdn.bootcss.com/KaTeX/0.7.1/katex.min.css" rel="stylesheet">
+
+
+  <meta name="keywords" content="epub,">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2">
+
+
+
+
+
+
+<meta name="description" content="EPUB 2 was initially standardized in 2007 as a successor format to the Open eBook Publication Structure or “OEB”, which was originally developed in 1999. A maintenance release, EPUB 2.0.1, approved in">
+<meta name="keywords" content="epub">
+<meta property="og:type" content="article">
+<meta property="og:title" content="epub格式解析">
+<meta property="og:url" content="://vernlium.github.io/2015/06/10/epub格式解析/index.html">
+<meta property="og:site_name" content="Vernlium">
+<meta property="og:description" content="EPUB 2 was initially standardized in 2007 as a successor format to the Open eBook Publication Structure or “OEB”, which was originally developed in 1999. A maintenance release, EPUB 2.0.1, approved in">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-06-30T22:35:52.612Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="epub格式解析">
+<meta name="twitter:description" content="EPUB 2 was initially standardized in 2007 as a successor format to the Open eBook Publication Structure or “OEB”, which was originally developed in 1999. A maintenance release, EPUB 2.0.1, approved in">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: false,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="://vernlium.github.io/2015/06/10/epub格式解析/">
+
+
+
+
+
+  <title>epub格式解析 | Vernlium</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Vernlium</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Keep codeing and thinking!</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="://vernlium.github.io/2015/06/10/epub格式解析/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="张阿楠">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/wukong.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Vernlium">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">epub格式解析</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-06-10T10:07:54+08:00">
+                2015-06-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+            <!--noindex-->
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2015/06/10/epub格式解析/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count hc-comment-count" data-xid="2015/06/10/epub格式解析/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+              <!--/noindex-->
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>EPUB 2 was initially standardized in 2007 as a successor format to the Open eBook Publication Structure or “OEB”, which was originally developed in 1999. A maintenance release, EPUB 2.0.1, approved in 2010, was the final release in the EPUB 2 branch.</p>
+<p>In October, 2011, EPUB 3 superseded EPUB 2 when EPUB 3.0 was approved as a final Recommended Specification. A maintenance release, EPUB 3.0.1, was approved as a Final Recommended specification and became the current version of EPUB in June, 2014.</p>
+<h2 id="简介"><a class="markdownIt-Anchor" href="#简介"></a> 简介</h2>
+<p>epub格式是一种常见的电子书格式，其优点是体积小、与设备无关，在任何尺寸的屏幕上都能自动排版，因此比较流行。</p>
+<p>epub格式建立在EPUB标准的基础之上。目前EPUB标准的最新版本是3.0.1,EPUB 3较其前一版本EPUB2有较大改动。EPUB 2在2007年发布，2010年的EPUB 2.0.1是EPUB 2的最后一个版本。EPUB 3在2011年10月发布，并被IDOP组织认可为最终推荐规范，EPUB 3取代了EPUB 2。2014年7月，EPUB 3.0.1发布。</p>
+<p>先来看一下EPUB 2.0.1</p>
+<blockquote>
+<p>EPUB 2.0.1</p>
+</blockquote>
+<blockquote>
+<p>EPUB 2.0.1 is a maintenance release of EPUB 2. Its development was chartered in 2009, and the final standard was approved by the IDPF Membership as a Recommended Specification in May, 2010.</p>
+</blockquote>
+<blockquote>
+<p>EPUB 2.0.1 is defined by three open standard specifications, the Open Publication Structure (OPS), Open Packaging Format (OPF) and Open Container Format (OCF)</p>
+</blockquote>
+<blockquote>
+<p>EPUB 2.0.1 was superseded by  EPUB 3.0 in October, 2011. As of June 2014 the latest released version of EPUB is EPUB 3.0.1. EPUB 2.x is now considered obsolete and is no longer under active maintenance.</p>
+</blockquote>
+<p>EPUB 2.0.1包含三个部分，也就是三个标准：</p>
+<ul>
+<li>内容容器标准（a content container standard：开放容器格式，Open Container Format - OCF):OCF定义了把一组文件集合打包进一个ZIP压缩文件的规则。</li>
+<li>打包标准（a packaging atandard：开放打包格式，Open Packaging Format - OPF):此标准定义了把一个OPS出版物的不同组件组合在一起的机制和提供了电子出版物的附加的结构和语义。OPF的作用如下：
+<ul>
+<li>描述和引用电子出版物的所有组件（例如：markup files、images、navigation structures）</li>
+<li>提供出版级别元数据</li>
+<li>指定出版物的线性阅读顺序</li>
+<li>提供了一种指定描述全局导航结构（NCX）的机制</li>
+</ul>
+</li>
+<li>内容审定标准（a content markup standard：开放出版结构，Open publication Structure - OPS):OPS提供了一种表示电子出版物内容的标准。</li>
+</ul>
+<p>EPUB 3较EPUB 2有较大改进，除了OCF其他两个标准都进行了修改，并添加了一个新的标准。</p>
+<blockquote>
+<p>EPUB 3, the third major release of the standard, consists of a set of four specifications, each defining an important component of an overall EPUB Publication:</p>
+</blockquote>
+<blockquote>
+<ul>
+<li>EPUB Publications 3.0 [Publications30], which defines publication-level semantics and overarching conformance requirements for EPUB Publications.</li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li>EPUB Content Documents 3.0 [ContentDocs30], which defines profiles of XHTML, SVG and CSS for use in the context of EPUB Publications.</li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li>EPUB Open Container Format (OCF) 3.0 [OCF3], which defines a file format and processing model for encapsulating a set of related resources into a single-file (ZIP) EPUB Container.</li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li>EPUB Media Overlays 3.0 [MediaOverlays30], which defines a format and a processing model for synchronization of text and audio.</li>
+</ul>
+</blockquote>
+<p>EPUB 3由四部分组成：</p>
+<ul>
+<li>EPUB Publications 3.0：取代OPF2.0.1。</li>
+<li>EPUB Content Documents 3.0：取代OPS2.0.1。</li>
+<li>EPUB Open Container Format (OCF) 3.0：继承自OCF2.0.1。</li>
+<li>EPUB Media Overlays 3.0：定义文字和音频同步的格式和处理模式。</li>
+</ul>
+<h4 id="epub3和epub2比较"><a class="markdownIt-Anchor" href="#epub3和epub2比较"></a> EPUB3和EPUB2比较</h4>
+<table>
+<thead>
+<tr>
+<th>Area</th>
+<th>EPUB 3 Specification</th>
+<th>EPUB 2.0.1 Specification</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Overview</td>
+<td>EPUB 3 Overview</td>
+<td>(throughout)</td>
+</tr>
+<tr>
+<td>Publication-level Specification &amp; Package Docs</td>
+<td>EPUB Publications 3.0</td>
+<td>Open Packaging Format 2.0.1</td>
+</tr>
+<tr>
+<td>EPUB Navigation Documents</td>
+<td>EPUB Content Documents 3.0</td>
+<td>N/A (NCX referenced as DAISY specification)</td>
+</tr>
+<tr>
+<td>Media Overlays</td>
+<td>EPUB Media Overlays 3.0</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>Container packaging</td>
+<td>EPUB Open Container Format 3.0</td>
+<td>Open Container Format 2.0.1</td>
+</tr>
+<tr>
+<td>Changes from previous version</td>
+<td>EPUB 3 Changes from EPUB 2.0.1</td>
+<td>(throughout)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="文件组成"><a class="markdownIt-Anchor" href="#文件组成"></a> 文件组成</h2>
+<p>一个未经加密处理的epub电子书由以下三部分组成：</p>
+<ol>
+<li>META-INF（文件夹，有一个文件container.xml）</li>
+<li>OEBPS（文件夹，包含images文件夹、很多xhtml文件、*.css文件和content.opf文件）</li>
+<li>mimetype</li>
+</ol>
+<h3 id="文件mimetype"><a class="markdownIt-Anchor" href="#文件mimetype"></a> 文件mimetype</h3>
+<p>每一个epub电子书均包含一个名为mimtype的文件，且内容不变，用以说明epub的文件格式。文件内容为：</p>
+<pre><code>application/epub+zip
+</code></pre>
+<h3 id="目录meta-inf"><a class="markdownIt-Anchor" href="#目录meta-inf"></a> 目录：META-INF</h3>
+<p>META-INF用于存放容器信息，默认情况下改目录包含一个文件，即container.xml，文件内容如下：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="php"><span class="meta">&lt;?</span>xml version=<span class="string">"1.0"</span><span class="meta">?&gt;</span></span></span><br><span class="line"><span class="tag">&lt;<span class="name">container</span> <span class="attr">version</span>=<span class="string">"1.0"</span> <span class="attr">xmlns</span>=<span class="string">"urn:oasis:names:tc:opendocument:xmlns:container"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">rootfiles</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">rootfile</span> <span class="attr">full-path</span>=<span class="string">"OEBPS/content.opf"</span> <span class="attr">media-type</span>=<span class="string">"application/oebps-package+xml"</span>/&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">rootfiles</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">container</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>container.xml文件的主要功能用于告诉阅读器，电子书的根文件（rootfile）的路径和打开格式，一般来说，该containerxml文件也不需要任何修改，除非改变了根文件的路径和文件名称。<br>
+除了container.xml文件之外，OCF还规定了以下几个文件：</p>
+<ul>
+<li>manifest.xml 		文件列表</li>
+<li>metadata.xml 		元数据</li>
+<li>signatures.xml 	数字签名</li>
+<li>encryption.xml 	加密</li>
+<li>rights.xml 		权限管理</li>
+</ul>
+<p>这些目录是可选的</p>
+<h3 id="目录oebps"><a class="markdownIt-Anchor" href="#目录oebps"></a> 目录：OEBPS</h3>
+<p>OEPBS目录用于存放OPF文档、CSS文件、NCX文档。</p>
+<h4 id="opf文件"><a class="markdownIt-Anchor" href="#opf文件"></a> OPF文件（★）</h4>
+<p>OPF文档是epub的核心文件，且是一个标准的xml文件，依据OPF规范，此文件的根元素为<code>&lt;package&gt;</code></p>
+<pre><code>&lt;package xmlns=&quot;http://www.idpf.org/2007/opf&quot; version=&quot;2.0&quot; unique-identifier=&quot;uuid_id&quot;&gt;
+</code></pre>
+<p>其内容主要由五部分组成：</p>
+<h5 id="1metadata"><a class="markdownIt-Anchor" href="#1metadata"></a> 1.<code>&lt;metadata&gt;</code></h5>
+<p>元数据信息，此信息是书籍的出版信息，由两个子元素组成。</p>
+<p>(1)<code>&lt;dc-metadata&gt;</code>,其元素构成采用<a href="http://baike.baidu.com/link?url=zgnNQm9IxPVmr5-BxhvoipgAPEfQiZf-fMGa0ZEhyF7qpuTUVXVDpfKCacvkrhNX7icjg7TDPtgEvc5Rx0HllK" target="_blank" rel="noopener">dubline core(DC)</a>的15项核心元素，包括：</p>
+<ul>
+<li><code>&lt;dc-title&gt;</code>：标题</li>
+<li><code>&lt;dc-creator&gt;</code>：责任者</li>
+<li><code>&lt;dc-subject&gt;</code>：主题词或关键词</li>
+<li><code>&lt;dc-descributor&gt;</code>：内容描述</li>
+<li><code>&lt;dc-date&gt;</code>：日期</li>
+<li><code>&lt;dc-type&gt;</code>：类型</li>
+<li><code>&lt;dc-publisher&gt;</code>：出版者</li>
+<li><code>&lt;dc-contributor&gt;</code>：发行者</li>
+<li><code>&lt;dc-format&gt;</code>：格式</li>
+<li><code>&lt;dc-identifier&gt;</code>：标识信息</li>
+<li><code>&lt;dc-source&gt;</code>：来源信息</li>
+<li><code>&lt;dc-language&gt;</code>：语言</li>
+<li><code>&lt;dc-relation&gt;</code>：相关资料</li>
+<li><code>&lt;dc-coverage&gt;</code>：覆盖范围</li>
+<li><code>&lt;dc-rights&gt;</code>：权限描述</li>
+</ul>
+<p>(2)<code>&lt;x-metadata&gt;</code></p>
+<p>扩展元素。如果有些信息在上述元素中无法描述，则在此元素中进行扩展。</p>
+<p>例如：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">metadata</span> <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance</span></span></span><br><span class="line"><span class="tag"><span class="string">xmlns:opf="</span><span class="attr">http:</span>//<span class="attr">www.idpf.org</span>/<span class="attr">2007</span>/<span class="attr">opf</span>" <span class="attr">xmlns:dcterms</span>=<span class="string">"http://purl.org/dc/terms/</span></span></span><br><span class="line"><span class="tag"><span class="string">xmlns:calibre="</span><span class="attr">http:</span>//<span class="attr">calibre.kovidgoyal.net</span>/<span class="attr">2009</span>/<span class="attr">metadata</span></span></span><br><span class="line"><span class="tag"><span class="attr">xmlns:dc</span>=<span class="string">"http://purl.org/dc/elements/1.1/"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">dc:title</span>&gt;</span>1984<span class="tag">&lt;/<span class="name">dc:title</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">dc:creator</span>&gt;</span>[英] 乔治·奥威尔<span class="tag">&lt;/<span class="name">dc:creator</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">dc:subject</span>&gt;</span>ibook.178.com<span class="tag">&lt;/<span class="name">dc:subject</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">dc:language</span>&gt;</span>zh-cn<span class="tag">&lt;/<span class="name">dc:language</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">dc:date</span>&gt;</span>2010-12-30<span class="tag">&lt;/<span class="name">dc:date</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">dc:contributor</span>&gt;</span>ibook.178.com [http://ibook.178.com]<span class="tag">&lt;/<span class="name">dc:contributor</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">dc:type</span>&gt;</span>普通图书<span class="tag">&lt;/<span class="name">dc:type</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">dc:format</span>&gt;</span>Text/html(.xhtml,.html)<span class="tag">&lt;/<span class="name">dc:format</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"cover"</span> <span class="attr">content</span>=<span class="string">"cover-image"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">metadata</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h5 id="2manifest"><a class="markdownIt-Anchor" href="#2manifest"></a> 2.<code>&lt;manifest&gt;</code></h5>
+<p>文件列表，列出书籍出版的所有文件，但是不包括：mimetype、container.xml、content.opf，由一个子元素构成</p>
+<pre><code>&lt;item id=&quot;&quot; href=&quot;&quot; media-type=&quot;&quot;&gt;
+</code></pre>
+<p>其中</p>
+<ul>
+<li>id:文件的id号</li>
+<li>href:文件的相对路径</li>
+<li>media-type:文件的媒体类型</li>
+</ul>
+<p>例如：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">manifest</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">item</span> <span class="attr">id</span>=<span class="string">"ncx"</span> <span class="attr">href</span>=<span class="string">"toc.ncx"</span> <span class="attr">media-type</span>=<span class="string">"application/x-dtbncx+xml"</span> /&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">item</span> <span class="attr">href</span>=<span class="string">"cover.xhtml"</span> <span class="attr">id</span>=<span class="string">"cover"</span> <span class="attr">media-type</span>=<span class="string">"application/xhtml+xml"</span>/&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">item</span> <span class="attr">href</span>=<span class="string">"copyright.xhtml"</span> <span class="attr">id</span>=<span class="string">"copyright"</span> <span class="attr">media-type</span>=<span class="string">"application/xhtml+xml"</span>/&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">item</span> <span class="attr">href</span>=<span class="string">"catalog.xhtml"</span> <span class="attr">id</span>=<span class="string">"catalog"</span> <span class="attr">media-type</span>=<span class="string">"application/xhtml+xml"</span>/&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">item</span> <span class="attr">href</span>=<span class="string">"chap0.xhtml"</span> <span class="attr">id</span>=<span class="string">"chap0"</span> <span class="attr">media-type</span>=<span class="string">"application/xhtml+xml"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">manifest</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h5 id="3spine-tocncx"><a class="markdownIt-Anchor" href="#3spine-tocncx"></a> 3.<code>&lt;spine toc=&quot;ncx&quot;&gt;</code></h5>
+<p>脊骨，其主要功能是提供书籍的线性阅读次序。由一个子元素构成：</p>
+<pre><code>&lt;itemref idref=&quot;copyright&quot;&gt;
+</code></pre>
+<p>其中<br>
+idref:即参照manifest列出的id<br>
+例如：</p>
+<pre><code>&lt;spine toc=&quot;ncx&quot;&gt;
+	&lt;itemref idref=&quot;cover&quot; /&gt;
+	&lt;itemref idref=&quot;copyright&quot; /&gt;
+&lt;/spine&gt;
+</code></pre>
+<h5 id="4guide"><a class="markdownIt-Anchor" href="#4guide"></a> 4.<code>&lt;guide&gt;</code></h5>
+<p>指南，一次列出电子书的特定页面，例如封面、目录、序言等，属性值指向文件保存地址。一般情况下，epub电子书可以不用该元素。</p>
+<p>例如：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">guide</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">reference</span> <span class="attr">href</span>=<span class="string">"cover.xhtml"</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">title</span>=<span class="string">"封面"</span>/&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">reference</span> <span class="attr">href</span>=<span class="string">"catalog.xhtml"</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">title</span>=<span class="string">"目录"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">guide</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h5 id="5tour"><a class="markdownIt-Anchor" href="#5tour"></a> 5.<code>&lt;tour&gt;</code></h5>
+<p>导读，可以根据不同的读者水平或阅读目的，按一定的次序，选择电子书中的部分页面组成导读。一般情况下，epub电子书可以不用该元素。</p>
+<h4 id="ncx文件"><a class="markdownIt-Anchor" href="#ncx文件"></a> NCX文件（★）</h4>
+<p>NCX文件是epub电子书的又一个核心文件，用于制作电子书的目录，其文件的命名通常为toc.ncx。ncx文件也是一个xml文件。<br>
+ncx代表“Navigation Center eXtended”，意思大致就是导航文件，这个文件与目录有直接的关系。</p>
+<p>.ncx文件中最主要的节点是navMap。navMap节点是由许多navPoint节点组成的。而navPoint节点则是由navLabel、content两个子节点组成。</p>
+<ul>
+<li>
+<p>navPoint节点中，playOrder属性定义当前项在目录中显示的次序。navLabel子节点中的text节点定义了每个目录的名字。</p>
+</li>
+<li>
+<p>content子节点的src属性定义了对应每个章节的文件的具体位置。</p>
+</li>
+</ul>
+<p>nvaPoint节点可以嵌套，就是书籍的目录是层级目录。</p>
+<p>下面是一个toc.ncx文件的实例。</p>
+<pre class="highlight"><code class="xml"><span class="php"><span class="meta">&lt;?</span>xml version=<span class="string">"1.0"</span> encoding=<span class="string">"utf-8"</span><span class="meta">?&gt;</span></span>
+<span class="tag">&lt;<span class="name">ncx</span> <span class="attr">xmlns</span>=<span class="string">"http://www.daisy.org/z3986/2005/ncx/"</span> <span class="attr">version</span>=<span class="string">"2005-1"</span>&gt;</span>
+	<span class="tag">&lt;<span class="name">head</span>&gt;</span>
+		<span class="tag">&lt;<span class="name">meta</span> <span class="attr">content</span>=<span class="string">"178_0"</span> <span class="attr">name</span>=<span class="string">"dtb:uid"</span>/&gt;</span>
+		<span class="tag">&lt;<span class="name">meta</span> <span class="attr">content</span>=<span class="string">"2"</span> <span class="attr">name</span>=<span class="string">"dtb:depth"</span>/&gt;</span>
+		<span class="tag">&lt;<span class="name">meta</span> <span class="attr">content</span>=<span class="string">"0"</span> <span class="attr">name</span>=<span class="string">"dtb:totalPageCount"</span>/&gt;</span>
+		<span class="tag">&lt;<span class="name">meta</span> <span class="attr">content</span>=<span class="string">"0"</span> <span class="attr">name</span>=<span class="string">"dtb:maxPageNumber"</span>/&gt;</span>
+	<span class="tag">&lt;/<span class="name">head</span>&gt;</span>
+	<span class="tag">&lt;<span class="name">docTitle</span>&gt;</span>
+		<span class="tag">&lt;<span class="name">text</span>&gt;</span>1984<span class="tag">&lt;/<span class="name">text</span>&gt;</span>
+	<span class="tag">&lt;/<span class="name">docTitle</span>&gt;</span>
+	<span class="tag">&lt;<span class="name">docAuthor</span>&gt;</span>
+		<span class="tag">&lt;<span class="name">text</span>&gt;</span>[英] 乔治·奥威尔<span class="tag">&lt;/<span class="name">text</span>&gt;</span>
+	<span class="tag">&lt;/<span class="name">docAuthor</span>&gt;</span>
+	<span class="tag">&lt;<span class="name">navMap</span>&gt;</span>
+		<span class="tag">&lt;<span class="name">navPoint</span> <span class="attr">id</span>=<span class="string">"catalog"</span> <span class="attr">playOrder</span>=<span class="string">"0"</span>&gt;</span>
+			<span class="tag">&lt;<span class="name">navLabel</span>&gt;</span>
+				<span class="tag">&lt;<span class="name">text</span>&gt;</span>目录<span class="tag">&lt;/<span class="name">text</span>&gt;</span>
+			<span class="tag">&lt;/<span class="name">navLabel</span>&gt;</span>
+			<span class="tag">&lt;<span class="name">content</span> <span class="attr">src</span>=<span class="string">"catalog.xhtml"</span>/&gt;</span>
+		<span class="tag">&lt;/<span class="name">navPoint</span>&gt;</span>
+		<span class="tag">&lt;<span class="name">navPoint</span> <span class="attr">id</span>=<span class="string">"chap0"</span> <span class="attr">playOrder</span>=<span class="string">"1"</span>&gt;</span>
+			<span class="tag">&lt;<span class="name">navLabel</span>&gt;</span>
+				<span class="tag">&lt;<span class="name">text</span>&gt;</span>前言<span class="tag">&lt;/<span class="name">text</span>&gt;</span>
+			<span class="tag">&lt;/<span class="name">navLabel</span>&gt;</span>
+			<span class="tag">&lt;<span class="name">content</span> <span class="attr">src</span>=<span class="string">"chap0.xhtml"</span>/&gt;</span>
+		<span class="tag">&lt;/<span class="name">navPoint</span>&gt;</span>
+		<span class="tag">&lt;<span class="name">navPoint</span> <span class="attr">id</span>=<span class="string">"chap1"</span> <span class="attr">playOrder</span>=<span class="string">"2"</span>&gt;</span>
+			<span class="tag">&lt;<span class="name">navLabel</span>&gt;</span>
+				<span class="tag">&lt;<span class="name">text</span>&gt;</span>　　第一部<span class="tag">&lt;/<span class="name">text</span>&gt;</span>
+			<span class="tag">&lt;/<span class="name">navLabel</span>&gt;</span>
+			<span class="tag">&lt;<span class="name">content</span> <span class="attr">src</span>=<span class="string">"chap1.xhtml"</span>/&gt;</span>
+		<span class="tag">&lt;/<span class="name">navPoint</span>&gt;</span>
+		<span class="tag">&lt;<span class="name">navPoint</span> <span class="attr">id</span>=<span class="string">"chap2"</span> <span class="attr">playOrder</span>=<span class="string">"3"</span>&gt;</span>
+			<span class="tag">&lt;<span class="name">navLabel</span>&gt;</span>
+				<span class="tag">&lt;<span class="name">text</span>&gt;</span>　　第1节<span class="tag">&lt;/<span class="name">text</span>&gt;</span>
+			<span class="tag">&lt;/<span class="name">navLabel</span>&gt;</span>
+			<span class="tag">&lt;<span class="name">content</span> <span class="attr">src</span>=<span class="string">"chap2.xhtml"</span>/&gt;</span>
+		<span class="tag">&lt;/<span class="name">navPoint</span>&gt;</span>
+		<span class="tag">&lt;<span class="name">navPoint</span> <span class="attr">id</span>=<span class="string">"chap3"</span> <span class="attr">playOrder</span>=<span class="string">"4"</span>&gt;</span>
+			<span class="tag">&lt;<span class="name">navLabel</span>&gt;</span>
+				<span class="tag">&lt;<span class="name">text</span>&gt;</span>　　第2节<span class="tag">&lt;/<span class="name">text</span>&gt;</span>
+			<span class="tag">&lt;/<span class="name">navLabel</span>&gt;</span>
+			<span class="tag">&lt;<span class="name">content</span> <span class="attr">src</span>=<span class="string">"chap3.xhtml"</span>/&gt;</span>
+		<span class="tag">&lt;/<span class="name">navPoint</span>&gt;</span>
+		<span class="tag">&lt;<span class="name">navPoint</span> <span class="attr">id</span>=<span class="string">"chap4"</span> <span class="attr">playOrder</span>=<span class="string">"5"</span>&gt;</span>
+			<span class="tag">&lt;<span class="name">navLabel</span>&gt;</span>
+				<span class="tag">&lt;<span class="name">text</span>&gt;</span>　　第3节<span class="tag">&lt;/<span class="name">text</span>&gt;</span>
+			<span class="tag">&lt;/<span class="name">navLabel</span>&gt;</span>
+			<span class="tag">&lt;<span class="name">content</span> <span class="attr">src</span>=<span class="string">"chap4.xhtml"</span>/&gt;</span>
+		<span class="tag">&lt;/<span class="name">navPoint</span>&gt;</span>
+	<span class="tag">&lt;/<span class="name">navMap</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">ncx</span>&gt;</span>
+</code></pre>
+<p>看到这里，可能会有有人觉得.opf文件与.ncx文件有一点重复：.opf文件的item节点中的href属性描述了各个章节文件的位置与顺序，.ncx文件中的conten节点中的src属性也描述了各个章节文件的位置与顺序。其实他们还是有区别的，区别就在于，.opf文件定义的是读者在顺序阅读时会用到的章节文件与它们的顺序，.ncx文件则定义的是目录中会用到的章节文件与它们的顺序。如果存在某些附件性质的内容被希望在目录中出现，但却不希望在读者顺序阅读的时候出现时，那么就可以通过对.opf文件和.ncx文件进行不同的设置来达到这个目的。当然，大部分的时候，.opf与.ncx这两个文件的内容基本是重合的。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/epub/" rel="tag"># epub</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/06/05/离别/" rel="next" title="离别">
+                <i class="fa fa-chevron-left"></i> 离别
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/06/15/Pattern类的使用/" rel="prev" title="Pattern类的使用">
+                Pattern类的使用 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="hypercomments_widget"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="/images/wukong.png" alt="张阿楠">
+          <p class="site-author-name" itemprop="name">张阿楠</p>
+           
+              <p class="site-description motion-element" itemprop="description">Keep codeing and thinking!</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">59</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">29</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/vernlium" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.zhihu.com/people/ananzhang" target="_blank" title="ZhiHu">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                    
+                      ZhiHu
+                    
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text"> 简介</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#epub3和epub2比较"><span class="nav-number">1.0.1.</span> <span class="nav-text"> EPUB3和EPUB2比较</span></a></li></ol></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#文件组成"><span class="nav-number">2.</span> <span class="nav-text"> 文件组成</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#文件mimetype"><span class="nav-number">2.1.</span> <span class="nav-text"> 文件mimetype</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#目录meta-inf"><span class="nav-number">2.2.</span> <span class="nav-text"> 目录：META-INF</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#目录oebps"><span class="nav-number">2.3.</span> <span class="nav-text"> 目录：OEBPS</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#opf文件"><span class="nav-number">2.3.1.</span> <span class="nav-text"> OPF文件（★）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1metadata"><span class="nav-number">2.3.1.1.</span> <span class="nav-text"> 1.&lt;metadata&gt;</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2manifest"><span class="nav-number">2.3.1.2.</span> <span class="nav-text"> 2.&lt;manifest&gt;</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3spine-tocncx"><span class="nav-number">2.3.1.3.</span> <span class="nav-text"> 3.&lt;spine toc=&quot;ncx&quot;&gt;</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4guide"><span class="nav-number">2.3.1.4.</span> <span class="nav-text"> 4.&lt;guide&gt;</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5tour"><span class="nav-number">2.3.1.5.</span> <span class="nav-text"> 5.&lt;tour&gt;</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ncx文件"><span class="nav-number">2.3.2.</span> <span class="nav-text"> NCX文件（★）</span></a></li></ol></li></ol></li></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">张阿楠</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+		<script type="text/javascript">
+		_hcwp = window._hcwp || [];
+
+		_hcwp.push({widget:"Bloggerstream", widget_id: 95829, selector:".hc-comment-count", label: "{\%COUNT%\}" });
+
+		
+		_hcwp.push({widget:"Stream", widget_id: 95829, xid: "2015/06/10/epub格式解析/"});
+		
+
+		(function() {
+		if("HC_LOAD_INIT" in window)return;
+		HC_LOAD_INIT = true;
+		var lang = (navigator.language || navigator.systemLanguage || navigator.userLanguage || "en").substr(0, 2).toLowerCase();
+		var hcc = document.createElement("script"); hcc.type = "text/javascript"; hcc.async = true;
+		hcc.src = ("https:" == document.location.protocol ? "https" : "http")+"://w.hypercomments.com/widget/hc/95829/"+lang+"/widget.js";
+		var s = document.getElementsByTagName("script")[0];
+		s.parentNode.insertBefore(hcc, s.nextSibling);
+		})();
+		</script>
+
+	
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+  
+
+
+  
+
+  
+
+</body>
+</html>

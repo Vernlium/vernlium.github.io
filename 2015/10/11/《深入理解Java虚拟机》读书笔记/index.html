@@ -1,0 +1,1162 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next pisces" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Consolas:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
+
+<link href="https://cdn.bootcss.com/KaTeX/0.7.1/katex.min.css" rel="stylesheet">
+
+
+  <meta name="keywords" content="JVM,读书笔记,">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2">
+
+
+
+
+
+
+<meta name="description" content="Java内存区域  运行时数据区 这一块书上讲的内容很繁杂，而且很多，看到晕头转向的，结合这篇博客的内容，总结了下图，我觉得还是比较清晰的。   HotSpot虚拟机对象  1.对象的创建 new关键字创建一个对象时，虚拟机中对象的创建过程： （1）虚拟机检查这个指令的参数是否能在常量池中定位到一个类的符号引用，并检查这个符号引用代表的类是否已经加载、解析和初始化过。如果没有，则必须先执行相应的">
+<meta name="keywords" content="JVM,读书笔记">
+<meta property="og:type" content="article">
+<meta property="og:title" content="《深入理解Java虚拟机》读书笔记">
+<meta property="og:url" content="://vernlium.github.io/2015/10/11/《深入理解Java虚拟机》读书笔记/index.html">
+<meta property="og:site_name" content="Vernlium">
+<meta property="og:description" content="Java内存区域  运行时数据区 这一块书上讲的内容很繁杂，而且很多，看到晕头转向的，结合这篇博客的内容，总结了下图，我觉得还是比较清晰的。   HotSpot虚拟机对象  1.对象的创建 new关键字创建一个对象时，虚拟机中对象的创建过程： （1）虚拟机检查这个指令的参数是否能在常量池中定位到一个类的符号引用，并检查这个符号引用代表的类是否已经加载、解析和初始化过。如果没有，则必须先执行相应的">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://7xngpc.com1.z0.glb.clouddn.com/vernJVM运行时数据区.jpg">
+<meta property="og:image" content="http://7xngpc.com1.z0.glb.clouddn.com/vern%E9%80%9A%E8%BF%87%E5%8F%A5%E6%9F%84%E8%AE%BF%E9%97%AE%E5%AF%B9%E8%B1%A1.jpg">
+<meta property="og:image" content="http://7xngpc.com1.z0.glb.clouddn.com/vern%E9%80%9A%E8%BF%87%E7%9B%B4%E6%8E%A5%E6%8C%87%E9%92%88%E8%AE%BF%E9%97%AE%E5%AF%B9%E8%B1%A1.jpg">
+<meta property="og:image" content="http://7xngpc.com1.z0.glb.clouddn.com/vern%E5%8F%AF%E8%BE%BE%E6%80%A7%E5%88%86%E6%9E%90.jpg">
+<meta property="og:image" content="http://7xngpc.com1.z0.glb.clouddn.com/vern%E6%A0%87%E8%AE%B0%E6%B8%85%E9%99%A4%E7%AE%97%E6%B3%95.jpg">
+<meta property="og:image" content="http://7xngpc.com1.z0.glb.clouddn.com/vernmark-clean.jpg">
+<meta property="og:image" content="http://7xngpc.com1.z0.glb.clouddn.com/vern%E5%A4%8D%E5%88%B6%E7%AE%97%E6%B3%95.jpg">
+<meta property="og:image" content="http://7xngpc.com1.z0.glb.clouddn.com/verncopy.jpg">
+<meta property="og:image" content="http://7xngpc.com1.z0.glb.clouddn.com/vern%E6%A0%87%E8%AE%B0%E6%95%B4%E7%90%86%E7%AE%97%E6%B3%95.jpg">
+<meta property="og:image" content="http://7xngpc.com1.z0.glb.clouddn.com/vernmark-trim.jpg">
+<meta property="og:image" content="http://7xngpc.com1.z0.glb.clouddn.com/vernjvm-memory-generation.png">
+<meta property="og:image" content="http://7xngpc.com1.z0.glb.clouddn.com/vernYoung_generation_memory_areas.png">
+<meta property="og:image" content="http://7xngpc.com1.z0.glb.clouddn.com/vernhotspot_jvm_collector.jpg">
+<meta property="og:image" content="http://7xngpc.com1.z0.glb.clouddn.com/vernserial_young_generation_collection_2.png">
+<meta property="og:image" content="http://7xngpc.com1.z0.glb.clouddn.com/vernCompaction_of_the_old_generation.png">
+<meta property="og:image" content="http://7xngpc.com1.z0.glb.clouddn.com/vernComparison_between_serial_and_parallel_young_generation_collection.png">
+<meta property="og:image" content="http://7xngpc.com1.z0.glb.clouddn.com/vernComparison_between_serial_and_CMS_old_generation_collection.png">
+<meta property="og:image" content="http://7xngpc.com1.z0.glb.clouddn.com/vernCMS_sweeping_of_old_generation.png">
+<meta property="og:image" content="http://7xngpc.com1.z0.glb.clouddn.com/verng1_heap_structure.png">
+<meta property="og:image" content="http://7xngpc.com1.z0.glb.clouddn.com/verng1_heap_allocation.png">
+<meta property="og:image" content="http://7xngpc.com1.z0.glb.clouddn.com/vernyoung_generartion_in_g1.png">
+<meta property="og:image" content="http://7xngpc.com1.z0.glb.clouddn.com/verng1_young_gc.png">
+<meta property="og:image" content="http://7xngpc.com1.z0.glb.clouddn.com/verng1_end_young_gc.png">
+<meta property="og:image" content="http://7xngpc.com1.z0.glb.clouddn.com/verng1_initial_marking_phase.png">
+<meta property="og:image" content="http://7xngpc.com1.z0.glb.clouddn.com/verng1_concurrent_marking_phase.png">
+<meta property="og:image" content="http://7xngpc.com1.z0.glb.clouddn.com/verng1_remark_phase.png">
+<meta property="og:image" content="http://7xngpc.com1.z0.glb.clouddn.com/verng1_copying_phase.png">
+<meta property="og:image" content="http://7xngpc.com1.z0.glb.clouddn.com/verng1_after_copying_phase.png">
+<meta property="og:updated_time" content="2019-06-30T22:35:52.616Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="《深入理解Java虚拟机》读书笔记">
+<meta name="twitter:description" content="Java内存区域  运行时数据区 这一块书上讲的内容很繁杂，而且很多，看到晕头转向的，结合这篇博客的内容，总结了下图，我觉得还是比较清晰的。   HotSpot虚拟机对象  1.对象的创建 new关键字创建一个对象时，虚拟机中对象的创建过程： （1）虚拟机检查这个指令的参数是否能在常量池中定位到一个类的符号引用，并检查这个符号引用代表的类是否已经加载、解析和初始化过。如果没有，则必须先执行相应的">
+<meta name="twitter:image" content="http://7xngpc.com1.z0.glb.clouddn.com/vernJVM运行时数据区.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: false,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="://vernlium.github.io/2015/10/11/《深入理解Java虚拟机》读书笔记/">
+
+
+
+
+
+  <title>《深入理解Java虚拟机》读书笔记 | Vernlium</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Vernlium</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Keep codeing and thinking!</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="://vernlium.github.io/2015/10/11/《深入理解Java虚拟机》读书笔记/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="张阿楠">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/wukong.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Vernlium">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">《深入理解Java虚拟机》读书笔记</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-10-11T20:41:32+08:00">
+                2015-10-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index">
+                    <span itemprop="name">java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            <!--noindex-->
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2015/10/11/《深入理解Java虚拟机》读书笔记/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count hc-comment-count" data-xid="2015/10/11/《深入理解Java虚拟机》读书笔记/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+              <!--/noindex-->
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="java内存区域"><a class="markdownIt-Anchor" href="#java内存区域"></a> Java内存区域</h2>
+<h3 id="运行时数据区"><a class="markdownIt-Anchor" href="#运行时数据区"></a> 运行时数据区</h3>
+<p>这一块书上讲的内容很繁杂，而且很多，看到晕头转向的，结合<a href="http://blog.csdn.net/luanlouis/article/details/40043991" target="_blank" rel="noopener">这篇博客</a>的内容，总结了下图，我觉得还是比较清晰的。</p>
+<img src="http://7xngpc.com1.z0.glb.clouddn.com/vernJVM运行时数据区.jpg">
+<h3 id="hotspot虚拟机对象"><a class="markdownIt-Anchor" href="#hotspot虚拟机对象"></a> HotSpot虚拟机对象</h3>
+<h4 id="1对象的创建"><a class="markdownIt-Anchor" href="#1对象的创建"></a> 1.对象的创建</h4>
+<p>new关键字创建一个对象时，虚拟机中对象的创建过程：</p>
+<p>（1）虚拟机检查这个指令的参数是否能在常量池中定位到一个类的符号引用，并检查这个符号引用代表的类是否已经加载、解析和初始化过。如果没有，则必须先执行相应的类加载过程。</p>
+<p>（2）虚拟机为新生对象分配内存，对象所需内存的大小在类加载完成后已经确定，为对象分配空间的任务等同于把一块确定大小的内存从Java堆中划分出来。</p>
+<p>内存分配方式有两种：指针碰撞和空闲列表。内存分配方式由Java堆是否规整有关，而Java堆是否规整又由所采用的垃圾收集器是否带有压缩整理功能决定。</p>
+<p>还有一个要考虑的问题是，多个线程同时新对象，如何解决并发问题。解决这个问题有两种方案：意识对分配内存空间的动作进行同步处理；另一种是把内存分配的动作按照线程划分在不同的空间之中急性，即每个线程在Java堆中预先分配一小块内存，称为本地线程分配缓冲（Thread Local Allocation Buffer,TLAB）。</p>
+<p>（3）内存分配完成后，虚拟机需要将分配到的内存空间都初始化为零值。</p>
+<p>（4）接下来，虚拟机对对象惊喜必要的设置，如这个对象是哪个类的实例、如何才能找到类的元数据信息、对象的哈希吗、对象的GC分代年龄等信息。</p>
+<p>（5）上面的工作都完成之后，从虚拟机的视角看，一个新的对象已经产生了，但是从Java程序的视角来看，对象的创建才刚刚开始——<init>方法还没执行，所有的字段都还是零。所以，一般来说，执行new指令后会接着执行<init>方法，把对象按照程序员的意愿进行初始化，这样一个真正可用的对象才算完成产生出来。</init></init></p>
+<h4 id="2对象的内存布局"><a class="markdownIt-Anchor" href="#2对象的内存布局"></a> 2.对象的内存布局</h4>
+<p>对象在内存中存储的布局可以分为三块区域：对象头（Header）、实例数据（Instance Data）和对齐填充（Padding）。</p>
+<p>对象头包括两部分信息：第一部分用于存储对象自身的运行时数据，如哈希码、GC分代年龄、锁状态标志、线程持有的锁、偏向线程ID、偏向时间戳等，这部分数据的长度在32位和64位的虚拟机中分别为32bit和64bit，官方称它为“Mark Word”。</p>
+<p>对象头的另一部分是类型支持，即对象指向它的类元数据的指针，虚拟机通过这个指针来确定这个对象是哪个类的实例。</p>
+<p>数据实例部分是对象真正存储的有效信息，也是在程序代码中所定义的各种类型的字段内容。无论是从父类继承下来的，还是在子类中定义的，都需要记录起来。</p>
+<p>第三部分对齐填充并不是必然存在的，也没有特别的含义，它仅仅起着占位符的作用。</p>
+<h4 id="3对象的访问定位"><a class="markdownIt-Anchor" href="#3对象的访问定位"></a> 3.对象的访问定位</h4>
+<p>Java程序通过栈上的reference数据来操作对上的具体对象。由于reference类型在Java虚拟机规范中只规定了一个指向对象的引用，并没有定义这个引用应该通过何种方式去定位、访问堆中的对象的具体位置，所以对象访问方式也是取决于虚拟机实现而定的。目前主流的访问方式有使用句柄和直接指针两种。</p>
+<ul>
+<li>如果直接使用句柄访问，java堆中将会划分出一块内存来作为句柄池，reference中存储的是对象的句柄地址，而句柄中包含了对象数据与类型数据各自的具体地址信息，如下图所示。</li>
+</ul>
+<p><img src="http://7xngpc.com1.z0.glb.clouddn.com/vern%E9%80%9A%E8%BF%87%E5%8F%A5%E6%9F%84%E8%AE%BF%E9%97%AE%E5%AF%B9%E8%B1%A1.jpg" alt="通过句柄访问对象"></p>
+<ul>
+<li>如果使用直接指针访问，那么java堆对象的布局中就必须考虑如何放置访问类型数据的相关信息，而reference中存储的直接就是对象地址，如下图所示。</li>
+</ul>
+<p><img src="http://7xngpc.com1.z0.glb.clouddn.com/vern%E9%80%9A%E8%BF%87%E7%9B%B4%E6%8E%A5%E6%8C%87%E9%92%88%E8%AE%BF%E9%97%AE%E5%AF%B9%E8%B1%A1.jpg" alt="通过直接指针访问对象"></p>
+<p>这两种对象访问方式各有优势，使用句柄来访问的最大好处是reference中存储的是稳定的句柄地址，在对象被移动时只会改变句柄中的实例数据指针，而reference本身不需要修改。</p>
+<p>使用直接指针访问方式的最大好处就是速度更快，它节省了一次指针定位的时间开销。HotSpot虚拟机使用的是直接指针访问的方式。句柄来访问的情况也十分常见。</p>
+<h2 id="垃圾收集器"><a class="markdownIt-Anchor" href="#垃圾收集器"></a> 垃圾收集器</h2>
+<p>垃圾收集（Garbage Collection,GC）需要完成3件事：</p>
+<ul>
+<li><strong>哪些内存需要回收？</strong></li>
+<li><strong>什么时候回收？</strong></li>
+<li><strong>如何回收？</strong></li>
+</ul>
+<p>Java内存的程序计数器、虚拟机栈、本地方法栈3个区域随线程而生，随线程而灭；栈中的栈帧随着方法的进入和退出而有条不紊地执行着入栈和出栈操作。每一个栈帧中分配多少内存基本上是在类结构确定下来时就已知的，因此这几个区域的内存分配和回收都具备确定性，在这几个区域内就不需要过多考虑回收的问题，因为方法结束或者线程结束，内存自然就跟随着回收了。</p>
+<p>而Java堆和方法区则不一样，一个接口中的多个实现类需要的内存可能不一样，一个方法中的多个实现类需要的内存可能不一样，一个方法中的多个分支需要的内存也可能不一样，只有在程序处于运行期间时才能知道会创建哪些对象，这部分内存的分配和回收是动态的，垃圾收集器所关注的是这部分的内存。</p>
+<h3 id="第一个问题哪些内存需要回收"><a class="markdownIt-Anchor" href="#第一个问题哪些内存需要回收"></a> 第一个问题：哪些内存需要回收</h3>
+<p>就是判断哪些对象实例还“活着”，哪些已经“死去”。</p>
+<h4 id="可达性分析算法"><a class="markdownIt-Anchor" href="#可达性分析算法"></a> 可达性分析算法</h4>
+<p>Java中使用可达性分析（Reachability Analysis）来判定对象是否存活的。</p>
+<p>通过一系列的称为“GC Roots”的对象作为起始点，从这些节点开始向下搜索，搜索所走过的路径称为引用链（Reference Chain）,当一个对象到GC Roots没有任何引用链相连时，则证明此对象是不可用的。</p>
+<p><img src="http://7xngpc.com1.z0.glb.clouddn.com/vern%E5%8F%AF%E8%BE%BE%E6%80%A7%E5%88%86%E6%9E%90.jpg" alt="可达性分析"></p>
+<p>在Java语言中，可作为GC Roots的对象包括下面几种：</p>
+<ul>
+<li>虚拟机栈（栈帧中的本地变量表）中引用的对象。</li>
+<li>方法区中类静态属性引用的对象。</li>
+<li>方法区中常量引用的对象。</li>
+<li>本地方法栈中JNI（即一般说的Native方法）引用的对象。</li>
+</ul>
+<p>Java对引用的概念进行了扩充，将引用分为强引用（Strong Reference）、软引用（Soft Reference）、弱引用（Weak Reference）、虚引用（Phantom Reference）4种，这4种引用强度依次逐渐减弱。</p>
+<ul>
+<li>
+<p>强引用就是指在程序代码之中普遍存在的，类似“Object obj = new Object()”这类的引用，只要强引用还存在，垃圾收集器永远不会回收掉被引用的对象。</p>
+</li>
+<li>
+<p>软引用是用来描述一些还有用但并非必需的对象。对于软引用关联着的对象，在系统将要发生内存溢出异常之前，将会把这些对象列进回收范围之中进行第二次回收。如果这次回收还没有足够的内存，才会抛出内存溢出异常。在JDK 1.2之后，提供了SoftReference类来实现软引用。</p>
+</li>
+<li>
+<p>弱引用也是用来描述非必需对象的，但是它的强度比软引用更弱一些，被弱引用关联的对象只能生存到下一次垃圾收集发生之前。当垃圾收集器工作时，无论当前内存是否足够，都会回收掉只被弱引用关联的对象。在JDK 1.2之后，提供了WeakReference类来实现弱引用。</p>
+</li>
+<li>
+<p>虚引用也称为幽灵引用或者幻影引用，它是最弱的一种引用关系。一个对象是否有虚引用的存在，完全不会对其生存时间构成影响，也无法通过虚引用来取得一个对象实例。为一个对象设置虚引用关联的唯一目的就是能在这个对象被收集器回收时收到一个系统通知。在JDK 1.2之后，提供了PhantomReference类来实现虚引用。</p>
+</li>
+</ul>
+<h3 id="第二个问题什么时候回收"><a class="markdownIt-Anchor" href="#第二个问题什么时候回收"></a> 第二个问题：什么时候回收？</h3>
+<h4 id="次收集minor-gc和全收集full-gc"><a class="markdownIt-Anchor" href="#次收集minor-gc和全收集full-gc"></a> 次收集（Minor GC）和全收集（Full GC）</h4>
+<p>当这三个分代的堆空间比较紧张或者没有足够的空间来为新到的请求分配的时候，垃圾回收机制就会起作用。有两种类型的垃圾回收方式：次收集和全收集。当新生代堆空间满了的时候，会触发次收集将还存活的对象移到年老代堆空间。当年老代堆空间满了的时候，会触发一个覆盖全范围的对象堆的全收集。</p>
+<h4 id="次收集"><a class="markdownIt-Anchor" href="#次收集"></a> 次收集</h4>
+<ul>
+<li>当新生代堆空间紧张时会被触发</li>
+<li>相对于全收集而言，收集间隔较短</li>
+</ul>
+<h4 id="全收集"><a class="markdownIt-Anchor" href="#全收集"></a> 全收集</h4>
+<ul>
+<li>当老年代或者持久代堆空间满了，会触发全收集操作</li>
+<li>可以使用System.gc()方法来显式的启动全收集</li>
+<li>全收集一般根据堆大小的不同，需要的时间不尽相同，但一般会比较长。不过，如果全收集时间超过3到5秒钟，那就太长了</li>
+</ul>
+<h3 id="第三个问题如何回收"><a class="markdownIt-Anchor" href="#第三个问题如何回收"></a> 第三个问题：如何回收？</h3>
+<p>垃圾回收使用到一些垃圾收集算法。</p>
+<h4 id="垃圾收集算法"><a class="markdownIt-Anchor" href="#垃圾收集算法"></a> 垃圾收集算法</h4>
+<h5 id="1标记-清除算法"><a class="markdownIt-Anchor" href="#1标记-清除算法"></a> 1.标记-清除算法</h5>
+<p>算法分为标记和清除两个阶段：首先标记出所有需要回收的对象，在标记完成后统一回收所有被标记的对象，它的标记过程就是使用可达性算法进行标记的。</p>
+<p>主要缺点有两个：</p>
+<ul>
+<li>效率问题，标记和清除两个过程的效率都不高</li>
+<li>空间问题，标记清除之后会产生大量不连续的内存碎片</li>
+</ul>
+<p><img src="http://7xngpc.com1.z0.glb.clouddn.com/vern%E6%A0%87%E8%AE%B0%E6%B8%85%E9%99%A4%E7%AE%97%E6%B3%95.jpg" alt="标记清除算法"></p>
+<p><img src="http://7xngpc.com1.z0.glb.clouddn.com/vernmark-clean.jpg" alt="标记清理算法"></p>
+<h5 id="2复制算法"><a class="markdownIt-Anchor" href="#2复制算法"></a> 2.复制算法</h5>
+<p>复制算法：将可用内存按照容量分为大小相等的两块，每次只使用其中的一块。当这一块的内存用完了，就将还存活着的对象复制到另一块上面，然后把已使用过的内存空间一次清理掉。</p>
+<p>内存分配时不用考虑内存碎片问题，只要一动堆顶指针，按顺序分配内存即可，实现简单，运行高效。代价是将内存缩小为原来的一半。</p>
+<p><img src="http://7xngpc.com1.z0.glb.clouddn.com/vern%E5%A4%8D%E5%88%B6%E7%AE%97%E6%B3%95.jpg" alt="复制算法"></p>
+<p><img src="http://7xngpc.com1.z0.glb.clouddn.com/verncopy.jpg" alt="复制算法"></p>
+<p>实际应用中将内存分为一块较大的Eden空间和两块较小的Survivor空间，每次使用Eden和其中的一块Survivor。当回收时，将Eden和Survivor中还存活着的对象一次性复制到另一块Survivor空间上，最后清理掉Eden和刚才用过的Survivor空间。</p>
+<p>Hotspot虚拟机中默认的Eden和Survivor的大小比例是8:1.</p>
+<h5 id="3标记-整理算法"><a class="markdownIt-Anchor" href="#3标记-整理算法"></a> 3.标记-整理算法</h5>
+<p>标记整理算法（Mark-Compact），标记过程仍然和“标记-清除”一样，但后续不走不是直接对可回收对象进行清理，而是让所有存活对象向一端移动，然后直接清理掉端边界以外的内存。</p>
+<p><img src="http://7xngpc.com1.z0.glb.clouddn.com/vern%E6%A0%87%E8%AE%B0%E6%95%B4%E7%90%86%E7%AE%97%E6%B3%95.jpg" alt="标记整理算法"></p>
+<p><img src="http://7xngpc.com1.z0.glb.clouddn.com/vernmark-trim.jpg" alt="标记整理算法"></p>
+<h5 id="4分代收集算法"><a class="markdownIt-Anchor" href="#4分代收集算法"></a> 4.分代收集算法</h5>
+<p>根据对象存活周期的不同将内存分为几块。一般把Java堆分为新生代和老年代，根据各个年代的特点采用最合适的收集算法。在新生代中，每次垃圾收集时有大批对象死去，只有少量存活，可以选用复制算法。而老年代对象存活率高，使用标记清理或者标记整理算法。</p>
+<h3 id="hotspot虚拟机内存"><a class="markdownIt-Anchor" href="#hotspot虚拟机内存"></a> HotSpot虚拟机内存</h3>
+<p>下图是Sun HotSpot虚拟机的Heap区的分区，分为三个区：分别是Young Gereration新生代、Old Gerenation老年代、Permanent Generation持久区。</p>
+<p><img src="http://7xngpc.com1.z0.glb.clouddn.com/vernjvm-memory-generation.png" alt="jvm-memory-generation"></p>
+<p><img src="http://7xngpc.com1.z0.glb.clouddn.com/vernYoung_generation_memory_areas.png" alt="新生代内存区域"></p>
+<h3 id="collector的职责"><a class="markdownIt-Anchor" href="#collector的职责"></a> Collector的职责</h3>
+<ul>
+<li>分配内存。</li>
+<li>保证有引用的内存不被释放。</li>
+<li>回收没有指针引用的内存。</li>
+</ul>
+<p>对象被引用称为活对象，对象没有被引用称为垃圾对象/垃圾/垃圾内存，找到垃圾对象并回收是Collector的一个主要工作，该过程称为GC。</p>
+<h3 id="好的collector的特性"><a class="markdownIt-Anchor" href="#好的collector的特性"></a> 好的Collector的特性</h3>
+<ul>
+<li>保证有引用的对象不被GC。</li>
+<li>快速的回收内存垃圾。</li>
+<li>在程序运行期间GC要高效，尽量少的影响程序运行。和大部分的计算机问题一样，这是一个关于空间，时间，效率平衡的问题。</li>
+<li>避免内存碎片，内存碎片导致占用大量内存的大对象内存申请难以满足。</li>
+<li>良好的扩展性，内存分配和GC在多核机器上不应该成为性能瓶颈。</li>
+</ul>
+<h3 id="gc性能指标"><a class="markdownIt-Anchor" href="#gc性能指标"></a> GC性能指标</h3>
+<ul>
+<li>Throughput: 程序时间(不包含GC时间)/总时间。</li>
+<li>GC overhead: GC时间/总时间。</li>
+<li>Pause time: GC运行时程序挂起时间。</li>
+<li>Frequency of GC: GC频率。</li>
+<li>Footprint: Size度量，如堆大小。</li>
+<li>Promptness:对象变为垃圾到该垃圾被回收后内存可用的时间。</li>
+</ul>
+<h3 id="hotspot虚拟机垃圾收集器"><a class="markdownIt-Anchor" href="#hotspot虚拟机垃圾收集器"></a> HotSpot虚拟机垃圾收集器</h3>
+<p>下面是Sun HotSpot虚拟机1.6版本Update22包含的所有收集器。</p>
+<p><img src="http://7xngpc.com1.z0.glb.clouddn.com/vernhotspot_jvm_collector.jpg" alt="HotSpot虚拟机的垃圾收集器"></p>
+<h4 id="serial-collecor"><a class="markdownIt-Anchor" href="#serial-collecor"></a> Serial Collecor</h4>
+<p>Serial收集器是单线程收集器，是分代收集器。</p>
+<p>新生代：单线程复制收集算法</p>
+<p><img src="http://7xngpc.com1.z0.glb.clouddn.com/vernserial_young_generation_collection_2.png" alt="Serial收集器新生代收集过程"></p>
+<p>老年代：单线程标记整理算法</p>
+<p><img src="http://7xngpc.com1.z0.glb.clouddn.com/vernCompaction_of_the_old_generation.png" alt="Serial收集器老年代收集"></p>
+<p>Serial一般在单核的机器上使用，是Java 5非服务端JVM的默认收集器，参数**-XX:UseSerialGC**设置使用。</p>
+<h4 id="parallel-collector"><a class="markdownIt-Anchor" href="#parallel-collector"></a> Parallel Collector</h4>
+<p>现在大部分的应用都是运行在多核的机器上，显然Serial收集器无法充分利用物理机的CPU资源，因此出现了Parallel收集器。Parallel收集器和Serial收集器的主要区别是新生代的收集，一个是单线程一个是多线程。可以从下图看到区别。</p>
+<p><img src="http://7xngpc.com1.z0.glb.clouddn.com/vernComparison_between_serial_and_parallel_young_generation_collection.png" alt="Serial和Parallel收集器新生代收集过程对比"></p>
+<p>老年代的收集和Serial收集器是一样的。</p>
+<p>Parallel收集器多在CPU的服务器上，是Java5 服务器端JVM的默认收集器。参数**-XX:+UseParallelGC**进行设置使用。</p>
+<h4 id="parallel-compacting-collector"><a class="markdownIt-Anchor" href="#parallel-compacting-collector"></a> Parallel Compacting Collector</h4>
+<p>Parallel Compaction收集器出现在J2SE 5.0 update 6。和Parallel收集的主要区别在于老年代的收集，主要是为了解决老年代收集程序暂停时间过长的问题。</p>
+<p>Parallel Compacting收集器分为三个阶段（每个区域在逻辑上是固定的）：</p>
+<p><strong>①标记阶段（marking phase）</strong>:并行标记所有代码能够直达的存活的对象。</p>
+<p><strong>②总结阶段（summary phase）</strong>:这一阶段是在区域进行而不是在对象上。一般情况下，区域靠左侧，存活对象的密度会高一些，在这一侧进行垃圾回收的花费会很高，代价大，并不值得。因此，总结阶段首先检查区域的对象密度，然后从左到右找到一个点：这个点的右侧区域垃圾收集的代价不大。这一点右侧使用标记整理算法进行回收。在收集过程中会计算并存储每一个收集区域的存活对象的新位置。这一阶段是单线程的。</p>
+<p><strong>③整理阶段（compacting phase）</strong>:使用上一阶段中的数据，使用copying算法进行整理，最终一侧是高密度的存活对象，另一侧为空。</p>
+<p>此收集器多使用在多CPU的服务器上，并且程序对暂停时间要求较高。参数**-XX:+UseParallelOldGC**来使用它。还可以通过参数-XX:ParallelGCThreads=n来指定用于GC的线程数。</p>
+<h4 id="concurrent-mark-sweepcms-collector"><a class="markdownIt-Anchor" href="#concurrent-mark-sweepcms-collector"></a> Concurrent Mark-Sweep(CMS) Collector</h4>
+<p>也称“low-latency collector”，为了解决老年代暂停时间过长的问题，并且真正实现并行收集（程序和GC并行执行）。</p>
+<p>新生代：收集和Parallel Collector新生代收集方式一致。</p>
+<p>老年代：GC和程序同时进行。</p>
+<p>分为四个阶段：</p>
+<p><strong>①初始标记(initial mark)</strong>:暂停一会，找出所有活着对象的初始集合。</p>
+<p><strong>②并行标记(concurrent marking)</strong>：根据初始集合，标记出所有的存活对象，由于程序在运行，一部分存活对象无法标出。<br>
+此过程标记操作和程序同时执行。</p>
+<p><strong>③重新标记(remark)</strong>:程序暂停一会，多线程进行重新标记所有在②中没有被标记的存活对象。</p>
+<p><strong>④并行清理concurrent sweep</strong>：回收所有被标记的垃圾区域。和程序同时进行。</p>
+<p>过程如下图所示。</p>
+<p><img src="http://7xngpc.com1.z0.glb.clouddn.com/vernComparison_between_serial_and_CMS_old_generation_collection.png" alt="Serial和CMS收集器新生代收集过程对比"></p>
+<p>由于此收集器在remark阶段重新访问对象，因此开销有所增加。</p>
+<p>此收集器的不足是，老年代收集采用标记清除算法，因此会产生很多不连续的内存碎片。</p>
+<p><img src="http://7xngpc.com1.z0.glb.clouddn.com/vernCMS_sweeping_of_old_generation.png" alt="CMS收集器老年代收集过程"></p>
+<p>此收集器一般多用于对程序暂停时间要求更短的程序上，多由于web应用（实时性要求高）。参数-XX:+UseConcMarkSweepGC设置使用它。</p>
+<h4 id="g1收集器"><a class="markdownIt-Anchor" href="#g1收集器"></a> G1收集器</h4>
+<p>下面将一步步的介绍G1收集器的收集过程。</p>
+<h5 id="1-g1收集器的堆结构g1-heap-structure"><a class="markdownIt-Anchor" href="#1-g1收集器的堆结构g1-heap-structure"></a> 1、G1收集器的堆结构（G1 Heap Structure）</h5>
+<p>heap区被划分成很多固定大小的区域。区域的大小由JVM启动时选择。一般情况下，JVM会产生2000个左右的区域，每个区域的大小在1到32MB不等。</p>
+<p><img src="http://7xngpc.com1.z0.glb.clouddn.com/verng1_heap_structure.png" alt="G1 Heap Structure"></p>
+<h5 id="2-g1收集器的堆分配g1-heap-allocation"><a class="markdownIt-Anchor" href="#2-g1收集器的堆分配g1-heap-allocation"></a> 2、G1收集器的堆分配（G1 Heap Allocation）</h5>
+<p>这些区域在逻辑上被影射成Eden、Survivor和老年代区。</p>
+<p><img src="http://7xngpc.com1.z0.glb.clouddn.com/verng1_heap_allocation.png" alt="G1 Heap Allocation"></p>
+<p>活着的对象可以从一个区域拷贝或者移动到另一个区域。这样设计区分的划分可以在不停在其他线程的情况下分配内存空间。</p>
+<h5 id="3-g1收集器的新生代young-generation-in-g1"><a class="markdownIt-Anchor" href="#3-g1收集器的新生代young-generation-in-g1"></a> 3、G1收集器的新生代（Young Generation in G1）</h5>
+<p>heap区被划分成大概2000个区域，最小的是1Mb，最大的是32Mb。</p>
+<p><img src="http://7xngpc.com1.z0.glb.clouddn.com/vernyoung_generartion_in_g1.png" alt="Young Genertation in G1"></p>
+<h5 id="4-g1收集器的新生代gca-young-gc-in-g1"><a class="markdownIt-Anchor" href="#4-g1收集器的新生代gca-young-gc-in-g1"></a> 4、G1收集器的新生代GC(A Young GC in G1）</h5>
+<p>新生代的GC，活着的对象被复制或移动到survivor区，如果对象的年龄达到设置的阈值（比如设置的阈值是10，如果对象经过10GC后仍然存活，那么这个对象就达到了阈值）这些对象将被提升到老年代区中。</p>
+<p>这个阶段stop the world（所有应用的线程都停止）。然后会计算eden区和survivor区的大小，下一次新生代GC的时候会用到这些信息。</p>
+<p><img src="http://7xngpc.com1.z0.glb.clouddn.com/verng1_young_gc.png" alt="A Young GC in G1"></p>
+<h5 id="5-新生代收集结束end-of-yonug-gc-with-g1"><a class="markdownIt-Anchor" href="#5-新生代收集结束end-of-yonug-gc-with-g1"></a> 5、新生代收集结束（End of Yonug GC with G1）</h5>
+<p>存活的对象都被移到了survivor区或老年代区。这样新生代的收集就结束了。</p>
+<p><img src="http://7xngpc.com1.z0.glb.clouddn.com/verng1_end_young_gc.png" alt="End of Yonug GC with G1"></p>
+<p>G1收集器的新生代GC可以总结如下：</p>
+<ul>
+<li>堆区是一个单独的内存区，被分成了很多小区域。</li>
+<li>新生代区由很多不连续的小区域组成，当需要的时候，重新分配新生代区的大小很容易。</li>
+<li>新生代GC是stop the world的。</li>
+<li>新生代GC是多现场并发进行的。</li>
+<li>最后，活着的对象在survivor区或者老年代区。</li>
+</ul>
+<h5 id="6-initial-marking-phase"><a class="markdownIt-Anchor" href="#6-initial-marking-phase"></a> 6、Initial Marking Phase</h5>
+<p><img src="http://7xngpc.com1.z0.glb.clouddn.com/verng1_initial_marking_phase.png" alt="Initial Marking Phase"></p>
+<h5 id="7-concurrent-marking-phase"><a class="markdownIt-Anchor" href="#7-concurrent-marking-phase"></a> 7、Concurrent Marking Phase</h5>
+<p><img src="http://7xngpc.com1.z0.glb.clouddn.com/verng1_concurrent_marking_phase.png" alt="Concurrent Marking Phase"></p>
+<h5 id="8-remark-phase"><a class="markdownIt-Anchor" href="#8-remark-phase"></a> 8、Remark Phase</h5>
+<p><img src="http://7xngpc.com1.z0.glb.clouddn.com/verng1_remark_phase.png" alt="Remark Phase"></p>
+<h5 id="9-copyingcleanup-phase"><a class="markdownIt-Anchor" href="#9-copyingcleanup-phase"></a> 9、Copying/Cleanup Phase</h5>
+<p><img src="http://7xngpc.com1.z0.glb.clouddn.com/verng1_copying_phase.png" alt="Copying/Cleanup Phase"></p>
+<h5 id="10-after-copyingclean-phase"><a class="markdownIt-Anchor" href="#10-after-copyingclean-phase"></a> 10、After Copying/Clean Phase</h5>
+<p><img src="http://7xngpc.com1.z0.glb.clouddn.com/verng1_after_copying_phase.png" alt="After Copying/Clean Phase"></p>
+<h3 id="实例"><a class="markdownIt-Anchor" href="#实例"></a> 实例</h3>
+<pre><code>package com.idouba.jvm.demo;
+/**
+ * Use shortest code demo jvm allocation, gc, and someting in gc.
+ *
+ * In details
+ * 1) sizing of young generation (eden space，survivor space),old generation.
+ * 2) allocation in eden space, gc in young generation,
+ * 3) working with survivor space and with old generation.
+ *
+ */
+public class SimpleJVMArg {
+    /**
+     * @param args
+     */
+    public static void main(String[] args)
+    {
+        demo();
+    }
+    /**
+     * VM arg：-verbose:gc -Xms200M -Xmx200M -Xmn100M -XX:+PrintGCDetails -XX:SurvivorRatio=8 -XX:MaxTenuringThreshold=1 -XX:+PrintTenuringDistribution
+     *
+     */
+    @SuppressWarnings(&quot;unused&quot;)
+    public static void demo() {
+        final int tenMB = 10* 1024 * 1024;
+
+        byte[] alloc1, alloc2, alloc3;
+        
+        alloc1 = new byte[tenMB / 5];
+        alloc2 = new byte[5 * tenMB];
+        alloc3 = new byte[4 * tenMB];
+        alloc3 = null;
+        alloc3 = new byte[6 * tenMB];
+    }
+}
+</code></pre>
+<p>本实例来源于<a href="http://ifeve.com/a-simple-example-demo-jvm-allocation-and-gc/" target="_blank" rel="noopener">最简单例子图解JVM内存分配和回收</a></p>
+<p>设置虚拟机执行参数如下：</p>
+<pre><code>-verbose:gc -Xms200M -Xmx200M -Xmn100M -XX:+PrintGCDetails -XX:SurvivorRatio=8 -XX:+PrintTenuringDistribution
+</code></pre>
+<p>其中，<strong>-Xms200M -Xmx200M</strong>设置Java堆大小为200M，不可扩展，<br>
+<strong>-Xmn100M</strong>设置其中100M分配给新生代，则剩下的100M分配给老年代。<br>
+<strong>-XX:SurvivorRatio=8</strong>设置了新生代中eden与survivor的空间比例是1：8。</p>
+<table>
+   <tr>
+      <td>GC 命令行选项 </td>
+      <td>描述</td>
+   </tr>
+   <tr>
+      <td>-Xms</td>
+      <td>设置Java堆大小的初始值/最小值。例如：-Xms512m (请注意这里没有”=”).</td>
+   </tr>
+   <tr>
+      <td>-Xmx</td>
+      <td>设置Java堆大小的最大值</td>
+   </tr>
+   <tr>
+      <td>-Xmn</td>
+      <td>设置新生代对空间的初始值，最小值和最大值。请注意，年老代堆空间大小是依赖于新生代堆空间大小的</td>
+   </tr>
+   <tr>
+      <td>-XX:PermSize=<n>[g|m|k]</n></td>
+      <td>设置持久代堆空间的初始值和最小值</td>
+   </tr>
+</table>
+<p>执行结果如下：</p>
+<pre><code>[GC (Allocation Failure) [DefNew
+Desired survivor size 5242880 bytes, new threshold 15 (max 15)
+- age   1:    2573248 bytes,    2573248 total
+: 56525K-&gt;2512K(92160K), 0.0524011 secs] 56525K-&gt;53712K(194560K), 0.0524798 secs] [Times: user=0.01 sys=0.03, real=0.05 secs] 
+[GC (Allocation Failure) [DefNew
+Desired survivor size 5242880 bytes, new threshold 15 (max 15)
+- age   2:    2572736 bytes,    2572736 total
+: 43472K-&gt;2512K(92160K), 0.0034130 secs] 94672K-&gt;53712K(194560K), 0.0034658 secs] [Times: user=0.00 sys=0.00, real=0.00 secs] 
+Heap
+ def new generation   total 92160K, used 64772K [0x03c00000, 0x0a000000, 0x0a000000)
+  eden space 81920K,  76% used [0x03c00000, 0x078cce58, 0x08c00000)
+  from space 10240K,  24% used [0x08c00000, 0x08e741c0, 0x09600000)
+  to   space 10240K,   0% used [0x09600000, 0x09600000, 0x0a000000)
+ tenured generation   total 102400K, used 51200K [0x0a000000, 0x10400000, 0x10400000)
+   the space 102400K,  50% used [0x0a000000, 0x0d200010, 0x0d200200, 0x10400000)
+ Metaspace       used 97K, capacity 2242K, committed 2368K, reserved 4480K
+</code></pre>
+<h3 id="分析"><a class="markdownIt-Anchor" href="#分析"></a> 分析</h3>
+<h3 id="参考资料"><a class="markdownIt-Anchor" href="#参考资料"></a> 参考资料</h3>
+<ul>
+<li>《深入理解Java虚拟机：JVM高级特性与最佳实践》</li>
+<li><a href="http://www.oracle.com/technetwork/java/javase/memorymanagement-whitepaper-150215.pdf" target="_blank" rel="noopener">http://www.oracle.com/technetwork/java/javase/memorymanagement-whitepaper-150215.pdf</a> java5官方文档，介绍了HotShot虚拟机的详细内容</li>
+<li><a href="http://www.oracle.com/technetwork/tutorials/tutorials-1876574.html#t1" target="_blank" rel="noopener">http://www.oracle.com/technetwork/tutorials/tutorials-1876574.html#t1</a> java7关于G1收集器的详细介绍</li>
+<li><a href="http://jbutton.iteye.com/blog/1569746" target="_blank" rel="noopener">http://jbutton.iteye.com/blog/1569746</a></li>
+<li><a href="http://www.importnew.com/1551.html" target="_blank" rel="noopener">http://www.importnew.com/1551.html</a></li>
+<li><a href="http://ifeve.com/useful-jvm-flags-part-5-young-generation-garbage-collection/" target="_blank" rel="noopener">JVM实用参数（五）新生代垃圾回收</a></li>
+<li><a href="http://ifeve.com/under-the-hood-runtime-data-areas-javas-memory-model/" target="_blank" rel="noopener">JAVA的内存模型及结构</a></li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JVM/" rel="tag"># JVM</a>
+          
+            <a href="/tags/读书笔记/" rel="tag"># 读书笔记</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/08/26/Java线程转储/" rel="next" title="Java线程转储">
+                <i class="fa fa-chevron-left"></i> Java线程转储
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/10/29/Maven简明教程/" rel="prev" title="Maven简明教程">
+                Maven简明教程 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="hypercomments_widget"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="/images/wukong.png" alt="张阿楠">
+          <p class="site-author-name" itemprop="name">张阿楠</p>
+           
+              <p class="site-description motion-element" itemprop="description">Keep codeing and thinking!</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">59</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">29</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/vernlium" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.zhihu.com/people/ananzhang" target="_blank" title="ZhiHu">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                    
+                      ZhiHu
+                    
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#java内存区域"><span class="nav-number">1.</span> <span class="nav-text"> Java内存区域</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#运行时数据区"><span class="nav-number">1.1.</span> <span class="nav-text"> 运行时数据区</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hotspot虚拟机对象"><span class="nav-number">1.2.</span> <span class="nav-text"> HotSpot虚拟机对象</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1对象的创建"><span class="nav-number">1.2.1.</span> <span class="nav-text"> 1.对象的创建</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2对象的内存布局"><span class="nav-number">1.2.2.</span> <span class="nav-text"> 2.对象的内存布局</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3对象的访问定位"><span class="nav-number">1.2.3.</span> <span class="nav-text"> 3.对象的访问定位</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#垃圾收集器"><span class="nav-number">2.</span> <span class="nav-text"> 垃圾收集器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#第一个问题哪些内存需要回收"><span class="nav-number">2.1.</span> <span class="nav-text"> 第一个问题：哪些内存需要回收</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#可达性分析算法"><span class="nav-number">2.1.1.</span> <span class="nav-text"> 可达性分析算法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第二个问题什么时候回收"><span class="nav-number">2.2.</span> <span class="nav-text"> 第二个问题：什么时候回收？</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#次收集minor-gc和全收集full-gc"><span class="nav-number">2.2.1.</span> <span class="nav-text"> 次收集（Minor GC）和全收集（Full GC）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#次收集"><span class="nav-number">2.2.2.</span> <span class="nav-text"> 次收集</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#全收集"><span class="nav-number">2.2.3.</span> <span class="nav-text"> 全收集</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第三个问题如何回收"><span class="nav-number">2.3.</span> <span class="nav-text"> 第三个问题：如何回收？</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#垃圾收集算法"><span class="nav-number">2.3.1.</span> <span class="nav-text"> 垃圾收集算法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1标记-清除算法"><span class="nav-number">2.3.1.1.</span> <span class="nav-text"> 1.标记-清除算法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2复制算法"><span class="nav-number">2.3.1.2.</span> <span class="nav-text"> 2.复制算法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3标记-整理算法"><span class="nav-number">2.3.1.3.</span> <span class="nav-text"> 3.标记-整理算法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4分代收集算法"><span class="nav-number">2.3.1.4.</span> <span class="nav-text"> 4.分代收集算法</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hotspot虚拟机内存"><span class="nav-number">2.4.</span> <span class="nav-text"> HotSpot虚拟机内存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#collector的职责"><span class="nav-number">2.5.</span> <span class="nav-text"> Collector的职责</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#好的collector的特性"><span class="nav-number">2.6.</span> <span class="nav-text"> 好的Collector的特性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#gc性能指标"><span class="nav-number">2.7.</span> <span class="nav-text"> GC性能指标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hotspot虚拟机垃圾收集器"><span class="nav-number">2.8.</span> <span class="nav-text"> HotSpot虚拟机垃圾收集器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#serial-collecor"><span class="nav-number">2.8.1.</span> <span class="nav-text"> Serial Collecor</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#parallel-collector"><span class="nav-number">2.8.2.</span> <span class="nav-text"> Parallel Collector</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#parallel-compacting-collector"><span class="nav-number">2.8.3.</span> <span class="nav-text"> Parallel Compacting Collector</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#concurrent-mark-sweepcms-collector"><span class="nav-number">2.8.4.</span> <span class="nav-text"> Concurrent Mark-Sweep(CMS) Collector</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#g1收集器"><span class="nav-number">2.8.5.</span> <span class="nav-text"> G1收集器</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-g1收集器的堆结构g1-heap-structure"><span class="nav-number">2.8.5.1.</span> <span class="nav-text"> 1、G1收集器的堆结构（G1 Heap Structure）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-g1收集器的堆分配g1-heap-allocation"><span class="nav-number">2.8.5.2.</span> <span class="nav-text"> 2、G1收集器的堆分配（G1 Heap Allocation）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-g1收集器的新生代young-generation-in-g1"><span class="nav-number">2.8.5.3.</span> <span class="nav-text"> 3、G1收集器的新生代（Young Generation in G1）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-g1收集器的新生代gca-young-gc-in-g1"><span class="nav-number">2.8.5.4.</span> <span class="nav-text"> 4、G1收集器的新生代GC(A Young GC in G1）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-新生代收集结束end-of-yonug-gc-with-g1"><span class="nav-number">2.8.5.5.</span> <span class="nav-text"> 5、新生代收集结束（End of Yonug GC with G1）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#6-initial-marking-phase"><span class="nav-number">2.8.5.6.</span> <span class="nav-text"> 6、Initial Marking Phase</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#7-concurrent-marking-phase"><span class="nav-number">2.8.5.7.</span> <span class="nav-text"> 7、Concurrent Marking Phase</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#8-remark-phase"><span class="nav-number">2.8.5.8.</span> <span class="nav-text"> 8、Remark Phase</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#9-copyingcleanup-phase"><span class="nav-number">2.8.5.9.</span> <span class="nav-text"> 9、Copying/Cleanup Phase</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#10-after-copyingclean-phase"><span class="nav-number">2.8.5.10.</span> <span class="nav-text"> 10、After Copying/Clean Phase</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实例"><span class="nav-number">2.9.</span> <span class="nav-text"> 实例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分析"><span class="nav-number">2.10.</span> <span class="nav-text"> 分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考资料"><span class="nav-number">2.11.</span> <span class="nav-text"> 参考资料</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">张阿楠</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+		<script type="text/javascript">
+		_hcwp = window._hcwp || [];
+
+		_hcwp.push({widget:"Bloggerstream", widget_id: 95829, selector:".hc-comment-count", label: "{\%COUNT%\}" });
+
+		
+		_hcwp.push({widget:"Stream", widget_id: 95829, xid: "2015/10/11/《深入理解Java虚拟机》读书笔记/"});
+		
+
+		(function() {
+		if("HC_LOAD_INIT" in window)return;
+		HC_LOAD_INIT = true;
+		var lang = (navigator.language || navigator.systemLanguage || navigator.userLanguage || "en").substr(0, 2).toLowerCase();
+		var hcc = document.createElement("script"); hcc.type = "text/javascript"; hcc.async = true;
+		hcc.src = ("https:" == document.location.protocol ? "https" : "http")+"://w.hypercomments.com/widget/hc/95829/"+lang+"/widget.js";
+		var s = document.getElementsByTagName("script")[0];
+		s.parentNode.insertBefore(hcc, s.nextSibling);
+		})();
+		</script>
+
+	
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+  
+
+
+  
+
+  
+
+</body>
+</html>

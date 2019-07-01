@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next pisces" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Consolas:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
+
+<link href="https://cdn.bootcss.com/KaTeX/0.7.1/katex.min.css" rel="stylesheet">
+
+
+  <meta name="keywords" content="docker,k8s,flannel,">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2">
+
+
+
+
+
+
+<meta name="description" content="前面几篇博客讲述了k8s的安装和基本使用，在使用过程中我们可以发现，在每一个节点上，每个容器都有一个节点中唯一的ip，但是不同的节点上，容器的虚拟ip可能是相同的。 上一篇博客中讲到了docker网络，其中提到：  libnetwork中内置5种驱动，有一种是overlay驱动，flannel就是使用的这种驱动方式。  那么，本节我们就了讲一下flannel的安装、使用和原理。  flannel简">
+<meta name="keywords" content="docker,k8s,flannel">
+<meta property="og:type" content="article">
+<meta property="og:title" content="flannel介绍及安装-k8s_7">
+<meta property="og:url" content="://vernlium.github.io/2017/09/19/flannel介绍及安装-k8s-7/index.html">
+<meta property="og:site_name" content="Vernlium">
+<meta property="og:description" content="前面几篇博客讲述了k8s的安装和基本使用，在使用过程中我们可以发现，在每一个节点上，每个容器都有一个节点中唯一的ip，但是不同的节点上，容器的虚拟ip可能是相同的。 上一篇博客中讲到了docker网络，其中提到：  libnetwork中内置5种驱动，有一种是overlay驱动，flannel就是使用的这种驱动方式。  那么，本节我们就了讲一下flannel的安装、使用和原理。  flannel简">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://user-images.githubusercontent.com/11350907/30549280-f3a39ee6-9cc6-11e7-96bf-3872bba098c9.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/11350907/30548777-a060a9a0-9cc5-11e7-8e28-f0b62d60aa96.png">
+<meta property="og:updated_time" content="2019-06-30T22:35:52.613Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="flannel介绍及安装-k8s_7">
+<meta name="twitter:description" content="前面几篇博客讲述了k8s的安装和基本使用，在使用过程中我们可以发现，在每一个节点上，每个容器都有一个节点中唯一的ip，但是不同的节点上，容器的虚拟ip可能是相同的。 上一篇博客中讲到了docker网络，其中提到：  libnetwork中内置5种驱动，有一种是overlay驱动，flannel就是使用的这种驱动方式。  那么，本节我们就了讲一下flannel的安装、使用和原理。  flannel简">
+<meta name="twitter:image" content="https://user-images.githubusercontent.com/11350907/30549280-f3a39ee6-9cc6-11e7-96bf-3872bba098c9.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: false,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="://vernlium.github.io/2017/09/19/flannel介绍及安装-k8s-7/">
+
+
+
+
+
+  <title>flannel介绍及安装-k8s_7 | Vernlium</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Vernlium</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Keep codeing and thinking!</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="://vernlium.github.io/2017/09/19/flannel介绍及安装-k8s-7/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="张阿楠">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/wukong.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Vernlium">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">flannel介绍及安装-k8s_7</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-19T23:04:12+08:00">
+                2017-09-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/k8s/" itemprop="url" rel="index">
+                    <span itemprop="name">k8s</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            <!--noindex-->
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/09/19/flannel介绍及安装-k8s-7/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count hc-comment-count" data-xid="2017/09/19/flannel介绍及安装-k8s-7/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+              <!--/noindex-->
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>前面几篇博客讲述了k8s的安装和基本使用，在使用过程中我们可以发现，在每一个节点上，每个容器都有一个节点中唯一的ip，但是不同的节点上，容器的虚拟ip可能是相同的。</p>
+<p>上一篇博客中讲到了docker网络，其中提到：</p>
+<blockquote>
+<p>libnetwork中内置5种驱动，有一种是overlay驱动，flannel就是使用的这种驱动方式。</p>
+</blockquote>
+<p>那么，本节我们就了讲一下flannel的安装、使用和原理。</p>
+<h3 id="flannel简介"><a class="markdownIt-Anchor" href="#flannel简介"></a> flannel简介</h3>
+<p>flannel是CoreOS团队针对Kubernetes设计的一个网络规划服务，简单来说，它的功能是让集群中的不同节点主机创建的Docker容器都具有全集群唯一的虚拟IP地址。</p>
+<p>在默认的Docker配置中，每个节点上的Docker服务会分别负责所在节点容器的IP分配。这样导致的一个问题是，不同节点上容器可能获得相同的内网IP地址。这样就会带来一些问题。比如，使用类似dubbo等使用zookeeper进行服务注册和发现的场景下，分布在不同节点上的服务提供者，如果使用相同的ip到zookeeper上注册服务，那么服务消费者就无法分别这些服务，而且访问也是一个障碍。</p>
+<p>flannel的设计目的就是为集群中的所有节点重新规划IP地址的使用规则，从而使得不同节点上的容器能够获得“同属一个内网”且”不重复的”IP地址，并让属于不同节点上的容器能够直接通过内网IP通信。</p>
+<h3 id="flannel安装流程"><a class="markdownIt-Anchor" href="#flannel安装流程"></a> flannel安装流程</h3>
+<h4 id="1下载flannel安装包"><a class="markdownIt-Anchor" href="#1下载flannel安装包"></a> 1.下载flannel安装包</h4>
+<p><a href="https://github.com/coreos/flannel/releases/tag/v0.7.1" target="_blank" rel="noopener">https://github.com/coreos/flannel/releases/tag/v0.7.1</a><br>
+将下载的安装包解压，将其中的flannel拷贝到/usr/local/bin/目录下。</p>
+<h5 id="安装etcdctl"><a class="markdownIt-Anchor" href="#安装etcdctl"></a> 安装etcdctl</h5>
+<p>将etcd中的etcdctl可执行二进制文件拷贝到/usr/local/bin目录下。</p>
+<h4 id="2配置文件"><a class="markdownIt-Anchor" href="#2配置文件"></a> 2.配置文件</h4>
+<p>新建文件/etc/default/flanneld，其内容为:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">FLANNELD_OPTS=&quot;--etcd-endpoints=http://192.168.0.1:2379,http://192.168.0.2:2379,http://192.168.0.3:2379&quot;</span><br></pre></td></tr></table></figure>
+<p>编写flannel的upstart脚本，新建文件/etc/init/flanneld.conf，其内容为:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">description &quot;flanneld service&quot;</span><br><span class="line"></span><br><span class="line">respawn </span><br><span class="line"></span><br><span class="line">start on (net-device-up </span><br><span class="line">    and local-filesystems </span><br><span class="line">    and runlevel [2345])</span><br><span class="line"></span><br><span class="line">stop on runlevel [ !2345])</span><br><span class="line"></span><br><span class="line">pre-start script </span><br><span class="line">    FLANNELD=/usr/local/bin/$UPSTART_JOB</span><br><span class="line">    if [ -f $FLANNELD ]; then </span><br><span class="line">        exit 0</span><br><span class="line">    fi </span><br><span class="line">    exit 22 </span><br><span class="line">end script </span><br><span class="line"></span><br><span class="line">script </span><br><span class="line">    FLANNELD=/usr/local/bin/$UPSTART_JOB</span><br><span class="line">    FLANNELD_OPTS=&quot;&quot; </span><br><span class="line">    if [ -f /etc/default/$UPSTART_JOB ]; then </span><br><span class="line">        · /etc/default/$UPSTART_JOB</span><br><span class="line">    fi </span><br><span class="line">    export HOME:/root </span><br><span class="line">    exec &quot;$FLANNELD&quot; $FLANNELD_OPTS </span><br><span class="line">end script</span><br></pre></td></tr></table></figure>
+<h4 id="3flannel配置信息写入etcd"><a class="markdownIt-Anchor" href="#3flannel配置信息写入etcd"></a> 3.flannel配置信息写入etcd</h4>
+<p>flannel的配置信息全部在etcd里面记录，往etcd里面写入下面这个最简单的配置，只指定flannel能用来分配给每个Docker节点的拟IP地址段:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">etcdctl --endpoints http://192.168.0.2:2379,http://192.168.0.2:2379,http://192.168.0.2:2379 \ </span><br><span class="line">set /coreos.com/network/config \</span><br><span class="line">&apos;&#123;&quot;Network&quot;: &quot;172.100.0.0/16,&quot;SubnetLen&quot;: 28,&quot;Backend&quot;: &#123;&quot;Type&quot;: &quot;vxlan&quot;&#125;&#125;&apos;</span><br></pre></td></tr></table></figure>
+<p>其中<code>{&quot;Network&quot;: &quot;172.100.0.0/16,&quot;SubnetLen&quot;: 28,&quot;Backend&quot;: {&quot;Type&quot;: &quot;vxlan&quot;}}</code>配置中各字段的含义如下：</p>
+<ul>
+<li>Network (string): IPv4 network in CIDR format to use for the entire flannel network. (This is the only mandatory key.)<strong>必选字段</strong></li>
+<li>SubnetLen (integer): The size of the subnet allocated to each host. Defaults to 24 (i.e. /24) unless Network was configured to be smaller than a /24 in which case it is one less than the network.<strong>可选</strong></li>
+<li>Backend (dictionary): Type of backend to use and specific configurations for that backend. The list of available backends and the keys that can be put into the this dictionary are listed below. Defaults to udp backend.<strong>可选</strong>
+<ul>
+<li>Backeng的Type字段有如下几种选择：
+<ul>
+<li>vxlan</li>
+<li>host-gw</li>
+<li>udp</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>我们配置的<code>&quot;Network&quot;:&quot;172.100.0.0/16&quot;,&quot;SubnetLen&quot;:28</code>含义为：</p>
+<p>flannel集群（包含k8s master和node）的所有节点以及节点上的容器的ip都在<code>172.100.0.0/16</code>子网内。</p>
+<p>子网长度28表示每个node节点上的子网长度，即每个node上也有一个小的子网，这个子网最多可支持2^（32-28）- 1=2^4 - 1=15个容器（-1是因为docker0网桥占了一个ip）<br>
+这个flannel集群最多支持2<sup>（28-16）=2</sup>12=4096个节点。</p>
+<p>这个子网长度根据自己的场景来选择，例如项目的使用场景，每个node上容器个数少，node节点多，所以长度长一些。如果节点多，节点上的容器也多，可以将上面设置的<code>172.100.0.0/16</code>其中的16变小，子网的容量更大一些。</p>
+<p>还有两个字段这里没有使用:</p>
+<ul>
+<li>SubnetMin (string): The beginning of IP range which the subnet allocation should start with. Defaults to the first subnet of Network.<strong>可选</strong></li>
+<li>SubnetMax (string): The end of the IP range at which the subnet allocation should end with. Defaults to the last subnet of Network.<strong>可选</strong></li>
+</ul>
+<h4 id="4flannel的启动"><a class="markdownIt-Anchor" href="#4flannel的启动"></a> 4.flannel的启动</h4>
+<p><code>start flanneld</code>命令启动flanneld。</p>
+<p>启动成功后，会新增一个文件<code>/run/flannel/subnet.env</code>，查看其中的内容：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">FLANNEL_NETWORK=172.100.0.0/16 </span><br><span class="line">FLANNEL_SUBNET=172.100.4.49/28 </span><br><span class="line">FLANNEL_MTU=1450</span><br><span class="line">FLANNEL_IPMASQ=false</span><br></pre></td></tr></table></figure>
+<p>这个是flanneld进程从etcd上拉取到的配置写入到本地文件中。</p>
+<p>其中:</p>
+<ul>
+<li>FLANNEL_NETWORK: flannel的网络地址</li>
+<li>FLANNEL_SUBNET: 本节点上的子网网段</li>
+<li>FLANNEL_MTU: 最大传输单元大小</li>
+<li>FLANNEL_IPMASQ: 是否开启IPMASQ防火墙</li>
+</ul>
+<h4 id="5重-启-docker"><a class="markdownIt-Anchor" href="#5重-启-docker"></a> 5.重 启 docker</h4>
+<p>将 /run/flannel/subnet.env 文 件 中 的 内 容 加 入 到 docker 启 动 的 配 置 项 中<br>
+`–bip=<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mrow><mi>F</mi><mi>L</mi><mi>A</mi><mi>N</mi><mi>N</mi><mi>E</mi><msub><mi>L</mi><mi>S</mi></msub><mi>U</mi><mi>B</mi><mi>N</mi><mi>E</mi><mi>T</mi></mrow><mo>−</mo><mo>−</mo><mi>m</mi><mi>t</mi><mi>u</mi><mo>=</mo></mrow><annotation encoding="application/x-tex">{FLANNEL_SUBNET} --mtu=</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="base"><span class="mord"><span class="mord mathit" style="margin-right:0.13889em;">F</span><span class="mord mathit">L</span><span class="mord mathit">A</span><span class="mord mathit" style="margin-right:0.10903em;">N</span><span class="mord mathit" style="margin-right:0.10903em;">N</span><span class="mord mathit" style="margin-right:0.05764em;">E</span><span class="mord"><span class="mord mathit">L</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathit mtight" style="margin-right:0.05764em;">S</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"></span></span></span></span></span><span class="mord mathit" style="margin-right:0.10903em;">U</span><span class="mord mathit" style="margin-right:0.05017em;">B</span><span class="mord mathit" style="margin-right:0.10903em;">N</span><span class="mord mathit" style="margin-right:0.05764em;">E</span><span class="mord mathit" style="margin-right:0.13889em;">T</span></span><span class="mord rule" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mord rule" style="margin-right:0.2222222222222222em;"></span><span class="mord">−</span><span class="mord mathit">m</span><span class="mord mathit">t</span><span class="mord mathit">u</span><span class="mord rule" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span></span></span></span>{FLANNEL_MTU}。然后重启docker0。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">root@LFG1000826665:~# stop docker </span><br><span class="line">root@LFG1000826665:~# cat /run/flannel/subnet.env </span><br><span class="line">FLANNEL_NETWORK=172.100.0.0/16 </span><br><span class="line">FLANNEL_SUBNET=172.100.32.1/28 </span><br><span class="line">FLANNEL_MTU=1450 </span><br><span class="line">FLANNEL_IPMASQ=false</span><br><span class="line">root@LFG1000826665:~# cat /etc/default/docker </span><br><span class="line">DOCKER_OPTS=&quot;$DOCKER_OPTS -H unix:///var/run/docker.sock -H tcp://0.0.0.0:2375 -bip=172.100.4.49/28 --mtu=1450&quot; </span><br><span class="line">DOCKER_CERT_PATH=&quot;/etc/docker&quot; </span><br><span class="line">root@LFG1000826665:~#</span><br><span class="line">root@LFG1000826665:~# start docker </span><br><span class="line">root@LFG1000826665:~# ps ex 丨 grep dockerd </span><br><span class="line">1039 ? Ssl 1:13 /usr/bin/dockerd -H unix:///var/run/docker.sock -H  tcp://0.0.0.0:2375 -bip=172.100.4.49/28 --mtu=1450</span><br></pre></td></tr></table></figure>
+<p>注:我们用的系统是ubuntu14.04，使用upstart来启动服务。将配置项写入到<code>/etc/default/docker</code>文件中，启动服务时会upstart脚本会读取此文件。</p>
+<h4 id="6安装结果"><a class="markdownIt-Anchor" href="#6安装结果"></a> 6.安装结果</h4>
+<p>上述步骤执行完成后，在任意一个node上可以看一下网络配置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">root@LFG1000826665:~# ifconfig </span><br><span class="line">dockerO Link encap:Ethernet HWaddr 02:42:cb:44:b0:50 </span><br><span class="line">	inet addr:172.100.4.49 Bcast:0.0.0.0 Mask:255.255.255.240 </span><br><span class="line">	inet6 addr:fe80::42:cbf:fe44:b050/64 Scope:Link </span><br><span class="line">	UP BROADCAST RUNNING MULTICAST MTU:1450 Metric:1</span><br><span class="line">	RX packets:248 errors:0 dropped:0 overruns:0 frame:0 </span><br><span class="line">	TX packets:291 errors:0 dropped:0 overruns:0 carrier:0 </span><br><span class="line">	collisions:0 txqueuelen:0 </span><br><span class="line">	RX bytes:36349(36.3 KB) TX bytes:38066 (38.0 KB) </span><br><span class="line">	 </span><br><span class="line">eth0 Link encap:Ethernet HWaddr 28:6e:d4:89:35:ad </span><br><span class="line">	inet addr:100.120.45.93 Bcast:100.120.45.255 Mask:255.255.254.0</span><br><span class="line">	inet6 add fe80:2a6e:d4ff:fe89:35ad/64 Scope Link </span><br><span class="line">	UP BROADCAST RUNNING M ULTICAST MTU:1500 Metric:1 </span><br><span class="line">	RX packets:53074 errors:0 dropped:0 overruns:0 frame:0 </span><br><span class="line">	TX packets:9571 errors:0 dropped:0 overruns:0 carrier:0 </span><br><span class="line">	collisions:0 txqueuelen:1000 </span><br><span class="line">	RX bytes:7036582(7.0 MB) TX b es:3556172(3.5 MB) </span><br><span class="line"></span><br><span class="line">flannel.l Link encap:Ethernet HWaddr da:05B6:6a:01:ad </span><br><span class="line">	inet addr:172.100.4.48 Bcast:0.0.0.0 Mask:255.255.255.255 </span><br><span class="line">	inet6 addr:fe80:d805:36ff:fe6a:1ad/64 Scope:Link </span><br><span class="line">	UP BROADCAST RUNNING MULTICAST MTU:1450 Metric:1 </span><br><span class="line">	RX packets:33 errors:0 dropped:0 overruns:0 frame:0 </span><br><span class="line">	TX packets:33 errors:0 dropped:9 overruns:0 carrier:0 </span><br><span class="line">	collisions:0 txqueuelen:0</span><br><span class="line">	RX bytes:2604(2.6 KB) TX bytes:3594(3.5 KB)</span><br></pre></td></tr></table></figure>
+<p>可以看到有一个flannel.l的网桥，doker0网桥的网段在我们配置的网络内。</p>
+<p>安装多个节点后，可以看一下etcd中<code>/sandbox/network</code>中的信息:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">root@LFG1000826665:~# etcdctl --endpoints=http://100.120.76.244:2379,http://100.120.77.15:2379,http://100.120.109.1:2379 get /sandbox/network/config </span><br><span class="line">&#123; &quot;Network&quot;:&quot;172.100.0.0/16&quot;,&quot;SubnetLen&quot;:28,&quot;Backend&quot;: &#123;&quot;Type&quot;:&quot;vxlan&quot;&#125;&#125; </span><br><span class="line">root@LFG1000826665:~#</span><br><span class="line">root@LFG1000826665:~# etcdctl --endpoints=http://100.120.76.244:2379,http://100.120.77.15:2379,http://100.120.109.1:2379 ls /sandbox/network/subnets </span><br><span class="line">/sandbox/network/subnets/172.100.0.208-28 </span><br><span class="line">/sandbox/network/subnets/172.100.5.0-28 </span><br><span class="line">/sandbox/network/subnets/172.100.0.240-28 </span><br><span class="line">/sandbox/network/subnets/172.100.0.96-28 </span><br><span class="line">/sandbox/network/subnets/172.100.2.208-28 </span><br><span class="line">/sandbox/network/subnets/172.100.3.48-28 </span><br><span class="line">/sandbox/network/subnets/172.100.4.48-28 </span><br><span class="line">/sandbox/network/subnets/172.100.5.144-28 </span><br><span class="line">/sandbox/network/subnets/172.100.5.48-28 </span><br><span class="line"></span><br><span class="line">root@LFG1000826665:~# etcdctl --endpoints=http://100.120.76.244:2379,http://100.120.77.15:2379,http://100.120.109.1:2379 get /sandbox/network/subnets/172.100.4.48-28</span><br><span class="line">&#123;&quot;PublicIP&quot;:100.120.45.93&quot;,&quot;BackendTypen&quot;:&quot;vxlan&quot;,&quot;BackendData&quot;:&#123;&quot;VtepMAC&quot;:&quot;da:05:36:6a:01:ad&quot;&#125;&#125;</span><br></pre></td></tr></table></figure>
+<p>可以看到<code>/sandbox/network</code>路径下多了一个subnets路径，有很多子节点，这些节点正好对应flannel集群中的9个节点，<br>
+flannel会给每个节点分配一个网段，并记录在etcd中。</p>
+<p>可以看到，<code>172.100.4.48-28</code>网段分配给的节点是100.120.45.93，也就是我们上面ifconfig看到的那个节点。</p>
+<h3 id="容器互通"><a class="markdownIt-Anchor" href="#容器互通"></a> 容器互通</h3>
+<p>在k8s集群中部署几个容器（任意分布的不同或相同的节点），然后进入容器内查看ip，并在不同沙箱之间互相ping，可以发现，任意两个沙箱都能互相ping通.</p>
+<table>
+<thead>
+<tr>
+<th>客器名</th>
+<th>所在节点</th>
+<th>客器ip</th>
+<th>所在子网</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>bizflannel01</td>
+<td>100.120.93.1</td>
+<td>172.100.5.2</td>
+<td>172.100.5.0/28</td>
+</tr>
+<tr>
+<td>bizflannel02</td>
+<td>100.120.79.159</td>
+<td>172.100.2.210</td>
+<td>172.100.2.208/28</td>
+</tr>
+<tr>
+<td>bizflannel03</td>
+<td>100.120.45.93</td>
+<td>172.100.4.50</td>
+<td>172.100.4.48/28</td>
+</tr>
+<tr>
+<td>bizflannel04</td>
+<td>100.120.93.1</td>
+<td>172.100.5.3</td>
+<td>172.100.5.0/28</td>
+</tr>
+</tbody>
+</table>
+<p>我们在bizflanne104中ping其他容器，发现都可以Ping通：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">bizflannel4:/ # ping 172.100.5.2 </span><br><span class="line">PING 172.100.5.2 (172.100.5.2) 56(84) bytes of data. </span><br><span class="line">64 bytes from 172.100.5.2: icmp_seq=1 ttl=64 time=0.118 ms</span><br><span class="line">64 bytes from 172.100.5.2: icmp_seq=2 ttl=64 time=0.068 ms</span><br><span class="line">^C</span><br><span class="line">--- 172.100.5.2 ping statistics ---</span><br><span class="line">2 packets transmitted, 2 received, 0% packet loss, time 999ms</span><br><span class="line">rtt min/avg/max/mdev = 0.068/0.093/0.118/0.025 ms </span><br><span class="line">bizflannel4:/ #</span><br><span class="line">bizflannel4:/ # ping 172.100.4.50</span><br><span class="line">PING 172.100.5.2 (172.100.4.50) 56(84) bytes of data. </span><br><span class="line">64 bytes from 172.100.4.50: icmp_seq=1 ttl=64 time=2.19 ms</span><br><span class="line">64 bytes from 172.100.4.50: icmp_seq=2 ttl=64 time=0.463 ms</span><br><span class="line">^C</span><br><span class="line">--- 172.100.4.50 ping statistics ---</span><br><span class="line">2 packets transmitted, 2 received, 0% packet loss, time 999ms</span><br><span class="line">rtt min/avg/max/mdev = 0.463/1.330/2.198/0.868 ms </span><br><span class="line">bizflannel4:/ #</span><br><span class="line">bizflannel4:/ # ping 172.100.2.210 </span><br><span class="line">PING 172.100.5.2 (172.100.5.2) 56(84) bytes of data. </span><br><span class="line">64 bytes from 172.100.2.210: icmp_seq=1 ttl=64 time=1.54 ms</span><br><span class="line">64 bytes from 172.100.2.210: icmp_seq=2 ttl=64 time=0.520 ms</span><br><span class="line">64 bytes from 172.100.2.210: icmp_seq=3 ttl=64 time=0.396 ms</span><br><span class="line">^C</span><br><span class="line">--- 172.100.2.210 ping statistics ---</span><br><span class="line">3 packets transmitted, 3 received, 0% packet loss, time 999ms</span><br><span class="line">rtt min/avg/max/mdev = 0.396/0.820/1.544/0.514 ms </span><br><span class="line">bizflannel4:/ #</span><br></pre></td></tr></table></figure>
+<p>通过tcpdump命令抓包，可以看到包的内部含有小网ip，正如flannel网络示意图中展示的那样。</p>
+<p>从bizflanne104中<code>ping 172.100.4.50</code>的同时，在<code>100.120.45.93</code>上抓取从<code>100.120.93.144</code>来的包。</p>
+<p>抓包命令为<code>tcpdump -i eth0 src host 100.120.93.144</code>，结果如下</p>
+<p><img src="https://user-images.githubusercontent.com/11350907/30549280-f3a39ee6-9cc6-11e7-96bf-3872bba098c9.png" alt="image"></p>
+<h3 id="flannel原理"><a class="markdownIt-Anchor" href="#flannel原理"></a> flannel原理</h3>
+<p>flannel是一种“覆盖网络(overlay network)”，也就是将TCP数据包装后进行路由转发和通信，目前已经支持UDP、VxLAN、AWS VPC和GCE路由等数据转发方式。</p>
+<p>默认的节点间数据通信方式是UDP转发，flannel的GitHub主页有如下的一张原理图：</p>
+<p><img src="https://user-images.githubusercontent.com/11350907/30548777-a060a9a0-9cc5-11e7-8e28-f0b62d60aa96.png" alt="image"></p>
+<p>从图中我们可以看到，数据从源容器中发出后，经过主机的docker0网桥转发到flannel0虚拟网卡，这是个P2P的虚拟网卡，flanneld服务监听在网卡的另外一端。</p>
+<p>从上面的实例中，我们可以看到，etcd中记录了所有的分配给每个节点的子网段，以及此子网段对应的节点的信息，这个就类似一个路由表。</p>
+<p>源主机的flanneld服务将原本的数据内容UDP封装后根据etcd中的路由表投递给目的节点的flanneld服务，数据到达以后被解包，然后直接进入目的节点的flannel0虚拟网卡，然后被转发到目的主机的docker0虚拟网卡，最后就像本机容器通信一下的有docker0路由到达目标容器。</p>
+<h4 id="一条网络报文是怎么从一个容器发送到另外一个容器的"><a class="markdownIt-Anchor" href="#一条网络报文是怎么从一个容器发送到另外一个容器的"></a> 一条网络报文是怎么从一个容器发送到另外一个容器的</h4>
+<p>报文从一个容器发送到另一个容器（不同节点上的容器），也正如图中描述的那样，其流程如下：</p>
+<ul>
+<li>容器直接使用目标容器的ip访问，默认通过容器内部的eth0发送出去</li>
+<li>报文通过vethpair被发送到vethXXX</li>
+<li>vethXXX是直接连接到docker0网桥，报文通过docker0网桥发送出去</li>
+<li>查找路由表，外部容器ip的报文都会转发到flannel0虚拟网卡，这是一个P2P的虚拟网卡（关于这一点的工<br>
+理，我也不是很清楚），然后报文就被转发到监听在另一端的flanneld</li>
+<li>flanneld通过etcd维护了各个节点之间的路由表，把原来的报文UDP封装一层，通过节点的网卡发送出去</li>
+<li>报文通过主机之间的网络找到目标主机</li>
+<li>报文继续往上，到传输层，交给监听在8285端口的flanneld程序处理</li>
+<li>数据被解包，然后发送给flannel0虚拟网卡</li>
+<li>查找路由表，发现对应容器的报文要交给docker0</li>
+<li>docker0找到连到自己的容器，把报文发送过去</li>
+</ul>
+<h4 id="一条网络报文是怎么从一个容器发送到外部网络"><a class="markdownIt-Anchor" href="#一条网络报文是怎么从一个容器发送到外部网络"></a> 一条网络报文是怎么从一个容器发送到外部网络</h4>
+<p>容器不仅和其他容器互通，也和其他外部节点互通，和节点的通信，主要还是docker的能力，和flannel没有关系。</p>
+<p>其流程如下：</p>
+<ul>
+<li>容器直接使用目标容器的ip访问，默认通过容器内部的eth0发送出去</li>
+<li>报文通过veth pair被发送到vethXXX</li>
+<li>vethXXX是直接连接到docker0网桥的，报文通过bridge docker0发送出去</li>
+<li>查找路由表，外部网络ip的报文都会转发到eth0网卡</li>
+<li>eth0发送报文时会匹配如下iptables规则：<br>
+<code>-A POSTROUTING -s 172.100.9.16/28 ! -o docker0 -j MASQUERADE</code><br>
+这条规则的作用是将pod network地址转换为node ip发出去。包回来时再将地址转换为容器的network地址</li>
+<li>最终，这个请求会变成此node ip和外部网络的交互。</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/docker/" rel="tag"># docker</a>
+          
+            <a href="/tags/k8s/" rel="tag"># k8s</a>
+          
+            <a href="/tags/flannel/" rel="tag"># flannel</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/09/15/docker及kunbernetes网络-k8s-6/" rel="next" title="docker及kunbernetes网络-k8s-6">
+                <i class="fa fa-chevron-left"></i> docker及kunbernetes网络-k8s-6
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/09/21/iptables概念介绍及相关操作-k8s-8/" rel="prev" title="iptables介绍及其在k8s中的应用-k8s_8">
+                iptables介绍及其在k8s中的应用-k8s_8 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="hypercomments_widget"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="/images/wukong.png" alt="张阿楠">
+          <p class="site-author-name" itemprop="name">张阿楠</p>
+           
+              <p class="site-description motion-element" itemprop="description">Keep codeing and thinking!</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">59</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">29</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/vernlium" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.zhihu.com/people/ananzhang" target="_blank" title="ZhiHu">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                    
+                      ZhiHu
+                    
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#flannel简介"><span class="nav-number">1.</span> <span class="nav-text"> flannel简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#flannel安装流程"><span class="nav-number">2.</span> <span class="nav-text"> flannel安装流程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1下载flannel安装包"><span class="nav-number">2.1.</span> <span class="nav-text"> 1.下载flannel安装包</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#安装etcdctl"><span class="nav-number">2.1.1.</span> <span class="nav-text"> 安装etcdctl</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2配置文件"><span class="nav-number">2.2.</span> <span class="nav-text"> 2.配置文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3flannel配置信息写入etcd"><span class="nav-number">2.3.</span> <span class="nav-text"> 3.flannel配置信息写入etcd</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4flannel的启动"><span class="nav-number">2.4.</span> <span class="nav-text"> 4.flannel的启动</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5重-启-docker"><span class="nav-number">2.5.</span> <span class="nav-text"> 5.重 启 docker</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6安装结果"><span class="nav-number">2.6.</span> <span class="nav-text"> 6.安装结果</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#容器互通"><span class="nav-number">3.</span> <span class="nav-text"> 容器互通</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#flannel原理"><span class="nav-number">4.</span> <span class="nav-text"> flannel原理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#一条网络报文是怎么从一个容器发送到另外一个容器的"><span class="nav-number">4.1.</span> <span class="nav-text"> 一条网络报文是怎么从一个容器发送到另外一个容器的</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#一条网络报文是怎么从一个容器发送到外部网络"><span class="nav-number">4.2.</span> <span class="nav-text"> 一条网络报文是怎么从一个容器发送到外部网络</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">张阿楠</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+		<script type="text/javascript">
+		_hcwp = window._hcwp || [];
+
+		_hcwp.push({widget:"Bloggerstream", widget_id: 95829, selector:".hc-comment-count", label: "{\%COUNT%\}" });
+
+		
+		_hcwp.push({widget:"Stream", widget_id: 95829, xid: "2017/09/19/flannel介绍及安装-k8s-7/"});
+		
+
+		(function() {
+		if("HC_LOAD_INIT" in window)return;
+		HC_LOAD_INIT = true;
+		var lang = (navigator.language || navigator.systemLanguage || navigator.userLanguage || "en").substr(0, 2).toLowerCase();
+		var hcc = document.createElement("script"); hcc.type = "text/javascript"; hcc.async = true;
+		hcc.src = ("https:" == document.location.protocol ? "https" : "http")+"://w.hypercomments.com/widget/hc/95829/"+lang+"/widget.js";
+		var s = document.getElementsByTagName("script")[0];
+		s.parentNode.insertBefore(hcc, s.nextSibling);
+		})();
+		</script>
+
+	
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+  
+
+
+  
+
+  
+
+</body>
+</html>
