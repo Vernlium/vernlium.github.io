@@ -84,7 +84,7 @@
 <link href="https://cdn.bootcss.com/KaTeX/0.7.1/katex.min.css" rel="stylesheet">
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="hexo,">
 
 
 
@@ -100,17 +100,18 @@
 
 
 
-<meta name="description" content="Keep codeing and thinking!">
+<meta name="description" content="换了新电脑后，又要恢复一遍hexo博客，是件很麻烦的事情。好在我之前已经对之前对博客环境进行了备份，只需要恢复即可。没想到对是，由于新换对是macos系统，恢复起来也费了不少功夫。  博客备份 首先，需要对之前电脑对博客环境进行备份，参考如下博客： http://stevenshi.me/2017/05/07/hexo-backup/ 更换电脑后，对博客进行恢复。  博客恢复  1、git、nod">
+<meta name="keywords" content="hexo">
 <meta property="og:type" content="article">
 <meta property="og:title" content="新机器hexo博客恢复">
 <meta property="og:url" content="://vernlium.github.io/2019/07/01/新机器hexo博客恢复/index.html">
 <meta property="og:site_name" content="Vernlium">
-<meta property="og:description" content="Keep codeing and thinking!">
+<meta property="og:description" content="换了新电脑后，又要恢复一遍hexo博客，是件很麻烦的事情。好在我之前已经对之前对博客环境进行了备份，只需要恢复即可。没想到对是，由于新换对是macos系统，恢复起来也费了不少功夫。  博客备份 首先，需要对之前电脑对博客环境进行备份，参考如下博客： http://stevenshi.me/2017/05/07/hexo-backup/ 更换电脑后，对博客进行恢复。  博客恢复  1、git、nod">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-07-01T00:06:38.989Z">
+<meta property="og:updated_time" content="2019-07-02T00:03:05.020Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="新机器hexo博客恢复">
-<meta name="twitter:description" content="Keep codeing and thinking!">
+<meta name="twitter:description" content="换了新电脑后，又要恢复一遍hexo博客，是件很麻烦的事情。好在我之前已经对之前对博客环境进行了备份，只需要恢复即可。没想到对是，由于新换对是macos系统，恢复起来也费了不少功夫。  博客备份 首先，需要对之前电脑对博客环境进行备份，参考如下博客： http://stevenshi.me/2017/05/07/hexo-backup/ 更换电脑后，对博客进行恢复。  博客恢复  1、git、nod">
 
 
 
@@ -357,7 +358,43 @@
       
 
       
-        
+        <p>换了新电脑后，又要恢复一遍hexo博客，是件很麻烦的事情。好在我之前已经对之前对博客环境进行了备份，只需要恢复即可。没想到对是，由于新换对是macos系统，恢复起来也费了不少功夫。</p>
+<h3 id="博客备份"><a class="markdownIt-Anchor" href="#博客备份"></a> 博客备份</h3>
+<p>首先，需要对之前电脑对博客环境进行备份，参考如下博客：</p>
+<p><a href="http://stevenshi.me/2017/05/07/hexo-backup/" target="_blank" rel="noopener">http://stevenshi.me/2017/05/07/hexo-backup/</a></p>
+<p>更换电脑后，对博客进行恢复。</p>
+<h3 id="博客恢复"><a class="markdownIt-Anchor" href="#博客恢复"></a> 博客恢复</h3>
+<h4 id="1-git-nodejs等软件安装"><a class="markdownIt-Anchor" href="#1-git-nodejs等软件安装"></a> 1、git、nodejs等软件安装</h4>
+<p>参考：<a href="https://hexo.io/docs/#Requirements" target="_blank" rel="noopener">https://hexo.io/docs/#Requirements</a></p>
+<h4 id="2-hexo安装"><a class="markdownIt-Anchor" href="#2-hexo安装"></a> 2、hexo安装</h4>
+<p>首先在本地建立自己的博客文件夹，比如 <code>/Users/anan/01_blog/hexo</code>，命令行进入该文件夹内，开始安装 hexo：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$npm install hexo-cli -g //注: -g表示全局安装</span><br><span class="line">$npm install hexo-server -g //注： hexo3.0之后server模块是独立的,需要单独安装</span><br></pre></td></tr></table></figure>
+<p>完成之后可以通过命令查看hexo是否安装成功：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">　$hexo -v</span><br></pre></td></tr></table></figure>
+<h4 id="3-备份博客拉取"><a class="markdownIt-Anchor" href="#3-备份博客拉取"></a> 3、备份博客拉取</h4>
+<p>当环境建立好后，在自己的博客文件夹下<code>/Users/anan/01_blog/hexo</code>,执行命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">　$hexo init //初始化，自动下载搭建网站所需的所有文件</span><br><span class="line">　$npm install //安装依赖包，执行完之后，会多一个node_modules目录</span><br></pre></td></tr></table></figure>
+<p>然后删除如下文件，因为这些文件已经在github进行了备份。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$rm _config.yml db.json package.json </span><br><span class="line">$rm -rf scaffolds/ themes/ source/</span><br><span class="line">$rm .npmignore</span><br></pre></td></tr></table></figure>
+<p>之后添加远程仓库分支至本地：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$git init</span><br><span class="line">$git remote add origin https://github.com/yourusername/yourusername.github.io.git</span><br></pre></td></tr></table></figure>
+<p>查看远程仓库所有分支：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$git branch -r</span><br></pre></td></tr></table></figure>
+<p>这一步不知道为什么我的没有任何显示，直接执行如下命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$git pull origin hexo</span><br></pre></td></tr></table></figure>
+<h3 id="常见错误"><a class="markdownIt-Anchor" href="#常见错误"></a> 常见错误</h3>
+<h4 id="hexo-sh-highlight_aliasjson-permission-denied"><a class="markdownIt-Anchor" href="#hexo-sh-highlight_aliasjson-permission-denied"></a> hexo sh: highlight_alias.json: Permission denied</h4>
+<p>使用npm安装hexo:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g hexo-cli</span><br></pre></td></tr></table></figure>
+<p>可能会报下面这种错：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sh:highlight_alias.json:Permission denied</span><br></pre></td></tr></table></figure>
+<p>这是由于权限问题，在安装之前执行下面的命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm config set unsafe-perm true</span><br></pre></td></tr></table></figure>
+<h4 id="hexo-g报错error-enoent-no-such-file-or-directory-scandir-usersanan01_bloghexonode_modulesnode-sassvendor"><a class="markdownIt-Anchor" href="#hexo-g报错error-enoent-no-such-file-or-directory-scandir-usersanan01_bloghexonode_modulesnode-sassvendor"></a> hexo g报错：Error: ENOENT: no such file or directory, scandir ‘/Users/anan/01_blog/hexo/node_modules/node-sass/vendor’</h4>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">ERROR Plugin load failed: hexo-renderer-sass</span><br><span class="line">Error: ENOENT: no such file or directory, scandir &apos;/Users/anan/01_blog/hexo/node_modules/node-sass/vendor&apos;</span><br><span class="line">    at Object.readdirSync (fs.js:790:3)</span><br><span class="line">    at Object.getInstalledBinaries (/Users/anan/01_blog/hexo/node_modules/node-sass/lib/extensions.js:130:13)</span><br><span class="line">    at foundBinariesList (/Users/anan/01_blog/hexo/node_modules/node-sass/lib/errors.js:20:15)</span><br><span class="line">    at foundBinaries (/Users/anan/01_blog/hexo/node_modules/node-sass/lib/errors.js:15:5)</span><br><span class="line">    at Object.module.exports.missingBinary (/Users/anan/01_blog/hexo/node_modules/node-sass/lib/errors.js:45:5)</span><br><span class="line">    at module.exports (/Users/anan/01_blog/hexo/node_modules/node-sass/lib/binding.js:15:30)</span><br><span class="line">    at Object.&lt;anonymous&gt; (/Users/anan/01_blog/hexo/node_modules/node-sass/lib/index.js:14:35)</span><br><span class="line">    at Module._compile (internal/modules/cjs/loader.js:776:30)</span><br><span class="line">    at Object.Module._extensions..js (internal/modules/cjs/loader.js:787:10)</span><br><span class="line">    at Module.load (internal/modules/cjs/loader.js:653:32)</span><br><span class="line">    at tryModuleLoad (internal/modules/cjs/loader.js:593:12)</span><br><span class="line">    at Function.Module._load (internal/modules/cjs/loader.js:585:3)</span><br><span class="line">    at Module.require (internal/modules/cjs/loader.js:690:17)</span><br><span class="line">    at require (internal/modules/cjs/helpers.js:25:18)</span><br><span class="line">    at Object.&lt;anonymous&gt; (/Users/anan/01_blog/hexo/node_modules/hexo-renderer-sass/lib/renderer.js:4:12)</span><br><span class="line">    at Module._compile (internal/modules/cjs/loader.js:776:30)</span><br><span class="line">    at Object.Module._extensions..js (internal/modules/cjs/loader.js:787:10)</span><br><span class="line">    at Module.load (internal/modules/cjs/loader.js:653:32)</span><br><span class="line">    at tryModuleLoad (internal/modules/cjs/loader.js:593:12)</span><br><span class="line">    at Function.Module._load (internal/modules/cjs/loader.js:585:3)</span><br><span class="line">    at Module.require (internal/modules/cjs/loader.js:690:17)</span><br><span class="line">    at require (/Users/anan/01_blog/hexo/node_modules/hexo/lib/hexo/index.js:219:21)</span><br><span class="line">    at /Users/anan/01_blog/hexo/node_modules/hexo-renderer-sass/index.js:4:20</span><br><span class="line">    at fs.readFile.then.script (/Users/anan/01_blog/hexo/node_modules/hexo/lib/hexo/index.js:232:12)</span><br><span class="line">    at tryCatcher (/Users/anan/01_blog/hexo/node_modules/hexo/node_modules/bluebird/js/release/util.js:16:23)</span><br><span class="line">    at Promise._settlePromiseFromHandler (/Users/anan/01_blog/hexo/node_modules/hexo/node_modules/bluebird/js/release/promise.js:517:31)</span><br><span class="line">    at Promise._settlePromise (/Users/anan/01_blog/hexo/node_modules/hexo/node_modules/bluebird/js/release/promise.js:574:18)</span><br><span class="line">    at Promise._settlePromise0 (/Users/anan/01_blog/hexo/node_modules/hexo/node_modules/bluebird/js/release/promise.js:619:10)</span><br></pre></td></tr></table></figure>
+<p>解决办法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo npm rebuild node-sass</span><br></pre></td></tr></table></figure>
+
       
     </div>
     
@@ -371,6 +408,12 @@
     
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/hexo/" rel="tag"># hexo</a>
+          
+        </div>
       
 
       
@@ -390,6 +433,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/08/17/tvm-hybrid/" rel="prev" title="tvm_hybrid">
+                tvm_hybrid <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -443,8 +490,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image" src="/images/wukong.png" alt="张阿楠">
           <p class="site-author-name" itemprop="name">张阿楠</p>
@@ -457,7 +513,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">59</span>
+                <span class="site-state-item-count">61</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -479,7 +535,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">29</span>
+                <span class="site-state-item-count">32</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -528,6 +584,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#博客备份"><span class="nav-number">1.</span> <span class="nav-text"> 博客备份</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#博客恢复"><span class="nav-number">2.</span> <span class="nav-text"> 博客恢复</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-git-nodejs等软件安装"><span class="nav-number">2.1.</span> <span class="nav-text"> 1、git、nodejs等软件安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-hexo安装"><span class="nav-number">2.2.</span> <span class="nav-text"> 2、hexo安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-备份博客拉取"><span class="nav-number">2.3.</span> <span class="nav-text"> 3、备份博客拉取</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常见错误"><span class="nav-number">3.</span> <span class="nav-text"> 常见错误</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#hexo-sh-highlight_aliasjson-permission-denied"><span class="nav-number">3.1.</span> <span class="nav-text"> hexo sh: highlight_alias.json: Permission denied</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#hexo-g报错error-enoent-no-such-file-or-directory-scandir-usersanan01_bloghexonode_modulesnode-sassvendor"><span class="nav-number">3.2.</span> <span class="nav-text"> hexo g报错：Error: ENOENT: no such file or directory, scandir ‘/Users/anan/01_blog/hexo/node_modules/node-sass/vendor’</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
