@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next pisces" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Consolas:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
+
+<link href="https://cdn.bootcss.com/KaTeX/0.7.1/katex.min.css" rel="stylesheet">
+
+
+  <meta name="keywords" content="pytorch,Resnet,deep_learning,">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2">
+
+
+
+
+
+
+<meta name="description" content="pytorch Resnet网络学习  执行resnet Pytorch中实现了常用的经典网络，并提供了预训练好的模型，我们可以直接加载模型并直接执行推理。代码如下： 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162">
+<meta name="keywords" content="pytorch,Resnet,deep_learning">
+<meta property="og:type" content="article">
+<meta property="og:title" content="pytorch_Resnet学习">
+<meta property="og:url" content="://vernlium.github.io/2020/10/08/pytorch-Resnet学习/index.html">
+<meta property="og:site_name" content="Vernlium">
+<meta property="og:description" content="pytorch Resnet网络学习  执行resnet Pytorch中实现了常用的经典网络，并提供了预训练好的模型，我们可以直接加载模型并直接执行推理。代码如下： 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://user-images.githubusercontent.com/11350907/95469511-5207be80-09b2-11eb-8b3f-9274888173ef.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/11350907/95469570-62b83480-09b2-11eb-887a-001a2efdbca2.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/11350907/95470222-1cafa080-09b3-11eb-88b8-bb9742300aaa.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/11350907/95472276-67cab300-09b5-11eb-889b-6f8393ca111e.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/11350907/95470746-bd05c500-09b3-11eb-8235-8a158be4e238.png">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/15074510-faee46ef496b76bf.jpg">
+<meta property="og:updated_time" content="2020-10-08T14:43:46.490Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="pytorch_Resnet学习">
+<meta name="twitter:description" content="pytorch Resnet网络学习  执行resnet Pytorch中实现了常用的经典网络，并提供了预训练好的模型，我们可以直接加载模型并直接执行推理。代码如下： 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162">
+<meta name="twitter:image" content="https://user-images.githubusercontent.com/11350907/95469511-5207be80-09b2-11eb-8b3f-9274888173ef.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: false,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="://vernlium.github.io/2020/10/08/pytorch-Resnet学习/">
+
+
+
+
+
+  <title>pytorch_Resnet学习 | Vernlium</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Vernlium</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Keep codeing and thinking!</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="://vernlium.github.io/2020/10/08/pytorch-Resnet学习/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="张阿楠">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/wukong.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Vernlium">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">pytorch_Resnet学习</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-10-08T22:15:30+08:00">
+                2020-10-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+            <!--noindex-->
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2020/10/08/pytorch-Resnet学习/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count hc-comment-count" data-xid="2020/10/08/pytorch-Resnet学习/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+              <!--/noindex-->
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="pytorch-resnet网络学习"><a class="markdownIt-Anchor" href="#pytorch-resnet网络学习"></a> pytorch Resnet网络学习</h1>
+<h3 id="执行resnet"><a class="markdownIt-Anchor" href="#执行resnet"></a> 执行resnet</h3>
+<p>Pytorch中实现了常用的经典网络，并提供了预训练好的模型，我们可以直接加载模型并直接执行推理。代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torchvision.models <span class="keyword">as</span> models</span><br><span class="line">resnet18 = models.resnet18(pretrained=<span class="keyword">True</span>)</span><br><span class="line">resnet34 = models.resnet34(pretrained=<span class="keyword">True</span>)</span><br><span class="line">resnet50 = models.resnet50(pretrained=<span class="keyword">True</span>)</span><br><span class="line">resnet101 = models.resnet101(pretrained=<span class="keyword">True</span>)</span><br><span class="line">resnet152 = models.resnet152(pretrained=<span class="keyword">True</span>)</span><br><span class="line"><span class="comment"># pretrained=True 设置从训练好的模型中加载参数，否则是未训练的模型</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># resnet101.eval()</span></span><br><span class="line"><span class="comment"># resnet152.eval()</span></span><br><span class="line"><span class="comment"># resnet18.eval()</span></span><br><span class="line">resnet50.eval() <span class="comment"># 设置为推理模式</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> PIL <span class="keyword">import</span> Image</span><br><span class="line"><span class="keyword">from</span> torchvision <span class="keyword">import</span> transforms</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">from</span> torch.autograd <span class="keyword">import</span> Variable</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line">os.path.join(<span class="string">"./"</span>)</span><br><span class="line"><span class="keyword">from</span> imagenet_1000_labels <span class="keyword">import</span> imagenet_labels</span><br><span class="line"></span><br><span class="line">transform = transforms.Compose([</span><br><span class="line">    transforms.Resize(<span class="number">256</span>),</span><br><span class="line">    transforms.CenterCrop(<span class="number">224</span>),</span><br><span class="line">    transforms.ToTensor()]</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">img_infer</span><span class="params">(img_path)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    image inference</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="comment"># open image and show</span></span><br><span class="line">    img = Image.open(img_path)</span><br><span class="line">    plt.imshow(img) <span class="comment"># 显示图片</span></span><br><span class="line">    plt.axis(<span class="string">'off'</span>) <span class="comment"># 不显示坐标轴</span></span><br><span class="line">    plt.show()</span><br><span class="line"></span><br><span class="line">	  <span class="comment"># image preprocess, resize to (224, 224)</span></span><br><span class="line">    img = transform(img)</span><br><span class="line"></span><br><span class="line">    x = Variable(torch.unsqueeze(img, dim=<span class="number">0</span>).float(), requires_grad=<span class="keyword">False</span>)</span><br><span class="line"></span><br><span class="line">	  <span class="comment"># do inference</span></span><br><span class="line">    y = resnet50(x).cpu()</span><br><span class="line">    y = torch.squeeze(y)</span><br><span class="line"></span><br><span class="line">	  <span class="comment"># get top5 vale</span></span><br><span class="line">    softmax = torch.nn.Softmax(dim=<span class="number">0</span>)</span><br><span class="line">    top5_value, top5_index = torch.topk(softmax(y), <span class="number">5</span>, <span class="number">0</span>, <span class="keyword">True</span>, <span class="keyword">True</span>)</span><br><span class="line"></span><br><span class="line">    print(<span class="string">"top 5 value:"</span>)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">5</span>):</span><br><span class="line">        value = top5_value[i].item()</span><br><span class="line">        index = top5_index[i].item()</span><br><span class="line"></span><br><span class="line">        label = imagenet_labels[index]</span><br><span class="line">        print(<span class="string">"["</span> + label + <span class="string">"]'s value is "</span> + str(value))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">img_path = <span class="string">"./cat1.jpeg"</span></span><br><span class="line">img_infer(img_path)</span><br><span class="line">img_path = <span class="string">"./goldfish.jpeg"</span></span><br><span class="line">img_infer(img_path)</span><br><span class="line"></span><br><span class="line">img_path = <span class="string">"./hotdog.jpeg"</span></span><br><span class="line">img_infer(img_path)</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>注： 代码中用到的几个文件如下：</p>
+<ul>
+<li>imagenet_1000_labels ： 结果对应的标签</li>
+<li>3幅测试图片:
+<ul>
+<li><a href="https://user-images.githubusercontent.com/11350907/95468438-18828380-09b1-11eb-874e-f52c400fddfe.jpeg" target="_blank" rel="noopener">cat1</a></li>
+<li><a href="https://user-images.githubusercontent.com/11350907/95468458-1d473780-09b1-11eb-8376-044bd3de5078.jpeg" target="_blank" rel="noopener">goldfish</a></li>
+<li><a href="https://user-images.githubusercontent.com/11350907/95468473-21735500-09b1-11eb-81e5-4f91e09fbc44.jpeg" target="_blank" rel="noopener">hotdog</a></li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<p>效果如下图所示：</p>
+<img width="640" alt="截屏2020-10-08下午10 02 19" src="https://user-images.githubusercontent.com/11350907/95469511-5207be80-09b2-11eb-8b3f-9274888173ef.png">
+<img width="635" alt="截屏2020-10-08下午10 03 11" src="https://user-images.githubusercontent.com/11350907/95469570-62b83480-09b2-11eb-887a-001a2efdbca2.png">
+<h3 id="resnet网络分析"><a class="markdownIt-Anchor" href="#resnet网络分析"></a> Resnet网络分析</h3>
+<p>Resnet网络的<a href="https://arxiv.org/pdf/1512.03385v1.pdf" target="_blank" rel="noopener">论文</a>中定义的网络的结构如下图：</p>
+<img width="1149" alt="resnet_arch" src="https://user-images.githubusercontent.com/11350907/95470222-1cafa080-09b3-11eb-88b8-bb9742300aaa.png">
+<p>Resnet的创新之处就在于，首次提出了残差结构（跨层连接，即H(x)=F(x)+x），解决了网络过深而导致的梯度消失的问题，可以使网络更深。</p>
+<img width="386" alt="Residual_learning" src="https://user-images.githubusercontent.com/11350907/95472276-67cab300-09b5-11eb-889b-6f8393ca111e.png">
+<p>通过残差结构，使得网络可以更深。注意下图中第2列和第3列的差异，就是在于引入了残差结构。</p>
+<p><img src="https://user-images.githubusercontent.com/11350907/95470746-bd05c500-09b3-11eb-8235-8a158be4e238.png" alt="resnet_paper_figure3"></p>
+<blockquote>
+<p>注：图中的虚线表示要先做一个下采样再进行连接。</p>
+</blockquote>
+<p>Resnet18和Resnet50的结构如下图所示：</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/15074510-faee46ef496b76bf.jpg" alt="resnet18/resnet50"></p>
+<h3 id="resnet代码分析"><a class="markdownIt-Anchor" href="#resnet代码分析"></a> Resnet代码分析</h3>
+<p>pytorch中实现resnet的代码入口为：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">resnet34</span><span class="params">(pretrained=False, progress=True, **kwargs)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> _resnet(<span class="string">'resnet34'</span>, BasicBlock, [<span class="number">3</span>, <span class="number">4</span>, <span class="number">6</span>, <span class="number">3</span>], pretrained, progress,</span><br><span class="line">                   **kwargs)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">resnet50</span><span class="params">(pretrained=False, progress=True, **kwargs)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> _resnet(<span class="string">'resnet50'</span>, Bottleneck, [<span class="number">3</span>, <span class="number">4</span>, <span class="number">6</span>, <span class="number">3</span>], pretrained, progress,</span><br><span class="line">                   **kwargs)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">_resnet</span><span class="params">(arch, block, layers, pretrained, progress, **kwargs)</span>:</span></span><br><span class="line">    model = ResNet(block, layers, **kwargs)</span><br><span class="line">    <span class="keyword">if</span> pretrained:</span><br><span class="line">        state_dict = load_state_dict_from_url(model_urls[arch],</span><br><span class="line">                                              progress=progress)</span><br><span class="line">        model.load_state_dict(state_dict)</span><br><span class="line">    <span class="keyword">return</span> model</span><br></pre></td></tr></table></figure>
+<p>可以看到：resnet34和resnet50的差异在于block参数的不同。我们从论文的网络结构中也可以看到，resnet18/34使用的结构为两个3*3的卷积，而resnet50及以上用的是1/*1/3/*3/1/*1 3个卷积。</p>
+<p>Resnet类的定义为：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ResNet</span><span class="params">(nn.Module)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, block, layers, num_classes=<span class="number">1000</span>, zero_init_residual=False,</span></span></span><br><span class="line"><span class="function"><span class="params">                 groups=<span class="number">1</span>, width_per_group=<span class="number">64</span>, replace_stride_with_dilation=None,</span></span></span><br><span class="line"><span class="function"><span class="params">                 norm_layer=None)</span>:</span></span><br><span class="line">        super(ResNet, self).__init__()</span><br><span class="line">        <span class="keyword">if</span> norm_layer <span class="keyword">is</span> <span class="keyword">None</span>:</span><br><span class="line">            norm_layer = nn.BatchNorm2d</span><br><span class="line">        self._norm_layer = norm_layer</span><br><span class="line"></span><br><span class="line">        self.inplanes = <span class="number">64</span></span><br><span class="line">        self.dilation = <span class="number">1</span></span><br><span class="line">        <span class="keyword">if</span> replace_stride_with_dilation <span class="keyword">is</span> <span class="keyword">None</span>:</span><br><span class="line">            <span class="comment"># each element in the tuple indicates if we should replace</span></span><br><span class="line">            <span class="comment"># the 2x2 stride with a dilated convolution instead</span></span><br><span class="line">            replace_stride_with_dilation = [<span class="keyword">False</span>, <span class="keyword">False</span>, <span class="keyword">False</span>]</span><br><span class="line">        <span class="keyword">if</span> len(replace_stride_with_dilation) != <span class="number">3</span>:</span><br><span class="line">            <span class="keyword">raise</span> ValueError(<span class="string">"replace_stride_with_dilation should be None "</span></span><br><span class="line">                             <span class="string">"or a 3-element tuple, got &#123;&#125;"</span>.format(replace_stride_with_dilation))</span><br><span class="line">        self.groups = groups</span><br><span class="line">        self.base_width = width_per_group</span><br><span class="line">        self.conv1 = nn.Conv2d(<span class="number">3</span>, self.inplanes, kernel_size=<span class="number">7</span>, stride=<span class="number">2</span>, padding=<span class="number">3</span>,</span><br><span class="line">                               bias=<span class="keyword">False</span>)</span><br><span class="line">        self.bn1 = norm_layer(self.inplanes)</span><br><span class="line">        self.relu = nn.ReLU(inplace=<span class="keyword">True</span>)</span><br><span class="line">        self.maxpool = nn.MaxPool2d(kernel_size=<span class="number">3</span>, stride=<span class="number">2</span>, padding=<span class="number">1</span>)</span><br><span class="line">        self.layer1 = self._make_layer(block, <span class="number">64</span>, layers[<span class="number">0</span>])</span><br><span class="line">        self.layer2 = self._make_layer(block, <span class="number">128</span>, layers[<span class="number">1</span>], stride=<span class="number">2</span>,</span><br><span class="line">                                       dilate=replace_stride_with_dilation[<span class="number">0</span>])</span><br><span class="line">        self.layer3 = self._make_layer(block, <span class="number">256</span>, layers[<span class="number">2</span>], stride=<span class="number">2</span>,</span><br><span class="line">                                       dilate=replace_stride_with_dilation[<span class="number">1</span>])</span><br><span class="line">        self.layer4 = self._make_layer(block, <span class="number">512</span>, layers[<span class="number">3</span>], stride=<span class="number">2</span>,</span><br><span class="line">                                       dilate=replace_stride_with_dilation[<span class="number">2</span>])</span><br><span class="line">        self.avgpool = nn.AdaptiveAvgPool2d((<span class="number">1</span>, <span class="number">1</span>))</span><br><span class="line">        self.fc = nn.Linear(<span class="number">512</span> * block.expansion, num_classes)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> m <span class="keyword">in</span> self.modules():</span><br><span class="line">            <span class="keyword">if</span> isinstance(m, nn.Conv2d):</span><br><span class="line">                nn.init.kaiming_normal_(m.weight, mode=<span class="string">'fan_out'</span>, nonlinearity=<span class="string">'relu'</span>)</span><br><span class="line">            <span class="keyword">elif</span> isinstance(m, (nn.BatchNorm2d, nn.GroupNorm)):</span><br><span class="line">                nn.init.constant_(m.weight, <span class="number">1</span>)</span><br><span class="line">                nn.init.constant_(m.bias, <span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># Zero-initialize the last BN in each residual branch,</span></span><br><span class="line">        <span class="comment"># so that the residual branch starts with zeros, and each residual block behaves like an identity.</span></span><br><span class="line">        <span class="comment"># This improves the model by 0.2~0.3% according to https://arxiv.org/abs/1706.02677</span></span><br><span class="line">        <span class="keyword">if</span> zero_init_residual:</span><br><span class="line">            <span class="keyword">for</span> m <span class="keyword">in</span> self.modules():</span><br><span class="line">                <span class="keyword">if</span> isinstance(m, Bottleneck):</span><br><span class="line">                    nn.init.constant_(m.bn3.weight, <span class="number">0</span>)</span><br><span class="line">                <span class="keyword">elif</span> isinstance(m, BasicBlock):</span><br><span class="line">                    nn.init.constant_(m.bn2.weight, <span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">_make_layer</span><span class="params">(self, block, planes, blocks, stride=<span class="number">1</span>, dilate=False)</span>:</span></span><br><span class="line">        norm_layer = self._norm_layer</span><br><span class="line">        downsample = <span class="keyword">None</span></span><br><span class="line">        previous_dilation = self.dilation</span><br><span class="line">        <span class="keyword">if</span> dilate:</span><br><span class="line">            self.dilation *= stride</span><br><span class="line">            stride = <span class="number">1</span></span><br><span class="line">        <span class="keyword">if</span> stride != <span class="number">1</span> <span class="keyword">or</span> self.inplanes != planes * block.expansion:</span><br><span class="line">            downsample = nn.Sequential(</span><br><span class="line">                conv1x1(self.inplanes, planes * block.expansion, stride),</span><br><span class="line">                norm_layer(planes * block.expansion),</span><br><span class="line">            )</span><br><span class="line"></span><br><span class="line">        layers = []</span><br><span class="line">        layers.append(block(self.inplanes, planes, stride, downsample, self.groups,</span><br><span class="line">                            self.base_width, previous_dilation, norm_layer))</span><br><span class="line">        self.inplanes = planes * block.expansion</span><br><span class="line">        <span class="keyword">for</span> _ <span class="keyword">in</span> range(<span class="number">1</span>, blocks):</span><br><span class="line">            layers.append(block(self.inplanes, planes, groups=self.groups,</span><br><span class="line">                                base_width=self.base_width, dilation=self.dilation,</span><br><span class="line">                                norm_layer=norm_layer))</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> nn.Sequential(*layers)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">_forward_impl</span><span class="params">(self, x)</span>:</span></span><br><span class="line">        <span class="comment"># See note [TorchScript super()]</span></span><br><span class="line">        x = self.conv1(x)</span><br><span class="line">        x = self.bn1(x)</span><br><span class="line">        x = self.relu(x)</span><br><span class="line">        x = self.maxpool(x)</span><br><span class="line"></span><br><span class="line">        x = self.layer1(x)</span><br><span class="line">        x = self.layer2(x)</span><br><span class="line">        x = self.layer3(x)</span><br><span class="line">        x = self.layer4(x)</span><br><span class="line"></span><br><span class="line">        x = self.avgpool(x)</span><br><span class="line">        x = torch.flatten(x, <span class="number">1</span>)</span><br><span class="line">        x = self.fc(x)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> x</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span><span class="params">(self, x)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self._forward_impl(x)</span><br></pre></td></tr></table></figure>
+<p>注意<code>_make_layer</code>函数，resnet18/34的layer1是没有<code>downsample</code>的，而resnet50及以上的layer1有<code>downsample</code>。</p>
+<p><code>BasicBlock</code>的定义为：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BasicBlock</span><span class="params">(nn.Module)</span>:</span></span><br><span class="line">    expansion = <span class="number">1</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, inplanes, planes, stride=<span class="number">1</span>, downsample=None, groups=<span class="number">1</span>,</span></span></span><br><span class="line"><span class="function"><span class="params">                 base_width=<span class="number">64</span>, dilation=<span class="number">1</span>, norm_layer=None)</span>:</span></span><br><span class="line">        super(BasicBlock, self).__init__()</span><br><span class="line">        <span class="keyword">if</span> norm_layer <span class="keyword">is</span> <span class="keyword">None</span>:</span><br><span class="line">            norm_layer = nn.BatchNorm2d</span><br><span class="line">        <span class="keyword">if</span> groups != <span class="number">1</span> <span class="keyword">or</span> base_width != <span class="number">64</span>:</span><br><span class="line">            <span class="keyword">raise</span> ValueError(<span class="string">'BasicBlock only supports groups=1 and base_width=64'</span>)</span><br><span class="line">        <span class="keyword">if</span> dilation &gt; <span class="number">1</span>:</span><br><span class="line">            <span class="keyword">raise</span> NotImplementedError(<span class="string">"Dilation &gt; 1 not supported in BasicBlock"</span>)</span><br><span class="line">        <span class="comment"># Both self.conv1 and self.downsample layers downsample the input when stride != 1</span></span><br><span class="line">        self.conv1 = conv3x3(inplanes, planes, stride)</span><br><span class="line">        self.bn1 = norm_layer(planes)</span><br><span class="line">        self.relu = nn.ReLU(inplace=<span class="keyword">True</span>)</span><br><span class="line">        self.conv2 = conv3x3(planes, planes)</span><br><span class="line">        self.bn2 = norm_layer(planes)</span><br><span class="line">        self.downsample = downsample</span><br><span class="line">        self.stride = stride</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span><span class="params">(self, x)</span>:</span></span><br><span class="line">        identity = x</span><br><span class="line"></span><br><span class="line">        out = self.conv1(x)</span><br><span class="line">        out = self.bn1(out)</span><br><span class="line">        out = self.relu(out)</span><br><span class="line"></span><br><span class="line">        out = self.conv2(out)</span><br><span class="line">        out = self.bn2(out)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> self.downsample <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span>:</span><br><span class="line">            identity = self.downsample(x)</span><br><span class="line"></span><br><span class="line">        out += identity</span><br><span class="line">        out = self.relu(out)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> out</span><br></pre></td></tr></table></figure>
+<p>残差结构就是通过 <code>out += identity</code> 来实现的。</p>
+<p><code>Bottleneck</code>的定义如下，和论文中用的卷积是一致的。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Bottleneck</span><span class="params">(nn.Module)</span>:</span></span><br><span class="line">    expansion = <span class="number">4</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, inplanes, planes, stride=<span class="number">1</span>, downsample=None, groups=<span class="number">1</span>,</span></span></span><br><span class="line"><span class="function"><span class="params">                 base_width=<span class="number">64</span>, dilation=<span class="number">1</span>, norm_layer=None)</span>:</span></span><br><span class="line">        super(Bottleneck, self).__init__()</span><br><span class="line">        <span class="keyword">if</span> norm_layer <span class="keyword">is</span> <span class="keyword">None</span>:</span><br><span class="line">            norm_layer = nn.BatchNorm2d</span><br><span class="line">        width = int(planes * (base_width / <span class="number">64.</span>)) * groups</span><br><span class="line">        <span class="comment"># Both self.conv2 and self.downsample layers downsample the input when stride != 1</span></span><br><span class="line">        self.conv1 = conv1x1(inplanes, width)</span><br><span class="line">        self.bn1 = norm_layer(width)</span><br><span class="line">        self.conv2 = conv3x3(width, width, stride, groups, dilation)</span><br><span class="line">        self.bn2 = norm_layer(width)</span><br><span class="line">        self.conv3 = conv1x1(width, planes * self.expansion)</span><br><span class="line">        self.bn3 = norm_layer(planes * self.expansion)</span><br><span class="line">        self.relu = nn.ReLU(inplace=<span class="keyword">True</span>)</span><br><span class="line">        self.downsample = downsample</span><br><span class="line">        self.stride = stride</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span><span class="params">(self, x)</span>:</span></span><br><span class="line">        identity = x</span><br><span class="line"></span><br><span class="line">        out = self.conv1(x)</span><br><span class="line">        out = self.bn1(out)</span><br><span class="line">        out = self.relu(out)</span><br><span class="line"></span><br><span class="line">        out = self.conv2(out)</span><br><span class="line">        out = self.bn2(out)</span><br><span class="line">        out = self.relu(out)</span><br><span class="line"></span><br><span class="line">        out = self.conv3(out)</span><br><span class="line">        out = self.bn3(out)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> self.downsample <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span>:</span><br><span class="line">            identity = self.downsample(x)</span><br><span class="line"></span><br><span class="line">        out += identity</span><br><span class="line">        out = self.relu(out)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> out</span><br></pre></td></tr></table></figure>
+<p>这个代码结合上面的图看起来还是很清晰的。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/pytorch/" rel="tag"># pytorch</a>
+          
+            <a href="/tags/Resnet/" rel="tag"># Resnet</a>
+          
+            <a href="/tags/deep-learning/" rel="tag"># deep_learning</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/07/08/leetcode-动态规划题目总结/" rel="next" title="leetcode_动态规划题目总结">
+                <i class="fa fa-chevron-left"></i> leetcode_动态规划题目总结
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="hypercomments_widget"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="/images/wukong.png" alt="张阿楠">
+          <p class="site-author-name" itemprop="name">张阿楠</p>
+           
+              <p class="site-description motion-element" itemprop="description">Keep codeing and thinking!</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">65</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">39</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/vernlium" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.zhihu.com/people/ananzhang" target="_blank" title="ZhiHu">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                    
+                      ZhiHu
+                    
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#pytorch-resnet网络学习"><span class="nav-number">1.</span> <span class="nav-text"> pytorch Resnet网络学习</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#执行resnet"><span class="nav-number">1.0.1.</span> <span class="nav-text"> 执行resnet</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#resnet网络分析"><span class="nav-number">1.0.2.</span> <span class="nav-text"> Resnet网络分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#resnet代码分析"><span class="nav-number">1.0.3.</span> <span class="nav-text"> Resnet代码分析</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">张阿楠</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+		<script type="text/javascript">
+		_hcwp = window._hcwp || [];
+
+		_hcwp.push({widget:"Bloggerstream", widget_id: 95829, selector:".hc-comment-count", label: "{\%COUNT%\}" });
+
+		
+		_hcwp.push({widget:"Stream", widget_id: 95829, xid: "2020/10/08/pytorch-Resnet学习/"});
+		
+
+		(function() {
+		if("HC_LOAD_INIT" in window)return;
+		HC_LOAD_INIT = true;
+		var lang = (navigator.language || navigator.systemLanguage || navigator.userLanguage || "en").substr(0, 2).toLowerCase();
+		var hcc = document.createElement("script"); hcc.type = "text/javascript"; hcc.async = true;
+		hcc.src = ("https:" == document.location.protocol ? "https" : "http")+"://w.hypercomments.com/widget/hc/95829/"+lang+"/widget.js";
+		var s = document.getElementsByTagName("script")[0];
+		s.parentNode.insertBefore(hcc, s.nextSibling);
+		})();
+		</script>
+
+	
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+  
+
+
+  
+
+  
+
+</body>
+</html>
