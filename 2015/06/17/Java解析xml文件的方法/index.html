@@ -1,154 +1,54 @@
 <!DOCTYPE html>
-
-
-
-
-<html class="theme-next pisces" lang="zh-Hans">
-<head><meta name="generator" content="Hexo 3.9.0">
-  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-wukong.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-wukong.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
 
+<link rel="stylesheet" href="/css/main.css">
 
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Consolas:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
 
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"vernlium.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":{"gitalk":{"order":-2}},"activeClass":"gitalk"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
 
-
-
-
-
-
-<meta http-equiv="Cache-Control" content="no-transform">
-<meta http-equiv="Cache-Control" content="no-siteapp">
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
-
-
-
-
-  
-  
-  
-  
-
-  
-    
-    
-  
-
-  
-
-  
-
-  
-
-  
-    
-      
-    
-
-    
-  
-
-  
-    
-    
-    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Consolas:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
-  
-
-
-
-
-
-
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
-
-<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
-
-<link href="https://cdn.bootcss.com/KaTeX/0.7.1/katex.min.css" rel="stylesheet">
-
-
-  <meta name="keywords" content="xml,">
-
-
-
-
-
-
-
-
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2">
-
-
-
-
-
-
-<meta name="description" content="什么是 XML?  XML指可扩展标记语言（EXtensible Markup Language） XML 是一种标记语言，很类似 HTML XML 的设计宗旨是传输数据，而非显示数据 XML 标签没有被预定义。您需要自行定义标签。 XML 被设计为具有自我描述性。 XML 是 W3C 的推荐标准 XML 与 HTML 的主要差异 XML 不是 HTML 的替代。  ###XML 和 HTML">
-<meta name="keywords" content="xml">
+  <meta name="description" content="本文介绍xml. 什么是 XML?">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java解析xml文件的方法">
-<meta property="og:url" content="://vernlium.github.io/2015/06/17/Java解析xml文件的方法/index.html">
+<meta property="og:url" content="https://vernlium.github.io/2015/06/17/Java%E8%A7%A3%E6%9E%90xml%E6%96%87%E4%BB%B6%E7%9A%84%E6%96%B9%E6%B3%95/index.html">
 <meta property="og:site_name" content="Vernlium">
-<meta property="og:description" content="什么是 XML?  XML指可扩展标记语言（EXtensible Markup Language） XML 是一种标记语言，很类似 HTML XML 的设计宗旨是传输数据，而非显示数据 XML 标签没有被预定义。您需要自行定义标签。 XML 被设计为具有自我描述性。 XML 是 W3C 的推荐标准 XML 与 HTML 的主要差异 XML 不是 HTML 的替代。  ###XML 和 HTML">
-<meta property="og:locale" content="zh-Hans">
+<meta property="og:description" content="本文介绍xml. 什么是 XML?">
+<meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://7xngpc.com1.z0.glb.clouddn.com/vernct_nodetree1.gif">
-<meta property="og:updated_time" content="2019-06-30T22:35:51.808Z">
+<meta property="article:published_time" content="2015-06-17T07:20:02.000Z">
+<meta property="article:modified_time" content="2020-10-17T13:11:23.033Z">
+<meta property="article:author" content="张阿楠">
+<meta property="article:tag" content="xml">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Java解析xml文件的方法">
-<meta name="twitter:description" content="什么是 XML?  XML指可扩展标记语言（EXtensible Markup Language） XML 是一种标记语言，很类似 HTML XML 的设计宗旨是传输数据，而非显示数据 XML 标签没有被预定义。您需要自行定义标签。 XML 被设计为具有自我描述性。 XML 是 W3C 的推荐标准 XML 与 HTML 的主要差异 XML 不是 HTML 的替代。  ###XML 和 HTML">
 <meta name="twitter:image" content="http://7xngpc.com1.z0.glb.clouddn.com/vernct_nodetree1.gif">
 
+<link rel="canonical" href="https://vernlium.github.io/2015/06/17/Java%E8%A7%A3%E6%9E%90xml%E6%96%87%E4%BB%B6%E7%9A%84%E6%96%B9%E6%B3%95/">
 
 
-<script type="text/javascript" id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Pisces',
-    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
-    fancybox: true,
-    tabs: true,
-    motion: false,
-    duoshuo: {
-      userId: '0',
-      author: '博主'
-    },
-    algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    }
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
   };
 </script>
 
-
-
-  <link rel="canonical" href="://vernlium.github.io/2015/06/17/Java解析xml文件的方法/">
-
-
-
-
-
-  <title>Java解析xml文件的方法 | Vernlium</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  <title>Java解析xml文件的方法 | Vernlium</title>
   
 
 
@@ -156,222 +56,207 @@
 
 
 
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
 
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
 
-
-
-
-
-
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
 
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
-
-  
-  
-    
-  
-
-  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail ">
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
-    
-
-    <div class="custom-logo-site-title">
-      <a href="/" class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">Vernlium</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
     </div>
-      
-        <p class="site-subtitle">Keep codeing and thinking!</p>
-      
   </div>
 
-  <div class="site-nav-toggle">
-    <button>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Vernlium</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Keep codeing and thinking!</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
   </div>
 </div>
 
+
+
+
 <nav class="site-nav">
-  
-
-  
-    <ul id="menu" class="menu">
-      
-        
+  <ul id="menu" class="menu">
         <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
-            
-            首页
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
-            
-            归档
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-tags">
-          <a href="/tags/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
-            
-            标签
-          </a>
-        </li>
-      
-        
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
         <li class="menu-item menu-item-about">
-          <a href="/about/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
-            
-            关于
-          </a>
-        </li>
-      
 
-      
-    </ul>
-  
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
 
-  
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-commonweal">
+
+    <a href="/404/" rel="section"><i class="fa fa-fw fa-heartbeat"></i>公益 404</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
 </nav>
 
 
 
- </div>
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
     </header>
 
-    <main id="main" class="main">
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+
+    <main class="main">
       <div class="main-inner">
         <div class="content-wrap">
-          <div id="content" class="content">
+          
+
+          <div class="content post posts-expand">
             
 
-  <div id="posts" class="posts-expand">
     
-
-  
-
   
   
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="://vernlium.github.io/2015/06/17/Java解析xml文件的方法/">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://vernlium.github.io/2015/06/17/Java%E8%A7%A3%E6%9E%90xml%E6%96%87%E4%BB%B6%E7%9A%84%E6%96%B9%E6%B3%95/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="张阿楠">
-      <meta itemprop="description" content>
       <meta itemprop="image" content="/images/wukong.png">
+      <meta itemprop="name" content="张阿楠">
+      <meta itemprop="description" content="Keep codeing and thinking!">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="Vernlium">
     </span>
-
-    
       <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">Java解析xml文件的方法</h1>
-        
+        <h1 class="post-title" itemprop="name headline">
+          Java解析xml文件的方法
+        </h1>
 
         <div class="post-meta">
-          <span class="post-time">
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
               </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-06-17T15:20:02+08:00">
-                2015-06-17
-              </time>
-            
+              <span class="post-meta-item-text">发表于</span>
 
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
+              <time title="创建时间：2015-06-17 15:20:02" itemprop="dateCreated datePublished" datetime="2015-06-17T15:20:02+08:00">2015-06-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-10-17 21:11:23" itemprop="dateModified" datetime="2020-10-17T21:11:23+08:00">2020-10-17</time>
+              </span>
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
               </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
+              <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java/" itemprop="url" rel="index">
-                    <span itemprop="name">java</span>
-                  </a>
+                  <a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
                 </span>
-
-                
-                
-              
             </span>
-          
 
           
-            
-            <!--noindex-->
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2015/06/17/Java解析xml文件的方法/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count hc-comment-count" data-xid="2015/06/17/Java解析xml文件的方法/" itemprop="commentsCount"></span>
-                </a>
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
               </span>
-              <!--/noindex-->
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
 
         </div>
       </header>
-    
 
     
     
@@ -379,10 +264,8 @@
     <div class="post-body" itemprop="articleBody">
 
       
-      
-
-      
-        <h2 id="什么是-xml"><a class="markdownIt-Anchor" href="#什么是-xml"></a> 什么是 XML?</h2>
+        <p>本文介绍xml.</p>
+<h2 id="什么是-xml">什么是 XML?</h2>
 <ul>
 <li>XML指可扩展标记语言（EXtensible Markup Language）</li>
 <li>XML 是一种标记语言，很类似 HTML</li>
@@ -399,303 +282,252 @@
 <li>HTML 被设计用来显示数据，其焦点是数据的外观。</li>
 <li>HTML 旨在显示信息，而 XML 旨在传输信息。</li>
 </ul>
-<p>XML是一种通用的数据交换格式，它与平台、语言、系统无关，给数据集成与交互带来了极大的方便。对XML本身的语法与技术细节，可以参阅<a href="http://www.w3c.org" target="_blank" rel="noopener">w3c官方网站</a>上相关的技术文献，包括：DOM(Document Object Model)、DTD(Document Type Definition)、SAX(Simple API for XML)、XSD(Xml Schema Definition)、XSLT(Extensible Stylesheet Language Transformation)。</p>
-<h3 id="xml-文档形成一种树结构"><a class="markdownIt-Anchor" href="#xml-文档形成一种树结构"></a> XML 文档形成一种树结构</h3>
+<p>XML是一种通用的数据交换格式，它与平台、语言、系统无关，给数据集成与交互带来了极大的方便。对XML本身的语法与技术细节，可以参阅<a target="_blank" rel="noopener" href="http://www.w3c.org">w3c官方网站</a>上相关的技术文献，包括：DOM(Document Object Model)、DTD(Document Type Definition)、SAX(Simple API for XML)、XSD(Xml Schema Definition)、XSLT(Extensible Stylesheet Language Transformation)。</p>
+<h3 id="xml-文档形成一种树结构">XML 文档形成一种树结构</h3>
 <p>XML文档必须包含根元素。该元素是所有其他元素的父元素。</p>
 <p>XML文档中的元素形成了一棵文档树。这棵树从根部开始，并扩展到树的最底端。</p>
 <p>所有元素均可拥有子元素：</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">root</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">child</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">subchild</span>&gt;</span>.....<span class="tag">&lt;/<span class="name">subchild</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">child</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">root</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p>父、子以及同胞等术语用于描述元素之间的关系。父元素拥有子元素。相同层级上的子元素成为同胞（兄弟或姐妹）。</p>
-<p>所有元素均可拥有文本内容和属性（类似 HTML 中）。<br>
-实例</p>
-<p><img src="http://7xngpc.com1.z0.glb.clouddn.com/vernct_nodetree1.gif" alt="domtree"></p>
+<p>所有元素均可拥有文本内容和属性（类似 HTML 中）。 实例</p>
+<figure>
+<img src="http://7xngpc.com1.z0.glb.clouddn.com/vernct_nodetree1.gif" alt="domtree" /><figcaption>domtree</figcaption>
+</figure>
 <p>上图表示下面的 XML 中的一本书：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bookstore</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">book</span> <span class="attr">category</span>=<span class="string">"COOKING"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">title</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span>Everyday Italian<span class="tag">&lt;/<span class="name">title</span>&gt;</span> </span><br><span class="line">        <span class="tag">&lt;<span class="name">author</span>&gt;</span>Giada De Laurentiis<span class="tag">&lt;/<span class="name">author</span>&gt;</span> </span><br><span class="line">        <span class="tag">&lt;<span class="name">year</span>&gt;</span>2005<span class="tag">&lt;/<span class="name">year</span>&gt;</span> </span><br><span class="line">        <span class="tag">&lt;<span class="name">price</span>&gt;</span>30.00<span class="tag">&lt;/<span class="name">price</span>&gt;</span> </span><br><span class="line">    <span class="tag">&lt;/<span class="name">book</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">book</span> <span class="attr">category</span>=<span class="string">"CHILDREN"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">title</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span>Harry Potter<span class="tag">&lt;/<span class="name">title</span>&gt;</span> </span><br><span class="line">        <span class="tag">&lt;<span class="name">author</span>&gt;</span>J K. Rowling<span class="tag">&lt;/<span class="name">author</span>&gt;</span> </span><br><span class="line">        <span class="tag">&lt;<span class="name">year</span>&gt;</span>2005<span class="tag">&lt;/<span class="name">year</span>&gt;</span> </span><br><span class="line">        <span class="tag">&lt;<span class="name">price</span>&gt;</span>29.99<span class="tag">&lt;/<span class="name">price</span>&gt;</span> </span><br><span class="line">    <span class="tag">&lt;/<span class="name">book</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">book</span> <span class="attr">category</span>=<span class="string">"WEB"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">title</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span>Learning XML<span class="tag">&lt;/<span class="name">title</span>&gt;</span> </span><br><span class="line">        <span class="tag">&lt;<span class="name">author</span>&gt;</span>Erik T. Ray<span class="tag">&lt;/<span class="name">author</span>&gt;</span> </span><br><span class="line">        <span class="tag">&lt;<span class="name">year</span>&gt;</span>2003<span class="tag">&lt;/<span class="name">year</span>&gt;</span> </span><br><span class="line">        <span class="tag">&lt;<span class="name">price</span>&gt;</span>39.95<span class="tag">&lt;/<span class="name">price</span>&gt;</span> </span><br><span class="line">    <span class="tag">&lt;/<span class="name">book</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bookstore</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bookstore</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">book</span> <span class="attr">category</span>=<span class="string">&quot;COOKING&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">title</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span>Everyday Italian<span class="tag">&lt;/<span class="name">title</span>&gt;</span> </span><br><span class="line">        <span class="tag">&lt;<span class="name">author</span>&gt;</span>Giada De Laurentiis<span class="tag">&lt;/<span class="name">author</span>&gt;</span> </span><br><span class="line">        <span class="tag">&lt;<span class="name">year</span>&gt;</span>2005<span class="tag">&lt;/<span class="name">year</span>&gt;</span> </span><br><span class="line">        <span class="tag">&lt;<span class="name">price</span>&gt;</span>30.00<span class="tag">&lt;/<span class="name">price</span>&gt;</span> </span><br><span class="line">    <span class="tag">&lt;/<span class="name">book</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">book</span> <span class="attr">category</span>=<span class="string">&quot;CHILDREN&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">title</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span>Harry Potter<span class="tag">&lt;/<span class="name">title</span>&gt;</span> </span><br><span class="line">        <span class="tag">&lt;<span class="name">author</span>&gt;</span>J K. Rowling<span class="tag">&lt;/<span class="name">author</span>&gt;</span> </span><br><span class="line">        <span class="tag">&lt;<span class="name">year</span>&gt;</span>2005<span class="tag">&lt;/<span class="name">year</span>&gt;</span> </span><br><span class="line">        <span class="tag">&lt;<span class="name">price</span>&gt;</span>29.99<span class="tag">&lt;/<span class="name">price</span>&gt;</span> </span><br><span class="line">    <span class="tag">&lt;/<span class="name">book</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">book</span> <span class="attr">category</span>=<span class="string">&quot;WEB&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">title</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span>Learning XML<span class="tag">&lt;/<span class="name">title</span>&gt;</span> </span><br><span class="line">        <span class="tag">&lt;<span class="name">author</span>&gt;</span>Erik T. Ray<span class="tag">&lt;/<span class="name">author</span>&gt;</span> </span><br><span class="line">        <span class="tag">&lt;<span class="name">year</span>&gt;</span>2003<span class="tag">&lt;/<span class="name">year</span>&gt;</span> </span><br><span class="line">        <span class="tag">&lt;<span class="name">price</span>&gt;</span>39.95<span class="tag">&lt;/<span class="name">price</span>&gt;</span> </span><br><span class="line">    <span class="tag">&lt;/<span class="name">book</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bookstore</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p>例子中的根元素是<code>&lt;bookstore&gt;</code> 。文档中的所有 <code>&lt;book&gt;</code> 元素都被包含在 <code>&lt;bookstore&gt;</code> 中。</p>
 <p><code>&lt;book&gt;</code>元素有 4 个子元素：<code>&lt;title&gt;</code>、<code>&lt;author&gt;</code>、<code>&lt;year&gt;</code>、<code>&lt;price&gt;</code>。</p>
-<p>XML在不同语言里解析方式都是一样的，只不过实现的语法不同。基本的解析方式有两种，一种是DOM，另一种是SAX。DOM是基于XML文档树结构的解析，SAX是基于事件流的解析。<br>
-本文介绍Java解析xml文档的几种方法。</p>
-<p>##DOM解析xml文档<br>
-为xml文档的已解析版本定义了一组接口。解析器读入整个文档，然后构建一个驻留内存的DOM树结构，然后可以使用DOM接口来操作这个树结构。<br>
-<em>优点</em>：整个文档树在内存中，便于操作；支持删除、修改、重新排列等多种功能。<br>
-<em>缺点</em>：将整个文档调入内存（包括无用的节点），如果文档过大，则占用过多空间且浪费时间。<br>
-<em>适用场合</em>：一旦解析了文档还需多次访问这些数据，硬件资源充足（内存、CPU）。</p>
+<p>XML在不同语言里解析方式都是一样的，只不过实现的语法不同。基本的解析方式有两种，一种是DOM，另一种是SAX。DOM是基于XML文档树结构的解析，SAX是基于事件流的解析。 本文介绍Java解析xml文档的几种方法。</p>
+<p>##DOM解析xml文档 为xml文档的已解析版本定义了一组接口。解析器读入整个文档，然后构建一个驻留内存的DOM树结构，然后可以使用DOM接口来操作这个树结构。 <em>优点</em>：整个文档树在内存中，便于操作；支持删除、修改、重新排列等多种功能。 <em>缺点</em>：将整个文档调入内存（包括无用的节点），如果文档过大，则占用过多空间且浪费时间。 <em>适用场合</em>：一旦解析了文档还需多次访问这些数据，硬件资源充足（内存、CPU）。</p>
 <p>解析代码如下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DomTest</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">parseXmlPath</span><span class="params">(String xmlPath)</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">        parseXmlFile(<span class="keyword">new</span> File(xmlPath));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">parseXmlFile</span><span class="params">(File file)</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">        <span class="comment">//获取DocumentBuilder工厂</span></span><br><span class="line">        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();</span><br><span class="line">        <span class="comment">//从DocumentBuilder工厂中获取DocumentBuilder对象</span></span><br><span class="line">        DocumentBuilder db = dbf.newDocumentBuilder();</span><br><span class="line">        <span class="comment">//从DocumentBuilder对象中获取Document对象</span></span><br><span class="line">        Document doc = db.parse(file);</span><br><span class="line">        <span class="comment">//从Document对象中获取根元素对象</span></span><br><span class="line">        <span class="comment">//Element 接口表示 HTML 或 XML 文档中的一个元素。</span></span><br><span class="line">        <span class="comment">//元素可能有与它们相关的属性；由于 Element 接口继承自 Node，</span></span><br><span class="line">        <span class="comment">//所以可以使用一般 Node 接口属性 attributes 来获得元素所有属性的集合。</span></span><br><span class="line">        <span class="comment">//Element 接口上有通过名称获得 Attr 对象或通过名称获得属性值的方法。</span></span><br><span class="line">        <span class="comment">//在 XML 中（其中的属性值可能包含实体引用），应该获得 Attr 对象来检查表示属性值的可能相当杂的子树。</span></span><br><span class="line">        Element root = doc.getDocumentElement();</span><br><span class="line">        parseElement(root);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">parseElement</span><span class="params">(Element element)</span></span>&#123;</span><br><span class="line">        String tagName = element.getNodeName();</span><br><span class="line">        <span class="comment">//获取当前元素的子节点</span></span><br><span class="line">        NodeList childern = element.getChildNodes();</span><br><span class="line">        System.out.println(<span class="string">"&lt;"</span> + tagName +<span class="string">"&gt;"</span>);</span><br><span class="line">        <span class="comment">//实现 NamedNodeMap 接口的对象用于表示可以通过名称访问的节点的集合。</span></span><br><span class="line">        NamedNodeMap map = element.getAttributes();</span><br><span class="line">        <span class="keyword">if</span>(map != <span class="keyword">null</span>)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i&lt;map.getLength();i++)&#123;</span><br><span class="line">                Attr attr = (Attr) map.item(i);</span><br><span class="line">                String attrName = attr.getName();</span><br><span class="line">                String attrValue = attr.getValue();</span><br><span class="line">                System.out.println(<span class="string">"  "</span> + attrName +<span class="string">"=\""</span>+attrValue+<span class="string">"\""</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;childern.getLength();i++)&#123;</span><br><span class="line">            Node node = childern.item(i);</span><br><span class="line">            <span class="keyword">short</span> nodeType = node.getNodeType();</span><br><span class="line">            <span class="keyword">if</span>(nodeType == Node.ELEMENT_NODE)&#123;</span><br><span class="line">                parseElement((Element)node);</span><br><span class="line">           &#125;<span class="keyword">else</span> <span class="keyword">if</span>(nodeType == Node.TEXT_NODE)&#123;</span><br><span class="line">                System.out.println(node.getNodeName()+<span class="string">":"</span>+node.getNodeValue());</span><br><span class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span>(nodeType == Node.COMMENT_NODE)&#123;</span><br><span class="line">                System.out.print(<span class="string">"&lt;!--"</span>);</span><br><span class="line">                Comment comment = (Comment)node;</span><br><span class="line">                String data = comment.getText();</span><br><span class="line">                System.out.print(data);</span><br><span class="line">                System.out.print(<span class="string">"--&gt;"</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(<span class="string">"&lt;/"</span>+tagName + <span class="string">"&gt;"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>##SAX解析XML文档<br>
-为解决DOM的问题，出现了SAX。SAX，事件驱动。当解析器发现元素开始、元素结束、文本、文档的开始或结束等时，发送事件，编写响应这些事件的代码，保存数据。<br>
-<em>优点</em>：不用事先调入整个文档，占用资源少；SAX解析器代码比DOM解析器代码小。<br>
-<em>缺点</em>：不是持久的；事件过后，若没有保存数据，那么数据丢失；无状态；从事件中只能得到文本，但不知道给文本属于哪个元素。<br>
-<em>适用场合</em>：Applet；只需要XML文档的少量内容，很少回头访问；机器内存小。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DomTest</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">parseXmlPath</span><span class="params">(String xmlPath)</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">        parseXmlFile(<span class="keyword">new</span> File(xmlPath));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">parseXmlFile</span><span class="params">(File file)</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">        <span class="comment">//获取DocumentBuilder工厂</span></span><br><span class="line">        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();</span><br><span class="line">        <span class="comment">//从DocumentBuilder工厂中获取DocumentBuilder对象</span></span><br><span class="line">        DocumentBuilder db = dbf.newDocumentBuilder();</span><br><span class="line">        <span class="comment">//从DocumentBuilder对象中获取Document对象</span></span><br><span class="line">        Document doc = db.parse(file);</span><br><span class="line">        <span class="comment">//从Document对象中获取根元素对象</span></span><br><span class="line">        <span class="comment">//Element 接口表示 HTML 或 XML 文档中的一个元素。</span></span><br><span class="line">        <span class="comment">//元素可能有与它们相关的属性；由于 Element 接口继承自 Node，</span></span><br><span class="line">        <span class="comment">//所以可以使用一般 Node 接口属性 attributes 来获得元素所有属性的集合。</span></span><br><span class="line">        <span class="comment">//Element 接口上有通过名称获得 Attr 对象或通过名称获得属性值的方法。</span></span><br><span class="line">        <span class="comment">//在 XML 中（其中的属性值可能包含实体引用），应该获得 Attr 对象来检查表示属性值的可能相当杂的子树。</span></span><br><span class="line">        Element root = doc.getDocumentElement();</span><br><span class="line">        parseElement(root);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">parseElement</span><span class="params">(Element element)</span></span>&#123;</span><br><span class="line">        String tagName = element.getNodeName();</span><br><span class="line">        <span class="comment">//获取当前元素的子节点</span></span><br><span class="line">        NodeList childern = element.getChildNodes();</span><br><span class="line">        System.out.println(<span class="string">&quot;&lt;&quot;</span> + tagName +<span class="string">&quot;&gt;&quot;</span>);</span><br><span class="line">        <span class="comment">//实现 NamedNodeMap 接口的对象用于表示可以通过名称访问的节点的集合。</span></span><br><span class="line">        NamedNodeMap map = element.getAttributes();</span><br><span class="line">        <span class="keyword">if</span>(map != <span class="keyword">null</span>)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i&lt;map.getLength();i++)&#123;</span><br><span class="line">                Attr attr = (Attr) map.item(i);</span><br><span class="line">                String attrName = attr.getName();</span><br><span class="line">                String attrValue = attr.getValue();</span><br><span class="line">                System.out.println(<span class="string">&quot;  &quot;</span> + attrName +<span class="string">&quot;=\&quot;&quot;</span>+attrValue+<span class="string">&quot;\&quot;&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;childern.getLength();i++)&#123;</span><br><span class="line">            Node node = childern.item(i);</span><br><span class="line">            <span class="keyword">short</span> nodeType = node.getNodeType();</span><br><span class="line">            <span class="keyword">if</span>(nodeType == Node.ELEMENT_NODE)&#123;</span><br><span class="line">                parseElement((Element)node);</span><br><span class="line">           &#125;<span class="keyword">else</span> <span class="keyword">if</span>(nodeType == Node.TEXT_NODE)&#123;</span><br><span class="line">                System.out.println(node.getNodeName()+<span class="string">&quot;:&quot;</span>+node.getNodeValue());</span><br><span class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span>(nodeType == Node.COMMENT_NODE)&#123;</span><br><span class="line">                System.out.print(<span class="string">&quot;&lt;!--&quot;</span>);</span><br><span class="line">                Comment comment = (Comment)node;</span><br><span class="line">                String data = comment.getText();</span><br><span class="line">                System.out.print(data);</span><br><span class="line">                System.out.print(<span class="string">&quot;--&gt;&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(<span class="string">&quot;&lt;/&quot;</span>+tagName + <span class="string">&quot;&gt;&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>##SAX解析XML文档 为解决DOM的问题，出现了SAX。SAX，事件驱动。当解析器发现元素开始、元素结束、文本、文档的开始或结束等时，发送事件，编写响应这些事件的代码，保存数据。 <em>优点</em>：不用事先调入整个文档，占用资源少；SAX解析器代码比DOM解析器代码小。 <em>缺点</em>：不是持久的；事件过后，若没有保存数据，那么数据丢失；无状态；从事件中只能得到文本，但不知道给文本属于哪个元素。 <em>适用场合</em>：Applet；只需要XML文档的少量内容，很少回头访问；机器内存小。</p>
 <p>代码如下：</p>
-<p>##DOM4J解析xml文档<br>
-DOM4J是一个非常优秀的Java Xml API，具有性能优异、功能强大和易于使用的特点，同时它也是一个开放源代码的软件。现在很多Java项目中都使用DOM4J读写xml文件，很多Spring项目也是。</p>
+<p>##DOM4J解析xml文档 DOM4J是一个非常优秀的Java Xml API，具有性能优异、功能强大和易于使用的特点，同时它也是一个开放源代码的软件。现在很多Java项目中都使用DOM4J读写xml文件，很多Spring项目也是。</p>
 
-      
     </div>
+
     
     
     
 
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/xml/" rel="tag"># xml</a>
-          
-        </div>
-      
-
-      
-      
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2015/06/15/Pattern类的使用/" rel="next" title="Pattern类的使用">
-                <i class="fa fa-chevron-left"></i> Pattern类的使用
-              </a>
-            
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/xml/" rel="tag"># xml</a>
           </div>
 
-          <span class="post-nav-divider"></span>
+        
 
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2015/06/25/FBReader源码分析/" rel="prev" title="FBReader源码分析">
-                FBReader源码分析 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
 
-      
-      
-    </footer>
-  </div>
-  
-  
-  
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2015/06/15/Pattern%E7%B1%BB%E7%9A%84%E4%BD%BF%E7%94%A8/" rel="prev" title="Pattern类的使用">
+      <i class="fa fa-chevron-left"></i> Pattern类的使用
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2015/06/25/FBReader%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/" rel="next" title="FBReader源码分析">
+      FBReader源码分析 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
   </article>
+  
+  
+  
 
-
-
-    <div class="post-spread">
-      
-    </div>
-  </div>
 
 
           </div>
           
+    <div class="comments" id="gitalk-container"></div>
 
-
-          
-  <div class="comments" id="comments">
-    
-      <div id="hypercomments_widget"></div>
-    
-  </div>
-
-
-        </div>
-        
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
-  </div>
-
-  <aside id="sidebar" class="sidebar">
-    
-    <div class="sidebar-inner">
-
-      
-
-      
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            站点概览
-          </li>
-        </ul>
-      
-
-      <section class="site-overview sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" itemprop="image" src="/images/wukong.png" alt="张阿楠">
-          <p class="site-author-name" itemprop="name">张阿楠</p>
-           
-              <p class="site-description motion-element" itemprop="description">Keep codeing and thinking!</p>
-          
-        </div>
-        <nav class="site-state motion-element">
-
-          
-            <div class="site-state-item site-state-posts">
-              <a href="/archives/">
-                <span class="site-state-item-count">65</span>
-                <span class="site-state-item-name">日志</span>
-              </a>
-            </div>
-          
-
-          
-            
-            
-            <div class="site-state-item site-state-categories">
-              <a href="/categories/index.html">
-                <span class="site-state-item-count">5</span>
-                <span class="site-state-item-name">分类</span>
-              </a>
-            </div>
-          
-
-          
-            
-            
-            <div class="site-state-item site-state-tags">
-              <a href="/tags/index.html">
-                <span class="site-state-item-count">39</span>
-                <span class="site-state-item-name">标签</span>
-              </a>
-            </div>
-          
-
-        </nav>
-
-        
-
-        <div class="links-of-author motion-element">
-          
-            
-              <span class="links-of-author-item">
-                <a href="https://github.com/vernlium" target="_blank" title="GitHub">
-                  
-                    <i class="fa fa-fw fa-github"></i>
-                  
-                    
-                      GitHub
-                    
-                </a>
-              </span>
-            
-              <span class="links-of-author-item">
-                <a href="http://www.zhihu.com/people/ananzhang" target="_blank" title="ZhiHu">
-                  
-                    <i class="fa fa-fw fa-globe"></i>
-                  
-                    
-                      ZhiHu
-                    
-                </a>
-              </span>
-            
-          
-        </div>
-
-        
-        
-
-        
-        
-
-        
-
-
-      </section>
-
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是-xml"><span class="nav-number">1.</span> <span class="nav-text"> 什么是 XML?</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#xml-文档形成一种树结构"><span class="nav-number">1.1.</span> <span class="nav-text"> XML 文档形成一种树结构</span></a></li></ol></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
-      
-
-      
-
-    </div>
-  </aside>
-
-
-        
-      </div>
-    </main>
-
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright">
-  
-  &copy;  2015 - 
-  <span itemprop="copyrightYear">2020</span>
-  <span class="with-love">
-    <i class="fa fa-heart"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">张阿楠</span>
-</div>
-
-
-<div class="powered-by">
-  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
-</div>
-
-<div class="theme-info">
-  主题 -
-  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
-    NexT.Pisces
-  </a>
-</div>
-
-
-        
-
-        
-      </div>
-    </footer>
-
-    
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-      </div>
-    
-
-  </div>
-
-  
-
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
   }
 </script>
 
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF-xml"><span class="nav-number">1.</span> <span class="nav-text">什么是 XML?</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#xml-%E6%96%87%E6%A1%A3%E5%BD%A2%E6%88%90%E4%B8%80%E7%A7%8D%E6%A0%91%E7%BB%93%E6%9E%84"><span class="nav-number">1.1.</span> <span class="nav-text">XML 文档形成一种树结构</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="张阿楠"
+      src="/images/wukong.png">
+  <p class="site-author-name" itemprop="name">张阿楠</p>
+  <div class="site-description" itemprop="description">Keep codeing and thinking!</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">64</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">41</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Vernlium" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Vernlium" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:zhanganan0425@163.com" title="E-Mail → mailto:zhanganan0425@163.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2015 – 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">张阿楠</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+<script src="/js/bookmark.js"></script>
+
+
+  <script defer src="/lib/three/three.min.js"></script>
+    <script defer src="/lib/three/canvas_sphere.min.js"></script>
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
 
 
 
@@ -706,170 +538,29 @@ DOM4J是一个非常优秀的Java Xml API，具有性能优异、功能强大和
 
   
 
-
-  
-
-
-
-
-
-
-
-
-
-
-
-  
-  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-
-  
-  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-
-  
-  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-
-  
-  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-
-  
-  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-
-  
-  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-
-  
-  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
-
-
-
-  
-  
-
-
-  <script type="text/javascript" src="/js/src/affix.js?v=5.1.2"></script>
-
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.2"></script>
-
-
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
-
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
-
-
-
-  
-
-
-  
-
-
-
-
-	
-
-		<script type="text/javascript">
-		_hcwp = window._hcwp || [];
-
-		_hcwp.push({widget:"Bloggerstream", widget_id: 95829, selector:".hc-comment-count", label: "{\%COUNT%\}" });
-
-		
-		_hcwp.push({widget:"Stream", widget_id: 95829, xid: "2015/06/17/Java解析xml文件的方法/"});
-		
-
-		(function() {
-		if("HC_LOAD_INIT" in window)return;
-		HC_LOAD_INIT = true;
-		var lang = (navigator.language || navigator.systemLanguage || navigator.userLanguage || "en").substr(0, 2).toLowerCase();
-		var hcc = document.createElement("script"); hcc.type = "text/javascript"; hcc.async = true;
-		hcc.src = ("https:" == document.location.protocol ? "https" : "http")+"://w.hypercomments.com/widget/hc/95829/"+lang+"/widget.js";
-		var s = document.getElementsByTagName("script")[0];
-		s.parentNode.insertBefore(hcc, s.nextSibling);
-		})();
-		</script>
-
-	
-
-
-
-
-
-
-
-
-
-
-  
-
-
-
-
-
   
 
   
 
-  
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
 
-  
-  
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Config({
-        tex2jax: {
-          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
-          processEscapes: true,
-          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-        }
-      });
-    </script>
-
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax(), i;
-        for (i=0; i < all.length; i += 1) {
-          all[i].SourceElement().parentNode.className += ' has-jax';
-        }
-      });
-    </script>
-    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : '94b49fdac7c9894db657',
+      clientSecret: 'aae2bc06bd829867f3212474d4698cfec26386d6',
+      repo        : 'vernlium.github.io',
+      owner       : 'Vernlium',
+      admin       : ['Vernlium'],
+      id          : '9c1ea60de4cc51819da431573053dad4',
+        language: 'zh-CN',
+      distractionFreeMode: false
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
 </script>
-
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Queue(function() {
-    var all = MathJax.Hub.getAllJax(), i;
-    for(i=0; i < all.length; i += 1) {
-      all[i].SourceElement().parentNode.className += ' has-jax';
-    }
-  });
-</script>
-
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
-</script>
-<!-- End: Injected MathJax -->
-<!-- hexo-inject:end -->
-  
-
-
-  
-
-  
 
 </body>
 </html>

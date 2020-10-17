@@ -1,155 +1,57 @@
 <!DOCTYPE html>
-
-
-
-
-<html class="theme-next pisces" lang="zh-Hans">
-<head><meta name="generator" content="Hexo 3.9.0">
-  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-wukong.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-wukong.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
 
+<link rel="stylesheet" href="/css/main.css">
 
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Consolas:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
 
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"vernlium.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":{"gitalk":{"order":-2}},"activeClass":"gitalk"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
 
-
-
-
-
-
-<meta http-equiv="Cache-Control" content="no-transform">
-<meta http-equiv="Cache-Control" content="no-siteapp">
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
-
-
-
-
-  
-  
-  
-  
-
-  
-    
-    
-  
-
-  
-
-  
-
-  
-
-  
-    
-      
-    
-
-    
-  
-
-  
-    
-    
-    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Consolas:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
-  
-
-
-
-
-
-
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
-
-<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
-
-<link href="https://cdn.bootcss.com/KaTeX/0.7.1/katex.min.css" rel="stylesheet">
-
-
-  <meta name="keywords" content="docker,k8s,iptables,">
-
-
-
-
-
-
-
-
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2">
-
-
-
-
-
-
-<meta name="description" content="前面讲了k8s的安装，我们下面来了解一些k8s的网络。 说到k8s的网络，不得不说docker，k8s说白了还是一个调度工具，其用到的容器技术还是docker。docker的网络对于k8s来说也很重要，我们先来了解一些docker的网络，再来看k8s是如何使用docker网络的，以及k8s针对网络所做的工作。  docker网络原理 docker的网络结构如下图所示  其中：  最下面的一层：各种">
-<meta name="keywords" content="docker,k8s,iptables">
+  <meta name="description" content="前面讲了k8s的安装，我们下面来了解一些k8s的网络。 说到k8s的网络，不得不说docker，k8s说白了还是一个调度工具，其用到的容器技术还是docker。docker的网络对于k8s来说也很重要，我们先来了解一些docker的网络，再来看k8s是如何使用docker网络的，以及k8s针对网络所做的工作。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="docker及kunbernetes网络-k8s-6">
-<meta property="og:url" content="://vernlium.github.io/2017/09/15/docker及kunbernetes网络-k8s-6/index.html">
+<meta property="og:url" content="https://vernlium.github.io/2017/09/15/docker%E5%8F%8Akunbernetes%E7%BD%91%E7%BB%9C-k8s-6/index.html">
 <meta property="og:site_name" content="Vernlium">
-<meta property="og:description" content="前面讲了k8s的安装，我们下面来了解一些k8s的网络。 说到k8s的网络，不得不说docker，k8s说白了还是一个调度工具，其用到的容器技术还是docker。docker的网络对于k8s来说也很重要，我们先来了解一些docker的网络，再来看k8s是如何使用docker网络的，以及k8s针对网络所做的工作。  docker网络原理 docker的网络结构如下图所示  其中：  最下面的一层：各种">
-<meta property="og:locale" content="zh-Hans">
+<meta property="og:description" content="前面讲了k8s的安装，我们下面来了解一些k8s的网络。 说到k8s的网络，不得不说docker，k8s说白了还是一个调度工具，其用到的容器技术还是docker。docker的网络对于k8s来说也很重要，我们先来了解一些docker的网络，再来看k8s是如何使用docker网络的，以及k8s针对网络所做的工作。">
+<meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://user-images.githubusercontent.com/11350907/30645929-e668263c-9e49-11e7-98bc-6969f66c604b.png">
 <meta property="og:image" content="https://user-images.githubusercontent.com/11350907/30779279-0fbf7094-a11f-11e7-8870-ed61304785d2.png">
-<meta property="og:updated_time" content="2019-06-30T22:35:52.612Z">
+<meta property="article:published_time" content="2017-09-14T23:46:47.000Z">
+<meta property="article:modified_time" content="2020-10-17T13:11:23.112Z">
+<meta property="article:author" content="张阿楠">
+<meta property="article:tag" content="docker">
+<meta property="article:tag" content="k8s">
+<meta property="article:tag" content="iptables">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="docker及kunbernetes网络-k8s-6">
-<meta name="twitter:description" content="前面讲了k8s的安装，我们下面来了解一些k8s的网络。 说到k8s的网络，不得不说docker，k8s说白了还是一个调度工具，其用到的容器技术还是docker。docker的网络对于k8s来说也很重要，我们先来了解一些docker的网络，再来看k8s是如何使用docker网络的，以及k8s针对网络所做的工作。  docker网络原理 docker的网络结构如下图所示  其中：  最下面的一层：各种">
 <meta name="twitter:image" content="https://user-images.githubusercontent.com/11350907/30645929-e668263c-9e49-11e7-98bc-6969f66c604b.png">
 
+<link rel="canonical" href="https://vernlium.github.io/2017/09/15/docker%E5%8F%8Akunbernetes%E7%BD%91%E7%BB%9C-k8s-6/">
 
 
-<script type="text/javascript" id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Pisces',
-    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
-    fancybox: true,
-    tabs: true,
-    motion: false,
-    duoshuo: {
-      userId: '0',
-      author: '博主'
-    },
-    algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    }
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
   };
 </script>
 
-
-
-  <link rel="canonical" href="://vernlium.github.io/2017/09/15/docker及kunbernetes网络-k8s-6/">
-
-
-
-
-
-  <title>docker及kunbernetes网络-k8s-6 | Vernlium</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  <title>docker及kunbernetes网络-k8s-6 | Vernlium</title>
   
 
 
@@ -157,222 +59,207 @@
 
 
 
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
 
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
 
-
-
-
-
-
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
 
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
-
-  
-  
-    
-  
-
-  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail ">
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
-    
-
-    <div class="custom-logo-site-title">
-      <a href="/" class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">Vernlium</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
     </div>
-      
-        <p class="site-subtitle">Keep codeing and thinking!</p>
-      
   </div>
 
-  <div class="site-nav-toggle">
-    <button>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Vernlium</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Keep codeing and thinking!</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
   </div>
 </div>
 
+
+
+
 <nav class="site-nav">
-  
-
-  
-    <ul id="menu" class="menu">
-      
-        
+  <ul id="menu" class="menu">
         <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
-            
-            首页
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
-            
-            归档
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-tags">
-          <a href="/tags/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
-            
-            标签
-          </a>
-        </li>
-      
-        
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
         <li class="menu-item menu-item-about">
-          <a href="/about/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
-            
-            关于
-          </a>
-        </li>
-      
 
-      
-    </ul>
-  
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
 
-  
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-commonweal">
+
+    <a href="/404/" rel="section"><i class="fa fa-fw fa-heartbeat"></i>公益 404</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
 </nav>
 
 
 
- </div>
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
     </header>
 
-    <main id="main" class="main">
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+
+    <main class="main">
       <div class="main-inner">
         <div class="content-wrap">
-          <div id="content" class="content">
+          
+
+          <div class="content post posts-expand">
             
 
-  <div id="posts" class="posts-expand">
     
-
-  
-
   
   
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="://vernlium.github.io/2017/09/15/docker及kunbernetes网络-k8s-6/">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://vernlium.github.io/2017/09/15/docker%E5%8F%8Akunbernetes%E7%BD%91%E7%BB%9C-k8s-6/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="张阿楠">
-      <meta itemprop="description" content>
       <meta itemprop="image" content="/images/wukong.png">
+      <meta itemprop="name" content="张阿楠">
+      <meta itemprop="description" content="Keep codeing and thinking!">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="Vernlium">
     </span>
-
-    
       <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">docker及kunbernetes网络-k8s-6</h1>
-        
+        <h1 class="post-title" itemprop="name headline">
+          docker及kunbernetes网络-k8s-6
+        </h1>
 
         <div class="post-meta">
-          <span class="post-time">
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
               </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-15T07:46:47+08:00">
-                2017-09-15
-              </time>
-            
+              <span class="post-meta-item-text">发表于</span>
 
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
+              <time title="创建时间：2017-09-15 07:46:47" itemprop="dateCreated datePublished" datetime="2017-09-15T07:46:47+08:00">2017-09-15</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-10-17 21:11:23" itemprop="dateModified" datetime="2020-10-17T21:11:23+08:00">2020-10-17</time>
+              </span>
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
               </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
+              <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/k8s/" itemprop="url" rel="index">
-                    <span itemprop="name">k8s</span>
-                  </a>
+                  <a href="/categories/k8s/" itemprop="url" rel="index"><span itemprop="name">k8s</span></a>
                 </span>
-
-                
-                
-              
             </span>
-          
 
           
-            
-            <!--noindex-->
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2017/09/15/docker及kunbernetes网络-k8s-6/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count hc-comment-count" data-xid="2017/09/15/docker及kunbernetes网络-k8s-6/" itemprop="commentsCount"></span>
-                </a>
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
               </span>
-              <!--/noindex-->
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
 
         </div>
       </header>
-    
 
     
     
@@ -380,14 +267,13 @@
     <div class="post-body" itemprop="articleBody">
 
       
-      
-
-      
         <p>前面讲了k8s的安装，我们下面来了解一些k8s的网络。</p>
 <p>说到k8s的网络，不得不说docker，k8s说白了还是一个调度工具，其用到的容器技术还是docker。docker的网络对于k8s来说也很重要，我们先来了解一些docker的网络，再来看k8s是如何使用docker网络的，以及k8s针对网络所做的工作。</p>
-<h3 id="docker网络原理"><a class="markdownIt-Anchor" href="#docker网络原理"></a> docker网络原理</h3>
+<h3 id="docker网络原理">docker网络原理</h3>
 <p>docker的网络结构如下图所示</p>
-<p><img src="https://user-images.githubusercontent.com/11350907/30645929-e668263c-9e49-11e7-98bc-6969f66c604b.png" alt="image"></p>
+<figure>
+<img src="https://user-images.githubusercontent.com/11350907/30645929-e668263c-9e49-11e7-98bc-6969f66c604b.png" alt="image" /><figcaption>image</figcaption>
+</figure>
 <p>其中：</p>
 <ul>
 <li>最下面的一层：各种网络设备，比如主机的网卡、各种网桥、overlay的网络设备等</li>
@@ -397,367 +283,304 @@
 <p>CNM中有3个核心组件：</p>
 <ul>
 <li>沙盒（sandbox）：一个沙盒包含了一个容器网络栈的信息。沙盒可以对容器的接口、路由和DNS设备等进行管理。沙盒的实现可以是Linux network namespace、FreeBSD Jail或者类似的机制。</li>
-<li>端点(endpoint)：一个端点可以加人一个沙盒和一个网络。端点的实现可以是vethpair、OpenvSwitch<br>
-内部端口或者相似的设备。</li>
-<li>网络：一个网络是一组可以直接互相联通的端点。网络的实现可以是Linux bridge、VLAN<br>
-等。</li>
+<li>端点(endpoint)：一个端点可以加人一个沙盒和一个网络。端点的实现可以是vethpair、OpenvSwitch 内部端口或者相似的设备。</li>
+<li>网络：一个网络是一组可以直接互相联通的端点。网络的实现可以是Linux bridge、VLAN 等。</li>
 </ul>
-<p>他们之间的关系是：</p>
-<ul>
-<li>一个沙盒可以有多个端点和多个网络。</li>
-<li>一个端点只可以属于一个网络并且只属于一个沙盒。</li>
-<li>一个网络可以包含多个端。</li>
-</ul>
+<p>他们之间的关系是： - 一个沙盒可以有多个端点和多个网络。 - 一个端点只可以属于一个网络并且只属于一个沙盒。 - 一个网络可以包含多个端。</p>
 <p>libnetwork中内置5种驱动。</p>
 <ul>
 <li><strong>bridge驱动</strong>，默认模式，即docker0网桥模式
 <ul>
 <li>bridge驱动此驱动为docker的默认设置，使用这个驱动的时候，libnetwork将创建出的Docker容器连接到Docker网桥上（Docker网桥稍后会做介绍）。作为最常规的模式，bridge模式已经可以满足Docker容器最基本的使用需求了。然而其与外界通信使用NAT，增加了通信的复杂性，在复杂场景下使用会有诸多限制。</li>
-</ul>
-</li>
+</ul></li>
 <li>host驱动和宿主机公用网络，适用于对容器集群规模不大的场景
 <ul>
 <li>host驱动使用这种驱动的时候，libnetwork将不为Docker容器创建网络协议栈，即不创建独立的network namespace。Docker容器中的进程处于宿主机的网络环境中，相当于Docker容器和宿主机共用同一个network namespace，使用宿主机的网卡、和端口等信息。但是，容器其他方面，如文件系统、进程列表等还是和宿主机隔离的。host模式很好地解决了容器与外界通信的地址转换问题，可以直接使用宿主机的进行通信，不存在虚拟的网络带来的额外性能负担。但是host驱动也降低了容器与容器之间、容器与宿主机之间网络层面的隔离性，引起网络资源的竞争与冲突。因此可以认为host驱动适用于对于容器集群规模不大的场景。</li>
-</ul>
-</li>
+</ul></li>
 <li>overlay驱动，flannel使用的既是这种模式
 <ul>
 <li>overlay驱动。此驱动采用IETF标准的VXLAN方式，并且是VXLAN中被普遍认为最大规模的云计算虚拟化环境的SDN controller模式。在使用的过程中，需要一个额外的内置存储服务，例如consul、etcd或zookeeper。还需要在启动Docker daemon的的时候额外添加参数来指定所使用的配置存储服务地址。</li>
-</ul>
-</li>
+</ul></li>
 <li>remote驱动
 <ul>
 <li>rmote驱动这个驱动实际上并未做真正的网络服务实现，而是调用了用户自行实现，网络驱动插件，使libnetwork实现了驱动的可插件化，更好地满足了用户的多种需求。用户只要根据libnetwork提供的协议标准，实现其所要求的各个接口并向Docker daemon进行注册。</li>
-</ul>
-</li>
+</ul></li>
 <li>null驱动
 <ul>
 <li>null驱动使用这种驱动的时候，Docker容器拥有自己的network namespace，但是并不需要Docker容器进行任何网络配置。也就是说，这个Docker容器除了network namespace自带的loopback网卡外，没有其他任何网卡、IP、路由等信息，需要用户为Docker容器添加网卡、配置IP等。这种模式如果不进行特定的配置是无法正常使用的，但是优点也非常明显，给了用户最大的自由度来自定义容器的网络环境。</li>
-</ul>
-</li>
+</ul></li>
 </ul>
 <p>我们在实践中，主要用到的是bridge驱动模式，下面着重讲解一下这个模式的实现原理。</p>
 <blockquote>
 <p>注：<strong>网桥的概念</strong>：网桥是一个二层网络设备，可以解析收发的报文，读取目标MAC地址的信息，和自己记录的MAC表结合，来决策报文的转发端口。为了实现这些功能，网桥会学习源MAC。在转发报文的时候，网桥只需要向特定的网络接口进行转发，从而避免不必要的网络交互。</p>
 </blockquote>
-<h3 id="bridge驱动实现机制"><a class="markdownIt-Anchor" href="#bridge驱动实现机制"></a> bridge驱动实现机制</h3>
-<h4 id="docker0网桥"><a class="markdownIt-Anchor" href="#docker0网桥"></a> docker0网桥</h4>
+<h3 id="bridge驱动实现机制">bridge驱动实现机制</h3>
+<h4 id="docker0网桥">docker0网桥</h4>
 <p>docker网络的bridge模式示意图如下：</p>
-<p><img src="https://user-images.githubusercontent.com/11350907/30779279-0fbf7094-a11f-11e7-8870-ed61304785d2.png" alt="image"></p>
+<figure>
+<img src="https://user-images.githubusercontent.com/11350907/30779279-0fbf7094-a11f-11e7-8870-ed61304785d2.png" alt="image" /><figcaption>image</figcaption>
+</figure>
 <p>这里网桥的概念等同于交换机，为连在其上的设备转发数据帧。网桥上的veth网卡设备相当于交换机上的端口，可以将多个容器或虚机连接在其上，这些端口工作在二层，没有IP。</p>
 <p>docker0网桥是在Docker daemon启动时自动创建的，其IP默认为172.17.0.1/16，之后创建的Docker容器都会在docker0子网的范围内选取一个未占用的IP使用，并连接到docker0网桥上。</p>
 <p>容器里面的eth0网卡，在宿主机上都有一个vethxxxx的虚拟网卡和其对应出现，容器里的eth0网卡即通过这个虚拟网卡和docker0网桥进行通信的。</p>
 <p>docker0网桥和宿主机的eth0网卡连接，所有数据最终还是从真实网卡转发出去。</p>
 <p>Docker提供了如下参数可以帮助用户自定义docker0的设置。</p>
 <ul>
-<li>–bip-CIDR：设置docker0的IP地址和子网范围，使用CIDR格式，如192.168.100.1/24。注意这个参数仅仅是配置docker0的，对其他自定义的网桥无效。并且在指定这个参数的时候，宿主机是不存在docker0的或者docker0已存在且docker0的IP和参数指定的IP一致才行。（下一篇博客中安装flannel要用到这个参数）</li>
-<li>–fixed-cidr=CIDR：限制Docker容器获取IP的范围。Docker容器默认获取的IP范围为Docker网桥（docker0网桥或者–bridge指定的网桥）的整个子网范围，此参数可将其缩小到某个子网范围内，所以这个参数必须在Docker网桥的子网范围内。如docker0的IP为172.17.0.1/16，可将–fixedid了设为172.17.1.1/24，那么Docker容器的IP范围将为172.17.1.1~172.17.1.254。</li>
-<li>–mtu=BYTES：指定docker0的最大传输单元（MTU）。</li>
+<li>--bip-CIDR：设置docker0的IP地址和子网范围，使用CIDR格式，如192.168.100.1/24。注意这个参数仅仅是配置docker0的，对其他自定义的网桥无效。并且在指定这个参数的时候，宿主机是不存在docker0的或者docker0已存在且docker0的IP和参数指定的IP一致才行。（下一篇博客中安装flannel要用到这个参数）</li>
+<li>--fixed-cidr=CIDR：限制Docker容器获取IP的范围。Docker容器默认获取的IP范围为Docker网桥（docker0网桥或者--bridge指定的网桥）的整个子网范围，此参数可将其缩小到某个子网范围内，所以这个参数必须在Docker网桥的子网范围内。如docker0的IP为172.17.0.1/16，可将--fixedid了设为172.17.1.1/24，那么Docker容器的IP范围将为172.17.1.1~172.17.1.254。</li>
+<li>--mtu=BYTES：指定docker0的最大传输单元（MTU）。</li>
 </ul>
-<h4 id="iptables规则"><a class="markdownIt-Anchor" href="#iptables规则"></a> iptables规则</h4>
+<h4 id="iptables规则">iptables规则</h4>
 <p>Docker安装完成后，将默认在宿主机系统上增加一些iptables规则，以用于Docker容器和容器之间以及和外界的通信，可以使用iptables-save命令查看其中nat表上的POSTROUTING链有这么一条规则：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-A POSTROUTING -s 172.17.0.0/16 ! -o docker0 -j MASQUERADE</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-A POSTROUTING -s 172.17.0.0&#x2F;16 ! -o docker0 -j MASQUERADE</span><br></pre></td></tr></table></figure>
 <p>这条规则关系着Docker容器和外界的通信，含义是将源地址为172.17.0.0/16的数据包（即Docker容器发出的数据），当不是从docker0网卡发出时做SNAT源地址转换，将IP包的源地址替换为相应网卡的地址）。这样一来，从Docker容器访问外网的流量，在外部看来就是从宿主机上发出的，外部感觉不到Docker容器的存在。</p>
 <blockquote>
 <p>注：MASQUERADE会动态的将源地址转换为可用的IP地址，其实与SNAT实现的功能完全一致都是修改源地址，只不过SNAT需要指明将报文的源地址改为哪个IP，而MASQUERADE则不用指定明确的IP，会动态的将报文的源地址修改为指定网卡上可用的IP地址。</p>
 </blockquote>
 <p>我们来通过命令查询一下和docker0网桥相关的iptabels规则</p>
 <p>和docker0相关的iptables规则：</p>
-<p>filter表</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># iptables -w -S -t filter | grep docker0</span><br><span class="line">-A FORWARD -o docker0 -j DOCKER</span><br><span class="line">-A FORWARD -o docker0 -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT</span><br><span class="line">-A FORWARD -i docker0 ! -o docker0 -j ACCEPT</span><br><span class="line">-A FORWARD -i docker0 -o docker0 -j ACCEPT</span><br><span class="line">-A DOCKER -o docker0 -j ACCEPT</span><br></pre></td></tr></table></figure>
+<p>filter表 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># iptables -w -S -t filter | grep docker0</span><br><span class="line">-A FORWARD -o docker0 -j DOCKER</span><br><span class="line">-A FORWARD -o docker0 -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT</span><br><span class="line">-A FORWARD -i docker0 ! -o docker0 -j ACCEPT</span><br><span class="line">-A FORWARD -i docker0 -o docker0 -j ACCEPT</span><br><span class="line">-A DOCKER -o docker0 -j ACCEPT</span><br></pre></td></tr></table></figure></p>
 <p>nat表</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># iptables -w -S -t nat | grep docker0</span><br><span class="line">-A POSTROUTING -s 172.100.5.144/28! -o docker0 -j MASQUERADE</span><br><span class="line">-A DOCKER -o docker0 -j RETURN</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># iptables -w -S -t nat | grep docker0</span><br><span class="line">-A POSTROUTING -s 172.100.5.144&#x2F;28! -o docker0 -j MASQUERADE</span><br><span class="line">-A DOCKER -o docker0 -j RETURN</span><br></pre></td></tr></table></figure>
 <blockquote>
-<p>注：关于iptables规则，后面会专门写一篇博客介绍，可以参考这篇博客<a href="http://www.zsythink.net/archives/1199" target="_blank" rel="noopener">iptables概念</a>。</p>
+<p>注：关于iptables规则，后面会专门写一篇博客介绍，可以参考这篇博客<a target="_blank" rel="noopener" href="http://www.zsythink.net/archives/1199">iptables概念</a>。</p>
 </blockquote>
-<h3 id="实例分折"><a class="markdownIt-Anchor" href="#实例分折"></a> 实例分折</h3>
+<h3 id="实例分折">实例分折</h3>
 <p>我们通过<code>docker run -p 8543:8888 image</code> 方式启动的容器，来观察iptables规则的变化。</p>
 <p><code>docker run -p 8543:8888 image</code> 方式启动的容器后，可以发现，会加入如下iptables规则：</p>
 <p>filter表：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-A DOCKER -d 172.17.0.2/32 ! -i docker0 -o docker0 -p tcp -m tcp --dport 8888 -j ACCEPT</span><br></pre></td></tr></table></figure>
-<p>其作用是接受满足如下条件的数据：</p>
-<ul>
-<li>目的地址为172.17.0.2/32</li>
-<li>目的port为8888</li>
-<li>非docker0网桥进入</li>
-<li>docker0网桥流出</li>
-<li>tcp协议的数据</li>
-</ul>
-<p>nat表：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-A DOCKER ! -i docker0 -p tcp -m tcp --dport 8543 -j DNAT --to-destination 172.17.0.2:8888</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-A DOCKER -d 172.17.0.2&#x2F;32 ! -i docker0 -o docker0 -p tcp -m tcp --dport 8888 -j ACCEPT</span><br></pre></td></tr></table></figure>
+<p>其作用是接受满足如下条件的数据： - 目的地址为172.17.0.2/32 - 目的port为8888 - 非docker0网桥进入 - docker0网桥流出 - tcp协议的数据</p>
+<p>nat表： <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-A DOCKER ! -i docker0 -p tcp -m tcp --dport 8543 -j DNAT --to-destination 172.17.0.2:8888</span><br></pre></td></tr></table></figure></p>
 <p>其作用是将访问宿主机8543端口请求的流量转发到容器172.17.0.2的8888端口上。所以，外界访问Docker容器是通过iptables做DNAT实现的。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">root@LFG1ee0826664:~# iptables -w -S -t filter | grep docker0 </span><br><span class="line">-A FORWARD -o docker0 -j DOCKER</span><br><span class="line">-A FORWARD -o docker0 -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT</span><br><span class="line">-A FORWARD -i docker0 ! -o docker0 -j ACCEPT</span><br><span class="line">-A FORWARD -i docker0 -o docker0 -j ACCEPT</span><br><span class="line">-A DOCKER -o docker0 -j ACCEPT</span><br><span class="line">root@LFG1ee0826664:~# </span><br><span class="line">root@LFG1ee0826664:~# iptables -w -S -t nat | grep docker0 </span><br><span class="line">-A POSTROUTING -s 172.100.5.144/28 ! -o docker0 -j MASQUERADE</span><br><span class="line">-A DOCKER -i docker0 -j RETURN</span><br></pre></td></tr></table></figure>
-<h3 id="k8s网络"><a class="markdownIt-Anchor" href="#k8s网络"></a> k8s网络</h3>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">root@LFG1ee0826664:~# iptables -w -S -t filter | grep docker0 </span><br><span class="line">-A FORWARD -o docker0 -j DOCKER</span><br><span class="line">-A FORWARD -o docker0 -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT</span><br><span class="line">-A FORWARD -i docker0 ! -o docker0 -j ACCEPT</span><br><span class="line">-A FORWARD -i docker0 -o docker0 -j ACCEPT</span><br><span class="line">-A DOCKER -o docker0 -j ACCEPT</span><br><span class="line">root@LFG1ee0826664:~# </span><br><span class="line">root@LFG1ee0826664:~# iptables -w -S -t nat | grep docker0 </span><br><span class="line">-A POSTROUTING -s 172.100.5.144&#x2F;28 ! -o docker0 -j MASQUERADE</span><br><span class="line">-A DOCKER -i docker0 -j RETURN</span><br></pre></td></tr></table></figure>
+<h3 id="k8s网络">k8s网络</h3>
 
-      
     </div>
+
     
     
     
 
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/docker/" rel="tag"># docker</a>
-          
-            <a href="/tags/k8s/" rel="tag"># k8s</a>
-          
-            <a href="/tags/iptables/" rel="tag"># iptables</a>
-          
-        </div>
-      
-
-      
-      
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2017/09/06/k8s实践-k8s-5/" rel="next" title="k8s实践-k8s_5">
-                <i class="fa fa-chevron-left"></i> k8s实践-k8s_5
-              </a>
-            
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/docker/" rel="tag"># docker</a>
+              <a href="/tags/k8s/" rel="tag"># k8s</a>
+              <a href="/tags/iptables/" rel="tag"># iptables</a>
           </div>
 
-          <span class="post-nav-divider"></span>
+        
 
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/09/19/flannel介绍及安装-k8s-7/" rel="prev" title="flannel介绍及安装-k8s_7">
-                flannel介绍及安装-k8s_7 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
 
-      
-      
-    </footer>
-  </div>
-  
-  
-  
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2017/09/06/k8s%E5%AE%9E%E8%B7%B5-k8s-5/" rel="prev" title="k8s实践-k8s_5">
+      <i class="fa fa-chevron-left"></i> k8s实践-k8s_5
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2017/09/19/flannel%E4%BB%8B%E7%BB%8D%E5%8F%8A%E5%AE%89%E8%A3%85-k8s-7/" rel="next" title="flannel介绍及安装-k8s_7">
+      flannel介绍及安装-k8s_7 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
   </article>
+  
+  
+  
 
-
-
-    <div class="post-spread">
-      
-    </div>
-  </div>
 
 
           </div>
           
+    <div class="comments" id="gitalk-container"></div>
 
-
-          
-  <div class="comments" id="comments">
-    
-      <div id="hypercomments_widget"></div>
-    
-  </div>
-
-
-        </div>
-        
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
-  </div>
-
-  <aside id="sidebar" class="sidebar">
-    
-    <div class="sidebar-inner">
-
-      
-
-      
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            站点概览
-          </li>
-        </ul>
-      
-
-      <section class="site-overview sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" itemprop="image" src="/images/wukong.png" alt="张阿楠">
-          <p class="site-author-name" itemprop="name">张阿楠</p>
-           
-              <p class="site-description motion-element" itemprop="description">Keep codeing and thinking!</p>
-          
-        </div>
-        <nav class="site-state motion-element">
-
-          
-            <div class="site-state-item site-state-posts">
-              <a href="/archives/">
-                <span class="site-state-item-count">65</span>
-                <span class="site-state-item-name">日志</span>
-              </a>
-            </div>
-          
-
-          
-            
-            
-            <div class="site-state-item site-state-categories">
-              <a href="/categories/index.html">
-                <span class="site-state-item-count">5</span>
-                <span class="site-state-item-name">分类</span>
-              </a>
-            </div>
-          
-
-          
-            
-            
-            <div class="site-state-item site-state-tags">
-              <a href="/tags/index.html">
-                <span class="site-state-item-count">39</span>
-                <span class="site-state-item-name">标签</span>
-              </a>
-            </div>
-          
-
-        </nav>
-
-        
-
-        <div class="links-of-author motion-element">
-          
-            
-              <span class="links-of-author-item">
-                <a href="https://github.com/vernlium" target="_blank" title="GitHub">
-                  
-                    <i class="fa fa-fw fa-github"></i>
-                  
-                    
-                      GitHub
-                    
-                </a>
-              </span>
-            
-              <span class="links-of-author-item">
-                <a href="http://www.zhihu.com/people/ananzhang" target="_blank" title="ZhiHu">
-                  
-                    <i class="fa fa-fw fa-globe"></i>
-                  
-                    
-                      ZhiHu
-                    
-                </a>
-              </span>
-            
-          
-        </div>
-
-        
-        
-
-        
-        
-
-        
-
-
-      </section>
-
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#docker网络原理"><span class="nav-number">1.</span> <span class="nav-text"> docker网络原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#bridge驱动实现机制"><span class="nav-number">2.</span> <span class="nav-text"> bridge驱动实现机制</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#docker0网桥"><span class="nav-number">2.1.</span> <span class="nav-text"> docker0网桥</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#iptables规则"><span class="nav-number">2.2.</span> <span class="nav-text"> iptables规则</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实例分折"><span class="nav-number">3.</span> <span class="nav-text"> 实例分折</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#k8s网络"><span class="nav-number">4.</span> <span class="nav-text"> k8s网络</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
-      
-
-      
-
-    </div>
-  </aside>
-
-
-        
-      </div>
-    </main>
-
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright">
-  
-  &copy;  2015 - 
-  <span itemprop="copyrightYear">2020</span>
-  <span class="with-love">
-    <i class="fa fa-heart"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">张阿楠</span>
-</div>
-
-
-<div class="powered-by">
-  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
-</div>
-
-<div class="theme-info">
-  主题 -
-  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
-    NexT.Pisces
-  </a>
-</div>
-
-
-        
-
-        
-      </div>
-    </footer>
-
-    
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-      </div>
-    
-
-  </div>
-
-  
-
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
   }
 </script>
 
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#docker%E7%BD%91%E7%BB%9C%E5%8E%9F%E7%90%86"><span class="nav-number">1.</span> <span class="nav-text">docker网络原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#bridge%E9%A9%B1%E5%8A%A8%E5%AE%9E%E7%8E%B0%E6%9C%BA%E5%88%B6"><span class="nav-number">2.</span> <span class="nav-text">bridge驱动实现机制</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#docker0%E7%BD%91%E6%A1%A5"><span class="nav-number">2.1.</span> <span class="nav-text">docker0网桥</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#iptables%E8%A7%84%E5%88%99"><span class="nav-number">2.2.</span> <span class="nav-text">iptables规则</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E4%BE%8B%E5%88%86%E6%8A%98"><span class="nav-number">3.</span> <span class="nav-text">实例分折</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#k8s%E7%BD%91%E7%BB%9C"><span class="nav-number">4.</span> <span class="nav-text">k8s网络</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="张阿楠"
+      src="/images/wukong.png">
+  <p class="site-author-name" itemprop="name">张阿楠</p>
+  <div class="site-description" itemprop="description">Keep codeing and thinking!</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">64</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">41</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Vernlium" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Vernlium" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:zhanganan0425@163.com" title="E-Mail → mailto:zhanganan0425@163.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2015 – 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">张阿楠</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+<script src="/js/bookmark.js"></script>
+
+
+  <script defer src="/lib/three/three.min.js"></script>
+    <script defer src="/lib/three/canvas_sphere.min.js"></script>
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
 
 
 
@@ -768,170 +591,29 @@
 
   
 
-
-  
-
-
-
-
-
-
-
-
-
-
-
-  
-  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-
-  
-  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-
-  
-  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-
-  
-  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-
-  
-  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-
-  
-  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-
-  
-  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
-
-
-
-  
-  
-
-
-  <script type="text/javascript" src="/js/src/affix.js?v=5.1.2"></script>
-
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.2"></script>
-
-
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
-
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
-
-
-
-  
-
-
-  
-
-
-
-
-	
-
-		<script type="text/javascript">
-		_hcwp = window._hcwp || [];
-
-		_hcwp.push({widget:"Bloggerstream", widget_id: 95829, selector:".hc-comment-count", label: "{\%COUNT%\}" });
-
-		
-		_hcwp.push({widget:"Stream", widget_id: 95829, xid: "2017/09/15/docker及kunbernetes网络-k8s-6/"});
-		
-
-		(function() {
-		if("HC_LOAD_INIT" in window)return;
-		HC_LOAD_INIT = true;
-		var lang = (navigator.language || navigator.systemLanguage || navigator.userLanguage || "en").substr(0, 2).toLowerCase();
-		var hcc = document.createElement("script"); hcc.type = "text/javascript"; hcc.async = true;
-		hcc.src = ("https:" == document.location.protocol ? "https" : "http")+"://w.hypercomments.com/widget/hc/95829/"+lang+"/widget.js";
-		var s = document.getElementsByTagName("script")[0];
-		s.parentNode.insertBefore(hcc, s.nextSibling);
-		})();
-		</script>
-
-	
-
-
-
-
-
-
-
-
-
-
-  
-
-
-
-
-
   
 
   
 
-  
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
 
-  
-  
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Config({
-        tex2jax: {
-          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
-          processEscapes: true,
-          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-        }
-      });
-    </script>
-
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax(), i;
-        for (i=0; i < all.length; i += 1) {
-          all[i].SourceElement().parentNode.className += ' has-jax';
-        }
-      });
-    </script>
-    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : '94b49fdac7c9894db657',
+      clientSecret: 'aae2bc06bd829867f3212474d4698cfec26386d6',
+      repo        : 'vernlium.github.io',
+      owner       : 'Vernlium',
+      admin       : ['Vernlium'],
+      id          : '0c2ac55472570dfce1dda89f9dc56a6b',
+        language: 'zh-CN',
+      distractionFreeMode: false
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
 </script>
-
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Queue(function() {
-    var all = MathJax.Hub.getAllJax(), i;
-    for(i=0; i < all.length; i += 1) {
-      all[i].SourceElement().parentNode.className += ' has-jax';
-    }
-  });
-</script>
-
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
-</script>
-<!-- End: Injected MathJax -->
-<!-- hexo-inject:end -->
-  
-
-
-  
-
-  
 
 </body>
 </html>

@@ -1,152 +1,53 @@
 <!DOCTYPE html>
-
-
-
-
-<html class="theme-next pisces" lang="zh-Hans">
-<head><meta name="generator" content="Hexo 3.9.0">
-  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-wukong.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-wukong.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
 
+<link rel="stylesheet" href="/css/main.css">
 
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Consolas:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
 
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"vernlium.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":{"gitalk":{"order":-2}},"activeClass":"gitalk"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
 
-
-
-
-
-
-<meta http-equiv="Cache-Control" content="no-transform">
-<meta http-equiv="Cache-Control" content="no-siteapp">
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
-
-
-
-
-  
-  
-  
-  
-
-  
-    
-    
-  
-
-  
-
-  
-
-  
-
-  
-    
-      
-    
-
-    
-  
-
-  
-    
-    
-    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Consolas:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
-  
-
-
-
-
-
-
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
-
-<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
-
-<link href="https://cdn.bootcss.com/KaTeX/0.7.1/katex.min.css" rel="stylesheet">
-
-
-  <meta name="keywords" content="c++,stl,">
-
-
-
-
-
-
-
-
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2">
-
-
-
-
-
-
-<meta name="description" content="C++ STL algorithms  头文件  ,,组成。  要使用 STL中的算法函数必须包含头文件  对于数值算法须包含  中则定义了一些模板类，用来声明函数对象  4类算法  非可变序列算法  指不直接修改其所操作的容器内容的算法。   可变序列算法  指可以修改它们所操作的容器内容的算法。   排序算法  包括对序列进行排序和合并的算法、搜索算法以及有序序列上的集合操作   数值算法">
-<meta name="keywords" content="c++,stl">
+  <meta name="description" content="C++ STL algorithms 头文件">
 <meta property="og:type" content="article">
 <meta property="og:title" content="c++ stl algorithms">
-<meta property="og:url" content="://vernlium.github.io/2020/02/23/c-stl-algorithms/index.html">
+<meta property="og:url" content="https://vernlium.github.io/2020/02/23/c-stl-algorithms/index.html">
 <meta property="og:site_name" content="Vernlium">
-<meta property="og:description" content="C++ STL algorithms  头文件  ,,组成。  要使用 STL中的算法函数必须包含头文件  对于数值算法须包含  中则定义了一些模板类，用来声明函数对象  4类算法  非可变序列算法  指不直接修改其所操作的容器内容的算法。   可变序列算法  指可以修改它们所操作的容器内容的算法。   排序算法  包括对序列进行排序和合并的算法、搜索算法以及有序序列上的集合操作   数值算法">
-<meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-10-08T14:19:17.060Z">
+<meta property="og:description" content="C++ STL algorithms 头文件">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-02-23T13:53:47.000Z">
+<meta property="article:modified_time" content="2020-10-17T13:11:22.798Z">
+<meta property="article:author" content="张阿楠">
+<meta property="article:tag" content="c++">
+<meta property="article:tag" content="stl">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="c++ stl algorithms">
-<meta name="twitter:description" content="C++ STL algorithms  头文件  ,,组成。  要使用 STL中的算法函数必须包含头文件  对于数值算法须包含  中则定义了一些模板类，用来声明函数对象  4类算法  非可变序列算法  指不直接修改其所操作的容器内容的算法。   可变序列算法  指可以修改它们所操作的容器内容的算法。   排序算法  包括对序列进行排序和合并的算法、搜索算法以及有序序列上的集合操作   数值算法">
+
+<link rel="canonical" href="https://vernlium.github.io/2020/02/23/c-stl-algorithms/">
 
 
-
-<script type="text/javascript" id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Pisces',
-    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
-    fancybox: true,
-    tabs: true,
-    motion: false,
-    duoshuo: {
-      userId: '0',
-      author: '博主'
-    },
-    algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    }
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
   };
 </script>
 
-
-
-  <link rel="canonical" href="://vernlium.github.io/2020/02/23/c-stl-algorithms/">
-
-
-
-
-
-  <title>c++ stl algorithms | Vernlium</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  <title>c++ stl algorithms | Vernlium</title>
   
 
 
@@ -154,200 +55,198 @@
 
 
 
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
 
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
 
-
-
-
-
-
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
 
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
-
-  
-  
-    
-  
-
-  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail ">
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
-    
-
-    <div class="custom-logo-site-title">
-      <a href="/" class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">Vernlium</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
     </div>
-      
-        <p class="site-subtitle">Keep codeing and thinking!</p>
-      
   </div>
 
-  <div class="site-nav-toggle">
-    <button>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Vernlium</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Keep codeing and thinking!</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
   </div>
 </div>
 
+
+
+
 <nav class="site-nav">
-  
-
-  
-    <ul id="menu" class="menu">
-      
-        
+  <ul id="menu" class="menu">
         <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
-            
-            首页
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
-            
-            归档
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-tags">
-          <a href="/tags/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
-            
-            标签
-          </a>
-        </li>
-      
-        
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
         <li class="menu-item menu-item-about">
-          <a href="/about/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
-            
-            关于
-          </a>
-        </li>
-      
 
-      
-    </ul>
-  
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
 
-  
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-commonweal">
+
+    <a href="/404/" rel="section"><i class="fa fa-fw fa-heartbeat"></i>公益 404</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
 </nav>
 
 
 
- </div>
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
     </header>
 
-    <main id="main" class="main">
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+
+    <main class="main">
       <div class="main-inner">
         <div class="content-wrap">
-          <div id="content" class="content">
+          
+
+          <div class="content post posts-expand">
             
 
-  <div id="posts" class="posts-expand">
     
-
-  
-
   
   
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="://vernlium.github.io/2020/02/23/c-stl-algorithms/">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://vernlium.github.io/2020/02/23/c-stl-algorithms/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="张阿楠">
-      <meta itemprop="description" content>
       <meta itemprop="image" content="/images/wukong.png">
+      <meta itemprop="name" content="张阿楠">
+      <meta itemprop="description" content="Keep codeing and thinking!">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="Vernlium">
     </span>
-
-    
       <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">c++ stl algorithms</h1>
-        
+        <h1 class="post-title" itemprop="name headline">
+          c++ stl algorithms
+        </h1>
 
         <div class="post-meta">
-          <span class="post-time">
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
               </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-02-23T21:53:47+08:00">
-                2020-02-23
-              </time>
-            
+              <span class="post-meta-item-text">发表于</span>
 
-            
-
-            
-          </span>
-
-          
-
-          
-            
-            <!--noindex-->
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
+              <time title="创建时间：2020-02-23 21:53:47" itemprop="dateCreated datePublished" datetime="2020-02-23T21:53:47+08:00">2020-02-23</time>
+            </span>
+              <span class="post-meta-item">
                 <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
+                  <i class="fa fa-calendar-check-o"></i>
                 </span>
-                <a href="/2020/02/23/c-stl-algorithms/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count hc-comment-count" data-xid="2020/02/23/c-stl-algorithms/" itemprop="commentsCount"></span>
-                </a>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-10-17 21:11:22" itemprop="dateModified" datetime="2020-10-17T21:11:22+08:00">2020-10-17</time>
               </span>
-              <!--/noindex-->
-            
-          
 
           
-          
-
-          
-
-          
-
-          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
 
         </div>
       </header>
-    
 
     
     
@@ -355,478 +254,432 @@
     <div class="post-body" itemprop="articleBody">
 
       
-      
-
-      
-        <h1 id="c-stl-algorithms"><a class="markdownIt-Anchor" href="#c-stl-algorithms"></a> C++ STL algorithms</h1>
-<h2 id="头文件"><a class="markdownIt-Anchor" href="#头文件"></a> 头文件</h2>
-<h3 id="algorithmnumericfunctional组成"><a class="markdownIt-Anchor" href="#algorithmnumericfunctional组成"></a> <algorithm>,<numeric>,<functional>组成。</functional></numeric></algorithm></h3>
-<h3 id="要使用-stl中的算法函数必须包含头文件algorithm"><a class="markdownIt-Anchor" href="#要使用-stl中的算法函数必须包含头文件algorithm"></a> 要使用 STL中的算法函数必须包含头文件<algorithm></algorithm></h3>
-<h3 id="对于数值算法须包含numeric"><a class="markdownIt-Anchor" href="#对于数值算法须包含numeric"></a> 对于数值算法须包含<numeric></numeric></h3>
-<h3 id="functional中则定义了一些模板类用来声明函数对象"><a class="markdownIt-Anchor" href="#functional中则定义了一些模板类用来声明函数对象"></a> <functional>中则定义了一些模板类，用来声明函数对象</functional></h3>
-<h2 id="4类算法"><a class="markdownIt-Anchor" href="#4类算法"></a> 4类算法</h2>
-<h3 id="非可变序列算法"><a class="markdownIt-Anchor" href="#非可变序列算法"></a> 非可变序列算法</h3>
+        <h1 id="c-stl-algorithms">C++ STL algorithms</h1>
+<h2 id="头文件">头文件</h2>
+<h3 id="组成"><algorithm>,<numeric>,<functional>组成。</h3>
+<h3 id="要使用-stl中的算法函数必须包含头文件">要使用 STL中的算法函数必须包含头文件<algorithm></h3>
+<h3 id="对于数值算法须包含">对于数值算法须包含<numeric></h3>
+<h3 id="中则定义了一些模板类用来声明函数对象"><functional>中则定义了一些模板类，用来声明函数对象</h3>
+<h2 id="类算法">4类算法</h2>
+<h3 id="非可变序列算法">非可变序列算法</h3>
 <ul>
 <li>指不直接修改其所操作的容器内容的算法。</li>
 </ul>
-<h3 id="可变序列算法"><a class="markdownIt-Anchor" href="#可变序列算法"></a> 可变序列算法</h3>
+<h3 id="可变序列算法">可变序列算法</h3>
 <ul>
 <li>指可以修改它们所操作的容器内容的算法。</li>
 </ul>
-<h3 id="排序算法"><a class="markdownIt-Anchor" href="#排序算法"></a> 排序算法</h3>
+<h3 id="排序算法">排序算法</h3>
 <ul>
 <li>包括对序列进行排序和合并的算法、搜索算法以及有序序列上的集合操作</li>
 </ul>
-<h3 id="数值算法"><a class="markdownIt-Anchor" href="#数值算法"></a> 数值算法</h3>
+<h3 id="数值算法">数值算法</h3>
 <ul>
 <li>对容器内容进行数值计算</li>
 </ul>
-<h2 id="查找算法"><a class="markdownIt-Anchor" href="#查找算法"></a> 查找算法</h2>
-<h3 id="adjacent_find"><a class="markdownIt-Anchor" href="#adjacent_find"></a> adjacent_find</h3>
+<h2 id="查找算法">查找算法</h2>
+<h3 id="adjacent_find">adjacent_find</h3>
 <ul>
 <li>在iterator对标识元素范围内，查找一对相邻重复元素，找到则返回指向这对元素的第一个元素的ForwardIterator。否则返回last。</li>
 </ul>
-<h3 id="binary_search"><a class="markdownIt-Anchor" href="#binary_search"></a> binary_search</h3>
+<h3 id="binary_search">   binary_search</h3>
 <ul>
 <li>在有序序列中查找value，找到返回true。</li>
 </ul>
-<h3 id="count"><a class="markdownIt-Anchor" href="#count"></a> count</h3>
+<h3 id="count">   count</h3>
 <ul>
 <li>利用等于操作符，把标志范围内的元素与输入值比较，返回相等元素个数。</li>
 </ul>
-<h3 id="count_if"><a class="markdownIt-Anchor" href="#count_if"></a> count_if</h3>
+<h3 id="count_if">   count_if</h3>
 <ul>
 <li>利用输入的操作符，对标志范围内的元素进行操作，返回结果为true的个数。</li>
 </ul>
-<h3 id="equal_range"><a class="markdownIt-Anchor" href="#equal_range"></a> equal_range</h3>
+<h3 id="equal_range">    equal_range</h3>
 <ul>
 <li>功能类似equal，返回一对iterator，第一个表示lower_bound，第二个表示upper_bound。</li>
 </ul>
-<h3 id="find"><a class="markdownIt-Anchor" href="#find"></a> find</h3>
+<h3 id="find">   find</h3>
 <ul>
 <li>利用底层元素的等于操作符，对指定范围内的元素与输入值进行比较。当匹配时，结束搜索，返回该元素的一个InputIterator。</li>
 </ul>
-<h3 id="find_end"><a class="markdownIt-Anchor" href="#find_end"></a> find_end</h3>
+<h3 id="find_end">    find_end</h3>
 <ul>
 <li>在指定范围内查找&quot;由输入的另外一对iterator标志的第二个序列&quot;的最后一次出现。找到则返回最后一对的第一个ForwardIterator，否则返回输入的&quot;另外一对&quot;的第一个ForwardIterator。</li>
 </ul>
-<h3 id="find_first_of"><a class="markdownIt-Anchor" href="#find_first_of"></a> find_first_of</h3>
+<h3 id="find_first_of">  find_first_of</h3>
 <ul>
 <li>在指定范围内查找&quot;由输入的另外一对iterator标志的第二个序列&quot;中任意一个元素的第一次出现。重载版本中使用了用户自定义操作符。</li>
 </ul>
-<h3 id="find_if"><a class="markdownIt-Anchor" href="#find_if"></a> find_if</h3>
+<h3 id="find_if">  find_if</h3>
 <ul>
 <li>使用输入的函数代替等于操作符执行find</li>
 </ul>
-<h3 id="lower_bound"><a class="markdownIt-Anchor" href="#lower_bound"></a> lower_bound</h3>
+<h3 id="lower_bound">   lower_bound</h3>
 <ul>
 <li>返回一个ForwardIterator，指向在有序序列范围内的可以插入指定值而不破坏容器顺序的第一个位置。</li>
 </ul>
-<h3 id="upper_bound"><a class="markdownIt-Anchor" href="#upper_bound"></a> upper_bound</h3>
+<h3 id="upper_bound">   upper_bound</h3>
 <ul>
 <li>返回一个ForwardIterator，指向在有序序列范围内插入value而不破坏容器顺序的最后一个位置，该位置标志一个大于value的值。</li>
 </ul>
-<h3 id="search"><a class="markdownIt-Anchor" href="#search"></a> search</h3>
+<h3 id="search">   search</h3>
 <ul>
 <li>给出两个范围，返回一个ForwardIterator，查找成功指向第一个范围内第一次出现子序列(第二个范围)的位置，查找失败指向last。</li>
 </ul>
-<h3 id="search_n"><a class="markdownIt-Anchor" href="#search_n"></a> search_n</h3>
+<h3 id="search_n">    search_n</h3>
 <ul>
 <li>在指定范围内查找val出现n次的子序列。</li>
 </ul>
-<h2 id="排序和通用算法"><a class="markdownIt-Anchor" href="#排序和通用算法"></a> 排序和通用算法</h2>
-<h3 id="inplace_merge"><a class="markdownIt-Anchor" href="#inplace_merge"></a> inplace_merge</h3>
+<h2 id="排序和通用算法">排序和通用算法</h2>
+<h3 id="inplace_merge">inplace_merge</h3>
 <ul>
 <li>合并两个有序序列，结果序列覆盖两端范围。</li>
 </ul>
-<h3 id="merge"><a class="markdownIt-Anchor" href="#merge"></a> merge</h3>
+<h3 id="merge">merge</h3>
 <ul>
 <li>合并两个有序序列，存放到另一个序列。</li>
 </ul>
-<h3 id="nth_element"><a class="markdownIt-Anchor" href="#nth_element"></a> nth_element</h3>
+<h3 id="nth_element">nth_element</h3>
 <ul>
 <li>将范围内的序列重新排序，使所有小于第n个元素的元素都出现在它前面，而大于它的都出现在后面。</li>
 </ul>
-<h3 id="partial_sort"><a class="markdownIt-Anchor" href="#partial_sort"></a> partial_sort</h3>
+<h3 id="partial_sort">partial_sort</h3>
 <ul>
 <li>对序列做部分排序，被排序元素个数正好可以被放到范围内。</li>
 </ul>
-<h3 id="partial_sort_copy"><a class="markdownIt-Anchor" href="#partial_sort_copy"></a> partial_sort_copy</h3>
+<h3 id="partial_sort_copy">partial_sort_copy</h3>
 <ul>
 <li>与partial_sort类似，不过将经过排序的序列复制到另一个容器。</li>
 </ul>
-<h3 id="partition"><a class="markdownIt-Anchor" href="#partition"></a> partition</h3>
+<h3 id="partition">partition</h3>
 <ul>
 <li>对指定范围内元素重新排序，使用输入的函数，把结果为true的元素放在结果为false的元素之前。</li>
 </ul>
-<h3 id="stable_partition"><a class="markdownIt-Anchor" href="#stable_partition"></a> stable_partition</h3>
+<h3 id="stable_partition">stable_partition</h3>
 <ul>
 <li>与partition类似，不过不保证保留容器中的相对顺序。</li>
 </ul>
-<h3 id="random_shuffle"><a class="markdownIt-Anchor" href="#random_shuffle"></a> random_shuffle</h3>
+<h3 id="random_shuffle">random_shuffle</h3>
 <ul>
 <li>对指定范围内的元素随机调整次序。</li>
 </ul>
-<h3 id="reverse"><a class="markdownIt-Anchor" href="#reverse"></a> reverse</h3>
+<h3 id="reverse">reverse</h3>
 <ul>
 <li>将指定范围内元素重新反序排序。</li>
 </ul>
-<h3 id="reverse_copy"><a class="markdownIt-Anchor" href="#reverse_copy"></a> reverse_copy</h3>
+<h3 id="reverse_copy">reverse_copy</h3>
 <ul>
 <li>与reverse类似，不过将结果写入另一个容器。</li>
 </ul>
-<h3 id="rotate"><a class="markdownIt-Anchor" href="#rotate"></a> rotate</h3>
+<h3 id="rotate">rotate</h3>
 <ul>
 <li>将指定范围内元素移到容器末尾，由middle指向的元素成为容器第一个元素。</li>
 </ul>
-<h3 id="rotate_copy"><a class="markdownIt-Anchor" href="#rotate_copy"></a> rotate_copy</h3>
+<h3 id="rotate_copy">rotate_copy</h3>
 <ul>
 <li>与rotate类似，不过将结果写入另一个容器。</li>
 </ul>
-<h3 id="sort"><a class="markdownIt-Anchor" href="#sort"></a> sort</h3>
+<h3 id="sort">sort</h3>
 <ul>
 <li>以升序重新排列指定范围内的元素。</li>
 </ul>
-<h3 id="stable_sort"><a class="markdownIt-Anchor" href="#stable_sort"></a> stable_sort</h3>
+<h3 id="stable_sort">stable_sort</h3>
 <ul>
 <li>与sort类似，不过保留相等元素之间的顺序关系。</li>
 </ul>
-<h2 id="删除和替换算法"><a class="markdownIt-Anchor" href="#删除和替换算法"></a> 删除和替换算法</h2>
-<h3 id="copy"><a class="markdownIt-Anchor" href="#copy"></a> copy</h3>
-<h3 id="copy_backward"><a class="markdownIt-Anchor" href="#copy_backward"></a> copy_backward</h3>
-<h3 id="iter_swap"><a class="markdownIt-Anchor" href="#iter_swap"></a> iter_swap</h3>
-<h3 id="remove"><a class="markdownIt-Anchor" href="#remove"></a> remove</h3>
-<h3 id="remove_copy"><a class="markdownIt-Anchor" href="#remove_copy"></a> remove_copy</h3>
-<h3 id="remove_if"><a class="markdownIt-Anchor" href="#remove_if"></a> remove_if</h3>
-<h3 id="remove_copy-2"><a class="markdownIt-Anchor" href="#remove_copy-2"></a> remove_copy</h3>
-<h3 id="replace"><a class="markdownIt-Anchor" href="#replace"></a> replace</h3>
-<h3 id="replace_copy"><a class="markdownIt-Anchor" href="#replace_copy"></a> replace_copy</h3>
-<h3 id="replace_if"><a class="markdownIt-Anchor" href="#replace_if"></a> replace_if</h3>
-<h3 id="replace_copy-2"><a class="markdownIt-Anchor" href="#replace_copy-2"></a> replace_copy</h3>
-<h3 id="swap"><a class="markdownIt-Anchor" href="#swap"></a> swap</h3>
-<h3 id="swap_range"><a class="markdownIt-Anchor" href="#swap_range"></a> swap_range</h3>
-<h3 id="unique"><a class="markdownIt-Anchor" href="#unique"></a> unique</h3>
-<h3 id="unique_copy"><a class="markdownIt-Anchor" href="#unique_copy"></a> unique_copy</h3>
-<h2 id="排列组合算法"><a class="markdownIt-Anchor" href="#排列组合算法"></a> 排列组合算法</h2>
-<h3 id="next_permutation"><a class="markdownIt-Anchor" href="#next_permutation"></a> next_permutation</h3>
+<h2 id="删除和替换算法">删除和替换算法</h2>
+<h3 id="copy">copy</h3>
+<h3 id="copy_backward">copy_backward</h3>
+<h3 id="iter_swap">iter_swap</h3>
+<h3 id="remove">remove</h3>
+<h3 id="remove_copy">remove_copy</h3>
+<h3 id="remove_if">remove_if</h3>
+<h3 id="remove_copy-1">remove_copy</h3>
+<h3 id="replace">replace</h3>
+<h3 id="replace_copy">replace_copy</h3>
+<h3 id="replace_if">replace_if</h3>
+<h3 id="replace_copy-1">replace_copy</h3>
+<h3 id="swap">swap</h3>
+<h3 id="swap_range">swap_range</h3>
+<h3 id="unique">unique</h3>
+<h3 id="unique_copy">unique_copy</h3>
+<h2 id="排列组合算法">排列组合算法</h2>
+<h3 id="next_permutation">next_permutation</h3>
 <ul>
 <li>取出当前范围内的排列，并重新排序为下一个排列。重载版本使用自定义的比较操作。</li>
 </ul>
-<h3 id="prev_permutation"><a class="markdownIt-Anchor" href="#prev_permutation"></a> prev_permutation</h3>
+<h3 id="prev_permutation">prev_permutation</h3>
 <ul>
-<li>取出指定范围内的序列并将它重新排序为上一个序列。如果不存在上一个序列则返回false。</li>
+<li> 取出指定范围内的序列并将它重新排序为上一个序列。如果不存在上一个序列则返回false。</li>
 </ul>
-<h2 id="算术算法"><a class="markdownIt-Anchor" href="#算术算法"></a> 算术算法</h2>
-<h3 id="accumulate"><a class="markdownIt-Anchor" href="#accumulate"></a> accumulate</h3>
-<h3 id="partial_sum"><a class="markdownIt-Anchor" href="#partial_sum"></a> partial_sum</h3>
-<h3 id="inner_product"><a class="markdownIt-Anchor" href="#inner_product"></a> inner_product</h3>
-<h3 id="adjacent_difference"><a class="markdownIt-Anchor" href="#adjacent_difference"></a> adjacent_difference</h3>
-<h2 id="生成和异变算法"><a class="markdownIt-Anchor" href="#生成和异变算法"></a> 生成和异变算法</h2>
-<h3 id="fill"><a class="markdownIt-Anchor" href="#fill"></a> fill</h3>
-<h3 id="fill_n"><a class="markdownIt-Anchor" href="#fill_n"></a> fill_n</h3>
-<h3 id="for_each"><a class="markdownIt-Anchor" href="#for_each"></a> for_each</h3>
-<h3 id="generate"><a class="markdownIt-Anchor" href="#generate"></a> generate</h3>
-<h3 id="generate_n"><a class="markdownIt-Anchor" href="#generate_n"></a> generate_n</h3>
-<h3 id="transform"><a class="markdownIt-Anchor" href="#transform"></a> transform</h3>
-<h2 id="关系算法"><a class="markdownIt-Anchor" href="#关系算法"></a> 关系算法</h2>
-<h3 id="equal"><a class="markdownIt-Anchor" href="#equal"></a> equal</h3>
-<h3 id="includes"><a class="markdownIt-Anchor" href="#includes"></a> includes</h3>
-<h3 id="lexicographical_compare"><a class="markdownIt-Anchor" href="#lexicographical_compare"></a> lexicographical_compare</h3>
-<h3 id="max"><a class="markdownIt-Anchor" href="#max"></a> max</h3>
-<h3 id="max_element"><a class="markdownIt-Anchor" href="#max_element"></a> max_element</h3>
-<h3 id="min"><a class="markdownIt-Anchor" href="#min"></a> min</h3>
-<h3 id="min_element"><a class="markdownIt-Anchor" href="#min_element"></a> min_element</h3>
-<h3 id="mismatch"><a class="markdownIt-Anchor" href="#mismatch"></a> mismatch</h3>
-<h2 id="集合算法"><a class="markdownIt-Anchor" href="#集合算法"></a> 集合算法</h2>
-<h3 id="set_union"><a class="markdownIt-Anchor" href="#set_union"></a> set_union</h3>
-<h3 id="set_intersection"><a class="markdownIt-Anchor" href="#set_intersection"></a> set_intersection</h3>
-<h3 id="set_difference"><a class="markdownIt-Anchor" href="#set_difference"></a> set_difference</h3>
-<h3 id="set_symmetric_difference"><a class="markdownIt-Anchor" href="#set_symmetric_difference"></a> set_symmetric_difference</h3>
-<h2 id="堆算法"><a class="markdownIt-Anchor" href="#堆算法"></a> 堆算法</h2>
-<h3 id="make_heap"><a class="markdownIt-Anchor" href="#make_heap"></a> make_heap</h3>
+<h2 id="算术算法">算术算法</h2>
+<h3 id="accumulate">accumulate</h3>
+<h3 id="partial_sum">partial_sum</h3>
+<h3 id="inner_product">inner_product</h3>
+<h3 id="adjacent_difference">adjacent_difference</h3>
+<h2 id="生成和异变算法">生成和异变算法</h2>
+<h3 id="fill">fill</h3>
+<h3 id="fill_n">fill_n</h3>
+<h3 id="for_each">for_each</h3>
+<h3 id="generate">generate</h3>
+<h3 id="generate_n">generate_n</h3>
+<h3 id="transform">transform</h3>
+<h2 id="关系算法">关系算法</h2>
+<h3 id="equal">equal</h3>
+<h3 id="includes">includes</h3>
+<h3 id="lexicographical_compare">lexicographical_compare</h3>
+<h3 id="max">max</h3>
+<h3 id="max_element">max_element</h3>
+<h3 id="min">min</h3>
+<h3 id="min_element">min_element</h3>
+<h3 id="mismatch">mismatch</h3>
+<h2 id="集合算法">集合算法</h2>
+<h3 id="set_union">set_union</h3>
+<h3 id="set_intersection">set_intersection</h3>
+<h3 id="set_difference">set_difference</h3>
+<h3 id="set_symmetric_difference">set_symmetric_difference</h3>
+<h2 id="堆算法">堆算法</h2>
+<h3 id="make_heap">make_heap</h3>
 <ul>
 <li>把指定范围内的元素生成一个堆。</li>
 </ul>
-<h3 id="pop_heap"><a class="markdownIt-Anchor" href="#pop_heap"></a> pop_heap</h3>
+<h3 id="pop_heap">pop_heap</h3>
 <ul>
 <li>并不真正把最大元素从堆中弹出，而是重新排序堆。它把first和last-1交换，然后重新生成一个堆。可使用容器的back来访问被&quot;弹出&quot;的元素或者使用pop_back进行真正的删除。</li>
 </ul>
-<h3 id="push_heap"><a class="markdownIt-Anchor" href="#push_heap"></a> push_heap</h3>
+<h3 id="push_heap">push_heap</h3>
 <ul>
 <li>假设first到last-1是一个有效堆，要被加入到堆的元素存放在位置last-1，重新生成堆。在指向该函数前，必须先把元素插入容器后。</li>
 </ul>
-<h3 id="sort_heap"><a class="markdownIt-Anchor" href="#sort_heap"></a> sort_heap</h3>
+<h3 id="sort_heap">sort_heap</h3>
 <ul>
 <li>对指定范围内的序列重新排序，它假设该序列是个有序堆。</li>
 </ul>
 
-      
     </div>
+
     
     
     
 
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/c/" rel="tag"># c++</a>
-          
-            <a href="/tags/stl/" rel="tag"># stl</a>
-          
-        </div>
-      
-
-      
-      
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2020/02/23/leetcode刷题记录/" rel="next" title="leetcode刷题记录">
-                <i class="fa fa-chevron-left"></i> leetcode刷题记录
-              </a>
-            
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/c/" rel="tag"># c++</a>
+              <a href="/tags/stl/" rel="tag"># stl</a>
           </div>
 
-          <span class="post-nav-divider"></span>
+        
 
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2020/07/08/leetcode-动态规划题目总结/" rel="prev" title="leetcode_动态规划题目总结">
-                leetcode_动态规划题目总结 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
 
-      
-      
-    </footer>
-  </div>
-  
-  
-  
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/02/23/leetcode%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/" rel="prev" title="leetcode刷题记录">
+      <i class="fa fa-chevron-left"></i> leetcode刷题记录
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/07/08/leetcode-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E9%A2%98%E7%9B%AE%E6%80%BB%E7%BB%93/" rel="next" title="leetcode_动态规划题目总结">
+      leetcode_动态规划题目总结 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
   </article>
+  
+  
+  
 
-
-
-    <div class="post-spread">
-      
-    </div>
-  </div>
 
 
           </div>
           
+    <div class="comments" id="gitalk-container"></div>
 
-
-          
-  <div class="comments" id="comments">
-    
-      <div id="hypercomments_widget"></div>
-    
-  </div>
-
-
-        </div>
-        
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
-  </div>
-
-  <aside id="sidebar" class="sidebar">
-    
-    <div class="sidebar-inner">
-
-      
-
-      
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            站点概览
-          </li>
-        </ul>
-      
-
-      <section class="site-overview sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" itemprop="image" src="/images/wukong.png" alt="张阿楠">
-          <p class="site-author-name" itemprop="name">张阿楠</p>
-           
-              <p class="site-description motion-element" itemprop="description">Keep codeing and thinking!</p>
-          
-        </div>
-        <nav class="site-state motion-element">
-
-          
-            <div class="site-state-item site-state-posts">
-              <a href="/archives/">
-                <span class="site-state-item-count">65</span>
-                <span class="site-state-item-name">日志</span>
-              </a>
-            </div>
-          
-
-          
-            
-            
-            <div class="site-state-item site-state-categories">
-              <a href="/categories/index.html">
-                <span class="site-state-item-count">5</span>
-                <span class="site-state-item-name">分类</span>
-              </a>
-            </div>
-          
-
-          
-            
-            
-            <div class="site-state-item site-state-tags">
-              <a href="/tags/index.html">
-                <span class="site-state-item-count">39</span>
-                <span class="site-state-item-name">标签</span>
-              </a>
-            </div>
-          
-
-        </nav>
-
-        
-
-        <div class="links-of-author motion-element">
-          
-            
-              <span class="links-of-author-item">
-                <a href="https://github.com/vernlium" target="_blank" title="GitHub">
-                  
-                    <i class="fa fa-fw fa-github"></i>
-                  
-                    
-                      GitHub
-                    
-                </a>
-              </span>
-            
-              <span class="links-of-author-item">
-                <a href="http://www.zhihu.com/people/ananzhang" target="_blank" title="ZhiHu">
-                  
-                    <i class="fa fa-fw fa-globe"></i>
-                  
-                    
-                      ZhiHu
-                    
-                </a>
-              </span>
-            
-          
-        </div>
-
-        
-        
-
-        
-        
-
-        
-
-
-      </section>
-
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#c-stl-algorithms"><span class="nav-number">1.</span> <span class="nav-text"> C++ STL algorithms</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#头文件"><span class="nav-number">1.1.</span> <span class="nav-text"> 头文件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#algorithmnumericfunctional组成"><span class="nav-number">1.1.1.</span> <span class="nav-text"> ,,组成。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#要使用-stl中的算法函数必须包含头文件algorithm"><span class="nav-number">1.1.2.</span> <span class="nav-text"> 要使用 STL中的算法函数必须包含头文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对于数值算法须包含numeric"><span class="nav-number">1.1.3.</span> <span class="nav-text"> 对于数值算法须包含</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#functional中则定义了一些模板类用来声明函数对象"><span class="nav-number">1.1.4.</span> <span class="nav-text"> 中则定义了一些模板类，用来声明函数对象</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4类算法"><span class="nav-number">1.2.</span> <span class="nav-text"> 4类算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#非可变序列算法"><span class="nav-number">1.2.1.</span> <span class="nav-text"> 非可变序列算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#可变序列算法"><span class="nav-number">1.2.2.</span> <span class="nav-text"> 可变序列算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#排序算法"><span class="nav-number">1.2.3.</span> <span class="nav-text"> 排序算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数值算法"><span class="nav-number">1.2.4.</span> <span class="nav-text"> 数值算法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查找算法"><span class="nav-number">1.3.</span> <span class="nav-text"> 查找算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#adjacent_find"><span class="nav-number">1.3.1.</span> <span class="nav-text"> adjacent_find</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#binary_search"><span class="nav-number">1.3.2.</span> <span class="nav-text"> binary_search</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#count"><span class="nav-number">1.3.3.</span> <span class="nav-text"> count</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#count_if"><span class="nav-number">1.3.4.</span> <span class="nav-text"> count_if</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#equal_range"><span class="nav-number">1.3.5.</span> <span class="nav-text"> equal_range</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#find"><span class="nav-number">1.3.6.</span> <span class="nav-text"> find</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#find_end"><span class="nav-number">1.3.7.</span> <span class="nav-text"> find_end</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#find_first_of"><span class="nav-number">1.3.8.</span> <span class="nav-text"> find_first_of</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#find_if"><span class="nav-number">1.3.9.</span> <span class="nav-text"> find_if</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lower_bound"><span class="nav-number">1.3.10.</span> <span class="nav-text"> lower_bound</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#upper_bound"><span class="nav-number">1.3.11.</span> <span class="nav-text"> upper_bound</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#search"><span class="nav-number">1.3.12.</span> <span class="nav-text"> search</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#search_n"><span class="nav-number">1.3.13.</span> <span class="nav-text"> search_n</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#排序和通用算法"><span class="nav-number">1.4.</span> <span class="nav-text"> 排序和通用算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#inplace_merge"><span class="nav-number">1.4.1.</span> <span class="nav-text"> inplace_merge</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#merge"><span class="nav-number">1.4.2.</span> <span class="nav-text"> merge</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#nth_element"><span class="nav-number">1.4.3.</span> <span class="nav-text"> nth_element</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#partial_sort"><span class="nav-number">1.4.4.</span> <span class="nav-text"> partial_sort</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#partial_sort_copy"><span class="nav-number">1.4.5.</span> <span class="nav-text"> partial_sort_copy</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#partition"><span class="nav-number">1.4.6.</span> <span class="nav-text"> partition</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#stable_partition"><span class="nav-number">1.4.7.</span> <span class="nav-text"> stable_partition</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#random_shuffle"><span class="nav-number">1.4.8.</span> <span class="nav-text"> random_shuffle</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#reverse"><span class="nav-number">1.4.9.</span> <span class="nav-text"> reverse</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#reverse_copy"><span class="nav-number">1.4.10.</span> <span class="nav-text"> reverse_copy</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#rotate"><span class="nav-number">1.4.11.</span> <span class="nav-text"> rotate</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#rotate_copy"><span class="nav-number">1.4.12.</span> <span class="nav-text"> rotate_copy</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sort"><span class="nav-number">1.4.13.</span> <span class="nav-text"> sort</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#stable_sort"><span class="nav-number">1.4.14.</span> <span class="nav-text"> stable_sort</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#删除和替换算法"><span class="nav-number">1.5.</span> <span class="nav-text"> 删除和替换算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#copy"><span class="nav-number">1.5.1.</span> <span class="nav-text"> copy</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#copy_backward"><span class="nav-number">1.5.2.</span> <span class="nav-text"> copy_backward</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#iter_swap"><span class="nav-number">1.5.3.</span> <span class="nav-text"> iter_swap</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#remove"><span class="nav-number">1.5.4.</span> <span class="nav-text"> remove</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#remove_copy"><span class="nav-number">1.5.5.</span> <span class="nav-text"> remove_copy</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#remove_if"><span class="nav-number">1.5.6.</span> <span class="nav-text"> remove_if</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#remove_copy-2"><span class="nav-number">1.5.7.</span> <span class="nav-text"> remove_copy</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#replace"><span class="nav-number">1.5.8.</span> <span class="nav-text"> replace</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#replace_copy"><span class="nav-number">1.5.9.</span> <span class="nav-text"> replace_copy</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#replace_if"><span class="nav-number">1.5.10.</span> <span class="nav-text"> replace_if</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#replace_copy-2"><span class="nav-number">1.5.11.</span> <span class="nav-text"> replace_copy</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#swap"><span class="nav-number">1.5.12.</span> <span class="nav-text"> swap</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#swap_range"><span class="nav-number">1.5.13.</span> <span class="nav-text"> swap_range</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#unique"><span class="nav-number">1.5.14.</span> <span class="nav-text"> unique</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#unique_copy"><span class="nav-number">1.5.15.</span> <span class="nav-text"> unique_copy</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#排列组合算法"><span class="nav-number">1.6.</span> <span class="nav-text"> 排列组合算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#next_permutation"><span class="nav-number">1.6.1.</span> <span class="nav-text"> next_permutation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#prev_permutation"><span class="nav-number">1.6.2.</span> <span class="nav-text"> prev_permutation</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#算术算法"><span class="nav-number">1.7.</span> <span class="nav-text"> 算术算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#accumulate"><span class="nav-number">1.7.1.</span> <span class="nav-text"> accumulate</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#partial_sum"><span class="nav-number">1.7.2.</span> <span class="nav-text"> partial_sum</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#inner_product"><span class="nav-number">1.7.3.</span> <span class="nav-text"> inner_product</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#adjacent_difference"><span class="nav-number">1.7.4.</span> <span class="nav-text"> adjacent_difference</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#生成和异变算法"><span class="nav-number">1.8.</span> <span class="nav-text"> 生成和异变算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#fill"><span class="nav-number">1.8.1.</span> <span class="nav-text"> fill</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#fill_n"><span class="nav-number">1.8.2.</span> <span class="nav-text"> fill_n</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#for_each"><span class="nav-number">1.8.3.</span> <span class="nav-text"> for_each</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#generate"><span class="nav-number">1.8.4.</span> <span class="nav-text"> generate</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#generate_n"><span class="nav-number">1.8.5.</span> <span class="nav-text"> generate_n</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#transform"><span class="nav-number">1.8.6.</span> <span class="nav-text"> transform</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关系算法"><span class="nav-number">1.9.</span> <span class="nav-text"> 关系算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#equal"><span class="nav-number">1.9.1.</span> <span class="nav-text"> equal</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#includes"><span class="nav-number">1.9.2.</span> <span class="nav-text"> includes</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lexicographical_compare"><span class="nav-number">1.9.3.</span> <span class="nav-text"> lexicographical_compare</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#max"><span class="nav-number">1.9.4.</span> <span class="nav-text"> max</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#max_element"><span class="nav-number">1.9.5.</span> <span class="nav-text"> max_element</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#min"><span class="nav-number">1.9.6.</span> <span class="nav-text"> min</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#min_element"><span class="nav-number">1.9.7.</span> <span class="nav-text"> min_element</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mismatch"><span class="nav-number">1.9.8.</span> <span class="nav-text"> mismatch</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#集合算法"><span class="nav-number">1.10.</span> <span class="nav-text"> 集合算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#set_union"><span class="nav-number">1.10.1.</span> <span class="nav-text"> set_union</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#set_intersection"><span class="nav-number">1.10.2.</span> <span class="nav-text"> set_intersection</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#set_difference"><span class="nav-number">1.10.3.</span> <span class="nav-text"> set_difference</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#set_symmetric_difference"><span class="nav-number">1.10.4.</span> <span class="nav-text"> set_symmetric_difference</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#堆算法"><span class="nav-number">1.11.</span> <span class="nav-text"> 堆算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#make_heap"><span class="nav-number">1.11.1.</span> <span class="nav-text"> make_heap</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pop_heap"><span class="nav-number">1.11.2.</span> <span class="nav-text"> pop_heap</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#push_heap"><span class="nav-number">1.11.3.</span> <span class="nav-text"> push_heap</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sort_heap"><span class="nav-number">1.11.4.</span> <span class="nav-text"> sort_heap</span></a></li></ol></li></ol></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
-      
-
-      
-
-    </div>
-  </aside>
-
-
-        
-      </div>
-    </main>
-
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright">
-  
-  &copy;  2015 - 
-  <span itemprop="copyrightYear">2020</span>
-  <span class="with-love">
-    <i class="fa fa-heart"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">张阿楠</span>
-</div>
-
-
-<div class="powered-by">
-  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
-</div>
-
-<div class="theme-info">
-  主题 -
-  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
-    NexT.Pisces
-  </a>
-</div>
-
-
-        
-
-        
-      </div>
-    </footer>
-
-    
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-      </div>
-    
-
-  </div>
-
-  
-
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
   }
 </script>
 
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#c-stl-algorithms"><span class="nav-number">1.</span> <span class="nav-text">C++ STL algorithms</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%B4%E6%96%87%E4%BB%B6"><span class="nav-number">1.1.</span> <span class="nav-text">头文件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%84%E6%88%90"><span class="nav-number">1.1.1.</span> <span class="nav-text">,,组成。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A6%81%E4%BD%BF%E7%94%A8-stl%E4%B8%AD%E7%9A%84%E7%AE%97%E6%B3%95%E5%87%BD%E6%95%B0%E5%BF%85%E9%A1%BB%E5%8C%85%E5%90%AB%E5%A4%B4%E6%96%87%E4%BB%B6"><span class="nav-number">1.1.2.</span> <span class="nav-text">要使用 STL中的算法函数必须包含头文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%B9%E4%BA%8E%E6%95%B0%E5%80%BC%E7%AE%97%E6%B3%95%E9%A1%BB%E5%8C%85%E5%90%AB"><span class="nav-number">1.1.3.</span> <span class="nav-text">对于数值算法须包含</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%AD%E5%88%99%E5%AE%9A%E4%B9%89%E4%BA%86%E4%B8%80%E4%BA%9B%E6%A8%A1%E6%9D%BF%E7%B1%BB%E7%94%A8%E6%9D%A5%E5%A3%B0%E6%98%8E%E5%87%BD%E6%95%B0%E5%AF%B9%E8%B1%A1"><span class="nav-number">1.1.4.</span> <span class="nav-text">中则定义了一些模板类，用来声明函数对象</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B1%BB%E7%AE%97%E6%B3%95"><span class="nav-number">1.2.</span> <span class="nav-text">4类算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9D%9E%E5%8F%AF%E5%8F%98%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95"><span class="nav-number">1.2.1.</span> <span class="nav-text">非可变序列算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%AF%E5%8F%98%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95"><span class="nav-number">1.2.2.</span> <span class="nav-text">可变序列算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95"><span class="nav-number">1.2.3.</span> <span class="nav-text">排序算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E5%80%BC%E7%AE%97%E6%B3%95"><span class="nav-number">1.2.4.</span> <span class="nav-text">数值算法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9F%A5%E6%89%BE%E7%AE%97%E6%B3%95"><span class="nav-number">1.3.</span> <span class="nav-text">查找算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#adjacent_find"><span class="nav-number">1.3.1.</span> <span class="nav-text">adjacent_find</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#binary_search"><span class="nav-number">1.3.2.</span> <span class="nav-text">   binary_search</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#count"><span class="nav-number">1.3.3.</span> <span class="nav-text">   count</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#count_if"><span class="nav-number">1.3.4.</span> <span class="nav-text">   count_if</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#equal_range"><span class="nav-number">1.3.5.</span> <span class="nav-text">    equal_range</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#find"><span class="nav-number">1.3.6.</span> <span class="nav-text">   find</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#find_end"><span class="nav-number">1.3.7.</span> <span class="nav-text">    find_end</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#find_first_of"><span class="nav-number">1.3.8.</span> <span class="nav-text">  find_first_of</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#find_if"><span class="nav-number">1.3.9.</span> <span class="nav-text">  find_if</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lower_bound"><span class="nav-number">1.3.10.</span> <span class="nav-text">   lower_bound</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#upper_bound"><span class="nav-number">1.3.11.</span> <span class="nav-text">   upper_bound</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#search"><span class="nav-number">1.3.12.</span> <span class="nav-text">   search</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#search_n"><span class="nav-number">1.3.13.</span> <span class="nav-text">    search_n</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8E%92%E5%BA%8F%E5%92%8C%E9%80%9A%E7%94%A8%E7%AE%97%E6%B3%95"><span class="nav-number">1.4.</span> <span class="nav-text">排序和通用算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#inplace_merge"><span class="nav-number">1.4.1.</span> <span class="nav-text">inplace_merge</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#merge"><span class="nav-number">1.4.2.</span> <span class="nav-text">merge</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#nth_element"><span class="nav-number">1.4.3.</span> <span class="nav-text">nth_element</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#partial_sort"><span class="nav-number">1.4.4.</span> <span class="nav-text">partial_sort</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#partial_sort_copy"><span class="nav-number">1.4.5.</span> <span class="nav-text">partial_sort_copy</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#partition"><span class="nav-number">1.4.6.</span> <span class="nav-text">partition</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#stable_partition"><span class="nav-number">1.4.7.</span> <span class="nav-text">stable_partition</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#random_shuffle"><span class="nav-number">1.4.8.</span> <span class="nav-text">random_shuffle</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#reverse"><span class="nav-number">1.4.9.</span> <span class="nav-text">reverse</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#reverse_copy"><span class="nav-number">1.4.10.</span> <span class="nav-text">reverse_copy</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#rotate"><span class="nav-number">1.4.11.</span> <span class="nav-text">rotate</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#rotate_copy"><span class="nav-number">1.4.12.</span> <span class="nav-text">rotate_copy</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sort"><span class="nav-number">1.4.13.</span> <span class="nav-text">sort</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#stable_sort"><span class="nav-number">1.4.14.</span> <span class="nav-text">stable_sort</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%A0%E9%99%A4%E5%92%8C%E6%9B%BF%E6%8D%A2%E7%AE%97%E6%B3%95"><span class="nav-number">1.5.</span> <span class="nav-text">删除和替换算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#copy"><span class="nav-number">1.5.1.</span> <span class="nav-text">copy</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#copy_backward"><span class="nav-number">1.5.2.</span> <span class="nav-text">copy_backward</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#iter_swap"><span class="nav-number">1.5.3.</span> <span class="nav-text">iter_swap</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#remove"><span class="nav-number">1.5.4.</span> <span class="nav-text">remove</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#remove_copy"><span class="nav-number">1.5.5.</span> <span class="nav-text">remove_copy</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#remove_if"><span class="nav-number">1.5.6.</span> <span class="nav-text">remove_if</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#remove_copy-1"><span class="nav-number">1.5.7.</span> <span class="nav-text">remove_copy</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#replace"><span class="nav-number">1.5.8.</span> <span class="nav-text">replace</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#replace_copy"><span class="nav-number">1.5.9.</span> <span class="nav-text">replace_copy</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#replace_if"><span class="nav-number">1.5.10.</span> <span class="nav-text">replace_if</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#replace_copy-1"><span class="nav-number">1.5.11.</span> <span class="nav-text">replace_copy</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#swap"><span class="nav-number">1.5.12.</span> <span class="nav-text">swap</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#swap_range"><span class="nav-number">1.5.13.</span> <span class="nav-text">swap_range</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#unique"><span class="nav-number">1.5.14.</span> <span class="nav-text">unique</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#unique_copy"><span class="nav-number">1.5.15.</span> <span class="nav-text">unique_copy</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8E%92%E5%88%97%E7%BB%84%E5%90%88%E7%AE%97%E6%B3%95"><span class="nav-number">1.6.</span> <span class="nav-text">排列组合算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#next_permutation"><span class="nav-number">1.6.1.</span> <span class="nav-text">next_permutation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#prev_permutation"><span class="nav-number">1.6.2.</span> <span class="nav-text">prev_permutation</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%97%E6%9C%AF%E7%AE%97%E6%B3%95"><span class="nav-number">1.7.</span> <span class="nav-text">算术算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#accumulate"><span class="nav-number">1.7.1.</span> <span class="nav-text">accumulate</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#partial_sum"><span class="nav-number">1.7.2.</span> <span class="nav-text">partial_sum</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#inner_product"><span class="nav-number">1.7.3.</span> <span class="nav-text">inner_product</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#adjacent_difference"><span class="nav-number">1.7.4.</span> <span class="nav-text">adjacent_difference</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%9F%E6%88%90%E5%92%8C%E5%BC%82%E5%8F%98%E7%AE%97%E6%B3%95"><span class="nav-number">1.8.</span> <span class="nav-text">生成和异变算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#fill"><span class="nav-number">1.8.1.</span> <span class="nav-text">fill</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#fill_n"><span class="nav-number">1.8.2.</span> <span class="nav-text">fill_n</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#for_each"><span class="nav-number">1.8.3.</span> <span class="nav-text">for_each</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#generate"><span class="nav-number">1.8.4.</span> <span class="nav-text">generate</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#generate_n"><span class="nav-number">1.8.5.</span> <span class="nav-text">generate_n</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#transform"><span class="nav-number">1.8.6.</span> <span class="nav-text">transform</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E7%B3%BB%E7%AE%97%E6%B3%95"><span class="nav-number">1.9.</span> <span class="nav-text">关系算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#equal"><span class="nav-number">1.9.1.</span> <span class="nav-text">equal</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#includes"><span class="nav-number">1.9.2.</span> <span class="nav-text">includes</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lexicographical_compare"><span class="nav-number">1.9.3.</span> <span class="nav-text">lexicographical_compare</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#max"><span class="nav-number">1.9.4.</span> <span class="nav-text">max</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#max_element"><span class="nav-number">1.9.5.</span> <span class="nav-text">max_element</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#min"><span class="nav-number">1.9.6.</span> <span class="nav-text">min</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#min_element"><span class="nav-number">1.9.7.</span> <span class="nav-text">min_element</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mismatch"><span class="nav-number">1.9.8.</span> <span class="nav-text">mismatch</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9B%86%E5%90%88%E7%AE%97%E6%B3%95"><span class="nav-number">1.10.</span> <span class="nav-text">集合算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#set_union"><span class="nav-number">1.10.1.</span> <span class="nav-text">set_union</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#set_intersection"><span class="nav-number">1.10.2.</span> <span class="nav-text">set_intersection</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#set_difference"><span class="nav-number">1.10.3.</span> <span class="nav-text">set_difference</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#set_symmetric_difference"><span class="nav-number">1.10.4.</span> <span class="nav-text">set_symmetric_difference</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A0%86%E7%AE%97%E6%B3%95"><span class="nav-number">1.11.</span> <span class="nav-text">堆算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#make_heap"><span class="nav-number">1.11.1.</span> <span class="nav-text">make_heap</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pop_heap"><span class="nav-number">1.11.2.</span> <span class="nav-text">pop_heap</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#push_heap"><span class="nav-number">1.11.3.</span> <span class="nav-text">push_heap</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sort_heap"><span class="nav-number">1.11.4.</span> <span class="nav-text">sort_heap</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="张阿楠"
+      src="/images/wukong.png">
+  <p class="site-author-name" itemprop="name">张阿楠</p>
+  <div class="site-description" itemprop="description">Keep codeing and thinking!</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">64</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">41</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Vernlium" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Vernlium" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:zhanganan0425@163.com" title="E-Mail → mailto:zhanganan0425@163.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2015 – 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">张阿楠</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+<script src="/js/bookmark.js"></script>
+
+
+  <script defer src="/lib/three/three.min.js"></script>
+    <script defer src="/lib/three/canvas_sphere.min.js"></script>
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
 
 
 
@@ -837,170 +690,29 @@
 
   
 
-
-  
-
-
-
-
-
-
-
-
-
-
-
-  
-  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-
-  
-  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-
-  
-  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-
-  
-  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-
-  
-  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-
-  
-  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-
-  
-  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
-
-
-
-  
-  
-
-
-  <script type="text/javascript" src="/js/src/affix.js?v=5.1.2"></script>
-
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.2"></script>
-
-
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
-
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
-
-
-
-  
-
-
-  
-
-
-
-
-	
-
-		<script type="text/javascript">
-		_hcwp = window._hcwp || [];
-
-		_hcwp.push({widget:"Bloggerstream", widget_id: 95829, selector:".hc-comment-count", label: "{\%COUNT%\}" });
-
-		
-		_hcwp.push({widget:"Stream", widget_id: 95829, xid: "2020/02/23/c-stl-algorithms/"});
-		
-
-		(function() {
-		if("HC_LOAD_INIT" in window)return;
-		HC_LOAD_INIT = true;
-		var lang = (navigator.language || navigator.systemLanguage || navigator.userLanguage || "en").substr(0, 2).toLowerCase();
-		var hcc = document.createElement("script"); hcc.type = "text/javascript"; hcc.async = true;
-		hcc.src = ("https:" == document.location.protocol ? "https" : "http")+"://w.hypercomments.com/widget/hc/95829/"+lang+"/widget.js";
-		var s = document.getElementsByTagName("script")[0];
-		s.parentNode.insertBefore(hcc, s.nextSibling);
-		})();
-		</script>
-
-	
-
-
-
-
-
-
-
-
-
-
-  
-
-
-
-
-
   
 
   
 
-  
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
 
-  
-  
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Config({
-        tex2jax: {
-          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
-          processEscapes: true,
-          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-        }
-      });
-    </script>
-
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax(), i;
-        for (i=0; i < all.length; i += 1) {
-          all[i].SourceElement().parentNode.className += ' has-jax';
-        }
-      });
-    </script>
-    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : '94b49fdac7c9894db657',
+      clientSecret: 'aae2bc06bd829867f3212474d4698cfec26386d6',
+      repo        : 'vernlium.github.io',
+      owner       : 'Vernlium',
+      admin       : ['Vernlium'],
+      id          : '717bfe358dc1e231f024b5070d3c791b',
+        language: 'zh-CN',
+      distractionFreeMode: false
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
 </script>
-
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Queue(function() {
-    var all = MathJax.Hub.getAllJax(), i;
-    for(i=0; i < all.length; i += 1) {
-      all[i].SourceElement().parentNode.className += ' has-jax';
-    }
-  });
-</script>
-
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
-</script>
-<!-- End: Injected MathJax -->
-<!-- hexo-inject:end -->
-  
-
-
-  
-
-  
 
 </body>
 </html>

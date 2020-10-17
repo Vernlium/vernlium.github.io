@@ -1,113 +1,32 @@
 <!DOCTYPE html>
-
-
-
-
-<html class="theme-next pisces" lang="zh-Hans">
-<head><meta name="generator" content="Hexo 3.9.0">
-  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-wukong.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-wukong.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
 
+<link rel="stylesheet" href="/css/main.css">
 
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Consolas:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
 
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"vernlium.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":{"gitalk":{"order":-2}},"activeClass":"gitalk"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
 
-
-
-
-
-
-<meta http-equiv="Cache-Control" content="no-transform">
-<meta http-equiv="Cache-Control" content="no-siteapp">
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
-
-
-
-
-  
-  
-  
-  
-
-  
-    
-    
-  
-
-  
-
-  
-
-  
-
-  
-    
-      
-    
-
-    
-  
-
-  
-    
-    
-    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Consolas:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
-  
-
-
-
-
-
-
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
-
-<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
-
-<link href="https://cdn.bootcss.com/KaTeX/0.7.1/katex.min.css" rel="stylesheet">
-
-
-  <meta name="keywords" content="deeplearning,梯度下降,">
-
-
-
-
-
-
-
-
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2">
-
-
-
-
-
-
-<meta name="description" content="机器学习过程 机器学习算法用于训练模型的迭代试错过程：  假设有时间和计算资源来计算的所有可能的损失值。对于回归问题，所产生的损失和权重值($ w_i $)的关系是凸形的，如下图所示：  凸形问题只有一个最低点：即只存在一个斜率正好为0的位置。这个最小值就是损失函数收敛之处。 通过计算整个数据集中每个可能值的损失函数来找到收敛点这种方法效率太低。机器学习领域有一种找到这个收敛点的机制，叫做梯度下">
-<meta name="keywords" content="deeplearning,梯度下降">
+  <meta name="description" content="机器学习过程 机器学习算法用于训练模型的迭代试错过程：">
 <meta property="og:type" content="article">
 <meta property="og:title" content="深度学习_2_梯度下降法">
-<meta property="og:url" content="://vernlium.github.io/2018/04/18/深度学习_2_梯度下降法/index.html">
+<meta property="og:url" content="https://vernlium.github.io/2018/04/18/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0_2_%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E6%B3%95/index.html">
 <meta property="og:site_name" content="Vernlium">
-<meta property="og:description" content="机器学习过程 机器学习算法用于训练模型的迭代试错过程：  假设有时间和计算资源来计算的所有可能的损失值。对于回归问题，所产生的损失和权重值($ w_i $)的关系是凸形的，如下图所示：  凸形问题只有一个最低点：即只存在一个斜率正好为0的位置。这个最小值就是损失函数收敛之处。 通过计算整个数据集中每个可能值的损失函数来找到收敛点这种方法效率太低。机器学习领域有一种找到这个收敛点的机制，叫做梯度下">
-<meta property="og:locale" content="zh-Hans">
+<meta property="og:description" content="机器学习过程 机器学习算法用于训练模型的迭代试错过程：">
+<meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://user-images.githubusercontent.com/11350907/38938746-e1fd0ad6-4358-11e8-924a-de88ba1fc253.png">
 <meta property="og:image" content="https://user-images.githubusercontent.com/11350907/38938953-63457aec-4359-11e8-9a03-f1349e9f17e6.png">
 <meta property="og:image" content="https://user-images.githubusercontent.com/11350907/38962596-9dbb04e8-43a0-11e8-9b4d-597341e6e69a.png">
@@ -118,54 +37,36 @@
 <meta property="og:image" content="https://user-images.githubusercontent.com/11350907/39089668-980feca0-45ff-11e8-8bb7-37f158106d0b.png">
 <meta property="og:image" content="http://x-wei.github.io/images/Ng_DLMooc_c2wk2/pasted_image034.png">
 <meta property="og:image" content="http://x-wei.github.io/images/Ng_DLMooc_c2wk2/pasted_image035.png">
-<meta property="og:image" content="/2018/04/18/深度学习_2_梯度下降法/learning_rate_too_small.JPG">
-<meta property="og:image" content="/2018/04/18/深度学习_2_梯度下降法/learning_rate_too_big.JPG">
-<meta property="og:image" content="/2018/04/18/深度学习_2_梯度下降法/learning_rate_is_good.JPG">
-<meta property="og:image" content="/2018/04/18/深度学习_2_梯度下降法/example_learning_rate_too_small.JPG">
-<meta property="og:image" content="/2018/04/18/深度学习_2_梯度下降法/example_learning_rate_too_big.JPG">
-<meta property="og:image" content="/2018/04/18/深度学习_2_梯度下降法/example_learning_rate_is_good.JPG">
-<meta property="og:image" content="/2018/04/18/深度学习_2_梯度下降法/example_learning_rate_is_best.JPG">
-<meta property="og:image" content="/2018/04/18/深度学习_2_梯度下降法/cost_with_different_learning_rate.JPG">
-<meta property="og:updated_time" content="2019-06-30T22:35:52.618Z">
+<meta property="og:image" content="https://vernlium.github.io/2018/04/18/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0_2_%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E6%B3%95/learning_rate_too_small.JPG">
+<meta property="og:image" content="https://vernlium.github.io/2018/04/18/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0_2_%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E6%B3%95/learning_rate_too_big.JPG">
+<meta property="og:image" content="https://vernlium.github.io/2018/04/18/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0_2_%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E6%B3%95/learning_rate_is_good.JPG">
+<meta property="og:image" content="https://vernlium.github.io/2018/04/18/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0_2_%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E6%B3%95/example_learning_rate_too_small.JPG">
+<meta property="og:image" content="https://vernlium.github.io/2018/04/18/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0_2_%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E6%B3%95/example_learning_rate_too_big.JPG">
+<meta property="og:image" content="https://vernlium.github.io/2018/04/18/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0_2_%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E6%B3%95/example_learning_rate_is_good.JPG">
+<meta property="og:image" content="https://vernlium.github.io/2018/04/18/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0_2_%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E6%B3%95/example_learning_rate_is_best.JPG">
+<meta property="og:image" content="https://vernlium.github.io/2018/04/18/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0_2_%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E6%B3%95/cost_with_different_learning_rate.JPG">
+<meta property="article:published_time" content="2018-04-18T14:27:48.000Z">
+<meta property="article:modified_time" content="2020-10-17T13:11:23.023Z">
+<meta property="article:author" content="张阿楠">
+<meta property="article:tag" content="deeplearning">
+<meta property="article:tag" content="梯度下降">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="深度学习_2_梯度下降法">
-<meta name="twitter:description" content="机器学习过程 机器学习算法用于训练模型的迭代试错过程：  假设有时间和计算资源来计算的所有可能的损失值。对于回归问题，所产生的损失和权重值($ w_i $)的关系是凸形的，如下图所示：  凸形问题只有一个最低点：即只存在一个斜率正好为0的位置。这个最小值就是损失函数收敛之处。 通过计算整个数据集中每个可能值的损失函数来找到收敛点这种方法效率太低。机器学习领域有一种找到这个收敛点的机制，叫做梯度下">
 <meta name="twitter:image" content="https://user-images.githubusercontent.com/11350907/38938746-e1fd0ad6-4358-11e8-924a-de88ba1fc253.png">
 
+<link rel="canonical" href="https://vernlium.github.io/2018/04/18/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0_2_%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E6%B3%95/">
 
 
-<script type="text/javascript" id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Pisces',
-    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
-    fancybox: true,
-    tabs: true,
-    motion: false,
-    duoshuo: {
-      userId: '0',
-      author: '博主'
-    },
-    algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    }
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
   };
 </script>
 
-
-
-  <link rel="canonical" href="://vernlium.github.io/2018/04/18/深度学习_2_梯度下降法/">
-
-
-
-
-
-  <title>深度学习_2_梯度下降法 | Vernlium</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  <title>深度学习_2_梯度下降法 | Vernlium</title>
   
 
 
@@ -173,222 +74,207 @@
 
 
 
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
 
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
 
-
-
-
-
-
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
 
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
-
-  
-  
-    
-  
-
-  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail ">
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
-    
-
-    <div class="custom-logo-site-title">
-      <a href="/" class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">Vernlium</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
     </div>
-      
-        <p class="site-subtitle">Keep codeing and thinking!</p>
-      
   </div>
 
-  <div class="site-nav-toggle">
-    <button>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Vernlium</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Keep codeing and thinking!</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
   </div>
 </div>
 
+
+
+
 <nav class="site-nav">
-  
-
-  
-    <ul id="menu" class="menu">
-      
-        
+  <ul id="menu" class="menu">
         <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
-            
-            首页
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
-            
-            归档
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-tags">
-          <a href="/tags/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
-            
-            标签
-          </a>
-        </li>
-      
-        
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
         <li class="menu-item menu-item-about">
-          <a href="/about/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
-            
-            关于
-          </a>
-        </li>
-      
 
-      
-    </ul>
-  
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
 
-  
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-commonweal">
+
+    <a href="/404/" rel="section"><i class="fa fa-fw fa-heartbeat"></i>公益 404</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
 </nav>
 
 
 
- </div>
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
     </header>
 
-    <main id="main" class="main">
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+
+    <main class="main">
       <div class="main-inner">
         <div class="content-wrap">
-          <div id="content" class="content">
+          
+
+          <div class="content post posts-expand">
             
 
-  <div id="posts" class="posts-expand">
     
-
-  
-
   
   
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="://vernlium.github.io/2018/04/18/深度学习_2_梯度下降法/">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://vernlium.github.io/2018/04/18/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0_2_%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E6%B3%95/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="张阿楠">
-      <meta itemprop="description" content>
       <meta itemprop="image" content="/images/wukong.png">
+      <meta itemprop="name" content="张阿楠">
+      <meta itemprop="description" content="Keep codeing and thinking!">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="Vernlium">
     </span>
-
-    
       <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">深度学习_2_梯度下降法</h1>
-        
+        <h1 class="post-title" itemprop="name headline">
+          深度学习_2_梯度下降法
+        </h1>
 
         <div class="post-meta">
-          <span class="post-time">
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
               </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-18T22:27:48+08:00">
-                2018-04-18
-              </time>
-            
+              <span class="post-meta-item-text">发表于</span>
 
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
+              <time title="创建时间：2018-04-18 22:27:48" itemprop="dateCreated datePublished" datetime="2018-04-18T22:27:48+08:00">2018-04-18</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-10-17 21:11:23" itemprop="dateModified" datetime="2020-10-17T21:11:23+08:00">2020-10-17</time>
+              </span>
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
               </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
+              <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/深度学习/" itemprop="url" rel="index">
-                    <span itemprop="name">深度学习</span>
-                  </a>
+                  <a href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">深度学习</span></a>
                 </span>
-
-                
-                
-              
             </span>
-          
 
           
-            
-            <!--noindex-->
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/04/18/深度学习_2_梯度下降法/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count hc-comment-count" data-xid="2018/04/18/深度学习_2_梯度下降法/" itemprop="commentsCount"></span>
-                </a>
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
               </span>
-              <!--/noindex-->
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
 
         </div>
       </header>
-    
 
     
     
@@ -396,19 +282,22 @@
     <div class="post-body" itemprop="articleBody">
 
       
-      
-
-      
-        <h3 id="机器学习过程"><a class="markdownIt-Anchor" href="#机器学习过程"></a> 机器学习过程</h3>
+        <h3 id="机器学习过程">机器学习过程</h3>
 <p>机器学习算法用于训练模型的迭代试错过程：</p>
-<p><img src="https://user-images.githubusercontent.com/11350907/38938746-e1fd0ad6-4358-11e8-924a-de88ba1fc253.png" alt="image"></p>
+<figure>
+<img src="https://user-images.githubusercontent.com/11350907/38938746-e1fd0ad6-4358-11e8-924a-de88ba1fc253.png" alt="image" /><figcaption>image</figcaption>
+</figure>
 <p>假设有时间和计算资源来计算的所有可能的损失值。对于回归问题，所产生的损失和权重值($ w_i $)的关系是凸形的，如下图所示：</p>
-<p><img src="https://user-images.githubusercontent.com/11350907/38938953-63457aec-4359-11e8-9a03-f1349e9f17e6.png" alt="image"></p>
+<figure>
+<img src="https://user-images.githubusercontent.com/11350907/38938953-63457aec-4359-11e8-9a03-f1349e9f17e6.png" alt="image" /><figcaption>image</figcaption>
+</figure>
 <p>凸形问题只有一个最低点：即只存在一个斜率正好为0的位置。这个最小值就是损失函数收敛之处。</p>
 <p>通过计算整个数据集中每个可能值的损失函数来找到收敛点这种方法效率太低。机器学习领域有一种找到这个收敛点的机制，叫做<strong>梯度下降法</strong>。</p>
-<h3 id="梯度下降法"><a class="markdownIt-Anchor" href="#梯度下降法"></a> 梯度下降法</h3>
+<h3 id="梯度下降法">梯度下降法</h3>
 <p>梯度下降法的第一个阶段是选择一个起始点值（起点）。起点并不只要，因此很多算法就直接将起点$ w_i $设为0或者随机选择一个值。我们选择一个稍大于0的起点，如下图所示：</p>
-<p><img src="https://user-images.githubusercontent.com/11350907/38962596-9dbb04e8-43a0-11e8-9b4d-597341e6e69a.png" alt="image"></p>
+<figure>
+<img src="https://user-images.githubusercontent.com/11350907/38962596-9dbb04e8-43a0-11e8-9b4d-597341e6e69a.png" alt="image" /><figcaption>image</figcaption>
+</figure>
 <p>然后梯度下降法会计算损失曲线在起点处的梯度。<strong>梯度</strong>是偏导数的矢量；它可以让我们了解哪个方向距离目标“更近”或者“更远”。需要注意的是，损失相对于单个权重的梯度，就等于导数。</p>
 <p>梯度是一个矢量，因此具有如下两个特征：</p>
 <ul>
@@ -416,345 +305,309 @@
 <li>大小</li>
 </ul>
 <p>梯度始终指向损失函数中增长最为迅猛的方向。梯度下降法算法会沿着负梯度的方向走一步，以便尽快降低损失。</p>
-<p><img src="https://user-images.githubusercontent.com/11350907/38962836-c8fd6898-43a1-11e8-8563-16747ce366e3.png" alt="image"></p>
+<figure>
+<img src="https://user-images.githubusercontent.com/11350907/38962836-c8fd6898-43a1-11e8-8563-16747ce366e3.png" alt="image" /><figcaption>image</figcaption>
+</figure>
 <p>为了确定损失函数曲线上的下一个点，梯度下降法算法会将梯度大小的一部分与起点相加，如下图所示：</p>
-<p><img src="https://user-images.githubusercontent.com/11350907/38962909-1f7ec8c4-43a2-11e8-8731-54524d7da48a.png" alt="image"></p>
+<figure>
+<img src="https://user-images.githubusercontent.com/11350907/38962909-1f7ec8c4-43a2-11e8-8731-54524d7da48a.png" alt="image" /><figcaption>image</figcaption>
+</figure>
 <p>然后，梯度下降法会重复此过程，逐渐接近最低点。</p>
 <blockquote>
-<p>以上内容整理自：google机器学习速成课程-降低损失 (Reducing Loss)：梯度下降法：<a href="https://developers.google.cn/machine-learning/crash-course/reducing-loss/gradient-descent" target="_blank" rel="noopener">https://developers.google.cn/machine-learning/crash-course/reducing-loss/gradient-descent</a></p>
+<p>以上内容整理自：google机器学习速成课程-降低损失 (Reducing Loss)：梯度下降法：https://developers.google.cn/machine-learning/crash-course/reducing-loss/gradient-descent</p>
 </blockquote>
-<h3 id="个人理解"><a class="markdownIt-Anchor" href="#个人理解"></a> 个人理解</h3>
+<h3 id="个人理解">个人理解</h3>
 <p>梯度就是为了找一个方向，沿着负梯度方向走梯度乘学习速率（learning rate）(也称步长)的距离，以确定下一个点的位置。</p>
 <p>例如，当前点梯度为-2.5，学习速率为0.001,则梯度下降法会选择当前点向右、距离当前点0.025的位置作为下一个点。</p>
 <p>如下图所示：</p>
-<p>图中A点则往右走一步，即$ w_i $ 加上梯度（正）乘学习速率；<br>
-图中B点则往左走一步，</p>
+<p>图中A点则往右走一步，即$ w_i $ 加上梯度（正）乘学习速率； 图中B点则往左走一步，</p>
 <p>计算公式为：$ w_i ＝　w_i －　α　×　dw $。</p>
 <p>其中$ α $ 为learning_rate。</p>
-<p><img src="https://user-images.githubusercontent.com/11350907/38963403-486e1d3c-43a4-11e8-9ac0-0d78b627fe75.png" alt="image"></p>
+<figure>
+<img src="https://user-images.githubusercontent.com/11350907/38963403-486e1d3c-43a4-11e8-9ac0-0d78b627fe75.png" alt="image" /><figcaption>image</figcaption>
+</figure>
 <p><strong>梯度的正负决定下一步的计算方向，而梯度的值和学习速率决定下一步的位置</strong></p>
-<h3 id="思考"><a class="markdownIt-Anchor" href="#思考"></a> 思考</h3>
+<h3 id="思考">思考</h3>
 <p>对于上面的图，损失和权重的曲线只有一个最小值，即只有一个点的梯度为0.</p>
 <p>但是，也有可能是这种情况：</p>
-<p><img src="https://user-images.githubusercontent.com/11350907/39089632-e9c25606-45fe-11e8-9917-4a72cc9c5bb4.png" alt="image"></p>
+<figure>
+<img src="https://user-images.githubusercontent.com/11350907/39089632-e9c25606-45fe-11e8-9917-4a72cc9c5bb4.png" alt="image" /><figcaption>image</figcaption>
+</figure>
 <p>图中有多个最小值，其中A、B、C、D为局部最小值，G为全局最小值。</p>
-<p>如果起始选取的w值为A’或者B’或者C’或者D’，那么损失会在A  B  C  D中的一个收敛，虽然找到了最小值，却不是全局最小值，这样得到的结果肯定不是我们想要的。这样的话，梯度下降法会不会有问题？</p>
-<h4 id="解惑"><a class="markdownIt-Anchor" href="#解惑"></a> 解惑</h4>
+<p>如果起始选取的w值为A'或者B'或者C'或者D'，那么损失会在A B C D中的一个收敛，虽然找到了最小值，却不是全局最小值，这样得到的结果肯定不是我们想要的。这样的话，梯度下降法会不会有问题？</p>
+<h4 id="解惑">解惑</h4>
 <p>上面损失和w的关系是二维的情况，实际应用中大多是比较复杂的模型，都是多维的，那么多维的场景会不会出现上面的局部最小值呢？比如像下图中所示，会不会出现图中的蓝色点的情况，导致找到的是局部最小值，而不是红色箭头所指的全局最小值？</p>
-<p><img src="https://user-images.githubusercontent.com/11350907/39089668-980feca0-45ff-11e8-8bb7-37f158106d0b.png" alt="image"></p>
+<figure>
+<img src="https://user-images.githubusercontent.com/11350907/39089668-980feca0-45ff-11e8-8bb7-37f158106d0b.png" alt="image" /><figcaption>image</figcaption>
+</figure>
 <p>答案是否定的。</p>
-<p>到2014年，一篇论文<a href="https://arxiv.org/pdf/1406.2572v1.pdf" target="_blank" rel="noopener">《Identifying and attacking the saddle point problem in<br>
-high-dimensional non-convex optimization》</a>， 指出高维优化问题中根本没有那么多局部极值。作者依据统计物理，随机矩阵理论和神经网络理论的分析，以及一些经验分析提出高维非凸优化问题之所以困难，是因为存在大量的鞍点（梯度为零并且Hessian矩阵特征值有正有负）而不是局部极值。</p>
+<p>到2014年，一篇论文<a target="_blank" rel="noopener" href="https://arxiv.org/pdf/1406.2572v1.pdf">《Identifying and attacking the saddle point problem in high-dimensional non-convex optimization》</a>， 指出高维优化问题中根本没有那么多局部极值。作者依据统计物理，随机矩阵理论和神经网络理论的分析，以及一些经验分析提出高维非凸优化问题之所以困难，是因为存在大量的鞍点（梯度为零并且Hessian矩阵特征值有正有负）而不是局部极值。</p>
 <p>鞍点（saddle point)如下图（来自http://x-wei.github.io/Ng_DLMooc_c2wk2.html）。</p>
 <p>和局部极小值相同的是，在该点处的梯度都等于零，不同在于在鞍点附近Hessian矩阵有正的和负的特征值，即是不定的，而在局部极值附近的Hessian矩阵是正定的。</p>
-<p><img src="http://x-wei.github.io/images/Ng_DLMooc_c2wk2/pasted_image034.png" alt="saddle point"></p>
+<figure>
+<img src="http://x-wei.github.io/images/Ng_DLMooc_c2wk2/pasted_image034.png" alt="saddle point" /><figcaption>saddle point</figcaption>
+</figure>
 <p>在鞍点附近，基于梯度的优化算法（几乎目前所有的实际使用的优化算法都是基于梯度的）会遇到较为严重的问题，可能会长时间卡在该点附近。在鞍点数目极大的时候，这个问题会变得非常严重（下图来自上面论文）。</p>
-<p><img src="http://x-wei.github.io/images/Ng_DLMooc_c2wk2/pasted_image035.png" alt></p>
+<p><img src="http://x-wei.github.io/images/Ng_DLMooc_c2wk2/pasted_image035.png" /></p>
 <p>这个问题目前仍有讨论，不过大体上人们接受了这种观点，即造成神经网络难以优化的一个重要（乃至主要）原因是存在大量鞍点。造成局部极值这种误解的原因在于，人们把低维的直观认识直接推到高维的情况。在一维情况下，局部极值是仅有的造成优化困难的情形（Hessian矩阵只有一个特征值）。该如何处理这种情况，目前似乎没有特别有效的方法。</p>
-<h4 id="多解释一点"><a class="markdownIt-Anchor" href="#多解释一点"></a> 多解释一点</h4>
+<h4 id="多解释一点">多解释一点</h4>
 <ul>
 <li>1.鞍点也是驻点，鞍点处的梯度为零，在一定范围内沿梯度下降会沿着鞍点附近走，这个区域很平坦，梯度很小。</li>
 <li>2.优化过程不是卡在鞍点不动了(像人们以为的局部极值那样)，而是在鞍点附近梯度很小，于是变动的幅度越来越小，loss看起来就像是卡住了。但是和local minima的差别在于，如果运行时间足够长，SGD一类的算法是可以走出鞍点附近的区域的（看下面的两个链接）。由于这需要很长时间，在loss上看来就像是卡在local minima了。然而，从一个鞍点附近走出来，很可能会很快就进入另一个鞍点附近了。</li>
 <li>3.直观来看增加一些扰动，从下降的路径上跳出去就能绕过鞍点。但在高维的情形，这个鞍点附近的平坦区域范围可能非常大。此外，即便从一个鞍点跳过，这个跳出来的部分很可能很快进入另一个鞍点的平坦区域—— 鞍点的数量(可能)是指数级的。各种优化算法在鞍点附近形态的展示，可以看动态图An overview of gradient descent optimization algorithms 最下面的部分，非常生动形象。中文可见SGD，Adagrad，Adadelta，Adam等优化方法总结和比较。</li>
 </ul>
-<p>以上内容参考：</p>
-<ol>
-<li><a href="https://www.zhihu.com/question/52782960/answer/133724696" target="_blank" rel="noopener">https://www.zhihu.com/question/52782960/answer/133724696</a></li>
-<li><a href="http://x-wei.github.io/Ng_DLMooc_c2wk2.html" target="_blank" rel="noopener">http://x-wei.github.io/Ng_DLMooc_c2wk2.html</a></li>
-</ol>
-<h3 id="学习率learning-rate的选择"><a class="markdownIt-Anchor" href="#学习率learning-rate的选择"></a> 学习率（learning rate）的选择</h3>
+<p>以上内容参考： 1. https://www.zhihu.com/question/52782960/answer/133724696 2. http://x-wei.github.io/Ng_DLMooc_c2wk2.html</p>
+<h3 id="学习率learning-rate的选择">学习率（learning rate）的选择</h3>
 <p>超参数是编程人员在机器学习算法中用于天真的旋钮。大多数机器学习编程人员都需要花费相当多的时间来调整学习率。如果选择的学习率过少，就会花费太长时间学习：</p>
-<img src="/2018/04/18/深度学习_2_梯度下降法/learning_rate_too_small.JPG" title="learning rate too small">
+<img src="/2018/04/18/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0_2_%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E6%B3%95/learning_rate_too_small.JPG" class="" title="learning rate too small">
 <p>相反，如果选择的学习速率过大，下一个点将永远在U形曲线的底部来回弹跳，可能无法到达最小点：</p>
-<img src="/2018/04/18/深度学习_2_梯度下降法/learning_rate_too_big.JPG" title="learning rate too big">
-<p>每个回归问题都存在一个金发姑娘(“just the right amount”)学习速率。“金发姑娘”值与损失函数的平坦程度相关。如果知道损失函数的梯度较小，则可以放心地试着采用更大的学习速率，以补偿较小的梯度并获得更大的步长。</p>
-<img src="/2018/04/18/深度学习_2_梯度下降法/learning_rate_is_good.JPG" title="learning rate is good">
-<h4 id="理想的学习速率"><a class="markdownIt-Anchor" href="#理想的学习速率"></a> 理想的学习速率。</h4>
-<p>一维空间中的理想学习速率是 $ \frac{ 1 }{ f(x)’’ } $ （f(x) 对 x 的二阶导数的倒数）。</p>
-<p>二维或多维空间中的理想学习速率是<a href="https://en.wikipedia.org/wiki/Hessian_matrix" target="_blank" rel="noopener">海森矩阵</a>（由二阶偏导数组成的矩阵）的倒数。</p>
+<img src="/2018/04/18/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0_2_%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E6%B3%95/learning_rate_too_big.JPG" class="" title="learning rate too big">
+<p>每个回归问题都存在一个金发姑娘(&quot;just the right amount&quot;)学习速率。“金发姑娘”值与损失函数的平坦程度相关。如果知道损失函数的梯度较小，则可以放心地试着采用更大的学习速率，以补偿较小的梯度并获得更大的步长。</p>
+<img src="/2018/04/18/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0_2_%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E6%B3%95/learning_rate_is_good.JPG" class="" title="learning rate is good">
+<h4 id="理想的学习速率">理想的学习速率。</h4>
+<p>一维空间中的理想学习速率是 $  $ （f(x) 对 x 的二阶导数的倒数）。</p>
+<p>二维或多维空间中的理想学习速率是<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Hessian_matrix">海森矩阵</a>（由二阶偏导数组成的矩阵）的倒数。</p>
 <p>广义凸函数的情况则更为复杂。</p>
-<h4 id="学习速率选择实例"><a class="markdownIt-Anchor" href="#学习速率选择实例"></a> 学习速率选择实例</h4>
+<h4 id="学习速率选择实例">学习速率选择实例</h4>
 <p>学习速率过小的情况</p>
-<img src="/2018/04/18/深度学习_2_梯度下降法/example_learning_rate_too_small.JPG" title="example learning rate too small">
+<img src="/2018/04/18/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0_2_%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E6%B3%95/example_learning_rate_too_small.JPG" class="" title="example learning rate too small">
 <p>学习速率过大的情况</p>
-<img src="/2018/04/18/深度学习_2_梯度下降法/example_learning_rate_too_big.JPG" title="example learning rate too big">
+<img src="/2018/04/18/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0_2_%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E6%B3%95/example_learning_rate_too_big.JPG" class="" title="example learning rate too big">
 <p>学习速率比较好的情况</p>
-<img src="/2018/04/18/深度学习_2_梯度下降法/example_learning_rate_is_good.JPG" title="example learning rate is good">
+<img src="/2018/04/18/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0_2_%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E6%B3%95/example_learning_rate_is_good.JPG" class="" title="example learning rate is good">
 <p>学习速率最佳情况（即金发姑娘学习速率）</p>
-<img src="/2018/04/18/深度学习_2_梯度下降法/example_learning_rate_is_best.JPG" title="just the right amount">
+<img src="/2018/04/18/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0_2_%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E6%B3%95/example_learning_rate_is_best.JPG" class="" title="just the right amount">
 <p>下图是一个神经网络中，不同的学习速率和损失值之间的曲线，可以看到不同的学习速率的表现是不一样的。</p>
 <ul>
 <li>learning rate = 0.01时，cost值前面在跳跃，说明太大了；</li>
 <li>从图中可以判断，learning rate = 0.005(红色的线)是这几个值中的最佳选择，因为cost收敛的很快。</li>
 </ul>
-<img src="/2018/04/18/深度学习_2_梯度下降法/cost_with_different_learning_rate.JPG" title="cost with different learning rate">
-      
+<img src="/2018/04/18/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0_2_%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E6%B3%95/cost_with_different_learning_rate.JPG" class="" title="cost with different learning rate">
+
     </div>
+
     
     
     
 
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/deeplearning/" rel="tag"># deeplearning</a>
-          
-            <a href="/tags/梯度下降/" rel="tag"># 梯度下降</a>
-          
-        </div>
-      
-
-      
-      
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2018/04/18/深度学习_1_我的理解.1/" rel="next" title="深度学习_1_我的理解">
-                <i class="fa fa-chevron-left"></i> 深度学习_1_我的理解
-              </a>
-            
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/deeplearning/" rel="tag"># deeplearning</a>
+              <a href="/tags/%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D/" rel="tag"># 梯度下降</a>
           </div>
 
-          <span class="post-nav-divider"></span>
+        
 
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/04/24/coursera中无法播放视频解决方法/" rel="prev" title="coursera中无法播放视频解决方法">
-                coursera中无法播放视频解决方法 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
 
-      
-      
-    </footer>
-  </div>
-  
-  
-  
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2018/04/18/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0_1_%E6%88%91%E7%9A%84%E7%90%86%E8%A7%A3.1/" rel="prev" title="深度学习_1_我的理解">
+      <i class="fa fa-chevron-left"></i> 深度学习_1_我的理解
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2018/04/24/coursera%E4%B8%AD%E6%97%A0%E6%B3%95%E6%92%AD%E6%94%BE%E8%A7%86%E9%A2%91%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/" rel="next" title="coursera中无法播放视频解决方法">
+      coursera中无法播放视频解决方法 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
   </article>
+  
+  
+  
 
-
-
-    <div class="post-spread">
-      
-    </div>
-  </div>
 
 
           </div>
           
+    <div class="comments" id="gitalk-container"></div>
 
-
-          
-  <div class="comments" id="comments">
-    
-      <div id="hypercomments_widget"></div>
-    
-  </div>
-
-
-        </div>
-        
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
-  </div>
-
-  <aside id="sidebar" class="sidebar">
-    
-    <div class="sidebar-inner">
-
-      
-
-      
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            站点概览
-          </li>
-        </ul>
-      
-
-      <section class="site-overview sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" itemprop="image" src="/images/wukong.png" alt="张阿楠">
-          <p class="site-author-name" itemprop="name">张阿楠</p>
-           
-              <p class="site-description motion-element" itemprop="description">Keep codeing and thinking!</p>
-          
-        </div>
-        <nav class="site-state motion-element">
-
-          
-            <div class="site-state-item site-state-posts">
-              <a href="/archives/">
-                <span class="site-state-item-count">65</span>
-                <span class="site-state-item-name">日志</span>
-              </a>
-            </div>
-          
-
-          
-            
-            
-            <div class="site-state-item site-state-categories">
-              <a href="/categories/index.html">
-                <span class="site-state-item-count">5</span>
-                <span class="site-state-item-name">分类</span>
-              </a>
-            </div>
-          
-
-          
-            
-            
-            <div class="site-state-item site-state-tags">
-              <a href="/tags/index.html">
-                <span class="site-state-item-count">39</span>
-                <span class="site-state-item-name">标签</span>
-              </a>
-            </div>
-          
-
-        </nav>
-
-        
-
-        <div class="links-of-author motion-element">
-          
-            
-              <span class="links-of-author-item">
-                <a href="https://github.com/vernlium" target="_blank" title="GitHub">
-                  
-                    <i class="fa fa-fw fa-github"></i>
-                  
-                    
-                      GitHub
-                    
-                </a>
-              </span>
-            
-              <span class="links-of-author-item">
-                <a href="http://www.zhihu.com/people/ananzhang" target="_blank" title="ZhiHu">
-                  
-                    <i class="fa fa-fw fa-globe"></i>
-                  
-                    
-                      ZhiHu
-                    
-                </a>
-              </span>
-            
-          
-        </div>
-
-        
-        
-
-        
-        
-
-        
-
-
-      </section>
-
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#机器学习过程"><span class="nav-number">1.</span> <span class="nav-text"> 机器学习过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#梯度下降法"><span class="nav-number">2.</span> <span class="nav-text"> 梯度下降法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#个人理解"><span class="nav-number">3.</span> <span class="nav-text"> 个人理解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#思考"><span class="nav-number">4.</span> <span class="nav-text"> 思考</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#解惑"><span class="nav-number">4.1.</span> <span class="nav-text"> 解惑</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#多解释一点"><span class="nav-number">4.2.</span> <span class="nav-text"> 多解释一点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#学习率learning-rate的选择"><span class="nav-number">5.</span> <span class="nav-text"> 学习率（learning rate）的选择</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#理想的学习速率"><span class="nav-number">5.1.</span> <span class="nav-text"> 理想的学习速率。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#学习速率选择实例"><span class="nav-number">5.2.</span> <span class="nav-text"> 学习速率选择实例</span></a></li></ol></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
-      
-
-      
-
-    </div>
-  </aside>
-
-
-        
-      </div>
-    </main>
-
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright">
-  
-  &copy;  2015 - 
-  <span itemprop="copyrightYear">2020</span>
-  <span class="with-love">
-    <i class="fa fa-heart"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">张阿楠</span>
-</div>
-
-
-<div class="powered-by">
-  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
-</div>
-
-<div class="theme-info">
-  主题 -
-  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
-    NexT.Pisces
-  </a>
-</div>
-
-
-        
-
-        
-      </div>
-    </footer>
-
-    
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-      </div>
-    
-
-  </div>
-
-  
-
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
   }
 </script>
 
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E8%BF%87%E7%A8%8B"><span class="nav-number">1.</span> <span class="nav-text">机器学习过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E6%B3%95"><span class="nav-number">2.</span> <span class="nav-text">梯度下降法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%AA%E4%BA%BA%E7%90%86%E8%A7%A3"><span class="nav-number">3.</span> <span class="nav-text">个人理解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%9D%E8%80%83"><span class="nav-number">4.</span> <span class="nav-text">思考</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A7%A3%E6%83%91"><span class="nav-number">4.1.</span> <span class="nav-text">解惑</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A4%9A%E8%A7%A3%E9%87%8A%E4%B8%80%E7%82%B9"><span class="nav-number">4.2.</span> <span class="nav-text">多解释一点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%A6%E4%B9%A0%E7%8E%87learning-rate%E7%9A%84%E9%80%89%E6%8B%A9"><span class="nav-number">5.</span> <span class="nav-text">学习率（learning rate）的选择</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%90%86%E6%83%B3%E7%9A%84%E5%AD%A6%E4%B9%A0%E9%80%9F%E7%8E%87"><span class="nav-number">5.1.</span> <span class="nav-text">理想的学习速率。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AD%A6%E4%B9%A0%E9%80%9F%E7%8E%87%E9%80%89%E6%8B%A9%E5%AE%9E%E4%BE%8B"><span class="nav-number">5.2.</span> <span class="nav-text">学习速率选择实例</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="张阿楠"
+      src="/images/wukong.png">
+  <p class="site-author-name" itemprop="name">张阿楠</p>
+  <div class="site-description" itemprop="description">Keep codeing and thinking!</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">64</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">41</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Vernlium" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Vernlium" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:zhanganan0425@163.com" title="E-Mail → mailto:zhanganan0425@163.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2015 – 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">张阿楠</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+<script src="/js/bookmark.js"></script>
+
+
+  <script defer src="/lib/three/three.min.js"></script>
+    <script defer src="/lib/three/canvas_sphere.min.js"></script>
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
 
 
 
@@ -765,170 +618,29 @@ high-dimensional non-convex optimization》</a>， 指出高维优化问题中�
 
   
 
-
-  
-
-
-
-
-
-
-
-
-
-
-
-  
-  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-
-  
-  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-
-  
-  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-
-  
-  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-
-  
-  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-
-  
-  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-
-  
-  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
-
-
-
-  
-  
-
-
-  <script type="text/javascript" src="/js/src/affix.js?v=5.1.2"></script>
-
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.2"></script>
-
-
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
-
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
-
-
-
-  
-
-
-  
-
-
-
-
-	
-
-		<script type="text/javascript">
-		_hcwp = window._hcwp || [];
-
-		_hcwp.push({widget:"Bloggerstream", widget_id: 95829, selector:".hc-comment-count", label: "{\%COUNT%\}" });
-
-		
-		_hcwp.push({widget:"Stream", widget_id: 95829, xid: "2018/04/18/深度学习_2_梯度下降法/"});
-		
-
-		(function() {
-		if("HC_LOAD_INIT" in window)return;
-		HC_LOAD_INIT = true;
-		var lang = (navigator.language || navigator.systemLanguage || navigator.userLanguage || "en").substr(0, 2).toLowerCase();
-		var hcc = document.createElement("script"); hcc.type = "text/javascript"; hcc.async = true;
-		hcc.src = ("https:" == document.location.protocol ? "https" : "http")+"://w.hypercomments.com/widget/hc/95829/"+lang+"/widget.js";
-		var s = document.getElementsByTagName("script")[0];
-		s.parentNode.insertBefore(hcc, s.nextSibling);
-		})();
-		</script>
-
-	
-
-
-
-
-
-
-
-
-
-
-  
-
-
-
-
-
   
 
   
 
-  
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
 
-  
-  
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Config({
-        tex2jax: {
-          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
-          processEscapes: true,
-          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-        }
-      });
-    </script>
-
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax(), i;
-        for (i=0; i < all.length; i += 1) {
-          all[i].SourceElement().parentNode.className += ' has-jax';
-        }
-      });
-    </script>
-    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : '94b49fdac7c9894db657',
+      clientSecret: 'aae2bc06bd829867f3212474d4698cfec26386d6',
+      repo        : 'vernlium.github.io',
+      owner       : 'Vernlium',
+      admin       : ['Vernlium'],
+      id          : 'ad4e49ed246da913b381f090f20ce934',
+        language: 'zh-CN',
+      distractionFreeMode: false
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
 </script>
-
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Queue(function() {
-    var all = MathJax.Hub.getAllJax(), i;
-    for(i=0; i < all.length; i += 1) {
-      all[i].SourceElement().parentNode.className += ' has-jax';
-    }
-  });
-</script>
-
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
-</script>
-<!-- End: Injected MathJax -->
-<!-- hexo-inject:end -->
-  
-
-
-  
-
-  
 
 </body>
 </html>
