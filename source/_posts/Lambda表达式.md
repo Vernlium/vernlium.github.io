@@ -2,9 +2,12 @@ title: "Lambda表达式【转】"
 date: 2015-06-05 13:55:59
 tags: java8 Lambada
 ---
-本来想自己总结的，但是这篇博客写的太好了，就直接转了过来
+本来想自己总结的，但是这篇博客写的太好了，就直接转了过来。
+
 原文链接：[http://blog.csdn.net/ioriogami/article/details/12782141](http://blog.csdn.net/ioriogami/article/details/12782141)
+
 ## 什么是λ表达式
+
 λ表达式本质上是一个匿名方法。让我们来看下面这个例子：
 
 ```java

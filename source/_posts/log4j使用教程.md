@@ -293,7 +293,7 @@ SLF4J 作者就是 log4j 的作者 Ceki G&uuml;lc&uuml;，他宣称 SLF4J 比 lo
 
 slf4j门面原理
 
-<img src="http://img.my.csdn.net/uploads/201304/07/1365322278_9117.jpg" />
+![image](http://img.my.csdn.net/uploads/201304/07/1365322278_9117.jpg)
 
 目前，较新的代码中使用的都是slf4j，也推荐大家在以后的项目中使用slf4j。
 

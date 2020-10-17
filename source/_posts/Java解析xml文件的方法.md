@@ -3,6 +3,8 @@ date: 2015-06-17 15:20:02
 tags: xml
 categories: java
 ---
+本文介绍xml.
+
 ## 什么是 XML?
 
 - XML指可扩展标记语言（EXtensible Markup Language）

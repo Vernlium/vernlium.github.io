@@ -50,7 +50,7 @@ tags: Markdown
 
 - 一行表示: `![alt_text](url "可选的title")`
 - 引用表示法: ![alt_text][id],预先定义 [id]:url "可选title"
-- 直接使用<img>标签，这样可以指定图片的大小尺寸
+- 直接使用`<img>`标签，这样可以指定图片的大小尺寸
 
 ### 特殊符号
 

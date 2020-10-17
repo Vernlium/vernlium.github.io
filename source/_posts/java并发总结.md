@@ -3,6 +3,9 @@ date: 2015-07-08 15:54:26
 tags: java并发
 categories: java
 ---
+
+本文对java 并发编程做总结。
+
 ## 并发
 
 ### 1 基本的线程机制

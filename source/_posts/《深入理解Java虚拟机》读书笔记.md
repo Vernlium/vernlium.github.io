@@ -13,7 +13,7 @@ description:
 
 这一块书上讲的内容很繁杂，而且很多，看到晕头转向的，结合[这篇博客](http://blog.csdn.net/luanlouis/article/details/40043991)的内容，总结了下图，我觉得还是比较清晰的。
 
-<img src="http://7xngpc.com1.z0.glb.clouddn.com/vernJVM运行时数据区.jpg"/>
+![image](http://7xngpc.com1.z0.glb.clouddn.com/vernJVM运行时数据区.jpg)
 
 
 ### HotSpot虚拟机对象

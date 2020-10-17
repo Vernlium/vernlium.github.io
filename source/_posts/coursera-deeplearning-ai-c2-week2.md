@@ -1,7 +1,7 @@
 ---
 title: coursera-deeplearning-ai-c2-week2
 mathjax: true
-date: 2018-09-10 07:16:02
+date: 2018-08-20 07:16:02
 tags: [deeplearning.ai]
 ---
 

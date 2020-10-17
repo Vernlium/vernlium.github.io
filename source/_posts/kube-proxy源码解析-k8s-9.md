@@ -4,6 +4,8 @@ date: 2017-09-21 07:21:25
 tags: k8s
 ---
 
+本文分析kube-proxy源码。
+
 ### kube-proxy原理介绍
 
 kube-proxy有两种模式：

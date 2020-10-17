@@ -1,7 +1,7 @@
 ---
 title: coursera-deeplearning-ai-c3-week1
 mathjax: true
-date: 2018-07-05 07:16:14
+date: 2018-09-05 07:16:14
 tags:
 ---
 

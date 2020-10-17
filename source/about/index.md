@@ -17,3 +17,4 @@ tags:
 - rpc服务框架（go，基于grpc，主要负责服务注册与发现，对zookeeper略有研究）
 - 在线开发工具（mean技术栈）
 - 基于k8s的沙箱工具，对k8s和docker略有研究
+- 基于TVM的华为Davinci架构AI编译工具开发和设计（2017.10 - now）

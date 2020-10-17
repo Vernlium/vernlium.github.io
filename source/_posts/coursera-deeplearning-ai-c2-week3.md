@@ -1,11 +1,8 @@
 ---
 title: coursera-deeplearning-ai-c2-week3
-mathjax: true
-date: 2018-10-05 07:16:06
+date: 2018-08-25 07:16:06
 tags: [deeplearning.ai]
 ---
-
-## 课程笔记
 
 本周课程主要讲解了如何调参以及batch-norm算法，要点：
 - 如何调参
@@ -16,6 +13,7 @@ tags: [deeplearning.ai]
 
 - Master the process of hyperparameter tuning
 
+## 课程笔记
 
 ### Hyperparameter tuning, Batch Normalization and Programming Frameworks
 

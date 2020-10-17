@@ -4,6 +4,8 @@ date: 2018-08-19 10:16:30
 tags: [tools,install]
 ---
 
+本文介绍在windows上安装jupyter，使用notebook。
+
 ## windows上使用jupyter
 
 ### 安装jupyter
